@@ -1,5 +1,9 @@
 <?php
 
+include_once("config.php");
+include_once("airport_codes.php"); // todo: could move this to load on demand since its a large file
+
+// global methods
 function do_post_request($url, $data, $optional_headers = null)
 {
   $params = array('http' => array(
@@ -19,6 +23,18 @@ function do_post_request($url, $data, $optional_headers = null)
     throw new Exception("Problem reading data from $url, $php_errormsg");
   }
   return $response;
+}
+
+function getAiport($airport_code)
+{
+	global $openflights_airports;
+	
+	if (array_key_exists($airport_code, $openflights_airports)) {
+		return $openflights_airports[$airport_code];
+	}
+
+	// not found
+	return null;
 }
 
 ?>
