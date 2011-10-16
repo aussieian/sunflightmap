@@ -1,4 +1,6 @@
-#header { height: 200px; background-color: #222; color: #fff;}
-#map-canvas { height: 100%; width: 100%;}
-#footer { height: 100px; background-color: #555; color: #efefef;}
+html, body, #map_canvas {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
 #debug { position: fixed; top: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
