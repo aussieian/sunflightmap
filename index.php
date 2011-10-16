@@ -27,6 +27,7 @@ include("lib/global.php");
 	var map;
 	var flightPaths = Array();
 	var markers = Array();
+	var sunMarker = null;
 		
 	$(document).ready(function() {
 
@@ -42,7 +43,6 @@ include("lib/global.php");
 		main = function() {
 			google.maps.event.addDomListener(window, 'load', initializeMap);
 			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd' });
-			$("#slider").slider();
 			<?php if(array_key_exists("autoload", $_GET)) { ?> mapFlight(); <? } ?>
 			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
 		}
@@ -91,6 +91,9 @@ include("lib/global.php");
 				return;
 			}
 			
+			// clear previous map routes
+			clearMapRoutes();
+			
 			// show loading page
 			$('#loading-page').show();
 
@@ -108,10 +111,7 @@ include("lib/global.php");
 				if (data.error != "") { 
 					alert(data.error);
 				} else {
-					
-					// clear previous map routes
-					clearMapRoutes();
-					
+										
 					// show slider
 					$('#slider-container').show();
 					
@@ -153,8 +153,16 @@ include("lib/global.php");
 				        title: 'Destination'
 				    }); 
 					markers.push(fromMarker);
+					
+					$("#slider").slider({ 
+						min: 0,
+						max: data.elapsed_time,
+						slide: function( event, ui ) {
+								mapSunPath(flightPaths, map, Date.parse(data.depart_time_utc), data.elapsed_time, ui.value); // map path of the sun
+								$("#minutes_travelled" ).val( ui.value );
+						}
+					});
 						
-					mapSunPath(flightPaths, map, Date.parse(data.depart_time_utc), data.elapsed_time); // map path of the sun			
 				}
 
 			});
@@ -182,9 +190,6 @@ include("lib/global.php");
 		<div id="slider"></div>
 	</div>
 	<div id="debug">
-	<?php
-		$airport = getAirport("SYD");
-		print_r($airport);
-	?>
+		<input id="minutes_travelled">
 	</div>
 </body>
