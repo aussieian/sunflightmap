@@ -1,0 +1,5 @@
+OAG:
+
+API URL that developers need to call from their code is http://ondemand.oag.com/CBWebServicePublic/CBWSPublicPort?wsdl
+ 
+The test harness, which is a test page to check parameters and results is http://ondemandtestharness.oag.com/CBWSTestHarnessPublic
