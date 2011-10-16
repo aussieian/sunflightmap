@@ -125,6 +125,7 @@ $jsonp .= '"to_lat": ' . $to_lat . ',';
 $jsonp .= '"to_lon": ' . $to_lon . ',';
 $jsonp .= '"depart_time": "' . $depart_time . '",';
 $jsonp .= '"elapsed_time": ' . $elapsed_time . '';
+$jsonp .= '"error": ""';
 $jsonp .= "});";
 
 // example:
