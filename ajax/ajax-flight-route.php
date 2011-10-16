@@ -73,7 +73,7 @@ curl_close($curl_conn);
 
 $xml_data = simplexml_load_string($post_response);
 if ($post_response == "<RESPONSE></RESPONSE>") { 
-	print($callback . "({'error':'No response or invalid flight info'});");
+	print($callback . "({'error':'Oops, try a different date or carrier code'});");
 	die();
 }
 // Step 2

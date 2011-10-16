@@ -49,6 +49,8 @@ if(array_key_exists("autoload", $_GET)) {
 	var markers = Array();
 	var flightMarker = null;
 	var sunMarker = null;
+	var aboutClicked = false;
+	var loadingMessages = Array("Loading stuff", "Drinking a beer", "Having a yarn", "LOLing your cat");
 		
 	$(document).ready(function() {
 
@@ -70,6 +72,8 @@ if(array_key_exists("autoload", $_GET)) {
 			<?php if ($autoload) { ?> mapFlight(); <? } ?>
 			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
 			updatePermalink();
+			<?php if (!($autoload)) { ?> showWelcomeWindow(); <?php } ?>
+			$('body').bind('click', function() { if (!aboutClicked) { hideWelcomeWindow(); } })
 		}
 		
 		clearMapRoutes = function() {
@@ -123,6 +127,7 @@ if(array_key_exists("autoload", $_GET)) {
 			clearMapRoutes();
 			
 			// show loading page
+			$('#loading-message').html(loadingMessages[Math.floor(Math.random() * loadingMessages.length)] + "..."); 
 			$('#loading-page').show();
 			$('#results-panel').hide();
 
@@ -281,6 +286,17 @@ if(array_key_exists("autoload", $_GET)) {
 			$('#permalink').attr("href", "http://" + window.location.hostname + "/?flightcode="+getInputCarrierCode() + getInputServiceNumber() + "&date=" + getInputRequestDate());
 		}
 		
+		hideWelcomeWindow = function()
+		{
+			aboutClicked = false;
+			$('#welcome').fadeOut();
+		}
+		
+		showWelcomeWindow = function()
+		{
+			$('#welcome').show();
+		}
+		
 		// let's do it!
 		main();
 
@@ -302,7 +318,10 @@ if(array_key_exists("autoload", $_GET)) {
 		<div id="results-panel"></div>
 	</div>
 	
-	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Doing stuff...</div>
+	<div id="loading-page">
+		<img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>
+		<span id="loading-message">Loading...</span>
+	</div>
 	<div id="slider-container">
 		<table width="100%"><tr>
 			<td width="20%">Slide me</td>
@@ -311,9 +330,21 @@ if(array_key_exists("autoload", $_GET)) {
 		</tr></table>
 	</div>
 	<div id="welcome">
-		Welcome to our cool hack!
+		<a href="javascript:void();" onClick="hideWelcomeWindow();">Continue</a>
+		<center><img src="/images/thack-singapore-logo1.jpg"></center>
+		<p>Because flying with the sun in your face isn't cool!</p>
+		<p>Want to choose the <strong>best</strong> side of the aircraft to fly on?</p>
+		<p>Want to make sure you can <strong>see the sunset</strong> over New York or <strong>watch the sunrise</strong> over the Pacific?</p>
+		<p>SunFlight.net shows you where the sun will be during your journey, so you can choose the best side of the aircraft to be seated!</p>
+		<p style="font-size: smaller; color: #888;">Notes: Google Chrome only at the moment. Most likely a few bugs!</p>
+		<p style="font-size: smaller;">Powered by <img width="80" style="margin-bottom: -12px;" src="/images/oag-aviation.jpg"> &nbsp; OnDemand</p>
+		
 	</div>
-	<div id="info" class="shadow">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!</div>
+	<div id="info" class="shadow">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.
+		<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. 
+		Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!
+		<a href="javascript:void(0);" onClick="aboutClicked = true; showWelcomeWindow();">About</a>
+	</div>
 	<div id="debug">
 		<input id="minutes_travelled">
 	</div>
