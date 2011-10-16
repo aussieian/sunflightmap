@@ -114,6 +114,10 @@ include("lib/global.php");
 					var fromLatLng = new google.maps.LatLng(data.from_lat, data.from_lon);
 					var toLatLng = new google.maps.LatLng(data.to_lat, data.to_lon);
 
+					// get date
+					var depart_date = Date.parse(data.depart_time);
+					//alert(depart_date.format("UTC:h:MM:ss TT Z"));
+					
 					// draw path of flight
 					var flightPath = new google.maps.Polyline({
 						path: [fromLatLng, toLatLng],
@@ -127,7 +131,7 @@ include("lib/global.php");
 					flightPath.setMap(map);
 					
 					// draw start marker
-					var content_txt = "<div id='marker'>From: " + data.from_city + " (" + data.from_airport + ")<br>To: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
+					var content_txt = "<div id='marker'>From: " + data.from_city + " (" + data.from_airport + ")<br>To: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + "<br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
 					var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });
 					var fromMarker = new google.maps.Marker({
 				        position: fromLatLng,

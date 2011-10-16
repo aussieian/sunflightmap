@@ -95,6 +95,8 @@ try {
 	$to_lat = $to_airport_openflights["Lat"];
 	$to_lon = $to_airport_openflights["Lon"];
 	$depart_time = strval($xml_data->Flight->Dep["DepTime"]);
+	$depart_timezone = $from_airport_openflights["Timezone"]; // ($cfg["PHP_TIMEZONE_OFFSET"]-
+	$depart_time_utc = date("Y-m-d H:i", strtotime($depart_time) - ($depart_timezone * 60 * 60)); // calculate UTC time (todo: doesnt accomodate for daylight saving)
 	$elapsed_time = strval($xml_data->Flight->Dep["ElapsedTime"]);	
 } catch (Exception $e) {
 	print($callback . "({'error':'Invalid flight info'});");
@@ -124,6 +126,8 @@ $jsonp .= '"to_city": "' . $to_city . '",';
 $jsonp .= '"to_lat": ' . $to_lat . ',';
 $jsonp .= '"to_lon": ' . $to_lon . ',';
 $jsonp .= '"depart_time": "' . $depart_time . '",';
+$jsonp .= '"depart_timezone": "' . $depart_timezone . '",';
+$jsonp .= '"depart_time_utc": "' . $depart_time_utc . '",';
 $jsonp .= '"elapsed_time": ' . $elapsed_time . ',';
 $jsonp .= '"error": ""';
 $jsonp .= "});";
