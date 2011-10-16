@@ -8,7 +8,7 @@ html, body, #map_canvas {
 input { font-family: Arial, Verdana; font-size: 14pt; }
 #ui-container { position: fixed; top: 36px; right: 24px; }
 #ui-panel { white-space: nowrap; font-size: 18pt; padding: 12px; border: 1px solid #ddd; background: #eee;}
-#results-panel { display: none; white-space: nowrap; font-size: 12pt; width: 350px; padding: 12px; border: 1px solid #ddd; background: #eee;}
+#results-panel { display: none; white-space: nowrap; margin-top: 12px; font-size: 12pt; width: 350px; padding: 12px; border: 1px solid #ddd; background: #eee;}
 #debug { display: none; position: fixed; bottom: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
 #loading-page { z-index: 4; display: none; position: fixed; left: 50%; top: 40%; margin-left: -130px; width: 180px; padding: 20px; -moz-border-radius: 10px; -webkit-border-radius: 10px; background-color: #fff; text-align: center; }
 #slider-container { white-space: nowrap; display: none; z-index: 4; padding: 12px; background-color: #eee; position: fixed; bottom: 100px; left: 50%; width: 500px; margin-left: -250px; }

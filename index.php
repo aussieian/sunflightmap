@@ -1,5 +1,23 @@
 <?php
 include("lib/global.php");
+
+// allow input from URL
+$autoload = false;
+$flightcode = $cfg["EXAMPLE_FLIGHT_ROUTES"][array_rand($cfg["EXAMPLE_FLIGHT_ROUTES"])]; //'JQ7';
+if (array_key_exists("flightcode", $_GET)) {
+	$flightcode = $_GET['flightcode'];
+	$autoload = true;
+}
+$date_depart=date("Y-d-m");
+if (array_key_exists("date", $_GET)) {
+	$date_depart=$_GET['date'];
+	$autoload = true;
+}
+
+if(array_key_exists("autoload", $_GET)) {
+	$autoload = true;
+}
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -49,7 +67,7 @@ include("lib/global.php");
 		main = function() {
 			google.maps.event.addDomListener(window, 'load', initializeMap);
 			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd', defaultDate: +0});
-			<?php if(array_key_exists("autoload", $_GET)) { ?> mapFlight(); <? } ?>
+			<?php if ($autoload) { ?> mapFlight(); <? } ?>
 			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
 		}
 		
@@ -125,6 +143,7 @@ include("lib/global.php");
 					// get lat lon
 					var fromLatLng = new google.maps.LatLng(data.from_lat, data.from_lon);
 					var toLatLng = new google.maps.LatLng(data.to_lat, data.to_lon);
+					
 
 					// get date
 					var depart_date = Date.parse(data.depart_time);
@@ -155,8 +174,9 @@ include("lib/global.php");
 					//markers.push(fromMarker);
 					
 					// draw end marker
+					var toLatLngFlag = new google.maps.LatLng(data.to_lat, data.to_lon);
 					var toMarker = new google.maps.Marker({
-				        position: toLatLng,
+				        position: toLatLngFlag,
 				        map: map,
 				        title: 'Destination',
 						icon: '/images/flag.png'
@@ -173,9 +193,15 @@ include("lib/global.php");
 									mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value); // map path of the sun
 									mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value); // map path of the sun
 									$("#minutes_travelled" ).val( ui.value );
+									$('#slider-time').html(ui.value + " mins");
 								}, 10);
 						}
 					});
+					// update slider to begin with
+					mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, 0); // map path of the sun
+					mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, 0); // map path of the sun
+					$("#minutes_travelled" ).val( 0 );
+					$('#slider-time').html(0 + " mins");
 						
 				}
 
@@ -245,8 +271,8 @@ include("lib/global.php");
 	<div id="map_canvas">Loading cool stuff...</div>
 	<div id="ui-container">
 		<div id="ui-panel">
-			<input id="carrierCodeAndServiceNumber" value="JQ7" size="5">
-			<input id="requestDate" value="<?php print(date("Y-m-d")); ?>" size="12">
+			<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
+			<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
 			<button class="shiny-blue" onClick="mapFlight();">Chase the sun!</button>
 		</div>
 		<div id="results-panel"></div>
