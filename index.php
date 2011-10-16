@@ -27,6 +27,12 @@ include("lib/global.php");
 </head>
 <body>
 	<div id="map_canvas">Loading...</div>
+	<div id="ui-panel">
+		<input id="carrierCodeAndServiceNumber" value="JQ7" size="5">
+		<input id="requestDate" value="2011-10-14" size="12">
+		<button onClick="mapFlight();">Map Flight</button>
+	</div>
+	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Fetching flight data...</div>
 	<div id="debug">
 	<?php
 		$airport = getAiport("SYD");

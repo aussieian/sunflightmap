@@ -1,6 +1,11 @@
 html, body, #map_canvas {
+	font-family: Arial, Verdana;
+	font-size: 14pt;
 	margin: 0;
 	padding: 0;
 	height: 100%;
 }
-#debug { position: fixed; top: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
+input { font-family: Arial, Verdana; font-size: 14pt; }
+#ui-panel { white-space: nowrap; font-size: 18pt; position: fixed; top: 36px; right: 24px; padding: 12px; border: 1px solid #ddd; background: #eee;}
+#debug { position: fixed; bottom: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
+#loading-page { z-index: 4; position: fixed; left: 50%; top: 40%; margin-left: -130px; width: 160px; padding: 20px; -moz-border-radius: 10px; -webkit-border-radius: 10px; background-color: #fff; text-align: center; }
