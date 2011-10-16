@@ -35,11 +35,8 @@ if (array_key_exists("request_date", $_GET)) {
 // Step 1
 // Fetch XML results via OAG test harness which gives us a REST
 // Hard-coded for now
-$username = 'THACK';
-$password = 'THACK';
-$carrier_code = 'JQ';
-$service_number = '7';
-$request_date = '2011-10-16';
+$username = $cfg['OAG_USERNAME'];
+$password = $cfg['OAG_PASSWORD'];
 $request_time = '12:00:00';
 
 //set POST variables
