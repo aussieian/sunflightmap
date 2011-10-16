@@ -1,3 +1,5 @@
+
+<a href="http://ondemandtestharness.oag.com/CBWSTestHarnessPublic/#flightLookupRequest">oag test page</a><br>
 <form method="POST" action="http://ondemandtestharness.oag.com/CBWSTestHarnessPublic//FlightLookupRequestAction.do?">
 	actionForm <input type='textfield' name='actionForm' value='FlightLookupRequestForm'><br>
 	inputPrefix <input type='textfield' name='inputPrefix' value='f_'><br>
