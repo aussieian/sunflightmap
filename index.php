@@ -19,14 +19,15 @@ include("lib/global.php");
 	<!-- libraries -->
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
-	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
-
+	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+	
 	<!-- custom code -->
 	<script type="text/javascript">
 	
 	var map;
 	var flightPaths = Array();
 	var markers = Array();
+	var flightMarker = null;
 	var sunMarker = null;
 		
 	$(document).ready(function() {
@@ -124,7 +125,7 @@ include("lib/global.php");
 					//alert(depart_date.format("UTC:h:MM:ss TT Z"));
 					
 					// draw path of flight
-					var flightPath = new google.maps.Polyline({
+					/*var flightPath = new google.maps.Polyline({
 						path: [fromLatLng, toLatLng],
 						strokeColor: "#FF0080",
 						strokeOpacity: 1.0,
@@ -133,7 +134,7 @@ include("lib/global.php");
 						clickable: false 
 					});
 					flightPaths.push(flightPath);
-					flightPath.setMap(map);
+					flightPath.setMap(map);*/
 					
 					// draw start marker
 					var content_txt = "<div id='marker'>From: " + data.from_city + " (" + data.from_airport + ")<br>To: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + "<br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
@@ -153,12 +154,14 @@ include("lib/global.php");
 				        title: 'Destination'
 				    }); 
 					markers.push(fromMarker);
+				
 					
 					$("#slider").slider({ 
 						min: 0,
 						max: data.elapsed_time,
 						slide: function( event, ui ) {
-								mapSunPath(flightPaths, map, Date.parse(data.depart_time_utc), data.elapsed_time, ui.value); // map path of the sun
+								mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value); // map path of the sun
+								mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value); // map path of the sun
 								$("#minutes_travelled" ).val( ui.value );
 						}
 					});
@@ -167,15 +170,63 @@ include("lib/global.php");
 
 			});
 		}	
+		
+		mapSunPosition = function(flightPaths, map, start_time_at_gmt, duration_minutes, minutes_travelled) {
 
+				// Sun is directly overhead LatLng(0, 0) at 12:00:00 midday
+				// 1440 minutes / 1 minute = 0.25 degrees 
+				// Assuming maximum trip duration of 24 hours / single leg
+
+				// Calculate sun's starting longitude from the start time at gmt
+				minutes_gmt = (start_time_at_gmt.getHours() * 60) + start_time_at_gmt.getMinutes();
+				from_deg = 180 - (minutes_gmt * 0.25) ;
+				
+				duration_deg = duration_minutes * 0.25 * (minutes_travelled / duration_minutes);
+				to_deg = from_deg - duration_deg;
+
+				// Starting longitude is positive
+				var fromLatLng = new google.maps.LatLng(0, from_deg);
+				var toLatLng = new google.maps.LatLng(0, to_deg);
+
+				// draw sun marker
+				if (sunMarker != null) { 
+					sunMarker.setMap(null);
+				}
+
+				sunMarker = new google.maps.Marker({
+			        position: toLatLng,
+			        map: map,
+			        title: 'Sun End Marker: ' + to_deg
+			    }); 
+		}
+		
+		mapFlightPosition = function(flightPaths, map, startLat, startLon, endLat, endLon, duration_minutes, minutes_travelled) {
+			
+			// draw flight marker
+			if (flightMarker != null) { 
+				flightMarker.setMap(null);
+			}
+			
+			percentage_travelled = minutes_travelled / duration_minutes;
+			
+			var fromLatLng = new google.maps.LatLng(startLat, startLon);
+			var toLatLng = new google.maps.LatLng(endLat, endLon);
+			
+			var flightpos = google.maps.geometry.spherical.interpolate(fromLatLng, toLatLng, percentage_travelled)
+			
+			flightMarker = new google.maps.Marker({
+		        position: flightpos,
+		        map: map,
+		        title: 'Flight position: ' + to_deg
+		    });
+		}
+		
 		// let's do it!
 		main();
 
 	});
 	</script>
-	
-	<script type="text/javascript" src="javascript/mapsun.js"></script>
-	
+		
 	
 </head>
 <body>
