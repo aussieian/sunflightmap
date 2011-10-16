@@ -29,6 +29,34 @@ if (array_key_exists("callback", $_GET)) {
 	$callback=$_GET['callback'];
 }
 
-print($callback . '({"from_airport":"MEL","to_airport":"SIN","depart_time":"2011-10-14","elapsed_time":470});');
+
+
+// data for callback
+$from_airport = "MEL";
+$from_city = "Melbourne";
+$from_lat = -37.673333;
+$from_lon = 144.843333;
+$to_airport = "SIN";
+$to_city = "Singapore";
+$to_lat = 1.350189;
+$to_lon = 103.994433;
+$depart_time = "2011-10-16T12:00:00";
+$elapsed_time = 470;
+
+// make jsonp
+$jsonp = $callback . "({";
+$jsonp .= '"from_airport": "' . $from_airport . '",';
+$jsonp .= '"from_city": "' . $from_city . '",';
+$jsonp .= '"from_lat": ' . $from_lat . ',';
+$jsonp .= '"from_lon": ' . $from_lon . ',';
+$jsonp .= '"to_airport": "' . $to_airport . '",';
+$jsonp .= '"to_city": "' . $to_city . '",';
+$jsonp .= '"to_lat": ' . $to_lat . ',';
+$jsonp .= '"to_lon": ' . $to_lon . ',';
+$jsonp .= '"depart_time": "' . $depart_time . '",';
+$jsonp .= '"elapsed_time": ' . $elapsed_time . '';
+$jsonp .= "});";
+
+print($jsonp);
 
 ?>
