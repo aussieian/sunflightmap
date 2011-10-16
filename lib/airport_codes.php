@@ -1,6638 +1,5036 @@
 <?php
 
-$openflights_airports = array(
+/*$openflights_airports = array(
 "SYD" => array("City" => "Sydney", "Lat" => -6, "Lon" => 145)	
+);*/
+
+//ian-cs-macbook:sunflightmap ian$ cat docs/openflights_airports.dat | awk -F "," '{print $5 " => array(\"City\" => "$3", \"Lat\" => "$7", \"Lon\" => "$8"),"}' | grep -v "\"\"" | sort 
+
+$openflights_airports = array(
+"AAA" => array("City" => "Anaa", "Lat" => -17.352606, "Lon" => -145.509956),
+"AAC" => array("City" => "El Arish", "Lat" => 31.073333, "Lon" => 33.835833),
+"AAE" => array("City" => "Annaba", "Lat" => 36.822225, "Lon" => 7.809167),
+"AAH" => array("City" => "Aachen", "Lat" => 50.823194, "Lon" => 6.186389),
+"AAK" => array("City" => "Buariki", "Lat" => 0.185278, "Lon" => 173.636389),
+"AAL" => array("City" => "Aalborg", "Lat" => 57.092789, "Lon" => 9.849164),
+"AAM" => array("City" => "Malamala", "Lat" => -24.818111, "Lon" => 31.544584),
+"AAN" => array("City" => "Al Ain", "Lat" => 24.261667, "Lon" => 55.609167),
+"AAO" => array("City" => "Anaco", "Lat" => 9.430225, "Lon" => -64.470725),
+"AAQ" => array("City" => "Anapa", "Lat" => 45.002097, "Lon" => 37.347272),
+"AAR" => array("City" => "Aarhus", "Lat" => 56.300017, "Lon" => 10.619008),
+"AAT" => array("City" => "Altay", "Lat" => 47.866667, "Lon" => 88.116667),
+"AAU" => array("City" => "Savai\\'i", "Lat" => -13.505, "Lon" => -172.627778),
+"AAX" => array("City" => "Araxa", "Lat" => -19.563056, "Lon" => -46.960278),
+"AAY" => array("City" => "Al Ghaidah Intl", "Lat" => 16.191667, "Lon" => 52.175),
+"AAZ" => array("City" => "Quezaltenango", "Lat" => 14.8656, "Lon" => -91.502),
+"ABA" => array("City" => "Abakan", "Lat" => 53.74, "Lon" => 91.385),
+"ABD" => array("City" => "Abadan", "Lat" => 30.371111, "Lon" => 48.228333),
+"ABE" => array("City" => "Allentown", "Lat" => 40.652083, "Lon" => -75.440806),
+"ABF" => array("City" => "Abaiang Atoll", "Lat" => 1.8, "Lon" => 173.04),
+"ABI" => array("City" => "Abilene", "Lat" => 32.411319, "Lon" => -99.681897),
+"ABJ" => array("City" => "Abidjan", "Lat" => 5.261386, "Lon" => -3.926294),
+"ABK" => array("City" => "Kabri Dehar", "Lat" => 6.734, "Lon" => 44.253),
+"ABL" => array("City" => "Ambler", "Lat" => 67.106389, "Lon" => -157.8575),
+"ABM" => array("City" => "Amberley", "Lat" => -10.950833, "Lon" => 142.459444),
+"ABN" => array("City" => "Albina", "Lat" => 5.516667, "Lon" => -54.05),
+"ABQ" => array("City" => "Albuquerque", "Lat" => 35.0402222, "Lon" => -106.6091944),
+"ABR" => array("City" => "Aberdeen", "Lat" => 45.4491, "Lon" => -98.4218),
+"ABS" => array("City" => "Abu Simbel", "Lat" => 22.375953, "Lon" => 31.611722),
+"ABT" => array("City" => "El-baha", "Lat" => 20.296139, "Lon" => 41.634277),
+"ABV" => array("City" => "Abuja", "Lat" => 9.006792, "Lon" => 7.263172),
+"ABX" => array("City" => "Albury", "Lat" => -36.067778, "Lon" => 146.958056),
+"ABY" => array("City" => "Albany", "Lat" => 31.5355, "Lon" => -84.1945),
+"ABZ" => array("City" => "Aberdeen", "Lat" => 57.201944, "Lon" => -2.197778),
+"ACA" => array("City" => "Acapulco", "Lat" => 16.757061, "Lon" => -99.753953),
+"ACC" => array("City" => "Accra", "Lat" => 5.605186, "Lon" => -0.166786),
+"ACD" => array("City" => "Acandi", "Lat" => 8.516667, "Lon" => -77.3),
+"ACE" => array("City" => "Lanzerote", "Lat" => 28.945464, "Lon" => -13.605225),
+"ACH" => array("City" => "Altenrhein", "Lat" => 47.485033, "Lon" => 9.560775),
+"ACI" => array("City" => "Alderney", "Lat" => 49.706111, "Lon" => -2.214722),
+"ACK" => array("City" => "Nantucket", "Lat" => 41.253053, "Lon" => -70.060181),
+"ACP" => array("City" => "Maragheh", "Lat" => 37.348017, "Lon" => 46.127903),
+"ACR" => array("City" => "Araracuara", "Lat" => -0.58, "Lon" => -72.41),
+"ACT" => array("City" => "Waco", "Lat" => 31.611289, "Lon" => -97.230519),
+"ACV" => array("City" => "Arcata CA", "Lat" => 40.978111, "Lon" => -124.108611),
+"ACX" => array("City" => "Xingyi", "Lat" => 25.0882, "Lon" => 104.9587),
+"ACY" => array("City" => "Atlantic City", "Lat" => 39.457583, "Lon" => -74.577167),
+"ADA" => array("City" => "Adana", "Lat" => 36.982166, "Lon" => 35.280388),
+"ADB" => array("City" => "Izmir", "Lat" => 38.292392, "Lon" => 27.156953),
+"ADD" => array("City" => "Addis Ababa", "Lat" => 8.977889, "Lon" => 38.799319),
+"ADE" => array("City" => "Aden", "Lat" => 12.829542, "Lon" => 45.028792),
+"ADJ" => array("City" => "Amman", "Lat" => 31.972703, "Lon" => 35.991569),
+"ADK" => array("City" => "Adak Island", "Lat" => 51.878, "Lon" => -176.646),
+"ADL" => array("City" => "Adelaide", "Lat" => -34.945, "Lon" => 138.530556),
+"ADM" => array("City" => "Ardmore", "Lat" => 34.300833, "Lon" => -97.008889),
+"ADQ" => array("City" => "Kodiak", "Lat" => 57.749967, "Lon" => -152.493856),
+"ADS" => array("City" => "Addison", "Lat" => 32.9685594, "Lon" => -96.8364478),
+"ADU" => array("City" => "Ardabil", "Lat" => 38.325678, "Lon" => 48.424356),
+"ADW" => array("City" => "Camp Springs", "Lat" => 38.810806, "Lon" => -76.867028),
+"ADX" => array("City" => "Leuchars", "Lat" => 56.372889, "Lon" => -2.868444),
+"ADZ" => array("City" => "San Andres Island", "Lat" => 12.583594, "Lon" => -81.711192),
+"AEA" => array("City" => "Abemama", "Lat" => 0.490833, "Lon" => 173.828611),
+"AEH" => array("City" => "Abeche", "Lat" => 13.847, "Lon" => 20.844333),
+"AEP" => array("City" => "Buenos Aires", "Lat" => -34.559175, "Lon" => -58.415606),
+"AER" => array("City" => "Sochi", "Lat" => 43.449928, "Lon" => 39.956589),
+"AES" => array("City" => "Alesund", "Lat" => 62.560372, "Lon" => 6.110164),
+"AET" => array("City" => "Allakaket", "Lat" => 66.5519, "Lon" => -152.6222),
+"AEX" => array("City" => "Alexandria", "Lat" => 31.3274, "Lon" => -92.549833),
+"AEY" => array("City" => "Akureyri", "Lat" => 65.659994, "Lon" => -18.072703),
+"AFA" => array("City" => "San Rafael", "Lat" => -34.588314, "Lon" => -68.403854),
+"AFE" => array("City" => "Kake", "Lat" => 56.961389, "Lon" => -133.910278),
+"AFL" => array("City" => "Alta Floresta", "Lat" => -9.866092, "Lon" => -56.106206),
+"AFS" => array("City" => "Zarafshan", "Lat" => 41.6139, "Lon" => 64.2332),
+"AFT" => array("City" => "Afutara", "Lat" => -9.183056, "Lon" => 160.949722),
+"AFY" => array("City" => "Afyon", "Lat" => 38.726425, "Lon" => 30.601114),
+"AFZ" => array("City" => "Sabzevar", "Lat" => 36.168083, "Lon" => 57.595183),
+"AGA" => array("City" => "Agadir", "Lat" => 30.381353, "Lon" => -9.546311),
+"AGB" => array("City" => "Augsburg", "Lat" => 48.425158, "Lon" => 10.931764),
+"AGC" => array("City" => "Pittsburgh", "Lat" => 40.3544, "Lon" => -79.9302),
+"AGE" => array("City" => "Wangerooge", "Lat" => 53.7828, "Lon" => 7.91389),
+"AGF" => array("City" => "Agen", "Lat" => 44.174721, "Lon" => 0.590556),
+"AGH" => array("City" => "Ängelholm", "Lat" => 56.2961, "Lon" => 12.8471),
+"AGI" => array("City" => "Wageningen", "Lat" => 5.76667, "Lon" => -56.63333),
+"AGJ" => array("City" => "Aguni", "Lat" => 26.592778, "Lon" => 127.240278),
+"AGL" => array("City" => "Wanigela", "Lat" => -9.333, "Lon" => 149.15),
+"AGM" => array("City" => "Angmagssalik", "Lat" => 65.612222, "Lon" => -37.618333),
+"AGN" => array("City" => "Angoon", "Lat" => 57.503611, "Lon" => -134.585),
+"AGP" => array("City" => "Malaga", "Lat" => 36.6749, "Lon" => -4.499106),
+"AGQ" => array("City" => "Agrinion", "Lat" => 38.602022, "Lon" => 21.351208),
+"AGR" => array("City" => "Agra", "Lat" => 27.155831, "Lon" => 77.960892),
+"AGS" => array("City" => "Bush Field", "Lat" => 33.369944, "Lon" => -81.9645),
+"AGT" => array("City" => "Ciudad del Este", "Lat" => -25.4555, "Lon" => -54.843592),
+"AGU" => array("City" => "Aguascalientes", "Lat" => 21.705558, "Lon" => -102.317858),
+"AGV" => array("City" => "Acarigua", "Lat" => 9.553422, "Lon" => -69.237536),
+"AGX" => array("City" => "Agatti Island", "Lat" => 10.823656, "Lon" => 72.176042),
+"AGZ" => array("City" => "Aggeneys", "Lat" => -29.281767, "Lon" => 18.813869),
+"AHB" => array("City" => "Abha", "Lat" => 18.240367, "Lon" => 42.656625),
+"AHN" => array("City" => "Athens", "Lat" => 33.9486, "Lon" => -83.3263),
+"AHO" => array("City" => "Alghero", "Lat" => 40.632133, "Lon" => 8.290772),
+"AHS" => array("City" => "Ahuas", "Lat" => 15.4722, "Lon" => -84.3522),
+"AHU" => array("City" => "Al Hociema", "Lat" => 35.177103, "Lon" => -3.839525),
+"AIA" => array("City" => "Alliance", "Lat" => 42.053333, "Lon" => -102.803889),
+"AIC" => array("City" => "Airok", "Lat" => 7.1, "Lon" => 171.233333),
+"AIE" => array("City" => "Aiome", "Lat" => -5.8, "Lon" => 144.44),
+"AIM" => array("City" => "Ailuk Island", "Lat" => 10.2168, "Lon" => 169.983),
+"AIN" => array("City" => "Wainwright", "Lat" => 70.638056, "Lon" => -159.994722),
+"AIS" => array("City" => "Arorae", "Lat" => -2.633333, "Lon" => 179.816667),
+"AIT" => array("City" => "Aitutaki", "Lat" => -18.830922, "Lon" => -159.764233),
+"AIU" => array("City" => "Atiu Island", "Lat" => -19.9678, "Lon" => -158.119),
+"AIZ" => array("City" => "Kaiser Lake Ozark", "Lat" => 38.096035, "Lon" => -92.5494875),
+"AJA" => array("City" => "Ajaccio", "Lat" => 41.923637, "Lon" => 8.802917),
+"AJF" => array("City" => "Al-Jawf", "Lat" => 29.785133, "Lon" => 40.100006),
+"AJL" => array("City" => "Aizwal", "Lat" => 23.746603, "Lon" => 92.802767),
+"AJN" => array("City" => "Anjouan", "Lat" => -12.131667, "Lon" => 44.430279),
+"AJR" => array("City" => "Arvidsjaur", "Lat" => 65.590278, "Lon" => 19.281944),
+"AJU" => array("City" => "Aracaju", "Lat" => -10.984, "Lon" => -37.070333),
+"AJY" => array("City" => "Agadez", "Lat" => 16.965997, "Lon" => 8.000114),
+"AKA" => array("City" => "Ankang", "Lat" => 32.7081, "Lon" => 108.931),
+"AKB" => array("City" => "Atka", "Lat" => 52.220278, "Lon" => -174.206389),
+"AKD" => array("City" => "Akola", "Lat" => 20.699006, "Lon" => 77.058628),
+"AKF" => array("City" => "Kufra", "Lat" => 24.178728, "Lon" => 23.313958),
+"AKI" => array("City" => "Akiak", "Lat" => 60.902778, "Lon" => -161.230556),
+"AKJ" => array("City" => "Asahikawa", "Lat" => 43.670833, "Lon" => 142.4475),
+"AKK" => array("City" => "Akhiok", "Lat" => 56.938611, "Lon" => -154.1825),
+"AKL" => array("City" => "Auckland", "Lat" => -37.008056, "Lon" => 174.791667),
+"AKN" => array("City" => "King Salmon", "Lat" => 58.676778, "Lon" => -156.649278),
+"AKP" => array("City" => "Anaktuvuk Pass", "Lat" => 68.1336, "Lon" => -151.743),
+"AKR" => array("City" => "Akure", "Lat" => 7.246739, "Lon" => 5.301008),
+"AKS" => array("City" => "Auki", "Lat" => -8.70257, "Lon" => 160.682),
+"AKT" => array("City" => "Akrotiri", "Lat" => 34.590416, "Lon" => 32.987861),
+"AKU" => array("City" => "Aksu", "Lat" => 41.2625, "Lon" => 80.2917),
+"AKV" => array("City" => "Akulivik", "Lat" => 60.8186, "Lon" => -78.1486),
+"AKX" => array("City" => "Aktyubinsk", "Lat" => 50.245833, "Lon" => 57.206667),
+"AKY" => array("City" => "Sittwe", "Lat" => 20.132708, "Lon" => 92.872628),
+"ALA" => array("City" => "Alma-ata", "Lat" => 43.352072, "Lon" => 77.040508),
+"ALB" => array("City" => "Albany", "Lat" => 42.748267, "Lon" => -73.801692),
+"ALC" => array("City" => "Alicante", "Lat" => 38.282169, "Lon" => -0.558156),
+"ALF" => array("City" => "Alta", "Lat" => 69.976111, "Lon" => 23.371667),
+"ALG" => array("City" => "Algier", "Lat" => 36.691014, "Lon" => 3.215408),
+"ALH" => array("City" => "Albany", "Lat" => -34.9433, "Lon" => 117.809),
+"ALI" => array("City" => "Alice", "Lat" => 27.740889, "Lon" => -98.026944),
+"ALJ" => array("City" => "Alexander Bay", "Lat" => -28.575001, "Lon" => 16.533333),
+"ALL" => array("City" => "Albenga", "Lat" => 44.050608, "Lon" => 8.127428),
+"ALM" => array("City" => "Alamogordo", "Lat" => 32.8399, "Lon" => -105.991),
+"ALO" => array("City" => "Waterloo", "Lat" => 42.5571, "Lon" => -92.4003),
+"ALP" => array("City" => "Aleppo", "Lat" => 36.180675, "Lon" => 37.224358),
+"ALR" => array("City" => "Alexandra", "Lat" => -45.211666, "Lon" => 169.373333),
+"ALS" => array("City" => "Alamosa", "Lat" => 37.435, "Lon" => -105.866667),
+"ALU" => array("City" => "Alula", "Lat" => 11.95, "Lon" => 50.733),
+"ALW" => array("City" => "Walla Walla", "Lat" => 46.0949, "Lon" => -118.288),
+"ALY" => array("City" => "Alexandria", "Lat" => 31.183903, "Lon" => 29.948889),
+"ALZ" => array("City" => "Lazy Bay", "Lat" => 56.899444, "Lon" => -154.247778),
+"AMA" => array("City" => "Amarillo", "Lat" => 35.219369, "Lon" => -101.705931),
+"AMB" => array("City" => "Ambilobe", "Lat" => -13.188431, "Lon" => 48.987978),
+"AMC" => array("City" => "Am Timan", "Lat" => 11.034, "Lon" => 20.274),
+"AMD" => array("City" => "Ahmedabad", "Lat" => 23.077242, "Lon" => 72.63465),
+"AMH" => array("City" => "Arba Minch", "Lat" => 6.039389, "Lon" => 37.590453),
+"AMI" => array("City" => "Mataram", "Lat" => -8.560708, "Lon" => 116.094656),
+"AMM" => array("City" => "Amman", "Lat" => 31.722556, "Lon" => 35.993214),
+"AMQ" => array("City" => "Ambon", "Lat" => -3.710264, "Lon" => 128.089136),
+"AMS" => array("City" => "Amsterdam", "Lat" => 52.308613, "Lon" => 4.763889),
+"AMV" => array("City" => "Amderma", "Lat" => 69.7633, "Lon" => 61.5564),
+"AMY" => array("City" => "Ambatomainty", "Lat" => -17.1667, "Lon" => 47.1833),
+"ANB" => array("City" => "Anniston", "Lat" => 33.588167, "Lon" => -85.858111),
+"ANC" => array("City" => "Anchorage", "Lat" => 61.174361, "Lon" => -149.996361),
+"AND" => array("City" => "Andersen", "Lat" => 34.494583, "Lon" => -82.709389),
+"ANE" => array("City" => "Angers/Marcé", "Lat" => 47.5603, "Lon" => -0.312222),
+"ANF" => array("City" => "Antofagasta", "Lat" => -23.444478, "Lon" => -70.4451),
+"ANG" => array("City" => "Angouleme", "Lat" => 45.729247, "Lon" => 0.221456),
+"ANI" => array("City" => "Aniak", "Lat" => 61.5816, "Lon" => -159.543),
+"ANK" => array("City" => "Ankara", "Lat" => 39.949831, "Lon" => 32.688622),
+"ANM" => array("City" => "Antalaha", "Lat" => -14.999411, "Lon" => 50.320233),
+"ANN" => array("City" => "Annette Island", "Lat" => 55.042436, "Lon" => -131.572233),
+"ANR" => array("City" => "Antwerp", "Lat" => 51.189444, "Lon" => 4.460278),
+"ANS" => array("City" => "Andahuaylas", "Lat" => -13.706408, "Lon" => -73.350378),
+"ANU" => array("City" => "Antigua", "Lat" => 17.136749, "Lon" => -61.792667),
+"ANV" => array("City" => "Anvik", "Lat" => 62.6467, "Lon" => -160.191),
+"ANX" => array("City" => "Andoya", "Lat" => 69.2925, "Lon" => 16.144167),
+"AOC" => array("City" => "Altenburg", "Lat" => 50.981817, "Lon" => 12.506361),
+"AOE" => array("City" => "Eskissehir", "Lat" => 39.809858, "Lon" => 30.519378),
+"AOI" => array("City" => "Ancona", "Lat" => 43.616389, "Lon" => 13.362222),
+"AOJ" => array("City" => "Aomori", "Lat" => 40.734722, "Lon" => 140.690833),
+"AOK" => array("City" => "Karpathos", "Lat" => 35.421408, "Lon" => 27.146008),
+"AOL" => array("City" => "Paso De Los Libres", "Lat" => -29.689425, "Lon" => -57.152078),
+"AOO" => array("City" => "Altoona", "Lat" => 40.296372, "Lon" => -78.320022),
+"AOR" => array("City" => "Alor Setar", "Lat" => 6.189667, "Lon" => 100.398183),
+"AOS" => array("City" => "Amook Bay", "Lat" => 57.471389, "Lon" => -153.815278),
+"AOT" => array("City" => "Aosta", "Lat" => 45.738456, "Lon" => 7.368719),
+"APA" => array("City" => "Denver", "Lat" => 39.570129, "Lon" => -104.849294),
+"APC" => array("City" => "Napa", "Lat" => 38.2131944, "Lon" => -122.2806944),
+"APF" => array("City" => "Naples", "Lat" => 26.152619, "Lon" => -81.775294),
+"APG" => array("City" => "Aberdeen", "Lat" => 39.466219, "Lon" => -76.168808),
+"APK" => array("City" => "Apataki", "Lat" => -15.5736, "Lon" => -146.415),
+"APL" => array("City" => "Nampula", "Lat" => -15.105611, "Lon" => 39.2818),
+"APN" => array("City" => "Alpena", "Lat" => 45.0781, "Lon" => -83.5603),
+"APO" => array("City" => "Apartadó", "Lat" => 7.033, "Lon" => -77.2),
+"APW" => array("City" => "Faleolo", "Lat" => -13.829969, "Lon" => -172.008336),
+"APZ" => array("City" => "ZAPALA", "Lat" => -38.9755, "Lon" => -70.113581),
+"AQA" => array("City" => "Araracuara", "Lat" => -21.812, "Lon" => -48.133028),
+"AQC" => array("City" => "Klawock", "Lat" => 55.554658, "Lon" => -133.101693),
+"AQG" => array("City" => "Anqing", "Lat" => 30.5822, "Lon" => 117.0502),
+"AQI" => array("City" => "Hafr Al-batin", "Lat" => 28.335192, "Lon" => 46.125069),
+"AQJ" => array("City" => "Aqaba", "Lat" => 29.611619, "Lon" => 35.018067),
+"AQP" => array("City" => "Arequipa", "Lat" => -16.341072, "Lon" => -71.583083),
+"ARA" => array("City" => "Louisiana", "Lat" => 30.037758, "Lon" => -91.883896),
+"ARC" => array("City" => "Arctic Village", "Lat" => 68.1147, "Lon" => -145.579),
+"ARD" => array("City" => "Alor Island", "Lat" => -8.13234, "Lon" => 124.597),
+"ARE" => array("City" => "Arecibo", "Lat" => 18.451111, "Lon" => -66.675556),
+"ARH" => array("City" => "Arkhangelsk", "Lat" => 64.360281, "Lon" => 40.430167),
+"ARI" => array("City" => "Arica", "Lat" => -18.348531, "Lon" => -70.338742),
+"ARK" => array("City" => "Arusha", "Lat" => -3.367794, "Lon" => 36.633333),
+"ARM" => array("City" => "Armidale", "Lat" => -30.528056, "Lon" => 151.617222),
+"ARN" => array("City" => "Stockholm", "Lat" => 59.651944, "Lon" => 17.918611),
+"ARR" => array("City" => "Alto Rio Senguer", "Lat" => -45.016667, "Lon" => -70.816667),
+"ART" => array("City" => "Watertown", "Lat" => 43.991922, "Lon" => -76.021739),
+"ARU" => array("City" => "Aracatuba", "Lat" => -21.141342, "Lon" => -50.424722),
+"ARV" => array("City" => "Minocqua - Woodruff", "Lat" => 45.927778, "Lon" => -89.730833),
+"ARW" => array("City" => "Arad", "Lat" => 46.17655, "Lon" => 21.262022),
+"ASA" => array("City" => "Assab", "Lat" => 13.071783, "Lon" => 42.645006),
+"ASB" => array("City" => "Ashkhabad", "Lat" => 37.986814, "Lon" => 58.360967),
+"ASD" => array("City" => "Andros Town", "Lat" => 24.698283, "Lon" => -77.795611),
+"ASE" => array("City" => "Aspen", "Lat" => 39.2232, "Lon" => -106.869),
+"ASF" => array("City" => "Astrakhan", "Lat" => 46.283333, "Lon" => 48.006278),
+"ASI" => array("City" => "Georgetown Acension Island Santa Helena", "Lat" => -7.969597, "Lon" => -14.393664),
+"ASJ" => array("City" => "Amami", "Lat" => 28.430633, "Lon" => 129.712542),
+"ASK" => array("City" => "Yamoussoukro", "Lat" => 6.903167, "Lon" => -5.365581),
+"ASM" => array("City" => "Asmara", "Lat" => 15.291853, "Lon" => 38.910667),
+"ASO" => array("City" => "Asosa", "Lat" => 10.01855, "Lon" => 34.586253),
+"ASP" => array("City" => "Alice Springs", "Lat" => -23.806667, "Lon" => 133.902222),
+"ASR" => array("City" => "Kayseri", "Lat" => 38.770386, "Lon" => 35.495428),
+"AST" => array("City" => "Astoria", "Lat" => 46.157972, "Lon" => -123.878694),
+"ASU" => array("City" => "Asuncion", "Lat" => -25.23985, "Lon" => -57.519133),
+"ASV" => array("City" => "Amboseli National Park", "Lat" => -2.64505, "Lon" => 37.2531),
+"ASW" => array("City" => "Aswan", "Lat" => 23.964356, "Lon" => 32.819975),
+"ATA" => array("City" => "Anta", "Lat" => -9.347444, "Lon" => -77.598392),
+"ATB" => array("City" => "Atbara", "Lat" => 17.7, "Lon" => 33.967),
+"ATC" => array("City" => "Arthur's Town", "Lat" => 24.629417, "Lon" => -75.673775),
+"ATD" => array("City" => "Atoifi", "Lat" => -8.87333, "Lon" => 161.011),
+"ATF" => array("City" => "Ambato", "Lat" => -1.212067, "Lon" => -78.574636),
+"ATH" => array("City" => "Athens", "Lat" => 37.936358, "Lon" => 23.944467),
+"ATK" => array("City" => "Atqasuk", "Lat" => 70.4673, "Lon" => -157.436),
+"ATL" => array("City" => "Atlanta", "Lat" => 33.636719, "Lon" => -84.428067),
+"ATM" => array("City" => "Altamira", "Lat" => -3.253906, "Lon" => -52.253978),
+"ATP" => array("City" => "Aitape", "Lat" => -3.18985, "Lon" => 142.43),
+"ATQ" => array("City" => "Amritsar", "Lat" => 31.709594, "Lon" => 74.797264),
+"ATR" => array("City" => "Atar", "Lat" => 20.506828, "Lon" => -13.043194),
+"ATT" => array("City" => "Austin TX", "Lat" => 30.31666, "Lon" => -97.7666),
+"ATW" => array("City" => "Appleton", "Lat" => 44.257526, "Lon" => -88.507576),
+"ATY" => array("City" => "Watertown", "Lat" => 44.914, "Lon" => -97.1547),
+"ATZ" => array("City" => "Asyut", "Lat" => 27.046508, "Lon" => 31.011983),
+"AUA" => array("City" => "Oranjestad", "Lat" => 12.501389, "Lon" => -70.015221),
+"AUB" => array("City" => "Augsburg", "Lat" => 48.3655, "Lon" => 10.886),
+"AUC" => array("City" => "Arauca", "Lat" => 7.068881, "Lon" => -70.736925),
+"AUF" => array("City" => "Auxerre", "Lat" => 47.850193, "Lon" => 3.497111),
+"AUG" => array("City" => "Augusta", "Lat" => 44.320647, "Lon" => -69.797317),
+"AUH" => array("City" => "Abu Dhabi", "Lat" => 24.432972, "Lon" => 54.651138),
+"AUJ" => array("City" => "Ambunti", "Lat" => -4.15, "Lon" => 142.51),
+"AUK" => array("City" => "Alakanuk", "Lat" => 62.68, "Lon" => -164.66),
+"AUL" => array("City" => "Aur Atoll", "Lat" => 8.14528, "Lon" => 171.173),
+"AUQ" => array("City" => "Hiva-oa", "Lat" => -9.768794, "Lon" => -139.011256),
+"AUR" => array("City" => "Aurillac", "Lat" => 44.891388, "Lon" => 2.421944),
+"AUS" => array("City" => "Austin", "Lat" => 30.194528, "Lon" => -97.669889),
+"AUW" => array("City" => "Wausau", "Lat" => 44.9262845, "Lon" => -89.6270018),
+"AUX" => array("City" => "Araguaina", "Lat" => -7.228333, "Lon" => -48.240833),
+"AUY" => array("City" => "Anelghowhat", "Lat" => -20.2492, "Lon" => 169.771),
+"AVB" => array("City" => "Aviano", "Lat" => 46.031889, "Lon" => 12.596472),
+"AVI" => array("City" => "Ciego De Avila", "Lat" => 22.027053, "Lon" => -78.789617),
+"AVL" => array("City" => "Asheville", "Lat" => 35.436194, "Lon" => -82.541806),
+"AVN" => array("City" => "Avignon", "Lat" => 43.9073, "Lon" => 4.901831),
+"AVP" => array("City" => "Scranton", "Lat" => 41.338478, "Lon" => -75.723403),
+"AVV" => array("City" => "Avalon", "Lat" => -38.039444, "Lon" => 144.469444),
+"AVW" => array("City" => "Tucson", "Lat" => 32.409556, "Lon" => -111.218388),
+"AVX" => array("City" => "Catalina Island", "Lat" => 33.405, "Lon" => -118.415833),
+"AWA" => array("City" => "Awasa", "Lat" => 7.067, "Lon" => 38.5),
+"AWB" => array("City" => "Awaba", "Lat" => -8, "Lon" => 142.75),
+"AWD" => array("City" => "Aniwa", "Lat" => -19.24, "Lon" => 169.605),
+"AWK" => array("City" => "Wake island", "Lat" => 19.282067, "Lon" => 166.636444),
+"AWZ" => array("City" => "Ahwaz", "Lat" => 31.337431, "Lon" => 48.76195),
+"AXA" => array("City" => "The Valley", "Lat" => 18.204834, "Lon" => -63.055084),
+"AXD" => array("City" => "Alexandroupolis", "Lat" => 40.855869, "Lon" => 25.956264),
+"AXJ" => array("City" => "Amakusa", "Lat" => 32.482222, "Lon" => 130.158889),
+"AXK" => array("City" => "Ataq", "Lat" => 14.551322, "Lon" => 46.826183),
+"AXM" => array("City" => "Armenia", "Lat" => 4.452775, "Lon" => -75.766447),
+"AXP" => array("City" => "Spring Point", "Lat" => 22.441828, "Lon" => -73.970858),
+"AXR" => array("City" => "Arutua", "Lat" => -15.248289, "Lon" => -146.616708),
+"AXT" => array("City" => "Akita", "Lat" => 39.615556, "Lon" => 140.218611),
+"AXU" => array("City" => "Axum", "Lat" => 14.14675, "Lon" => 38.772833),
+"AYK" => array("City" => "Arkalyk", "Lat" => 50.2395, "Lon" => 66.941),
+"AYP" => array("City" => "Ayacucho", "Lat" => -13.154819, "Lon" => -74.204417),
+"AYQ" => array("City" => "Uluru", "Lat" => -25.186111, "Lon" => 130.975556),
+"AYT" => array("City" => "Antalya", "Lat" => 36.898731, "Lon" => 30.800461),
+"AZA" => array("City" => "Mesa", "Lat" => 33.307833, "Lon" => -111.655),
+"AZD" => array("City" => "Yazd", "Lat" => 31.904908, "Lon" => 54.276503),
+"AZI" => array("City" => "Abu Dhabi", "Lat" => 24.428333, "Lon" => 54.458084),
+"AZN" => array("City" => "Andizhan", "Lat" => 40.7277, "Lon" => 72.294),
+"AZO" => array("City" => "Kalamazoo", "Lat" => 42.234875, "Lon" => -85.552058),
+"AZR" => array("City" => "Adrar", "Lat" => 27.837589, "Lon" => -0.186414),
+"AZS" => array("City" => "Samana", "Lat" => 19.267, "Lon" => -69.742),
+"BAB" => array("City" => "Marysville", "Lat" => 39.136089, "Lon" => -121.436567),
+"BAD" => array("City" => "Shreveport", "Lat" => 32.50182, "Lon" => -93.662674),
+"BAG" => array("City" => "Baguio", "Lat" => 16.375103, "Lon" => 120.619636),
+"BAH" => array("City" => "Bahrain", "Lat" => 26.270834, "Lon" => 50.63361),
+"BAK" => array("City" => "Baku", "Lat" => 40.4675, "Lon" => 50.046667),
+"BAL" => array("City" => "Batman", "Lat" => 37.928969, "Lon" => 41.116583),
+"BAM" => array("City" => "Bamberg", "Lat" => 49.911, "Lon" => 10.9),
+"BAQ" => array("City" => "Barranquilla", "Lat" => 10.889589, "Lon" => -74.780819),
+"BAS" => array("City" => "Ballalae", "Lat" => -6.967, "Lon" => 155.883),
+"BAU" => array("City" => "Bauru", "Lat" => -22.345042, "Lon" => -49.0538),
+"BAV" => array("City" => "Baotou", "Lat" => 40.56, "Lon" => 109.997),
+"BAX" => array("City" => "Barnaul", "Lat" => 53.363775, "Lon" => 83.538533),
+"BAY" => array("City" => "Baia Mare", "Lat" => 47.658389, "Lon" => 23.470022),
+"BAZ" => array("City" => "Barcelos", "Lat" => -0.975, "Lon" => -62.923889),
+"BBA" => array("City" => "Balmaceda", "Lat" => -45.916058, "Lon" => -71.689475),
+"BBG" => array("City" => "Butaritari", "Lat" => 3.086521, "Lon" => 172.811465),
+"BBI" => array("City" => "Bhubaneswar", "Lat" => 20.244364, "Lon" => 85.817781),
+"BBJ" => array("City" => "Bautzen", "Lat" => 51.193531, "Lon" => 14.519747),
+"BBK" => array("City" => "Kasane", "Lat" => -17.832875, "Lon" => 25.1624),
+"BBM" => array("City" => "Battambang", "Lat" => 13.0956, "Lon" => 103.224),
+"BBN" => array("City" => "Bario", "Lat" => 3.73389, "Lon" => 115.479),
+"BBO" => array("City" => "Berbera", "Lat" => 10.389167, "Lon" => 44.941106),
+"BBP" => array("City" => "Bembridge", "Lat" => 50.677778, "Lon" => -1.109444),
+"BBQ" => array("City" => "Codrington", "Lat" => 17.6358, "Lon" => -61.8286),
+"BBR" => array("City" => "Basse Terre", "Lat" => 16.0133, "Lon" => -61.7422),
+"BBS" => array("City" => "Blackbushe", "Lat" => 51.323889, "Lon" => -0.8475),
+"BBT" => array("City" => "Berberati", "Lat" => 4.221583, "Lon" => 15.786369),
+"BBU" => array("City" => "Bucharest", "Lat" => 44.503194, "Lon" => 26.102111),
+"BCA" => array("City" => "Baracoa Playa", "Lat" => 20.365317, "Lon" => -74.506206),
+"BCD" => array("City" => "Bacolod", "Lat" => 10.642511, "Lon" => 122.929617),
+"BCE" => array("City" => "Bryce Canyon", "Lat" => 37.706444, "Lon" => -112.145806),
+"BCL" => array("City" => "Pococi", "Lat" => 10.768736, "Lon" => -83.585614),
+"BCM" => array("City" => "Bacau", "Lat" => 46.521946, "Lon" => 26.910278),
+"BCN" => array("City" => "Barcelona", "Lat" => 41.297078, "Lon" => 2.078464),
+"BCO" => array("City" => "Baco", "Lat" => 5.78287, "Lon" => 36.562),
+"BCT" => array("City" => "Boca Raton", "Lat" => 26.3785, "Lon" => -80.107694),
+"BCW" => array("City" => "Benguera Island", "Lat" => -21.849167, "Lon" => 35.436944),
+"BDA" => array("City" => "Bermuda", "Lat" => 32.364042, "Lon" => -64.678703),
+"BDB" => array("City" => "Bundaberg", "Lat" => -24.903889, "Lon" => 152.318611),
+"BDE" => array("City" => "Baudette", "Lat" => 48.728444, "Lon" => -94.612222),
+"BDH" => array("City" => "Bandar Lengeh", "Lat" => 26.532, "Lon" => 54.824847),
+"BDI" => array("City" => "Bird Island", "Lat" => -3.721389, "Lon" => 55.208611),
+"BDJ" => array("City" => "Banjarmasin", "Lat" => -3.442356, "Lon" => 114.762553),
+"BDL" => array("City" => "Windsor Locks", "Lat" => 41.938889, "Lon" => -72.683222),
+"BDM" => array("City" => "Bandirma", "Lat" => 40.317972, "Lon" => 27.977694),
+"BDN" => array("City" => "Talhar", "Lat" => 24.841519, "Lon" => 68.838408),
+"BDO" => array("City" => "Bandung", "Lat" => -6.900625, "Lon" => 107.576294),
+"BDP" => array("City" => "Chandragarhi", "Lat" => 26.570822, "Lon" => 88.079578),
+"BDQ" => array("City" => "Baroda", "Lat" => 22.336164, "Lon" => 73.226289),
+"BDR" => array("City" => "Stratford", "Lat" => 41.163472, "Lon" => -73.126167),
+"BDS" => array("City" => "Brindisi", "Lat" => 40.657633, "Lon" => 17.947033),
+"BDT" => array("City" => "Gbadolite", "Lat" => 4.253206, "Lon" => 20.975283),
+"BDU" => array("City" => "Bardufoss", "Lat" => 69.055758, "Lon" => 18.540356),
+"BEB" => array("City" => "Benbecula", "Lat" => 57.481111, "Lon" => -7.362778),
+"BED" => array("City" => "Bedford", "Lat" => 42.469953, "Lon" => -71.289031),
+"BEF" => array("City" => "Bluefields", "Lat" => 11.990961, "Lon" => -83.774086),
+"BEG" => array("City" => "Beograd", "Lat" => 44.818444, "Lon" => 20.309139),
+"BEH" => array("City" => "Benton Harbor", "Lat" => 42.1285833, "Lon" => -86.4285),
+"BEI" => array("City" => "Beica", "Lat" => 9.38639, "Lon" => 34.5219),
+"BEJ" => array("City" => "Tanjung Redep-Borneo Island", "Lat" => 2.155497, "Lon" => 117.432256),
+"BEL" => array("City" => "Belem", "Lat" => -1.37925, "Lon" => -48.476292),
+"BEN" => array("City" => "Benghazi", "Lat" => 32.096786, "Lon" => 20.269472),
+"BEP" => array("City" => "Bellary", "Lat" => 15.162783, "Lon" => 76.882775),
+"BEQ" => array("City" => "Honington", "Lat" => 52.342611, "Lon" => 0.772939),
+"BER" => array("City" => "Berlin", "Lat" => 52.31, "Lon" => 13.24),
+"BES" => array("City" => "Brest", "Lat" => 48.447911, "Lon" => -4.418539),
+"BET" => array("City" => "Bethel", "Lat" => 60.779778, "Lon" => -161.838),
+"BEV" => array("City" => "Beer-sheba", "Lat" => 31.287003, "Lon" => 34.722953),
+"BEW" => array("City" => "Beira", "Lat" => -19.796419, "Lon" => 34.907556),
+"BEY" => array("City" => "Beirut", "Lat" => 33.820931, "Lon" => 35.488389),
+"BEZ" => array("City" => "Beru Island", "Lat" => -1.254722, "Lon" => 176.007222),
+"BFD" => array("City" => "Bradford", "Lat" => 41.8031, "Lon" => -78.6401),
+"BFF" => array("City" => "Scottsbluff", "Lat" => 41.874, "Lon" => -103.596),
+"BFH" => array("City" => "Curitiba", "Lat" => -25.405078, "Lon" => -49.232036),
+"BFI" => array("City" => "Seattle", "Lat" => 47.53, "Lon" => -122.301947),
+"BFL" => array("City" => "Bakersfield", "Lat" => 35.433598, "Lon" => -119.05677),
+"BFM" => array("City" => "Mobile", "Lat" => 30.626783, "Lon" => -88.068092),
+"BFN" => array("City" => "Bloemfontein", "Lat" => -29.092722, "Lon" => 26.302444),
+"BFO" => array("City" => "Chiredzi", "Lat" => -21.008083, "Lon" => 31.57855),
+"BFQ" => array("City" => "Bahia Piña", "Lat" => 7.583, "Lon" => -78.2),
+"BFS" => array("City" => "Belfast", "Lat" => 54.6575, "Lon" => -6.215833),
+"BFT" => array("City" => "Beauford", "Lat" => 32.41083, "Lon" => -80.635),
+"BFV" => array("City" => "Buri Ram", "Lat" => 15.229539, "Lon" => 103.253231),
+"BFX" => array("City" => "Bafoussam", "Lat" => 5.536919, "Lon" => 10.354583),
+"BGA" => array("City" => "Bucaramanga", "Lat" => 7.1265, "Lon" => -73.184778),
+"BGC" => array("City" => "Braganca", "Lat" => 41.8578, "Lon" => -6.707125),
+"BGF" => array("City" => "Bangui", "Lat" => 4.398475, "Lon" => 18.518786),
+"BGI" => array("City" => "Bridgetown", "Lat" => 13.074603, "Lon" => -59.492456),
+"BGK" => array("City" => "Big Creek", "Lat" => 16.516667, "Lon" => -88.416667),
+"BGM" => array("City" => "Binghamton", "Lat" => 42.208689, "Lon" => -75.979839),
+"BGO" => array("City" => "Bergen", "Lat" => 60.293386, "Lon" => 5.218142),
+"BGR" => array("City" => "Bangor", "Lat" => 44.807444, "Lon" => -68.828139),
+"BGW" => array("City" => "Baghdad", "Lat" => 33.262539, "Lon" => 44.234578),
+"BGX" => array("City" => "Bage", "Lat" => -31.390528, "Lon" => -54.112244),
+"BGY" => array("City" => "Bergamo", "Lat" => 45.673889, "Lon" => 9.704166),
+"BHB" => array("City" => "Bar Harbor", "Lat" => 44.4497689, "Lon" => -68.3615653),
+"BHD" => array("City" => "Belfast", "Lat" => 54.618056, "Lon" => -5.8725),
+"BHE" => array("City" => "Woodbourne", "Lat" => -41.518333, "Lon" => 173.870278),
+"BHG" => array("City" => "Brus Laguna", "Lat" => 15.7631, "Lon" => -84.5436),
+"BHH" => array("City" => "Bisha", "Lat" => 19.98435, "Lon" => 42.620881),
+"BHI" => array("City" => "Bahia Blanca", "Lat" => -38.724967, "Lon" => -62.169317),
+"BHJ" => array("City" => "Bhuj", "Lat" => 23.287828, "Lon" => 69.670147),
+"BHK" => array("City" => "Bukhara", "Lat" => 39.775, "Lon" => 64.483333),
+"BHM" => array("City" => "Birmingham", "Lat" => 33.562942, "Lon" => -86.75355),
+"BHN" => array("City" => "Beihan", "Lat" => 14.781972, "Lon" => 45.720083),
+"BHO" => array("City" => "Bhopal", "Lat" => 23.287467, "Lon" => 77.337375),
+"BHP" => array("City" => "Bhojpur", "Lat" => 27.14743, "Lon" => 87.050819),
+"BHR" => array("City" => "Bharatpur", "Lat" => 27.6781, "Lon" => 84.4294),
+"BHU" => array("City" => "Bhaunagar", "Lat" => 21.752206, "Lon" => 72.185181),
+"BHV" => array("City" => "Bahawalpur", "Lat" => 29.3481, "Lon" => 71.717981),
+"BHX" => array("City" => "Birmingham", "Lat" => 52.453856, "Lon" => -1.748028),
+"BHY" => array("City" => "Beihai", "Lat" => 21.5394, "Lon" => 109.294),
+"BIA" => array("City" => "Bastia", "Lat" => 42.552664, "Lon" => 9.483731),
+"BIE" => array("City" => "Biessenhofen", "Lat" => 47.851, "Lon" => 10.634),
+"BIF" => array("City" => "El Paso", "Lat" => 31.849528, "Lon" => -106.380039),
+"BIG" => array("City" => "Delta Junction", "Lat" => 63.994547, "Lon" => -145.721642),
+"BII" => array("City" => "Bikini Atoll", "Lat" => 11.5225, "Lon" => 165.565),
+"BIK" => array("City" => "Biak", "Lat" => -1.190017, "Lon" => 136.107997),
+"BIL" => array("City" => "Billings", "Lat" => 45.80921, "Lon" => -108.537654),
+"BIM" => array("City" => "Alice Town", "Lat" => 25.699881, "Lon" => -79.264656),
+"BIO" => array("City" => "Bilbao", "Lat" => 43.301097, "Lon" => -2.910608),
+"BIQ" => array("City" => "Biarritz-bayonne", "Lat" => 43.468419, "Lon" => -1.523325),
+"BIR" => array("City" => "Biratnagar", "Lat" => 26.481453, "Lon" => 87.264036),
+"BIS" => array("City" => "Bismarck", "Lat" => 46.775842, "Lon" => -100.757931),
+"BIU" => array("City" => "Bildudalur", "Lat" => 65.641389, "Lon" => -23.546111),
+"BIV" => array("City" => "Holland", "Lat" => 42.7427778, "Lon" => -86.1078333),
+"BIX" => array("City" => "Biloxi", "Lat" => 30.410425, "Lon" => -88.924433),
+"BJA" => array("City" => "Bejaja", "Lat" => 36.711997, "Lon" => 5.069922),
+"BJB" => array("City" => "Bojnourd", "Lat" => 37.492958, "Lon" => 57.308219),
+"BJC" => array("City" => "Broomfield-CO", "Lat" => 39.90888888, "Lon" => -105.11722222),
+"BJF" => array("City" => "Batsfjord", "Lat" => 70.600278, "Lon" => 29.6925),
+"BJH" => array("City" => "Bajhang", "Lat" => 29.53896, "Lon" => 81.185364),
+"BJI" => array("City" => "Bemidji", "Lat" => 47.510722, "Lon" => -94.934722),
+"BJL" => array("City" => "Banjul", "Lat" => 13.337961, "Lon" => -16.652206),
+"BJM" => array("City" => "Bujumbura", "Lat" => -3.324019, "Lon" => 29.318519),
+"BJO" => array("City" => "Bermejo", "Lat" => -22.773336, "Lon" => -64.312881),
+"BJR" => array("City" => "Bahar Dar", "Lat" => 11.608075, "Lon" => 37.321644),
+"BJT" => array("City" => "Bentota", "Lat" => 6.416667, "Lon" => 79.983333),
+"BJV" => array("City" => "Bodrum", "Lat" => 37.82, "Lon" => 28.204),
+"BJX" => array("City" => "Del Bajio", "Lat" => 20.993464, "Lon" => -101.480847),
+"BJZ" => array("City" => "Badajoz", "Lat" => 38.89125, "Lon" => -6.821333),
+"BKA" => array("City" => "Moscow", "Lat" => 55.617222, "Lon" => 38.059999),
+"BKC" => array("City" => "Buckland", "Lat" => 65.981667, "Lon" => -161.149167),
+"BKD" => array("City" => "Breckenridge", "Lat" => 32.719047, "Lon" => -98.891),
+"BKF" => array("City" => "Buckley", "Lat" => 39.701668, "Lon" => -104.75166),
+"BKG" => array("City" => "Branson", "Lat" => 36.531994, "Lon" => -93.200556),
+"BKH" => array("City" => "Barking Sands", "Lat" => 22.022833, "Lon" => -159.785),
+"BKI" => array("City" => "Kota Kinabalu", "Lat" => 5.937208, "Lon" => 116.051181),
+"BKK" => array("City" => "Bangkok", "Lat" => 13.681108, "Lon" => 100.747283),
+"BKM" => array("City" => "Bakalalan", "Lat" => 3.974, "Lon" => 115.618),
+"BKO" => array("City" => "Bamako", "Lat" => 12.533544, "Lon" => -7.949944),
+"BKQ" => array("City" => "Blackall", "Lat" => -24.427778, "Lon" => 145.428611),
+"BKS" => array("City" => "Bengkulu", "Lat" => -3.8637, "Lon" => 102.339036),
+"BKW" => array("City" => "Beckley", "Lat" => 37.7873, "Lon" => -81.1242),
+"BKX" => array("City" => "Brookings", "Lat" => 44.3048, "Lon" => -96.8169),
+"BKY" => array("City" => "Bukavu/kavumu", "Lat" => -2.308978, "Lon" => 28.808803),
+"BKZ" => array("City" => "Bukoba", "Lat" => -1.3, "Lon" => 31.8),
+"BLA" => array("City" => "Barcelona", "Lat" => 10.107139, "Lon" => -64.689161),
+"BLD" => array("City" => "Boulder City", "Lat" => 35.5651, "Lon" => -114.514),
+"BLE" => array("City" => "Borlange", "Lat" => 60.422017, "Lon" => 15.515211),
+"BLF" => array("City" => "Bluefield", "Lat" => 37.2958, "Lon" => -81.2077),
+"BLG" => array("City" => "Belaga", "Lat" => 2.65, "Lon" => 113.767),
+"BLH" => array("City" => "Blythe", "Lat" => 33.619167, "Lon" => -114.716889),
+"BLI" => array("City" => "Bellingham", "Lat" => 48.792694, "Lon" => -122.537528),
+"BLJ" => array("City" => "Batna", "Lat" => 35.752106, "Lon" => 6.308589),
+"BLK" => array("City" => "Blackpool", "Lat" => 53.771667, "Lon" => -3.028611),
+"BLL" => array("City" => "Billund", "Lat" => 55.740322, "Lon" => 9.151778),
+"BLQ" => array("City" => "Bologna", "Lat" => 44.535444, "Lon" => 11.288667),
+"BLR" => array("City" => "Bangalore", "Lat" => 12.949986, "Lon" => 77.668206),
+"BLV" => array("City" => "Belleville", "Lat" => 38.545178, "Lon" => -89.835183),
+"BLZ" => array("City" => "Blantyre", "Lat" => -15.679053, "Lon" => 34.974014),
+"BMA" => array("City" => "Stockholm", "Lat" => 59.354372, "Lon" => 17.94165),
+"BMC" => array("City" => "Brigham City", "Lat" => 41.552, "Lon" => -112.062),
+"BMD" => array("City" => "Belo sur Tsiribihina", "Lat" => -19.6867, "Lon" => 44.5419),
+"BME" => array("City" => "Broome", "Lat" => -17.8, "Lon" => 122.2),
+"BMG" => array("City" => "Bloomington", "Lat" => 39.1460208, "Lon" => -86.6166805),
+"BMI" => array("City" => "Bloomington", "Lat" => 40.477111, "Lon" => -88.915917),
+"BMK" => array("City" => "Borkum", "Lat" => 53.5955, "Lon" => 6.709167),
+"BMM" => array("City" => "Bitam", "Lat" => 2.075639, "Lon" => 11.493195),
+"BMO" => array("City" => "Banmaw", "Lat" => 24.269033, "Lon" => 97.246153),
+"BMQ" => array("City" => "Bamburi", "Lat" => -3.98268888888889, "Lon" => 39.7308972222222),
+"BMU" => array("City" => "Bima", "Lat" => -8.539647, "Lon" => 118.687322),
+"BMV" => array("City" => "Buonmethuot", "Lat" => 12.668311, "Lon" => 108.120272),
+"BMW" => array("City" => "Bordj Badji Mokhtar", "Lat" => 21.375, "Lon" => 0.923889),
+"BMY" => array("City" => "Waala", "Lat" => -19.7206, "Lon" => 163.661),
+"BN1" => array("City" => "Bellona", "Lat" => 15.981666666667, "Lon" => -11.3),
+"BNA" => array("City" => "Nashville", "Lat" => 36.124472, "Lon" => -86.678194),
+"BND" => array("City" => "Bandar Abbas", "Lat" => 27.218317, "Lon" => 56.37785),
+"BNE" => array("City" => "Brisbane", "Lat" => -27.384167, "Lon" => 153.1175),
+"BNI" => array("City" => "Benin", "Lat" => 6.316981, "Lon" => 5.599503),
+"BNK" => array("City" => "Ballina Byron Bay", "Lat" => -28.833889, "Lon" => 153.5625),
+"BNN" => array("City" => "Bronnoysund", "Lat" => 65.461111, "Lon" => 12.2175),
+"BNP" => array("City" => "Bannu", "Lat" => 32.9729, "Lon" => 70.5279),
+"BNS" => array("City" => "Barinas", "Lat" => 8.619575, "Lon" => -70.220825),
+"BNX" => array("City" => "Banja Luka", "Lat" => 44.941444, "Lon" => 17.297501),
+"BNY" => array("City" => "Bellona", "Lat" => -11.3111, "Lon" => 15.981666666667),
+"BOA" => array("City" => "Boma", "Lat" => -5.854, "Lon" => 13.064),
+"BOB" => array("City" => "Bora Bora", "Lat" => -16.444378, "Lon" => -151.751286),
+"BOC" => array("City" => "Bocas Del Toro", "Lat" => 9.340853, "Lon" => -82.250842),
+"BOD" => array("City" => "Bordeaux", "Lat" => 44.828335, "Lon" => -0.715556),
+"BOG" => array("City" => "Bogota", "Lat" => 4.701594, "Lon" => -74.146947),
+"BOH" => array("City" => "Bournemouth", "Lat" => 50.78, "Lon" => -1.8425),
+"BOI" => array("City" => "Boise", "Lat" => 43.564361, "Lon" => -116.222861),
+"BOJ" => array("City" => "Bourgas", "Lat" => 42.569583, "Lon" => 27.515236),
+"BOM" => array("City" => "Bombay", "Lat" => 19.088686, "Lon" => 72.867919),
+"BON" => array("City" => "Kralendijk", "Lat" => 12.131044, "Lon" => -68.268511),
+"BOO" => array("City" => "Bodo", "Lat" => 67.269167, "Lon" => 14.365278),
+"BOS" => array("City" => "Boston", "Lat" => 42.364347, "Lon" => -71.005181),
+"BOT" => array("City" => "Bosset", "Lat" => -7.240833, "Lon" => 141.092333),
+"BOU" => array("City" => "Bourges", "Lat" => 47.058056, "Lon" => 2.370278),
+"BOW" => array("City" => "Bartow", "Lat" => 27.9434, "Lon" => -81.7834),
+"BOX" => array("City" => "Bochum", "Lat" => 51.478506, "Lon" => 7.2222),
+"BOY" => array("City" => "Bobo-dioulasso", "Lat" => 11.160056, "Lon" => -4.330969),
+"BPC" => array("City" => "Bamenda", "Lat" => 6.039239, "Lon" => 10.122639),
+"BPE" => array("City" => "Bagan", "Lat" => 24, "Lon" => 96),
+"BPF" => array("City" => "Batuna", "Lat" => -8.63, "Lon" => 158),
+"BPM" => array("City" => "Kabul", "Lat" => 34.5646, "Lon" => 69.1554),
+"BPN" => array("City" => "Balikpapan", "Lat" => -1.268272, "Lon" => 116.894478),
+"BPR" => array("City" => "Borongan", "Lat" => 11.674167, "Lon" => 125.478611),
+"BPS" => array("City" => "Porto Seguro", "Lat" => -16.438611, "Lon" => -39.080833),
+"BPT" => array("City" => "Beaumont", "Lat" => 29.950833, "Lon" => -94.020694),
+"BPU" => array("City" => "Beppu", "Lat" => 33.3, "Lon" => 131.5333),
+"BPX" => array("City" => "Bangda", "Lat" => 30.5536, "Lon" => 97.1083),
+"BPY" => array("City" => "Besalampy", "Lat" => -16.741945, "Lon" => 44.481388),
+"BQH" => array("City" => "Biggin Hill", "Lat" => 51.330833, "Lon" => 0.0325),
+"BQK" => array("City" => "Brunswick", "Lat" => 31.2588, "Lon" => -81.4665),
+"BQN" => array("City" => "Aguadilla", "Lat" => 18.494861, "Lon" => -67.129444),
+"BQS" => array("City" => "Blagoveschensk", "Lat" => 50.425394, "Lon" => 127.412478),
+"BQT" => array("City" => "Brest", "Lat" => 52.06, "Lon" => 23.53),
+"BQU" => array("City" => "Bequia", "Lat" => 12.988444, "Lon" => -61.262033),
+"BRA" => array("City" => "Barreiras", "Lat" => -12.083333, "Lon" => -45),
+"BRC" => array("City" => "San Carlos De Bariloch", "Lat" => -41.151172, "Lon" => -71.157542),
+"BRD" => array("City" => "Brainerd", "Lat" => 46.398308, "Lon" => -94.138078),
+"BRE" => array("City" => "Bremen", "Lat" => 53.0475, "Lon" => 8.786667),
+"BRI" => array("City" => "Bari", "Lat" => 41.138856, "Lon" => 16.760594),
+"BRL" => array("City" => "Burlington", "Lat" => 40.7832, "Lon" => -91.1255),
+"BRM" => array("City" => "Barquisimeto", "Lat" => 10.042747, "Lon" => -69.358619),
+"BRN" => array("City" => "Bern", "Lat" => 46.9141, "Lon" => 7.497153),
+"BRO" => array("City" => "Brownsville", "Lat" => 25.906833, "Lon" => -97.425861),
+"BRQ" => array("City" => "Turany", "Lat" => 49.151269, "Lon" => 16.694433),
+"BRR" => array("City" => "Barra", "Lat" => 57.0228, "Lon" => -7.44306),
+"BRS" => array("City" => "Bristol", "Lat" => 51.382669, "Lon" => -2.719089),
+"BRT" => array("City" => "Bathurst Island", "Lat" => -11.769167, "Lon" => 130.619722),
+"BRU" => array("City" => "Brussels", "Lat" => 50.901389, "Lon" => 4.484444),
+"BRV" => array("City" => "Bremerhaven", "Lat" => 53.507081, "Lon" => 8.572878),
+"BRW" => array("City" => "Barrow", "Lat" => 71.285446, "Lon" => -156.766003),
+"BRX" => array("City" => "Barahona", "Lat" => 18.251464, "Lon" => -71.1204),
+"BSA" => array("City" => "Bosaso", "Lat" => 11.2753, "Lon" => 49.1494),
+"BSB" => array("City" => "Brasilia", "Lat" => -15.8711, "Lon" => -47.918625),
+"BSC" => array("City" => "Bahia Solano", "Lat" => 6.202917, "Lon" => -77.394675),
+"BSD" => array("City" => "Baoshan", "Lat" => 25.053333, "Lon" => 99.168333),
+"BSF" => array("City" => "Bradshaw Field", "Lat" => 19.760056, "Lon" => -155.553717),
+"BSG" => array("City" => "Bata", "Lat" => 1.905469, "Lon" => 9.805681),
+"BSK" => array("City" => "Biskra", "Lat" => 34.793289, "Lon" => 5.738231),
+"BSL" => array("City" => "Basel-Mulhouse-Freiburg", "Lat" => 47.59, "Lon" => 7.529167),
+"BSO" => array("City" => "Basco", "Lat" => 20.451322, "Lon" => 121.979883),
+"BSR" => array("City" => "Basrah", "Lat" => 30.549069, "Lon" => 47.662142),
+"BSU" => array("City" => "Basankusu", "Lat" => 1.22472, "Lon" => 19.7889),
+"BSX" => array("City" => "Pathein", "Lat" => 16.815233, "Lon" => 94.779911),
+"BTE" => array("City" => "Bonthe", "Lat" => 7.53242, "Lon" => -12.5189),
+"BTH" => array("City" => "Batam", "Lat" => 1.121028, "Lon" => 104.118753),
+"BTI" => array("City" => "Barter Island", "Lat" => 70.133989, "Lon" => -143.581867),
+"BTJ" => array("City" => "Banda Aceh", "Lat" => 5.523522, "Lon" => 95.420372),
+"BTK" => array("City" => "Bratsk", "Lat" => 56.370556, "Lon" => 101.698331),
+"BTM" => array("City" => "Butte", "Lat" => 45.954806, "Lon" => -112.497472),
+"BTO" => array("City" => "Botopasi", "Lat" => 4.233333, "Lon" => -55.45),
+"BTR" => array("City" => "Baton Rouge", "Lat" => 30.533167, "Lon" => -91.149639),
+"BTS" => array("City" => "Bratislava", "Lat" => 48.170167, "Lon" => 17.212667),
+"BTT" => array("City" => "Bettles", "Lat" => 66.913944, "Lon" => -151.529056),
+"BTU" => array("City" => "Bintulu", "Lat" => 3.12385, "Lon" => 113.020472),
+"BTV" => array("City" => "Burlington", "Lat" => 44.471861, "Lon" => -73.153278),
+"BUA" => array("City" => "Buka Island", "Lat" => -5.42232, "Lon" => 154.673),
+"BUD" => array("City" => "Budapest", "Lat" => 47.436933, "Lon" => 19.255592),
+"BUF" => array("City" => "Buffalo", "Lat" => 42.940525, "Lon" => -78.732167),
+"BUG" => array("City" => "Benguela", "Lat" => -12.609025, "Lon" => 13.403711),
+"BUH" => array("City" => "Buchloe", "Lat" => 48.0411, "Lon" => 10.715),
+"BUI" => array("City" => "Bokondini-Papua Island", "Lat" => -3.58365, "Lon" => 138.533),
+"BUN" => array("City" => "Buenaventura", "Lat" => 3.819628, "Lon" => -76.989767),
+"BUO" => array("City" => "Burao", "Lat" => 9.517, "Lon" => 45.567),
+"BUQ" => array("City" => "Bulawayo", "Lat" => -20.017431, "Lon" => 28.617869),
+"BUR" => array("City" => "Burbank", "Lat" => 34.200667, "Lon" => -118.358667),
+"BUS" => array("City" => "Batumi", "Lat" => 41.610278, "Lon" => 41.599694),
+"BUX" => array("City" => "Bunia", "Lat" => 1.565719, "Lon" => 30.220833),
+"BUY" => array("City" => "Burlington", "Lat" => 36.0485433, "Lon" => -79.4748892),
+"BUZ" => array("City" => "Bushehr", "Lat" => 28.944811, "Lon" => 50.834637),
+"BVA" => array("City" => "Beauvais", "Lat" => 49.454444, "Lon" => 2.112778),
+"BVB" => array("City" => "Boa Vista", "Lat" => 2.846311, "Lon" => -60.690069),
+"BVC" => array("City" => "Boa Vista", "Lat" => 16.136531, "Lon" => -22.888897),
+"BVE" => array("City" => "Brive", "Lat" => 45.150833, "Lon" => 1.469167),
+"BVG" => array("City" => "Berlevag", "Lat" => 70.866667, "Lon" => 29),
+"BVH" => array("City" => "Vilhena", "Lat" => -12.694375, "Lon" => -60.098269),
+"BVS" => array("City" => "Breves", "Lat" => -1.681944, "Lon" => -50.48),
+"BVV" => array("City" => "Iturup Island", "Lat" => 44.92, "Lon" => 147.621667),
+"BWA" => array("City" => "Bhairawa", "Lat" => 27.505703, "Lon" => 83.41625),
+"BWB" => array("City" => "Barrow Island", "Lat" => -20.798, "Lon" => 115.406),
+"BWD" => array("City" => "Brownwood", "Lat" => 31.7936111, "Lon" => -98.9565),
+"BWE" => array("City" => "Braunschweig", "Lat" => 52.319167, "Lon" => 10.556111),
+"BWF" => array("City" => "Barrow Island", "Lat" => 54.131167, "Lon" => -3.263667),
+"BWG" => array("City" => "Bowling Green", "Lat" => 36.9645278, "Lon" => -86.4196667),
+"BWI" => array("City" => "Baltimore", "Lat" => 39.175361, "Lon" => -76.668333),
+"BWK" => array("City" => "Brac", "Lat" => 43.285719, "Lon" => 16.679719),
+"BWN" => array("City" => "Brunei", "Lat" => 4.9442, "Lon" => 114.928353),
+"BWO" => array("City" => "Balakovo", "Lat" => 51.8583, "Lon" => 47.7456),
+"BWT" => array("City" => "Burnie", "Lat" => -40.9989, "Lon" => 145.731),
+"BWU" => array("City" => "Sydney", "Lat" => -33.924444, "Lon" => 150.988333),
+"BXB" => array("City" => "Babo", "Lat" => -2.532242, "Lon" => 133.438894),
+"BXE" => array("City" => "Bakel", "Lat" => 14.847256, "Lon" => -12.468264),
+"BXH" => array("City" => "Balkhash", "Lat" => 46.8933, "Lon" => 75.005),
+"BXK" => array("City" => "Buckeye", "Lat" => 33.420417, "Lon" => -112.68618),
+"BXN" => array("City" => "Bodrum", "Lat" => 37.140144, "Lon" => 27.669717),
+"BXR" => array("City" => "Bam", "Lat" => 29.084169, "Lon" => 58.450042),
+"BXS" => array("City" => "Borrego Springs", "Lat" => 33.2590278, "Lon" => -116.3209722),
+"BXU" => array("City" => "Butuan", "Lat" => 8.951322, "Lon" => 125.477972),
+"BXX" => array("City" => "Boorama", "Lat" => 9.933, "Lon" => 43.15),
+"BYC" => array("City" => "Yacuiba", "Lat" => -21.960925, "Lon" => -63.651669),
+"BYH" => array("City" => "Blytheville", "Lat" => 35.964347, "Lon" => -89.943956),
+"BYK" => array("City" => "Bouake", "Lat" => 7.7388, "Lon" => -5.073667),
+"BYM" => array("City" => "Bayamo", "Lat" => 20.396331, "Lon" => -76.621494),
+"BYS" => array("City" => "Fort Irwin", "Lat" => 35.280531, "Lon" => -116.630031),
+"BYU" => array("City" => "Bayreuth", "Lat" => 49.984428, "Lon" => 11.638569),
+"BZA" => array("City" => "Bonanza", "Lat" => 14.041667, "Lon" => -84.630556),
+"BZB" => array("City" => "Bazaruto Island", "Lat" => -21.542778, "Lon" => 35.473056),
+"BZE" => array("City" => "Belize City", "Lat" => 17.539144, "Lon" => -88.308203),
+"BZG" => array("City" => "Bydgoszcz", "Lat" => 53.0968, "Lon" => 17.9777),
+"BZI" => array("City" => "Balikesir", "Lat" => 39.619258, "Lon" => 27.925958),
+"BZK" => array("City" => "Bryansk", "Lat" => 53.214194, "Lon" => 34.176447),
+"BZL" => array("City" => "Barisal", "Lat" => 22.801, "Lon" => 90.3012),
+"BZN" => array("City" => "Bozeman", "Lat" => 45.777643, "Lon" => -111.160151),
+"BZO" => array("City" => "Bolzano", "Lat" => 46.460194, "Lon" => 11.326383),
+"BZR" => array("City" => "Beziers", "Lat" => 43.323522, "Lon" => 3.353903),
+"BZV" => array("City" => "Brazzaville", "Lat" => -4.2517, "Lon" => 15.253031),
+"BZY" => array("City" => "Strymba", "Lat" => 47.8381, "Lon" => 27.7815),
+"BZZ" => array("City" => "Brize Norton", "Lat" => 51.749964, "Lon" => -1.583617),
+"C02" => array("City" => "Lake Geneva", "Lat" => 42.6149167, "Lon" => -88.3895833),
+"C16" => array("City" => "Urbana", "Lat" => 40.144979, "Lon" => -88.200197),
+"C23" => array("City" => "Peleliu", "Lat" => 6.998333, "Lon" => 134.232778),
+"C47" => array("City" => "Portage", "Lat" => 43.5603136, "Lon" => -89.4828607),
+"C91" => array("City" => "Dowagiac", "Lat" => 41.9929342, "Lon" => -86.1280125),
+"CAB" => array("City" => "Cabinda", "Lat" => -5.596992, "Lon" => 12.188353),
+"CAC" => array("City" => "Cascavel", "Lat" => -25.000339, "Lon" => -53.500764),
+"CAE" => array("City" => "Colombia", "Lat" => 33.938833, "Lon" => -81.119528),
+"CAG" => array("City" => "Cagliari", "Lat" => 39.251469, "Lon" => 9.054283),
+"CAH" => array("City" => "Ca Mau", "Lat" => 9.188049, "Lon" => 105.174721),
+"CAI" => array("City" => "Cairo", "Lat" => 30.121944, "Lon" => 31.405556),
+"CAJ" => array("City" => "Canaima", "Lat" => 6.231989, "Lon" => -62.854433),
+"CAK" => array("City" => "AKRON", "Lat" => 40.9160833, "Lon" => -81.4421944),
+"CAL" => array("City" => "Campbeltown", "Lat" => 55.4372, "Lon" => -5.68639),
+"CAN" => array("City" => "Guangzhou", "Lat" => 23.392436, "Lon" => 113.298786),
+"CAP" => array("City" => "Cap Haitien", "Lat" => 19.732989, "Lon" => -72.194739),
+"CAQ" => array("City" => "Caucasia", "Lat" => 7.968333, "Lon" => -75.198333),
+"CAR" => array("City" => "Caribou", "Lat" => 46.8715, "Lon" => -68.017917),
+"CAT" => array("City" => "Cat Island", "Lat" => 24.315292, "Lon" => -75.452331),
+"CAU" => array("City" => "Caruaru", "Lat" => -8.28239, "Lon" => -36.0135),
+"CAW" => array("City" => "Campos", "Lat" => -21.698333, "Lon" => -41.301669),
+"CAX" => array("City" => "Carlisle", "Lat" => 54.9375, "Lon" => -2.809167),
+"CAY" => array("City" => "Cayenne", "Lat" => 4.819808, "Lon" => -52.360447),
+"CBB" => array("City" => "Cochabamba", "Lat" => -17.421058, "Lon" => -66.177114),
+"CBG" => array("City" => "Cambridge", "Lat" => 52.205, "Lon" => 0.175),
+"CBH" => array("City" => "Béchar", "Lat" => 31.6457, "Lon" => -2.26986),
+"CBL" => array("City" => "Ciudad Bolivar", "Lat" => 8.121898, "Lon" => -63.537353),
+"CBM" => array("City" => "Colombus", "Lat" => 33.643833, "Lon" => -88.443833),
+"CBN" => array("City" => "Cirebon", "Lat" => -6.756144, "Lon" => 108.539672),
+"CBO" => array("City" => "Cotabato", "Lat" => 7.165242, "Lon" => 124.209619),
+"CBQ" => array("City" => "Calabar", "Lat" => 4.976019, "Lon" => 8.347197),
+"CBR" => array("City" => "Canberra", "Lat" => -35.306944, "Lon" => 149.195),
+"CBT" => array("City" => "Catumbela", "Lat" => -12.4792, "Lon" => 13.4869),
+"CBV" => array("City" => "Coban", "Lat" => 15.468958, "Lon" => -90.406742),
+"CCC" => array("City" => "Cayo Coco", "Lat" => 22.5132, "Lon" => -78.511),
+"CCF" => array("City" => "Carcassonne", "Lat" => 43.215978, "Lon" => 2.306317),
+"CCH" => array("City" => "Chile Chico", "Lat" => -46.583341, "Lon" => -71.687405),
+"CCJ" => array("City" => "Calicut", "Lat" => 11.136839, "Lon" => 75.9553),
+"CCN" => array("City" => "Chaghcharan", "Lat" => 34.526667, "Lon" => 65.271667),
+"CCP" => array("City" => "Concepcion", "Lat" => -36.77265, "Lon" => -73.063106),
+"CCR" => array("City" => "Concord", "Lat" => 37.9896667, "Lon" => -122.0568889),
+"CCS" => array("City" => "Caracas", "Lat" => 10.603117, "Lon" => -66.990583),
+"CCU" => array("City" => "Calcutta", "Lat" => 22.654739, "Lon" => 88.446722),
+"CCV" => array("City" => "Craig Cove", "Lat" => -16.265, "Lon" => 167.924),
+"CCZ" => array("City" => "Chub Cay", "Lat" => 25.417108, "Lon" => -77.88085),
+"CDA" => array("City" => "Cooinda", "Lat" => -12.9033, "Lon" => 132.532),
+"CDB" => array("City" => "Cold Bay", "Lat" => 55.206061, "Lon" => -162.725436),
+"CDC" => array("City" => "Cedar City", "Lat" => 37.700967, "Lon" => -113.098847),
+"CDG" => array("City" => "Paris", "Lat" => 49.012779, "Lon" => 2.55),
+"CDI" => array("City" => "Cambridge", "Lat" => 39.9750278, "Lon" => -81.5775833),
+"CDJ" => array("City" => "Conceicao Do Araguaia", "Lat" => -8.348347, "Lon" => -49.301528),
+"CDP" => array("City" => "Cuddapah", "Lat" => 14.509961, "Lon" => 78.772833),
+"CDR" => array("City" => "Chadron", "Lat" => 42.8375, "Lon" => -103.095556),
+"CDS" => array("City" => "Childress", "Lat" => 34.433781, "Lon" => -100.287992),
+"CDU" => array("City" => "Camden", "Lat" => -34.040278, "Lon" => 150.687222),
+"CDV" => array("City" => "Cordova", "Lat" => 60.491778, "Lon" => -145.477556),
+"CDW" => array("City" => "Caldwell", "Lat" => 40.8752222, "Lon" => -74.2813611),
+"CEB" => array("City" => "Cebu", "Lat" => 10.307542, "Lon" => 123.979439),
+"CEC" => array("City" => "Crescent City", "Lat" => 41.7802, "Lon" => -124.237),
+"CEE" => array("City" => "Cherepovets", "Lat" => 59.2736, "Lon" => 38.0158),
+"CEF" => array("City" => "Chicopee Falls", "Lat" => 42.194014, "Lon" => -72.534783),
+"CEG" => array("City" => "Hawarden", "Lat" => 53.178056, "Lon" => -2.977778),
+"CEI" => array("City" => "Chiang Rai", "Lat" => 19.952342, "Lon" => 99.882928),
+"CEJ" => array("City" => "Chernigov", "Lat" => 51.24, "Lon" => 31.09),
+"CEK" => array("City" => "Chelyabinsk", "Lat" => 55.305836, "Lon" => 61.503333),
+"CEM" => array("City" => "Central", "Lat" => 65.573889, "Lon" => -144.780833),
+"CEN" => array("City" => "Ciudad Obregon", "Lat" => 27.392639, "Lon" => -109.833111),
+"CEQ" => array("City" => "Cannes", "Lat" => 43.54205, "Lon" => 6.953478),
+"CER" => array("City" => "Cherbourg", "Lat" => 49.650106, "Lon" => -1.470281),
+"CES" => array("City" => "Cessnock", "Lat" => -32.7875, "Lon" => 151.342),
+"CET" => array("City" => "Cholet", "Lat" => 47.082136, "Lon" => -0.877064),
+"CEW" => array("City" => "Crestview", "Lat" => 30.778833, "Lon" => -86.522111),
+"CEZ" => array("City" => "Cortez", "Lat" => 37.303, "Lon" => -108.628056),
+"CFB" => array("City" => "Cabo Frio", "Lat" => -22.921667, "Lon" => -42.074167),
+"CFD" => array("City" => "Bryan", "Lat" => 30.715694, "Lon" => -96.331361),
+"CFE" => array("City" => "Clermont Ferrand", "Lat" => 45.786661, "Lon" => 3.169169),
+"CFG" => array("City" => "Cienfuegos", "Lat" => 22.15, "Lon" => -80.414167),
+"CFN" => array("City" => "Dongloe", "Lat" => 55.044192, "Lon" => -8.341),
+"CFR" => array("City" => "Caen", "Lat" => 49.173333, "Lon" => -0.45),
+"CFS" => array("City" => "Coff's Harbour", "Lat" => -30.320556, "Lon" => 153.116389),
+"CFU" => array("City" => "Kerkyra/corfu", "Lat" => 39.601944, "Lon" => 19.911667),
+"CGA" => array("City" => "Craig", "Lat" => 55.478889, "Lon" => -133.147778),
+"CGB" => array("City" => "Cuiaba", "Lat" => -15.652931, "Lon" => -56.116719),
+"CGD" => array("City" => "Changde", "Lat" => 28.9189, "Lon" => 111.64),
+"CGF" => array("City" => "Richmond Heights", "Lat" => 41.565124, "Lon" => -81.4863555),
+"CGH" => array("City" => "Sao Paulo", "Lat" => -23.626692, "Lon" => -46.655375),
+"CGI" => array("City" => "Cape Girardeau", "Lat" => 37.2253, "Lon" => -89.5708),
+"CGK" => array("City" => "Jakarta", "Lat" => -6.125567, "Lon" => 106.655897),
+"CGN" => array("City" => "Cologne", "Lat" => 50.865917, "Lon" => 7.142744),
+"CGO" => array("City" => "Zhengzhou", "Lat" => 34.519672, "Lon" => 113.840889),
+"CGP" => array("City" => "Chittagong", "Lat" => 22.249611, "Lon" => 91.813286),
+"CGQ" => array("City" => "Changchun", "Lat" => 43.5412, "Lon" => 125.1201),
+"CGR" => array("City" => "Campo Grande", "Lat" => -20.468667, "Lon" => -54.6725),
+"CGU" => array("City" => "Ciudad Guayana", "Lat" => 8.288527, "Lon" => -62.760361),
+"CGY" => array("City" => "Ladag", "Lat" => 8.415619, "Lon" => 124.611219),
+"CGZ" => array("City" => "Casa Grande", "Lat" => 32.954889, "Lon" => -111.766832),
+"CHA" => array("City" => "Chattanooga", "Lat" => 35.035278, "Lon" => -85.203808),
+"CHC" => array("City" => "Christchurch", "Lat" => -43.489358, "Lon" => 172.532225),
+"CHG" => array("City" => "Chaoyang", "Lat" => 41.5381, "Lon" => 120.435),
+"CHH" => array("City" => "Chachapoyas", "Lat" => -6.201806, "Lon" => -77.856064),
+"CHM" => array("City" => "Chimbote", "Lat" => -9.149614, "Lon" => -78.52385),
+"CHO" => array("City" => "Charlottesville VA", "Lat" => 38.138639, "Lon" => -78.452861),
+"CHQ" => array("City" => "Chania", "Lat" => 35.531747, "Lon" => 24.149678),
+"CHR" => array("City" => "Chateauroux", "Lat" => 46.862194, "Lon" => 1.730667),
+"CHS" => array("City" => "Charleston", "Lat" => 32.898647, "Lon" => -80.040528),
+"CHT" => array("City" => "Chatham Island", "Lat" => -43.81, "Lon" => -176.457222),
+"CHU" => array("City" => "Chuathbaluk", "Lat" => 61.579167, "Lon" => -159.215556),
+"CHX" => array("City" => "Changuinola", "Lat" => 9.458636, "Lon" => -82.516806),
+"CHY" => array("City" => "Choiseul Bay", "Lat" => -6.711944, "Lon" => 156.396111),
+"CIA" => array("City" => "Rome", "Lat" => 41.799361, "Lon" => 12.594936),
+"CIC" => array("City" => "Chico", "Lat" => 39.795383, "Lon" => -121.858422),
+"CID" => array("City" => "Cedar Rapids", "Lat" => 41.884694, "Lon" => -91.710806),
+"CIF" => array("City" => "Chifeng", "Lat" => 42.235, "Lon" => 118.908),
+"CIH" => array("City" => "Changzhi", "Lat" => 36.2475, "Lon" => 113.126),
+"CIJ" => array("City" => "Cobija", "Lat" => -11.040436, "Lon" => -68.782972),
+"CIK" => array("City" => "Chalkyitsik", "Lat" => 66.645, "Lon" => -143.74),
+"CIL" => array("City" => "Council", "Lat" => 64.897778, "Lon" => -163.703333),
+"CIP" => array("City" => "Chipata", "Lat" => -13.5583, "Lon" => 32.5872),
+"CIS" => array("City" => "Canton Island", "Lat" => -2.768122, "Lon" => -171.710394),
+"CIT" => array("City" => "Chimkent", "Lat" => 42.364167, "Lon" => 69.478889),
+"CIU" => array("City" => "Sault Ste Marie", "Lat" => 46.2508, "Lon" => -84.4724),
+"CIW" => array("City" => "Canouan Island", "Lat" => 12.699042, "Lon" => -61.342431),
+"CIX" => array("City" => "Chiclayo", "Lat" => -6.787475, "Lon" => -79.828097),
+"CIZ" => array("City" => "Coari", "Lat" => -4.085, "Lon" => -63.140833),
+"CJA" => array("City" => "Cajamarca", "Lat" => -7.139183, "Lon" => -78.4894),
+"CJB" => array("City" => "Coimbatore", "Lat" => 11.030031, "Lon" => 77.043383),
+"CJC" => array("City" => "Calama", "Lat" => -22.498175, "Lon" => -68.903575),
+"CJJ" => array("City" => "Chongju", "Lat" => 36.7166, "Lon" => 127.499119),
+"CJL" => array("City" => "Chitral", "Lat" => 35.886592, "Lon" => 71.800578),
+"CJM" => array("City" => "Chumphon", "Lat" => 10.7112, "Lon" => 99.361706),
+"CJS" => array("City" => "Ciudad Juarez", "Lat" => 31.636133, "Lon" => -106.428667),
+"CJU" => array("City" => "Cheju", "Lat" => 33.511306, "Lon" => 126.493028),
+"CKB" => array("City" => "Clarksburg", "Lat" => 39.2966, "Lon" => -80.2281),
+"CKC" => array("City" => "Cherkassy", "Lat" => 49.416666, "Lon" => 32.1333),
+"CKD" => array("City" => "Crooked Creek", "Lat" => 61.867778, "Lon" => -158.135),
+"CKG" => array("City" => "Chongqing", "Lat" => 29.719217, "Lon" => 106.641678),
+"CKH" => array("City" => "Chokurdah", "Lat" => 70.6231, "Lon" => 147.902),
+"CKL" => array("City" => "Shchyolkovo", "Lat" => 55.878333, "Lon" => 38.061667),
+"CKS" => array("City" => "Parauapebas", "Lat" => -6.11781, "Lon" => -50.0035),
+"CKY" => array("City" => "Conakry", "Lat" => 9.576889, "Lon" => -13.611961),
+"CKZ" => array("City" => "Canakkale", "Lat" => 40.137722, "Lon" => 26.426777),
+"CLD" => array("City" => "Carlsbad", "Lat" => 33.0742, "Lon" => -117.1648),
+"CLE" => array("City" => "Cleveland", "Lat" => 41.411689, "Lon" => -81.849794),
+"CLJ" => array("City" => "Cluj-napoca", "Lat" => 46.785167, "Lon" => 23.686167),
+"CLL" => array("City" => "College Station", "Lat" => 30.588583, "Lon" => -96.363833),
+"CLM" => array("City" => "Port Angeles", "Lat" => 48.1202, "Lon" => -123.5),
+"CLN" => array("City" => "Carolina", "Lat" => -7.320444, "Lon" => -47.458667),
+"CLO" => array("City" => "Cali", "Lat" => 3.543222, "Lon" => -76.381583),
+"CLQ" => array("City" => "Colima", "Lat" => 19.277011, "Lon" => -103.577397),
+"CLT" => array("City" => "Charlotte", "Lat" => 35.214, "Lon" => -80.943139),
+"CLV" => array("City" => "Caldas Novas", "Lat" => -17.7267, "Lon" => -48.6114),
+"CLY" => array("City" => "Calvi", "Lat" => 42.530753, "Lon" => 8.793189),
+"CMB" => array("City" => "Colombo", "Lat" => 7.180756, "Lon" => 79.884117),
+"CME" => array("City" => "Ciudad Del Carmen", "Lat" => 18.653739, "Lon" => -91.799017),
+"CMF" => array("City" => "Chambery", "Lat" => 45.63805, "Lon" => 5.880225),
+"CMG" => array("City" => "Corumba", "Lat" => -19.011931, "Lon" => -57.673053),
+"CMH" => array("City" => "Columbus", "Lat" => 39.997972, "Lon" => -82.891889),
+"CMI" => array("City" => "Champaign", "Lat" => 40.03925, "Lon" => -88.278056),
+"CMJ" => array("City" => "Cimei", "Lat" => 23.266667, "Lon" => 119.666667),
+"CMK" => array("City" => "Club Makokola", "Lat" => -14.3069, "Lon" => 35.1325),
+"CMN" => array("City" => "Casablanca", "Lat" => 33.367467, "Lon" => -7.589967),
+"CMP" => array("City" => "Santana do Araguaia", "Lat" => -9.505, "Lon" => -50.625),
+"CMR" => array("City" => "Colmar", "Lat" => 48.109853, "Lon" => 7.359011),
+"CMU" => array("City" => "Kundiawa", "Lat" => -6.02429, "Lon" => 144.971),
+"CMW" => array("City" => "Camaguey", "Lat" => 21.420428, "Lon" => -77.847433),
+"CMX" => array("City" => "Hancock", "Lat" => 47.1684, "Lon" => -88.4891),
+"CND" => array("City" => "Constanta", "Lat" => 44.362222, "Lon" => 28.488333),
+"CNF" => array("City" => "Belo Horizonte", "Lat" => -19.63375, "Lon" => -43.968856),
+"CNG" => array("City" => "Cognac", "Lat" => 45.658333, "Lon" => -0.3175),
+"CNL" => array("City" => "Sindal", "Lat" => 57.503525, "Lon" => 10.229372),
+"CNM" => array("City" => "Carlsbad", "Lat" => 32.337472, "Lon" => -104.263278),
+"CNN" => array("City" => "Chulman", "Lat" => 56.9139, "Lon" => 124.914),
+"CNP" => array("City" => "Neerlerit Inaat", "Lat" => 70.7433, "Lon" => -22.6606),
+"CNQ" => array("City" => "Corrientes", "Lat" => -27.445503, "Lon" => -58.761864),
+"CNS" => array("City" => "Cairns", "Lat" => -16.885833, "Lon" => 145.755278),
+"CNW" => array("City" => "Waco", "Lat" => 31.637831, "Lon" => -97.074139),
+"CNX" => array("City" => "Chiang Mai", "Lat" => 18.766847, "Lon" => 98.962644),
+"CNY" => array("City" => "Moab", "Lat" => 38.755, "Lon" => -109.754722),
+"COC" => array("City" => "Concordia", "Lat" => -31.296944, "Lon" => -57.996631),
+"COD" => array("City" => "Cody", "Lat" => 44.520194, "Lon" => -109.023806),
+"COF" => array("City" => "Coco Beach", "Lat" => 28.234922, "Lon" => -80.610125),
+"COG" => array("City" => "Condoto", "Lat" => 5.071667, "Lon" => -76.676389),
+"COH" => array("City" => "Cooch-behar", "Lat" => 26.330508, "Lon" => 89.467203),
+"COK" => array("City" => "Cochin", "Lat" => 9.947386, "Lon" => 76.273081),
+"COL" => array("City" => "Coll", "Lat" => 56.633333, "Lon" => -6.557222),
+"CON" => array("City" => "Concord NH", "Lat" => 43.20267, "Lon" => -71.50233),
+"COO" => array("City" => "Cotonou", "Lat" => 6.357228, "Lon" => 2.384353),
+"COR" => array("City" => "Cordoba", "Lat" => -31.323619, "Lon" => -64.207953),
+"COS" => array("City" => "Colorado Springs", "Lat" => 38.805805, "Lon" => -104.700778),
+"COT" => array("City" => "Cotulla", "Lat" => 28.456694, "Lon" => -99.220294),
+"COU" => array("City" => "Columbia", "Lat" => 38.818094, "Lon" => -92.219631),
+"COX" => array("City" => "Andros", "Lat" => 24.158933, "Lon" => -77.589758),
+"COZ" => array("City" => "Constanza", "Lat" => 18.907626, "Lon" => -70.719852),
+"CPA" => array("City" => "Greenville", "Lat" => 4.37902, "Lon" => -7.69695),
+"CPC" => array("City" => "San Martin Des Andes", "Lat" => -40.075383, "Lon" => -71.137294),
+"CPE" => array("City" => "Campeche", "Lat" => 19.816794, "Lon" => -90.500314),
+"CPH" => array("City" => "Copenhagen", "Lat" => 55.617917, "Lon" => 12.655972),
+"CPO" => array("City" => "Copiapo", "Lat" => -27, "Lon" => -70),
+"CPQ" => array("City" => "Campinas", "Lat" => -22.8592, "Lon" => -47.1082),
+"CPR" => array("City" => "Casper", "Lat" => 42.908, "Lon" => -106.464417),
+"CPS" => array("City" => "East St. Louis", "Lat" => 38.5707244, "Lon" => -90.1562211),
+"CPT" => array("City" => "Cape Town", "Lat" => -33.964806, "Lon" => 18.601667),
+"CPV" => array("City" => "Campina Grande", "Lat" => -7.269917, "Lon" => -35.896364),
+"CPX" => array("City" => "Culebra Island", "Lat" => 18.3127, "Lon" => -65.3034),
+"CQF" => array("City" => "Calais", "Lat" => 50.962097, "Lon" => 1.954764),
+"CQM" => array("City" => "Ciudad Real", "Lat" => 38.856389, "Lon" => -3.97),
+"CRA" => array("City" => "Craiova", "Lat" => 44.318139, "Lon" => 23.888611),
+"CRC" => array("City" => "Cartago", "Lat" => 4.758181, "Lon" => -75.955753),
+"CRD" => array("City" => "Comodoro Rivadavia", "Lat" => -45.785347, "Lon" => -67.465508),
+"CRI" => array("City" => "Colonel Hill", "Lat" => 22.745561, "Lon" => -74.182353),
+"CRK" => array("City" => "Angeles City", "Lat" => 15.185833, "Lon" => 120.560278),
+"CRL" => array("City" => "Charleroi", "Lat" => 50.459197, "Lon" => 4.453817),
+"CRM" => array("City" => "Catarman", "Lat" => 12.502417, "Lon" => 124.635778),
+"CRP" => array("City" => "Corpus Christi", "Lat" => 27.770361, "Lon" => -97.501222),
+"CRQ" => array("City" => "Caravelas", "Lat" => -17.652283, "Lon" => -39.253069),
+"CRU" => array("City" => "Carriacou Island", "Lat" => 12.4761, "Lon" => -61.4728),
+"CRV" => array("City" => "Crotone", "Lat" => 38.997225, "Lon" => 17.080169),
+"CRW" => array("City" => "Charleston", "Lat" => 38.373147, "Lon" => -81.593189),
+"CRZ" => array("City" => "Turkmenabat", "Lat" => 39.083333, "Lon" => 63.602222),
+"CSA" => array("City" => "Colonsay", "Lat" => 56.0575, "Lon" => -6.243056),
+"CSB" => array("City" => "Caransebes", "Lat" => 45.42, "Lon" => 22.253333),
+"CSC" => array("City" => "Guapiles", "Lat" => 10.414, "Lon" => -85.0917),
+"CSF" => array("City" => "Creil", "Lat" => 49.253547, "Lon" => 2.519139),
+"CSG" => array("City" => "Columbus", "Lat" => 32.5163333, "Lon" => -84.9388611),
+"CSH" => array("City" => "Solovetsky Islands", "Lat" => 65.03, "Lon" => 35.7333),
+"CSK" => array("City" => "Cap Skiring", "Lat" => 12.4102, "Lon" => -16.746125),
+"CSO" => array("City" => "Cochstedt", "Lat" => 51.855833, "Lon" => 11.418333),
+"CSX" => array("City" => "Changcha", "Lat" => 28.189158, "Lon" => 113.219633),
+"CSY" => array("City" => "Cheboksary", "Lat" => 56.0903, "Lon" => 47.3473),
+"CTA" => array("City" => "Catania", "Lat" => 37.466781, "Lon" => 15.0664),
+"CTB" => array("City" => "Cutbank", "Lat" => 48.608353, "Lon" => -112.376144),
+"CTC" => array("City" => "Catamarca", "Lat" => -28.593214, "Lon" => -65.750925),
+"CTD" => array("City" => "Chitré", "Lat" => 7.98784, "Lon" => -80.4097),
+"CTG" => array("City" => "Cartagena", "Lat" => 10.442381, "Lon" => -75.512961),
+"CTL" => array("City" => "Charlieville", "Lat" => -26.413334, "Lon" => 146.2625),
+"CTM" => array("City" => "Chetumal", "Lat" => 18.504667, "Lon" => -88.326847),
+"CTS" => array("City" => "Sapporo", "Lat" => 42.7752, "Lon" => 141.692283),
+"CTT" => array("City" => "Le Castellet", "Lat" => 43.252506, "Lon" => 5.785189),
+"CTU" => array("City" => "Chengdu", "Lat" => 30.578528, "Lon" => 103.947086),
+"CUA" => array("City" => "Ciudad Constitución", "Lat" => 25.0538, "Lon" => -111.615),
+"CUC" => array("City" => "Cucuta", "Lat" => 7.927567, "Lon" => -72.511547),
+"CUE" => array("City" => "Cuenca", "Lat" => -2.889467, "Lon" => -78.984397),
+"CUF" => array("City" => "Levaldigi", "Lat" => 44.547019, "Lon" => 7.623217),
+"CUK" => array("City" => "Caye Caulker", "Lat" => 17.7347, "Lon" => -88.0325),
+"CUL" => array("City" => "Culiacan", "Lat" => 24.764547, "Lon" => -107.474717),
+"CUM" => array("City" => "Cumana", "Lat" => 10.450333, "Lon" => -64.130472),
+"CUN" => array("City" => "Cancun", "Lat" => 21.036528, "Lon" => -86.877083),
+"CUP" => array("City" => "Carupano", "Lat" => 10.660014, "Lon" => -63.261681),
+"CUR" => array("City" => "Willemstad", "Lat" => 12.188853, "Lon" => -68.959803),
+"CUU" => array("City" => "Chihuahua", "Lat" => 28.702875, "Lon" => -105.964567),
+"CUZ" => array("City" => "Cuzco", "Lat" => -13.535722, "Lon" => -71.938781),
+"CVF" => array("City" => "Courcheval", "Lat" => 45.3967, "Lon" => 6.63472),
+"CVG" => array("City" => "Cincinnati", "Lat" => 39.048836, "Lon" => -84.667822),
+"CVI" => array("City" => "Caleta Olivia", "Lat" => -46.4333, "Lon" => -67.5333),
+"CVJ" => array("City" => "Cuernavaca", "Lat" => 18.834764, "Lon" => -99.2613),
+"CVM" => array("City" => "Ciudad Victoria", "Lat" => 23.703336, "Lon" => -98.956486),
+"CVN" => array("City" => "Clovis", "Lat" => 34.425139, "Lon" => -103.079278),
+"CVS" => array("City" => "Clovis", "Lat" => 34.382775, "Lon" => -103.322147),
+"CVT" => array("City" => "Coventry", "Lat" => 52.369722, "Lon" => -1.479722),
+"CVU" => array("City" => "Corvo", "Lat" => 39.6715, "Lon" => -31.1136),
+"CWA" => array("City" => "Wassau", "Lat" => 44.772726, "Lon" => -89.646635),
+"CWB" => array("City" => "Curitiba", "Lat" => -25.528475, "Lon" => -49.175775),
+"CWC" => array("City" => "Chernovtsk", "Lat" => 48.259322, "Lon" => 25.980831),
+"CWL" => array("City" => "Cardiff", "Lat" => 51.396667, "Lon" => -3.343333),
+"CXB" => array("City" => "Cox's Bazar", "Lat" => 21.452194, "Lon" => 91.963889),
+"CXF" => array("City" => "Coldfoot", "Lat" => 67.251389, "Lon" => -150.176111),
+"CXH" => array("City" => "Vancouver", "Lat" => 49.289722, "Lon" => -123.115833),
+"CXI" => array("City" => "Kiritimati", "Lat" => 1.986161, "Lon" => -157.349778),
+"CXJ" => array("City" => "Caxias Do Sul", "Lat" => -29.197064, "Lon" => -51.187536),
+"CXL" => array("City" => "Calexico", "Lat" => 32.669502, "Lon" => -115.51333),
+"CXO" => array("City" => "Conroe", "Lat" => 30.351833, "Lon" => -95.414467),
+"CXP" => array("City" => "Cilacap", "Lat" => -7.645056, "Lon" => 109.033911),
+"CXR" => array("City" => "Nha Trang", "Lat" => 11.998153, "Lon" => 109.219372),
+"CYB" => array("City" => "Cayman Barac", "Lat" => 19.686981, "Lon" => -79.882789),
+"CYC" => array("City" => "Caye Chapel", "Lat" => 17.683611, "Lon" => -88.045),
+"CYF" => array("City" => "Chefornak", "Lat" => 60.149167, "Lon" => -164.285556),
+"CYI" => array("City" => "Chiayi", "Lat" => 23.461779, "Lon" => 120.39283),
+"CYM" => array("City" => "Sitka", "Lat" => 57.515, "Lon" => -134.946111),
+"CYO" => array("City" => "Cayo", "Lat" => 21.616453, "Lon" => -81.545989),
+"CYP" => array("City" => "Calbayog City", "Lat" => 12.072706, "Lon" => 124.545092),
+"CYR" => array("City" => "Colonia", "Lat" => -34.4564, "Lon" => -57.7706),
+"CYS" => array("City" => "Cheyenne", "Lat" => 41.155722, "Lon" => -104.811839),
+"CYT" => array("City" => "Yakataga", "Lat" => 60.081901, "Lon" => -142.493611),
+"CYU" => array("City" => "Cuyo", "Lat" => 10.8581, "Lon" => 121.069),
+"CYW" => array("City" => "Celaya", "Lat" => 20.545994, "Lon" => -100.88655),
+"CYX" => array("City" => "Cherskiy", "Lat" => 68.7406, "Lon" => 161.338),
+"CYZ" => array("City" => "Cauayan", "Lat" => 16.929861, "Lon" => 121.753036),
+"CZE" => array("City" => "Coro", "Lat" => 11.414867, "Lon" => -69.681656),
+"CZF" => array("City" => "Cape Romanzof", "Lat" => 61.780297, "Lon" => -166.038747),
+"CZH" => array("City" => "Corozal", "Lat" => 18.3822, "Lon" => -88.4119),
+"CZL" => array("City" => "Constantine", "Lat" => 36.276028, "Lon" => 6.620386),
+"CZM" => array("City" => "Cozumel", "Lat" => 20.522403, "Lon" => -86.925644),
+"CZN" => array("City" => "Chisana", "Lat" => 62.071111, "Lon" => -142.048333),
+"CZS" => array("City" => "Cruiziro Do Sul", "Lat" => -7.599906, "Lon" => -72.769489),
+"CZU" => array("City" => "Corozal", "Lat" => 9.332742, "Lon" => -75.285594),
+"CZX" => array("City" => "Changzhou", "Lat" => 31.941667, "Lon" => 119.711667),
+"DAB" => array("City" => "Daytona Beach", "Lat" => 29.179917, "Lon" => -81.058056),
+"DAC" => array("City" => "Dhaka", "Lat" => 23.843333, "Lon" => 90.397781),
+"DAD" => array("City" => "Danang", "Lat" => 16.043917, "Lon" => 108.19937),
+"DAL" => array("City" => "Dallas", "Lat" => 32.847111, "Lon" => -96.851778),
+"DAM" => array("City" => "Damascus", "Lat" => 33.410636, "Lon" => 36.514267),
+"DAQ" => array("City" => "Daqing", "Lat" => 46.583333, "Lon" => 125),
+"DAR" => array("City" => "Dar Es Salaam", "Lat" => -6.878111, "Lon" => 39.202625),
+"DAT" => array("City" => "Datong", "Lat" => 40.0603, "Lon" => 113.482),
+"DAV" => array("City" => "David", "Lat" => 8.391003, "Lon" => -82.434992),
+"DAX" => array("City" => "Dazhou", "Lat" => 31.3, "Lon" => 107.5),
+"DAY" => array("City" => "Dayton", "Lat" => 39.902375, "Lon" => -84.219375),
+"DBA" => array("City" => "Dalbandin", "Lat" => 28.8783, "Lon" => 64.3998),
+"DBB" => array("City" => "Dabaa City", "Lat" => 30.15, "Lon" => 28.0833),
+"DBD" => array("City" => "Dhanbad", "Lat" => 23.834044, "Lon" => 86.425261),
+"DBM" => array("City" => "Debre Marqos", "Lat" => 10.316667, "Lon" => 37.733333),
+"DBO" => array("City" => "Dubbo", "Lat" => -32.216667, "Lon" => 148.574722),
+"DBQ" => array("City" => "Dubuque IA", "Lat" => 42.402, "Lon" => -90.709472),
+"DBT" => array("City" => "Debre Tabor", "Lat" => 11.966667, "Lon" => 38),
+"DBV" => array("City" => "Dubrovnik", "Lat" => 42.561353, "Lon" => 18.268244),
+"DCA" => array("City" => "Washington", "Lat" => 38.852083, "Lon" => -77.037722),
+"DCF" => array("City" => "Canefield", "Lat" => 15.336719, "Lon" => -61.392211),
+"DCI" => array("City" => "Decimomannu", "Lat" => 39.354222, "Lon" => 8.972481),
+"DCM" => array("City" => "Castres", "Lat" => 43.55625, "Lon" => 2.289183),
+"DDC" => array("City" => "Dodge City", "Lat" => 37.7634, "Lon" => -99.9656),
+"DDG" => array("City" => "Dandong", "Lat" => 40.0255, "Lon" => 124.2866),
+"DEA" => array("City" => "Dera Ghazi Khan", "Lat" => 29.961011, "Lon" => 70.485925),
+"DEB" => array("City" => "Debrecen", "Lat" => 47.488917, "Lon" => 21.615333),
+"DEC" => array("City" => "Decatur", "Lat" => 39.834564, "Lon" => -88.865689),
+"DED" => array("City" => "Dehra Dun", "Lat" => 30.189689, "Lon" => 78.180256),
+"DEE" => array("City" => "Deering", "Lat" => 66.0696, "Lon" => -162.766),
+"DEL" => array("City" => "Delhi", "Lat" => 28.5665, "Lon" => 77.103088),
+"DEM" => array("City" => "Dembidollo", "Lat" => 8.554, "Lon" => 34.858),
+"DEN" => array("City" => "Denver", "Lat" => 39.861656, "Lon" => -104.673178),
+"DES" => array("City" => "Desroches", "Lat" => -5.696697, "Lon" => 53.655844),
+"DET" => array("City" => "Detroit", "Lat" => 42.409195, "Lon" => -83.009861),
+"DEZ" => array("City" => "Deire Zor", "Lat" => 35.285374, "Lon" => 40.175961),
+"DFW" => array("City" => "Dallas-fort Worth", "Lat" => 32.896828, "Lon" => -97.037997),
+"DGA" => array("City" => "Dangriga", "Lat" => 16.966667, "Lon" => -88.216667),
+"DGE" => array("City" => "Mudgee", "Lat" => -32.5625, "Lon" => 149.611),
+"DGL" => array("City" => "Douglas", "Lat" => 31.3426028, "Lon" => -109.5064544),
+"DGO" => array("City" => "Durango", "Lat" => 24.124194, "Lon" => -104.528014),
+"DGT" => array("City" => "Dumaguete", "Lat" => 9.333714, "Lon" => 123.300472),
+"DHA" => array("City" => "Dhahran", "Lat" => 26.265417, "Lon" => 50.152027),
+"DHI" => array("City" => "Dhangarhi", "Lat" => 28.753333, "Lon" => 80.581944),
+"DHN" => array("City" => "Dothan", "Lat" => 31.321339, "Lon" => -85.449628),
+"DHR" => array("City" => "De Kooy", "Lat" => 52.923353, "Lon" => 4.780625),
+"DHT" => array("City" => "Dalhart", "Lat" => 36.022586, "Lon" => -102.547278),
+"DIB" => array("City" => "Dibrugarh", "Lat" => 27.4839, "Lon" => 95.0169),
+"DIE" => array("City" => "Antsiranana", "Lat" => -12.3494, "Lon" => 49.291747),
+"DIG" => array("City" => "Shangri-La", "Lat" => 27.7936, "Lon" => 99.6772),
+"DIJ" => array("City" => "Dijon", "Lat" => 47.26889, "Lon" => 5.09),
+"DIK" => array("City" => "Dickinson", "Lat" => 46.7975, "Lon" => -102.801944),
+"DIL" => array("City" => "Dili", "Lat" => -8.546553, "Lon" => 125.524719),
+"DIN" => array("City" => "Dienbienphu", "Lat" => 21.397481, "Lon" => 103.007831),
+"DIR" => array("City" => "Dire Dawa", "Lat" => 9.6247, "Lon" => 41.854203),
+"DIS" => array("City" => "Loubomo", "Lat" => -4.2, "Lon" => 12.7),
+"DIU" => array("City" => "Diu", "Lat" => 20.7131, "Lon" => 70.9211),
+"DIW" => array("City" => "Dickwella", "Lat" => 5.966667, "Lon" => 80.683333),
+"DIY" => array("City" => "Diyabakir", "Lat" => 37.893897, "Lon" => 40.201019),
+"DJB" => array("City" => "Jambi", "Lat" => -1.638017, "Lon" => 103.644378),
+"DJE" => array("City" => "Djerba", "Lat" => 33.875031, "Lon" => 10.775461),
+"DJG" => array("City" => "Djanet", "Lat" => 24.292767, "Lon" => 9.452444),
+"DJJ" => array("City" => "Jayapura", "Lat" => -2.576953, "Lon" => 140.516372),
+"DJO" => array("City" => "Daloa", "Lat" => 6.792808, "Lon" => -6.473189),
+"DKB" => array("City" => "De Kalb", "Lat" => 41.9338342, "Lon" => -88.7056864),
+"DKI" => array("City" => "Dunk Island", "Lat" => -17.939722, "Lon" => 146.141944),
+"DKR" => array("City" => "Dakar", "Lat" => 14.739708, "Lon" => -17.490225),
+"DLA" => array("City" => "Douala", "Lat" => 4.006081, "Lon" => 9.719481),
+"DLC" => array("City" => "Dalian", "Lat" => 38.965667, "Lon" => 121.5386),
+"DLE" => array("City" => "Dole", "Lat" => 47.039014, "Lon" => 5.42725),
+"DLF" => array("City" => "Del Rio", "Lat" => 29.359486, "Lon" => -100.777975),
+"DLG" => array("City" => "Dillingham", "Lat" => 59.044667, "Lon" => -158.5055),
+"DLH" => array("City" => "Duluth", "Lat" => 46.842091, "Lon" => -92.193649),
+"DLI" => array("City" => "Dalat", "Lat" => 11.75, "Lon" => 108.367),
+"DLM" => array("City" => "Dalaman", "Lat" => 36.713056, "Lon" => 28.7925),
+"DLU" => array("City" => "Dali", "Lat" => 25.649444, "Lon" => 100.319444),
+"DLY" => array("City" => "Dillon's Bay", "Lat" => -18.7694, "Lon" => 169.001),
+"DMA" => array("City" => "Tucson", "Lat" => 32.166467, "Lon" => -110.883144),
+"DMB" => array("City" => "Dzhambul", "Lat" => 42.853611, "Lon" => 71.303611),
+"DME" => array("City" => "Moscow - ", "Lat" => 55.408611, "Lon" => 37.906111),
+"DMK" => array("City" => "Bangkok", "Lat" => 13.912583, "Lon" => 100.60675),
+"DMM" => array("City" => "Dammam", "Lat" => 26.471161, "Lon" => 49.79789),
+"DMT" => array("City" => "Diamantino", "Lat" => -14.408889, "Lon" => -56.445833),
+"DNA" => array("City" => "Kadena", "Lat" => 26.355612, "Lon" => 127.767633),
+"DND" => array("City" => "Dundee", "Lat" => 56.452499, "Lon" => -3.025833),
+"DNH" => array("City" => "Dunhuang", "Lat" => 40.094, "Lon" => 94.4818),
+"DNK" => array("City" => "Dnepropetrovsk", "Lat" => 48.357222, "Lon" => 35.100556),
+"DNP" => array("City" => "Dang", "Lat" => 28.111111, "Lon" => 82.294167),
+"DNR" => array("City" => "Dinard", "Lat" => 48.587683, "Lon" => -2.079958),
+"DNZ" => array("City" => "Denizli", "Lat" => 37.785567, "Lon" => 29.701297),
+"DOD" => array("City" => "Dodoma", "Lat" => -6.170436, "Lon" => 35.752578),
+"DOE" => array("City" => "Djoemoe", "Lat" => 4.016667, "Lon" => -55.483333),
+"DOG" => array("City" => "Dongola", "Lat" => 19.153867, "Lon" => 30.430094),
+"DOH" => array("City" => "Doha", "Lat" => 25.261125, "Lon" => 51.565056),
+"DOK" => array("City" => "Donetsk", "Lat" => 48.073611, "Lon" => 37.739722),
+"DOL" => array("City" => "Deauville", "Lat" => 49.365339, "Lon" => 0.154306),
+"DOM" => array("City" => "Dominica", "Lat" => 15.547028, "Lon" => -61.3),
+"DOP" => array("City" => "Dolpa", "Lat" => 28.985718, "Lon" => 82.819145),
+"DOU" => array("City" => "Dourados", "Lat" => -22.220833, "Lon" => -54.805833),
+"DOV" => array("City" => "Dover", "Lat" => 39.129539, "Lon" => -75.465958),
+"DOY" => array("City" => "Dongying", "Lat" => 37.2716, "Lon" => 118.2819),
+"DPA" => array("City" => "West Chicago", "Lat" => 41.907778, "Lon" => -88.248611),
+"DPL" => array("City" => "Dipolog", "Lat" => 8.601261, "Lon" => 123.334481),
+"DPS" => array("City" => "Denpasar", "Lat" => -8.748169, "Lon" => 115.167172),
+"DRB" => array("City" => "Derby", "Lat" => -17.39, "Lon" => 123.68),
+"DRI" => array("City" => "Deridder", "Lat" => 30.831722, "Lon" => -93.339917),
+"DRJ" => array("City" => "Drietabbetje", "Lat" => 4.11667, "Lon" => -54.66667),
+"DRK" => array("City" => "Puntarenas", "Lat" => 8.71889, "Lon" => -83.6417),
+"DRO" => array("City" => "Durango", "Lat" => 37.151516, "Lon" => -107.75377),
+"DRS" => array("City" => "Dresden", "Lat" => 51.132767, "Lon" => 13.767161),
+"DRT" => array("City" => "Del Rio", "Lat" => 29.374208, "Lon" => -100.927158),
+"DRW" => array("City" => "Darwin", "Lat" => -12.4083333, "Lon" => 130.87266),
+"DSD" => array("City" => "Grande Anse", "Lat" => 16.2969, "Lon" => -61.0844),
+"DSE" => array("City" => "Dessie", "Lat" => 11.0825, "Lon" => 39.7114),
+"DSK" => array("City" => "Dera Ismael Khan", "Lat" => 31.909422, "Lon" => 70.896639),
+"DSM" => array("City" => "Des Moines", "Lat" => 41.533972, "Lon" => -93.663083),
+"DSN" => array("City" => "Dongsheng", "Lat" => 39.85, "Lon" => 110.033),
+"DTA" => array("City" => "Delta", "Lat" => 39.3806386, "Lon" => -112.5077147),
+"DTD" => array("City" => "Datadawai-Borneo Island", "Lat" => 0.717, "Lon" => 116.483),
+"DTM" => array("City" => "Dortmund", "Lat" => 51.518314, "Lon" => 7.612242),
+"DTS" => array("City" => "Destin", "Lat" => 30.4000611, "Lon" => -86.4714772),
+"DTW" => array("City" => "Detroit", "Lat" => 42.212444, "Lon" => -83.353389),
+"DUB" => array("City" => "Dublin", "Lat" => 53.421333, "Lon" => -6.270075),
+"DUC" => array("City" => "Duncan", "Lat" => 34.4713056, "Lon" => -97.9598611),
+"DUD" => array("City" => "Dunedin", "Lat" => -45.928055, "Lon" => 170.198333),
+"DUG" => array("City" => "Douglas", "Lat" => 31.469028, "Lon" => -109.603667),
+"DUH" => array("City" => "Oudtshoorn", "Lat" => -33.606967, "Lon" => 22.188978),
+"DUJ" => array("City" => "Du Bois", "Lat" => 41.1783, "Lon" => -78.8987),
+"DUM" => array("City" => "Dumai", "Lat" => 1.609194, "Lon" => 101.433558),
+"DUR" => array("City" => "Durban", "Lat" => -29.970089, "Lon" => 30.950519),
+"DUS" => array("City" => "Duesseldorf", "Lat" => 51.289453, "Lon" => 6.766775),
+"DUT" => array("City" => "Unalaska", "Lat" => 53.900139, "Lon" => -166.5435),
+"DVL" => array("City" => "Devils Lake", "Lat" => 48.114444, "Lon" => -98.908611),
+"DVO" => array("City" => "Davao", "Lat" => 7.125522, "Lon" => 125.645778),
+"DVT" => array("City" => "Phoenix ", "Lat" => 33.4117, "Lon" => 112.457),
+"DWA" => array("City" => "Davis-Woodland-Winters", "Lat" => 38.5793889, "Lon" => -121.8569444),
+"DWB" => array("City" => "Soalala", "Lat" => -16.083, "Lon" => 45.367),
+"DWD" => array("City" => "Dawadmi", "Lat" => 24.5, "Lon" => 44.4),
+"DWH" => array("City" => "Houston", "Lat" => 30.063746, "Lon" => -95.554276),
+"DWS" => array("City" => "Orlando", "Lat" => 28, "Lon" => 82),
+"DXB" => array("City" => "Dubai", "Lat" => 25.252778, "Lon" => 55.364444),
+"DYG" => array("City" => "Dayong", "Lat" => 29.1028, "Lon" => 110.443),
+"DYR" => array("City" => "Anadyr", "Lat" => 64.73495, "Lon" => 177.741483),
+"DYS" => array("City" => "Abilene", "Lat" => 32.420756, "Lon" => -99.8546),
+"DYU" => array("City" => "Dushanbe", "Lat" => 38.543333, "Lon" => 68.825),
+"DZA" => array("City" => "Dzaoudzi", "Lat" => -12.804722, "Lon" => 45.281113),
+"DZN" => array("City" => "Zhezkazgan", "Lat" => 47.708333, "Lon" => 67.733333),
+"E63" => array("City" => "Gila Bend", "Lat" => 32.960169, "Lon" => -112.673636),
+"E91" => array("City" => "Chinle", "Lat" => 36.1108806, "Lon" => -109.5754222),
+"EAA" => array("City" => "Eagle", "Lat" => 64.778056, "Lon" => -141.149722),
+"EAE" => array("City" => "Sangafa", "Lat" => -17.0903, "Lon" => 168.343),
+"EAL" => array("City" => "Elenak", "Lat" => 9.083333, "Lon" => 167.333333),
+"EAM" => array("City" => "Nejran", "Lat" => 17.611436, "Lon" => 44.419169),
+"EAP" => array("City" => "Mulhouse", "Lat" => 47.589583, "Lon" => 7.529914),
+"EAR" => array("City" => "Kearney", "Lat" => 40.727, "Lon" => -99.0068),
+"EAS" => array("City" => "San Sebastian", "Lat" => 43.356519, "Lon" => -1.790611),
+"EAT" => array("City" => "Wenatchee", "Lat" => 47.398, "Lon" => -120.206),
+"EAU" => array("City" => "Eau Claire", "Lat" => 44.8658, "Lon" => -91.4843),
+"EBA" => array("City" => "Marina Di Campo", "Lat" => 42.760277, "Lon" => 10.239445),
+"EBB" => array("City" => "Entebbe", "Lat" => 0.042386, "Lon" => 32.443503),
+"EBD" => array("City" => "El Obeid", "Lat" => 13.153219, "Lon" => 30.232675),
+"EBE" => array("City" => "Ebenhofen", "Lat" => 47.824, "Lon" => 10.623),
+"EBG" => array("City" => "El Bagre", "Lat" => 7.596389, "Lon" => -74.808889),
+"EBJ" => array("City" => "Esbjerg", "Lat" => 55.525942, "Lon" => 8.553403),
+"EBL" => array("City" => "Erbil", "Lat" => 36.237611, "Lon" => 43.963158),
+"EBM" => array("City" => "El Borma", "Lat" => 31.704281, "Lon" => 9.254619),
+"EBO" => array("City" => "Bochum", "Lat" => 51.478506, "Lon" => 7.222781),
+"EBU" => array("City" => "St.-etienne", "Lat" => 45.540554, "Lon" => 4.296389),
+"ECA" => array("City" => "El calafate", "Lat" => 11, "Lon" => 11),
+"ECG" => array("City" => "Elizabeth City", "Lat" => 36.260581, "Lon" => -76.174572),
+"ECN" => array("City" => "Nicosia", "Lat" => 35.1547, "Lon" => 33.4961),
+"ECP" => array("City" => "Panama City", "Lat" => 30.3417, "Lon" => -85.7973),
+"EDF" => array("City" => "Anchorage", "Lat" => 61.250986, "Lon" => -149.806503),
+"EDI" => array("City" => "Edinburgh", "Lat" => 55.95, "Lon" => -3.3725),
+"EDL" => array("City" => "Eldoret", "Lat" => 0.404458, "Lon" => 35.238928),
+"EDM" => array("City" => "La Roche-sur-yon", "Lat" => 46.701944, "Lon" => -1.378625),
+"EDW" => array("City" => "Edwards Afb", "Lat" => 34.905417, "Lon" => -117.883739),
+"EEK" => array("City" => "Eek", "Lat" => 60.213611, "Lon" => -162.043889),
+"EFD" => array("City" => "Houston", "Lat" => 29.607333, "Lon" => -95.15875),
+"EFL" => array("City" => "Keffallinia", "Lat" => 38.120069, "Lon" => 20.500481),
+"EGA" => array("City" => "Eagle", "Lat" => 39.6427611, "Lon" => -106.9159347),
+"EGC" => array("City" => "Bergerac", "Lat" => 44.825279, "Lon" => 0.518611),
+"EGE" => array("City" => "Vail", "Lat" => 39.642556, "Lon" => -106.917694),
+"EGM" => array("City" => "Sege", "Lat" => -8.57889, "Lon" => 157.876),
+"EGN" => array("City" => "Geneina", "Lat" => 13.4817, "Lon" => 22.4672),
+"EGO" => array("City" => "Belgorod", "Lat" => 50.6438, "Lon" => 36.5901),
+"EGS" => array("City" => "Egilsstadir", "Lat" => 65.283333, "Lon" => -14.401389),
+"EGV" => array("City" => "Eagle River", "Lat" => 45.932333, "Lon" => -89.268283),
+"EGX" => array("City" => "Egegik", "Lat" => 58.185556, "Lon" => -157.375556),
+"EHL" => array("City" => "El Bolson", "Lat" => -41.943189, "Lon" => -71.532289),
+"EHM" => array("City" => "Cape Newenham", "Lat" => 58.646428, "Lon" => -162.062778),
+"EIE" => array("City" => "Yeniseysk", "Lat" => 58.4742, "Lon" => 92.1125),
+"EIL" => array("City" => "Fairbanks", "Lat" => 64.665667, "Lon" => -147.1015),
+"EIN" => array("City" => "Eindhoven", "Lat" => 51.450139, "Lon" => 5.374528),
+"EIS" => array("City" => "Roadtown/beef Island", "Lat" => 18.444834, "Lon" => -64.542975),
+"EJA" => array("City" => "Barrancabermeja", "Lat" => 7.024331, "Lon" => -73.8068),
+"EJH" => array("City" => "Wejh", "Lat" => 26.198553, "Lon" => 36.476381),
+"EJT" => array("City" => "Enejit", "Lat" => 6.040278, "Lon" => 171.984444),
+"EKN" => array("City" => "Elkins", "Lat" => 38.889444, "Lon" => -79.857139),
+"EKO" => array("City" => "Elko", "Lat" => 40.8249, "Lon" => -115.792),
+"ELA" => array("City" => "Naypyidaw", "Lat" => 19.6235, "Lon" => 96.201028),
+"ELD" => array("City" => "El Dorado", "Lat" => 33.220972, "Lon" => -92.813278),
+"ELE" => array("City" => "El Real", "Lat" => 8.133, "Lon" => -77.7),
+"ELF" => array("City" => "El Fasher", "Lat" => 13.614892, "Lon" => 25.32465),
+"ELG" => array("City" => "El Golea", "Lat" => 30.571294, "Lon" => 2.859586),
+"ELH" => array("City" => "North Eleuthera", "Lat" => 25.474861, "Lon" => -76.683489),
+"ELI" => array("City" => "Elim", "Lat" => 64.615, "Lon" => -162.270556),
+"ELM" => array("City" => "Elmira", "Lat" => 42.159889, "Lon" => -76.891611),
+"ELP" => array("City" => "El Paso", "Lat" => 31.80725, "Lon" => -106.377583),
+"ELQ" => array("City" => "Gassim", "Lat" => 26.302822, "Lon" => 43.773911),
+"ELS" => array("City" => "East London", "Lat" => -33.035569, "Lon" => 27.825939),
+"ELT" => array("City" => "El-tor", "Lat" => 28.209028, "Lon" => 33.645517),
+"ELV" => array("City" => "Elfin Cove", "Lat" => 58.195278, "Lon" => -136.3475),
+"ELX" => array("City" => "El Chalten", "Lat" => -49.328889, "Lon" => -72.93),
+"ELY" => array("City" => "Ely", "Lat" => 39.299722, "Lon" => -114.841944),
+"EMA" => array("City" => "East Midlands", "Lat" => 52.831111, "Lon" => -1.328056),
+"EMD" => array("City" => "Emerald", "Lat" => -23.5675, "Lon" => 148.179167),
+"EME" => array("City" => "Emden", "Lat" => 53.391186, "Lon" => 7.227408),
+"EMK" => array("City" => "Emmonak", "Lat" => 62.786111, "Lon" => -164.490833),
+"EMN" => array("City" => "Nema", "Lat" => 16.622, "Lon" => -7.316567),
+"EMP" => array("City" => "Emporia", "Lat" => 38.3321, "Lon" => -96.1912),
+"ENA" => array("City" => "Kenai", "Lat" => 60.573111, "Lon" => -151.245),
+"ENC" => array("City" => "Nancy", "Lat" => 48.692069, "Lon" => 6.230458),
+"END" => array("City" => "Enid", "Lat" => 36.339167, "Lon" => -97.9165),
+"ENE" => array("City" => "Ende", "Lat" => -8.849294, "Lon" => 121.660644),
+"ENF" => array("City" => "Enontekio", "Lat" => 68.362586, "Lon" => 23.424322),
+"ENH" => array("City" => "Enshi", "Lat" => 30.3203, "Lon" => 109.485),
+"ENI" => array("City" => "El Nido", "Lat" => 11.202, "Lon" => 119.417),
+"ENK" => array("City" => "Enniskillen", "Lat" => 54.398889, "Lon" => -7.651667),
+"ENS" => array("City" => "Enschede", "Lat" => 52.27, "Lon" => 6.874167),
+"ENT" => array("City" => "Eniwetok Atoll", "Lat" => 11.34075, "Lon" => 162.327861),
+"ENU" => array("City" => "Enugu", "Lat" => 6.474272, "Lon" => 7.561961),
+"ENV" => array("City" => "Wendover", "Lat" => 40.718694, "Lon" => -114.030889),
+"ENW" => array("City" => "Kenosha", "Lat" => 42.5956944, "Lon" => -87.9278056),
+"ENY" => array("City" => "Yan'an", "Lat" => 36.6369, "Lon" => 109.554),
+"EOH" => array("City" => "Medellin", "Lat" => 6.219958, "Lon" => -75.590519),
+"EOI" => array("City" => "Eday", "Lat" => 59.1906, "Lon" => -2.77222),
+"EPL" => array("City" => "Epinal", "Lat" => 48.324961, "Lon" => 6.069983),
+"EPS" => array("City" => "Samana", "Lat" => 19.198586, "Lon" => -69.429772),
+"EPU" => array("City" => "Parnu", "Lat" => 58.419044, "Lon" => 24.472819),
+"EQS" => array("City" => "Esquel", "Lat" => -42.90795, "Lon" => -71.139472),
+"ERC" => array("City" => "Erzincan", "Lat" => 39.710203, "Lon" => 39.527003),
+"ERF" => array("City" => "Erfurt", "Lat" => 50.979811, "Lon" => 10.958106),
+"ERH" => array("City" => "Er-rachidia", "Lat" => 31.9475, "Lon" => -4.398333),
+"ERI" => array("City" => "Erie", "Lat" => 42.082022, "Lon" => -80.176217),
+"ERM" => array("City" => "Erechim", "Lat" => -27.6619, "Lon" => -52.2683),
+"ERS" => array("City" => "Windhoek", "Lat" => -22.6122, "Lon" => 17.0804),
+"ERV" => array("City" => "Kerrville", "Lat" => 29.9766667, "Lon" => -99.0854722),
+"ERZ" => array("City" => "Erzurum", "Lat" => 39.956501, "Lon" => 41.170166),
+"ESB" => array("City" => "Ankara", "Lat" => 40.128082, "Lon" => 32.995083),
+"ESC" => array("City" => "Escanaba", "Lat" => 45.722778, "Lon" => -87.093611),
+"ESD" => array("City" => "Eastsound", "Lat" => 48.708056, "Lon" => -122.910556),
+"ESE" => array("City" => "Ensenada", "Lat" => 31.795281, "Lon" => -116.602772),
+"ESF" => array("City" => "Alexandria", "Lat" => 31.394903, "Lon" => -92.295772),
+"ESH" => array("City" => "Shoreham By Sea", "Lat" => 50.835556, "Lon" => -0.297222),
+"ESK" => array("City" => "Eskisehir", "Lat" => 39.784138, "Lon" => 30.582111),
+"ESL" => array("City" => "Elista", "Lat" => 46.3739, "Lon" => 44.3309),
+"ESM" => array("City" => "Tachina", "Lat" => 0.978519, "Lon" => -79.6266),
+"ESN" => array("City" => "Easton", "Lat" => 38.8041667, "Lon" => -76.069),
+"ESR" => array("City" => "El Salvador", "Lat" => -26.3111, "Lon" => -69.7652),
+"ESS" => array("City" => "Essen", "Lat" => 51.402333, "Lon" => 6.937333),
+"ESU" => array("City" => "Essadouira", "Lat" => 31.3975, "Lon" => -9.681667),
+"ESX" => array("City" => "Essen", "Lat" => 51.451389, "Lon" => 7.0138),
+"ETH" => array("City" => "Elat", "Lat" => 29.561281, "Lon" => 34.960081),
+"ETZ" => array("City" => "Metz", "Lat" => 48.982142, "Lon" => 6.251319),
+"EUA" => array("City" => "Eua Island", "Lat" => -21.3783, "Lon" => -174.958),
+"EUG" => array("City" => "Eugene", "Lat" => 44.124583, "Lon" => -123.211972),
+"EUN" => array("City" => "El Aaiún", "Lat" => 27.1517, "Lon" => -13.2192),
+"EUX" => array("City" => "Oranjestad", "Lat" => 17.496492, "Lon" => -62.979439),
+"EVE" => array("City" => "Harstad/Narvik", "Lat" => 68.4913, "Lon" => 16.678108),
+"EVG" => array("City" => "Sveg", "Lat" => 62.047811, "Lon" => 14.42295),
+"EVN" => array("City" => "Yerevan", "Lat" => 40.147275, "Lon" => 44.395881),
+"EVV" => array("City" => "Evansville", "Lat" => 38.036997, "Lon" => -87.532364),
+"EWB" => array("City" => "New Bedford", "Lat" => 41.6761, "Lon" => -70.9569),
+"EWD" => array("City" => "Wadi-al-dawasir", "Lat" => 20.504275, "Lon" => 45.199556),
+"EWN" => array("City" => "New Bern", "Lat" => 35.072972, "Lon" => -77.042944),
+"EWR" => array("City" => "Newark", "Lat" => 40.6925, "Lon" => -74.168667),
+"EXI" => array("City" => "Excursion Inlet", "Lat" => 58.420556, "Lon" => -135.449167),
+"EXM" => array("City" => "Exmouth", "Lat" => -21.933, "Lon" => 114.128),
+"EXT" => array("City" => "Exeter", "Lat" => 50.734444, "Lon" => -3.413889),
+"EYP" => array("City" => "Yopal", "Lat" => 5.319114, "Lon" => -72.383975),
+"EYW" => array("City" => "Key West", "Lat" => 24.556111, "Lon" => -81.759556),
+"EZE" => array("City" => "Buenos Aires", "Lat" => -34.822222, "Lon" => -58.535833),
+"EZS" => array("City" => "Elazig", "Lat" => 38.606925, "Lon" => 39.291417),
+"F70" => array("City" => "Murrieta-Temecula", "Lat" => 33.5741791, "Lon" => -117.1284732),
+"FAA" => array("City" => "Faranah", "Lat" => 10.035467, "Lon" => -10.769825),
+"FAB" => array("City" => "Farnborough", "Lat" => 51.275833, "Lon" => -0.776333),
+"FAE" => array("City" => "Vagar", "Lat" => 62.063628, "Lon" => -7.277219),
+"FAF" => array("City" => "Fort Eustis", "Lat" => 37.1325, "Lon" => -76.608841),
+"FAI" => array("City" => "Fairbanks", "Lat" => 64.815114, "Lon" => -147.856267),
+"FAJ" => array("City" => "Fajardo", "Lat" => 18.308889, "Lon" => -65.661861),
+"FAN" => array("City" => "Farsund", "Lat" => 58.099486, "Lon" => 6.62605),
+"FAO" => array("City" => "Faro", "Lat" => 37.014425, "Lon" => -7.965911),
+"FAR" => array("City" => "Fargo", "Lat" => 46.92065, "Lon" => -96.8157639),
+"FAT" => array("City" => "Fresno", "Lat" => 36.776194, "Lon" => -119.71814),
+"FAV" => array("City" => "Fakarava", "Lat" => -16.05415, "Lon" => -145.656994),
+"FAY" => array("City" => "Fayetteville", "Lat" => 34.9912, "Lon" => -78.8803),
+"FBD" => array("City" => "Faizabad", "Lat" => 37.1211, "Lon" => 70.5181),
+"FBK" => array("City" => "Fort Wainwright", "Lat" => 64.8375, "Lon" => -147.614444),
+"FBM" => array("City" => "Lubumashi", "Lat" => -11.591333, "Lon" => 27.530889),
+"FBU" => array("City" => "Oslo", "Lat" => 59.883333, "Lon" => 10.616667),
+"FCA" => array("City" => "Kalispell", "Lat" => 48.310472, "Lon" => -114.256),
+"FCO" => array("City" => "Rome", "Lat" => 41.804475, "Lon" => 12.250797),
+"FCS" => array("City" => "Fort Carson", "Lat" => 38.678394, "Lon" => -104.756581),
+"FDE" => array("City" => "Forde", "Lat" => 61.25, "Lon" => 5.45),
+"FDF" => array("City" => "Fort-de-france", "Lat" => 14.591033, "Lon" => -61.003175),
+"FDH" => array("City" => "Friedrichshafen", "Lat" => 47.671317, "Lon" => 9.511486),
+"FDU" => array("City" => "Bandoundu", "Lat" => -3.311319, "Lon" => 17.381683),
+"FDY" => array("City" => "Findley", "Lat" => 41.0120278, "Lon" => -83.6686111),
+"FEG" => array("City" => "Fergana", "Lat" => 40.3588, "Lon" => 71.745),
+"FEL" => array("City" => "Fuerstenfeldbruck", "Lat" => 48.205667, "Lon" => 11.267),
+"FEN" => array("City" => "Fernando Do Noronha", "Lat" => -3.854928, "Lon" => -32.423336),
+"FEZ" => array("City" => "Fez", "Lat" => 33.927261, "Lon" => -4.977958),
+"FFA" => array("City" => "Kill Devil Hills", "Lat" => 36.02, "Lon" => -75.67),
+"FFD" => array("City" => "Fairford", "Lat" => 51.682167, "Lon" => -1.790028),
+"FFO" => array("City" => "Dayton", "Lat" => 39.826111, "Lon" => -84.048332),
+"FGI" => array("City" => "Apia", "Lat" => -13.84861111, "Lon" => -171.74083333),
+"FHU" => array("City" => "Fort Huachuca", "Lat" => 31.588472, "Lon" => -110.344389),
+"FIE" => array("City" => "Fair Isle", "Lat" => 59.5358, "Lon" => -1.62806),
+"FIG" => array("City" => "Fira", "Lat" => 10.350556, "Lon" => -13.569167),
+"FIH" => array("City" => "Kinshasa", "Lat" => -4.38575, "Lon" => 15.444569),
+"FIZ" => array("City" => "Fitzroy Crossing", "Lat" => -18.178, "Lon" => 125.591),
+"FJR" => array("City" => "Fujeirah", "Lat" => 25.112225, "Lon" => 56.323964),
+"FKB" => array("City" => "Karlsruhe/Baden-Baden", "Lat" => 48.7793, "Lon" => 8.08048),
+"FKI" => array("City" => "Kisangani", "Lat" => 0.5175, "Lon" => 25.155014),
+"FKL" => array("City" => "Franklin", "Lat" => 41.377874, "Lon" => -79.860362),
+"FKQ" => array("City" => "Fak Fak", "Lat" => -2.920192, "Lon" => 132.267031),
+"FLA" => array("City" => "Florencia", "Lat" => 1.589189, "Lon" => -75.564372),
+"FLF" => array("City" => "Flensburg", "Lat" => 54.771772, "Lon" => 9.378214),
+"FLG" => array("City" => "Flagstaff", "Lat" => 35.140318, "Lon" => -111.6692392),
+"FLL" => array("City" => "Fort Lauderdale", "Lat" => 26.072583, "Lon" => -80.15275),
+"FLN" => array("City" => "Florianopolis", "Lat" => -27.670489, "Lon" => -48.547181),
+"FLO" => array("City" => "Florence", "Lat" => 34.185361, "Lon" => -79.723889),
+"FLR" => array("City" => "Firenze", "Lat" => 43.809953, "Lon" => 11.2051),
+"FLV" => array("City" => "Fort Leavenworth", "Lat" => 39.368332, "Lon" => -94.914686),
+"FLW" => array("City" => "Flores (flores Isl.)", "Lat" => 39.455272, "Lon" => -31.131361),
+"FMA" => array("City" => "Formosa", "Lat" => -26.212722, "Lon" => -58.228111),
+"FME" => array("City" => "Fort Meade", "Lat" => 39.085386, "Lon" => -76.759414),
+"FMH" => array("City" => "Falmouth", "Lat" => 41.658439, "Lon" => -70.521417),
+"FMI" => array("City" => "Kalemie", "Lat" => -5.875556, "Lon" => 29.25),
+"FMM" => array("City" => "Memmingen", "Lat" => 47.988758, "Lon" => 10.2395),
+"FMN" => array("City" => "Farmington", "Lat" => 36.74125, "Lon" => -108.229944),
+"FMO" => array("City" => "Muenster/osnabrueck", "Lat" => 52.134642, "Lon" => 7.684831),
+"FMY" => array("City" => "Fort Myers", "Lat" => 26.586611, "Lon" => -81.86325),
+"FNA" => array("City" => "Freetown", "Lat" => 8.616444, "Lon" => -13.195489),
+"FNC" => array("City" => "Funchal", "Lat" => 32.697889, "Lon" => -16.774453),
+"FNE" => array("City" => "Fane", "Lat" => -8.55, "Lon" => 147.083),
+"FNI" => array("City" => "Nimes", "Lat" => 43.757444, "Lon" => 4.416347),
+"FNJ" => array("City" => "Pyongyang", "Lat" => 39.224061, "Lon" => 125.67015),
+"FNL" => array("City" => "F", "Lat" => 40.451828, "Lon" => -105.011336),
+"FNR" => array("City" => "Funter Bay", "Lat" => 58.254444, "Lon" => -134.897778),
+"FNT" => array("City" => "Flint", "Lat" => 42.965424, "Lon" => -83.743629),
+"FNU" => array("City" => "Oristano", "Lat" => 39.895, "Lon" => 8.6383),
+"FOA" => array("City" => "Foula", "Lat" => 60.121, "Lon" => -2.052),
+"FOC" => array("City" => "Fuzhou", "Lat" => 25.935064, "Lon" => 119.663272),
+"FOD" => array("City" => "Fort Dodge", "Lat" => 42.5512, "Lon" => -94.191842),
+"FOE" => array("City" => "Topeka", "Lat" => 38.950944, "Lon" => -95.663611),
+"FOG" => array("City" => "Foggia", "Lat" => 41.432917, "Lon" => 15.535028),
+"FOK" => array("City" => "West Hampton Beach", "Lat" => 40.843656, "Lon" => -72.631789),
+"FOM" => array("City" => "Foumban", "Lat" => 5.636919, "Lon" => 10.750817),
+"FON" => array("City" => "La Fortuna/San Carlos", "Lat" => 10.478, "Lon" => -84.6345),
+"FOR" => array("City" => "Fortaleza", "Lat" => -3.776283, "Lon" => -38.532556),
+"FPO" => array("City" => "Freeport", "Lat" => 26.558686, "Lon" => -78.695553),
+"FRA" => array("City" => "Frankfurt", "Lat" => 50.026421, "Lon" => 8.543125),
+"FRC" => array("City" => "Franca", "Lat" => -20.538611, "Lon" => -47.400833),
+"FRD" => array("City" => "Friday Harbor", "Lat" => 48.521944, "Lon" => -123.024444),
+"FRE" => array("City" => "Fera Island", "Lat" => -8.1075, "Lon" => 159.577),
+"FRI" => array("City" => "Fort Riley", "Lat" => 39.055275, "Lon" => -96.764453),
+"FRJ" => array("City" => "Frejus", "Lat" => 43.416667, "Lon" => 6.733333),
+"FRL" => array("City" => "Forli", "Lat" => 44.194753, "Lon" => 12.070094),
+"FRN" => array("City" => "Fort Richardson", "Lat" => 61.266381, "Lon" => -149.653119),
+"FRO" => array("City" => "Floro", "Lat" => 61.583611, "Lon" => 5.024722),
+"FRS" => array("City" => "Flores", "Lat" => 16.913819, "Lon" => -89.866383),
+"FRU" => array("City" => "Bishkek", "Lat" => 43.061306, "Lon" => 74.477556),
+"FRW" => array("City" => "Francistown", "Lat" => -21.159597, "Lon" => 27.474525),
+"FSC" => array("City" => "Figari", "Lat" => 41.500557, "Lon" => 9.097777),
+"FSD" => array("City" => "Sioux Falls", "Lat" => 43.582014, "Lon" => -96.741914),
+"FSI" => array("City" => "Fort Sill", "Lat" => 34.649833, "Lon" => -98.402167),
+"FSM" => array("City" => "Fort Smith", "Lat" => 35.336583, "Lon" => -94.367444),
+"FSP" => array("City" => "St.-pierre", "Lat" => 46.762904, "Lon" => -56.173088),
+"FST" => array("City" => "Fort Stockton", "Lat" => 30.915667, "Lon" => -102.916139),
+"FSZ" => array("City" => "Shizuoka", "Lat" => 34.796111, "Lon" => 138.189444),
+"FTA" => array("City" => "Futuna Island", "Lat" => -19.5164, "Lon" => 170.232),
+"FTE" => array("City" => "El Calafate", "Lat" => -50.280322, "Lon" => -72.053103),
+"FTI" => array("City" => "Fiti\\'uta", "Lat" => -14.216111, "Lon" => -169.423611),
+"FTK" => array("City" => "Fort Knox", "Lat" => 37.907058, "Lon" => -85.972106),
+"FTU" => array("City" => "Tolagnaro", "Lat" => -25.038056, "Lon" => 46.956111),
+"FTW" => array("City" => "Fort Worth", "Lat" => 32.819778, "Lon" => -97.362444),
+"FTX" => array("City" => "Owando", "Lat" => -0.53135, "Lon" => 15.950094),
+"FTY" => array("City" => "Atlanta", "Lat" => 33.7791, "Lon" => -84.5214),
+"FUE" => array("City" => "Fuerteventura", "Lat" => 28.452717, "Lon" => -13.863761),
+"FUG" => array("City" => "Fuyang", "Lat" => 32.9, "Lon" => 115.816667),
+"FUJ" => array("City" => "Fukue", "Lat" => 32.666269, "Lon" => 128.832808),
+"FUK" => array("City" => "Fukuoka", "Lat" => 33.585942, "Lon" => 130.450686),
+"FUL" => array("City" => "Fullerton", "Lat" => 33.521925, "Lon" => -117.584722),
+"FUN" => array("City" => "Funafuti", "Lat" => -8.525, "Lon" => 179.196389),
+"FUO" => array("City" => "Foshan", "Lat" => 23.133333, "Lon" => 113.28333),
+"FUS" => array("City" => "Fussen", "Lat" => 47.585, "Lon" => 10.6866),
+"FUT" => array("City" => "Futuna Island", "Lat" => -14.3114, "Lon" => -178.066),
+"FUX" => array("City" => "Fussen", "Lat" => 47.585, "Lon" => 10.6866),
+"FWA" => array("City" => "Fort Wayne", "Lat" => 40.978472, "Lon" => -85.195139),
+"FWM" => array("City" => "Fort William", "Lat" => 56.816666, "Lon" => -5.116667),
+"FXE" => array("City" => "Fort Lauderdale", "Lat" => 26.197281, "Lon" => -80.170706),
+"FYT" => array("City" => "Faya-largeau", "Lat" => 17.917053, "Lon" => 19.111078),
+"FYU" => array("City" => "Fort Yukon", "Lat" => 66.571492, "Lon" => -145.250417),
+"FYV" => array("City" => "Fayetteville", "Lat" => 36.005094, "Lon" => -94.170059),
+"FZO" => array("City" => "Bristol", "Lat" => 51.519444, "Lon" => -2.590833),
+"GAE" => array("City" => "Gabes", "Lat" => 33.876919, "Lon" => 10.103333),
+"GAF" => array("City" => "Gafsa", "Lat" => 34.422022, "Lon" => 8.822503),
+"GAJ" => array("City" => "Yamagata", "Lat" => 38.411894, "Lon" => 140.371331),
+"GAL" => array("City" => "Galena", "Lat" => 64.736178, "Lon" => -156.937417),
+"GAM" => array("City" => "Gambell", "Lat" => 63.7668, "Lon" => -171.733),
+"GAO" => array("City" => "Guantanamo", "Lat" => 20.085419, "Lon" => -75.158328),
+"GAQ" => array("City" => "Gao", "Lat" => 16.248433, "Lon" => -0.005456),
+"GAU" => array("City" => "Guwahati", "Lat" => 26.106092, "Lon" => 91.585939),
+"GAX" => array("City" => "Gamba", "Lat" => -2.71016, "Lon" => 9.96062),
+"GAY" => array("City" => "Gaya", "Lat" => 24.744308, "Lon" => 84.951175),
+"GBE" => array("City" => "Gaberone", "Lat" => -24.555225, "Lon" => 25.918208),
+"GBJ" => array("City" => "Grand Bourg", "Lat" => 15.86875, "Lon" => -61.270022),
+"GBN" => array("City" => "Great Bend", "Lat" => 38.344167, "Lon" => -98.859167),
+"GBT" => array("City" => "Gorgan", "Lat" => 36.909381, "Lon" => 54.401339),
+"GBZ" => array("City" => "Claris", "Lat" => -36.1429, "Lon" => 175.2819),
+"GCC" => array("City" => "Gillette", "Lat" => 44.3489167, "Lon" => -105.5393611),
+"GCI" => array("City" => "Guernsey", "Lat" => 49.434956, "Lon" => -2.601969),
+"GCJ" => array("City" => "Johannesburg", "Lat" => -25.986267, "Lon" => 28.140061),
+"GCK" => array("City" => "Garden City", "Lat" => 37.927528, "Lon" => -100.724417),
+"GCM" => array("City" => "Georgetown", "Lat" => 19.292778, "Lon" => -81.35775),
+"GCN" => array("City" => "Grand Canyon", "Lat" => 35.9523611, "Lon" => -112.1469722),
+"GCW" => array("City" => "Grand Canyon West", "Lat" => 35.5925, "Lon" => -113.4859),
+"GDA" => array("City" => "Gounda", "Lat" => 9.272222, "Lon" => 21.197222),
+"GDE" => array("City" => "Gode", "Lat" => 5.935128, "Lon" => 43.578567),
+"GDL" => array("City" => "Guadalajara", "Lat" => 20.5218, "Lon" => -103.311167),
+"GDN" => array("City" => "Gdansk", "Lat" => 54.377569, "Lon" => 18.466222),
+"GDQ" => array("City" => "Gondar", "Lat" => 12.5199, "Lon" => 37.434047),
+"GDT" => array("City" => "Cockburn Town", "Lat" => 21.4445, "Lon" => -71.1423),
+"GDV" => array("City" => "Glendive", "Lat" => 47.138611, "Lon" => -104.807222),
+"GDX" => array("City" => "Magadan", "Lat" => 59.910989, "Lon" => 150.720439),
+"GDZ" => array("City" => "Gelendzik", "Lat" => 44.566666666667, "Lon" => 38.016666666667),
+"GEA" => array("City" => "Noumea", "Lat" => -22.258278, "Lon" => 166.472806),
+"GED" => array("City" => "Georgetown", "Lat" => 38.689194, "Lon" => -75.358889),
+"GEG" => array("City" => "Spokane", "Lat" => 47.619861, "Lon" => -117.533833),
+"GEL" => array("City" => "Santo Angelo", "Lat" => -28.281683, "Lon" => -54.169139),
+"GEN" => array("City" => "Oslo", "Lat" => 60.1939, "Lon" => 11.1004),
+"GEO" => array("City" => "Georgetown", "Lat" => 6.498553, "Lon" => -58.254119),
+"GER" => array("City" => "Nueva Gerona", "Lat" => 21.834689, "Lon" => -82.783819),
+"GES" => array("City" => "General Santos City", "Lat" => 6.106439, "Lon" => 125.2353),
+"GEV" => array("City" => "Gallivare", "Lat" => 67.132408, "Lon" => 20.814636),
+"GEX" => array("City" => "Geelong", "Lat" => -38.225, "Lon" => 144.333),
+"GFK" => array("City" => "Grand Forks", "Lat" => 47.949256, "Lon" => -97.176111),
+"GFY" => array("City" => "Grootfontein", "Lat" => -19.602167, "Lon" => 18.122667),
+"GGG" => array("City" => "Longview", "Lat" => 32.384014, "Lon" => -94.711486),
+"GGS" => array("City" => "Gobernador Gregores", "Lat" => -48.7831, "Lon" => -70.15),
+"GGT" => array("City" => "Great Exuma", "Lat" => 23.562631, "Lon" => -75.877958),
+"GGW" => array("City" => "Glasgow", "Lat" => 48.2125, "Lon" => -106.615),
+"GHA" => array("City" => "Ghardaia", "Lat" => 32.384106, "Lon" => 3.794114),
+"GHB" => array("City" => "Governor's Harbor", "Lat" => 25.284706, "Lon" => -76.331011),
+"GHF" => array("City" => "Giebelstadt", "Lat" => 49.648131, "Lon" => 9.966494),
+"GHT" => array("City" => "Ghat", "Lat" => 25.145564, "Lon" => 10.142647),
+"GHU" => array("City" => "Gualeguaychu", "Lat" => -33.010278, "Lon" => -58.613056),
+"GIB" => array("City" => "Gibraltar", "Lat" => 36.151219, "Lon" => -5.349664),
+"GIG" => array("City" => "Rio De Janeiro", "Lat" => -22.808903, "Lon" => -43.243647),
+"GIL" => array("City" => "Gilgit", "Lat" => 35.918786, "Lon" => 74.333644),
+"GIS" => array("City" => "Gisborne", "Lat" => -38.663333, "Lon" => 177.978333),
+"GIZ" => array("City" => "Gizan", "Lat" => 16.901111, "Lon" => 42.585833),
+"GJA" => array("City" => "Guanaja", "Lat" => 16.445367, "Lon" => -85.906611),
+"GJL" => array("City" => "Jijel", "Lat" => 36.795136, "Lon" => 5.873608),
+"GJR" => array("City" => "Gjogur", "Lat" => 65.995278, "Lon" => -21.326944),
+"GJT" => array("City" => "Grand Junction", "Lat" => 39.122413, "Lon" => -108.526735),
+"GKA" => array("City" => "Goroka", "Lat" => -6.081689, "Lon" => 145.391881),
+"GKE" => array("City" => "Geilenkirchen", "Lat" => 50.960817, "Lon" => 6.042422),
+"GKN" => array("City" => "Gulkana", "Lat" => 62.154888, "Lon" => -145.456639),
+"GKY" => array("City" => "Arlington", "Lat" => 32.6638611, "Lon" => -97.0942778),
+"GLA" => array("City" => "Glasgow", "Lat" => 55.871944, "Lon" => -4.433056),
+"GLD" => array("City" => "Goodland", "Lat" => 39.370621, "Lon" => -101.698992),
+"GLF" => array("City" => "Golfito", "Lat" => 8.653775, "Lon" => -83.180544),
+"GLH" => array("City" => "Greenville", "Lat" => 33.4829, "Lon" => -90.9856),
+"GLJ" => array("City" => "Garzón", "Lat" => 2.17, "Lon" => -75.67),
+"GLK" => array("City" => "Galcaio", "Lat" => 6.78083, "Lon" => 47.4547),
+"GLO" => array("City" => "Golouchestershire", "Lat" => 51.894167, "Lon" => -2.167222),
+"GLS" => array("City" => "Galveston", "Lat" => 29.265322, "Lon" => -94.860406),
+"GLV" => array("City" => "Golovin", "Lat" => 64.550556, "Lon" => -163.007222),
+"GMA" => array("City" => "Gemena", "Lat" => 3.235369, "Lon" => 19.771258),
+"GMB" => array("City" => "Gambella", "Lat" => 8.128764, "Lon" => 34.563131),
+"GME" => array("City" => "Gomel", "Lat" => 52.527022, "Lon" => 31.016692),
+"GMI" => array("City" => "Gasmata Island", "Lat" => -6.27111, "Lon" => 150.331),
+"GML" => array("City" => "Kiev", "Lat" => 50.603611, "Lon" => 30.191944),
+"GMP" => array("City" => "Seoul", "Lat" => 37.558311, "Lon" => 126.790586),
+"GMR" => array("City" => "Totegegie", "Lat" => -23.079861, "Lon" => -134.890333),
+"GNA" => array("City" => "Hrodna", "Lat" => 53.602, "Lon" => 24.0538),
+"GNB" => array("City" => "Grenoble", "Lat" => 45.362944, "Lon" => 5.329375),
+"GND" => array("City" => "Point Salines", "Lat" => 12.004247, "Lon" => -61.786192),
+"GNI" => array("City" => "Green Island", "Lat" => 22.673853, "Lon" => 121.466481),
+"GNM" => array("City" => "Guanambi", "Lat" => -14.216667, "Lon" => -42.783333),
+"GNS" => array("City" => "Gunung Sitoli", "Lat" => 1.166381, "Lon" => 97.704681),
+"GNT" => array("City" => "Grants", "Lat" => 35.167286, "Lon" => -107.901989),
+"GNV" => array("City" => "Gainesville", "Lat" => 29.690056, "Lon" => -82.271778),
+"GNZ" => array("City" => "Ghanzi", "Lat" => -21.6925, "Lon" => 21.6581),
+"GOA" => array("City" => "Genoa", "Lat" => 44.413333, "Lon" => 8.8375),
+"GOB" => array("City" => "Goba", "Lat" => 6.733333, "Lon" => 44.266667),
+"GOH" => array("City" => "Godthaab", "Lat" => 64.190922, "Lon" => -51.678064),
+"GOI" => array("City" => "Goa", "Lat" => 15.380833, "Lon" => 73.831422),
+"GOJ" => array("City" => "Nizhniy Novgorod", "Lat" => 56.230119, "Lon" => 43.784042),
+"GOM" => array("City" => "Goma", "Lat" => -1.670814, "Lon" => 29.238464),
+"GON" => array("City" => "Groton CT", "Lat" => 41.330056, "Lon" => -72.045139),
+"GOP" => array("City" => "Gorakhpur", "Lat" => 26.739708, "Lon" => 83.449708),
+"GOQ" => array("City" => "Golmud", "Lat" => 34.633, "Lon" => 98.867),
+"GOR" => array("City" => "Gore", "Lat" => 8.167, "Lon" => 35.55),
+"GOT" => array("City" => "Gothenborg", "Lat" => 57.662836, "Lon" => 12.279819),
+"GOU" => array("City" => "Garoua", "Lat" => 9.335892, "Lon" => 13.370103),
+"GOY" => array("City" => "Galoya", "Lat" => 7.337081, "Lon" => 81.625881),
+"GOZ" => array("City" => "Gorna Orechovica", "Lat" => 43.151444, "Lon" => 25.712889),
+"GPA" => array("City" => "Patras", "Lat" => 38.151111, "Lon" => 21.425556),
+"GPB" => array("City" => "Guarapuava", "Lat" => -25.383333, "Lon" => -51.45),
+"GPI" => array("City" => "Guapi", "Lat" => 2.570133, "Lon" => -77.8986),
+"GPS" => array("City" => "Galapagos", "Lat" => -0.453758, "Lon" => -90.265914),
+"GPT" => array("City" => "Gulfport", "Lat" => 30.407278, "Lon" => -89.070111),
+"GPZ" => array("City" => "Grand Rapids MN", "Lat" => 47.211111, "Lon" => -93.509722),
+"GRB" => array("City" => "Green Bay", "Lat" => 44.485072, "Lon" => -88.129589),
+"GRF" => array("City" => "Fort Lewis", "Lat" => 47.079217, "Lon" => -122.580783),
+"GRI" => array("City" => "Grand Island", "Lat" => 40.9675, "Lon" => -98.3096),
+"GRJ" => array("City" => "George", "Lat" => -34.005553, "Lon" => 22.378889),
+"GRK" => array("City" => "Killeen", "Lat" => 31.06725, "Lon" => -97.828917),
+"GRM" => array("City" => "Grand Marais", "Lat" => 47.8383333, "Lon" => -90.3829444),
+"GRO" => array("City" => "Gerona", "Lat" => 41.900969, "Lon" => 2.760547),
+"GRP" => array("City" => "Gurupi", "Lat" => -11.728889, "Lon" => -49.068889),
+"GRQ" => array("City" => "Groningen", "Lat" => 53.11972, "Lon" => 6.579444),
+"GRR" => array("City" => "Grand Rapids", "Lat" => 42.880833, "Lon" => -85.522806),
+"GRS" => array("City" => "Grosseto", "Lat" => 42.759747, "Lon" => 11.071897),
+"GRU" => array("City" => "Sao Paulo", "Lat" => -23.432075, "Lon" => -46.469511),
+"GRV" => array("City" => "Grozny", "Lat" => 43.2981, "Lon" => 45.7841),
+"GRW" => array("City" => "Graciosa Island", "Lat" => 39.092169, "Lon" => -28.029847),
+"GRX" => array("City" => "Granada", "Lat" => 37.188731, "Lon" => -3.777356),
+"GRY" => array("City" => "Grímsey", "Lat" => 66.5547, "Lon" => -18.0175),
+"GRZ" => array("City" => "Graz", "Lat" => 46.991067, "Lon" => 15.439628),
+"GSB" => array("City" => "Goldsboro", "Lat" => 35.339383, "Lon" => -77.960589),
+"GSE" => array("City" => "Gothenborg", "Lat" => 57.774722, "Lon" => 11.870372),
+"GSM" => array("City" => "Gheshm", "Lat" => 26.9487, "Lon" => 56.2688),
+"GSO" => array("City" => "Greensboro", "Lat" => 36.09775, "Lon" => -79.937306),
+"GSP" => array("City" => "Greenville", "Lat" => 34.895556, "Lon" => -82.218889),
+"GSQ" => array("City" => "Sharq Al-Owainat", "Lat" => 22.5806, "Lon" => 28.7207),
+"GSS" => array("City" => "Sabi Sabi", "Lat" => -24.9415, "Lon" => 31.4446),
+"GST" => array("City" => "Gustavus", "Lat" => 58.4253, "Lon" => -135.707),
+"GTA" => array("City" => "Gatokae", "Lat" => -8.75, "Lon" => 158.2),
+"GTB" => array("City" => "Fort Drum", "Lat" => 44.055619, "Lon" => -75.719458),
+"GTF" => array("City" => "Great Falls", "Lat" => 47.482, "Lon" => -111.370689),
+"GTI" => array("City" => "Ruegen", "Lat" => 54.383333, "Lon" => 13.325278),
+"GTN" => array("City" => "Mount Cook", "Lat" => -43.764999, "Lon" => 170.133333),
+"GTO" => array("City" => "Gorontalo", "Lat" => 0.637119, "Lon" => 122.849858),
+"GTR" => array("City" => "Columbus Mississippi", "Lat" => 33.450333, "Lon" => -88.591361),
+"GUA" => array("City" => "Guatemala City", "Lat" => 14.583272, "Lon" => -90.527475),
+"GUB" => array("City" => "Guerrero Negro", "Lat" => 28.0261, "Lon" => -114.024),
+"GUC" => array("City" => "Gunnison", "Lat" => 38.533889, "Lon" => -106.933056),
+"GUI" => array("City" => "Guiria", "Lat" => 10.574078, "Lon" => -62.312667),
+"GUL" => array("City" => "Goulburn", "Lat" => -34.8103, "Lon" => 149.726),
+"GUM" => array("City" => "Agana", "Lat" => 13.48345, "Lon" => 144.795983),
+"GUP" => array("City" => "Gallup", "Lat" => 35.511058, "Lon" => -108.789308),
+"GUQ" => array("City" => "Guanare", "Lat" => 9.026944, "Lon" => -69.75515),
+"GUS" => array("City" => "Peru", "Lat" => 40.648094, "Lon" => -86.152119),
+"GUT" => array("City" => "Guetersloh", "Lat" => 51.922833, "Lon" => 8.306333),
+"GUW" => array("City" => "Atyrau", "Lat" => 47.121944, "Lon" => 51.821389),
+"GVA" => array("City" => "Geneva", "Lat" => 46.238064, "Lon" => 6.10895),
+"GVR" => array("City" => "Governador Valadares", "Lat" => -18.8952, "Lon" => -41.9822),
+"GVT" => array("City" => "Greenvile", "Lat" => 33.067839, "Lon" => -96.065333),
+"GVX" => array("City" => "Gavle", "Lat" => 60.593333, "Lon" => 16.951389),
+"GWD" => array("City" => "Gwadar", "Lat" => 25.233308, "Lon" => 62.329494),
+"GWE" => array("City" => "Gwert", "Lat" => -19.436394, "Lon" => 29.861911),
+"GWL" => array("City" => "Gwalior", "Lat" => 26.293336, "Lon" => 78.227753),
+"GWO" => array("City" => "Greenwood", "Lat" => 33.494328, "Lon" => -90.084706),
+"GWT" => array("City" => "Westerland", "Lat" => 54.91325, "Lon" => 8.340472),
+"GWW" => array("City" => "Berlin", "Lat" => 52.31, "Lon" => 13.24),
+"GWY" => array("City" => "Galway", "Lat" => 53.300175, "Lon" => -8.941592),
+"GXF" => array("City" => "Sayun Intl", "Lat" => 15.966111, "Lon" => 48.7883),
+"GXG" => array("City" => "Negage", "Lat" => -7.754506, "Lon" => 15.287728),
+"GXQ" => array("City" => "Coyhaique", "Lat" => -45.594211, "Lon" => -72.106133),
+"GYA" => array("City" => "Guayaramerín", "Lat" => -10.8206, "Lon" => -65.3456),
+"GYD" => array("City" => "Baku", "Lat" => 40.4675, "Lon" => 50.046667),
+"GYE" => array("City" => "Guayaquil", "Lat" => -2.157419, "Lon" => -79.883558),
+"GYI" => array("City" => "Gisenyi", "Lat" => -1.677203, "Lon" => 29.258875),
+"GYM" => array("City" => "Guaymas", "Lat" => 27.968983, "Lon" => -110.925169),
+"GYN" => array("City" => "Goiania", "Lat" => -16.632033, "Lon" => -49.220686),
+"GYS" => array("City" => "Guangyuan", "Lat" => 32.3911, "Lon" => 105.702),
+"GYY" => array("City" => "Gary", "Lat" => 41.6163, "Lon" => -87.4128),
+"GZA" => array("City" => "Gaza", "Lat" => 31.246389, "Lon" => 34.276111),
+"GZM" => array("City" => "Gozo", "Lat" => 36.027222, "Lon" => 14.272778),
+"GZO" => array("City" => "Gizo", "Lat" => -8.09778, "Lon" => 156.864),
+"GZT" => array("City" => "Gaziantep", "Lat" => 36.947183, "Lon" => 37.478683),
+"HAA" => array("City" => "Hasvik", "Lat" => 70.486675, "Lon" => 22.139744),
+"HAC" => array("City" => "Hachijojima", "Lat" => 33.115, "Lon" => 139.785833),
+"HAD" => array("City" => "Halmstad", "Lat" => 56.691128, "Lon" => 12.820211),
+"HAE" => array("City" => "Haeju", "Lat" => 38.00543, "Lon" => 125.77863),
+"HAH" => array("City" => "Moroni", "Lat" => -11.533661, "Lon" => 43.27185),
+"HAJ" => array("City" => "Hannover", "Lat" => 52.461056, "Lon" => 9.685078),
+"HAK" => array("City" => "Haikou", "Lat" => 19.934856, "Lon" => 110.458961),
+"HAM" => array("City" => "Hamburg", "Lat" => 53.630389, "Lon" => 9.988228),
+"HAN" => array("City" => "Hanoi", "Lat" => 21.221192, "Lon" => 105.807178),
+"HAQ" => array("City" => "Haa Dhaalu Atoll", "Lat" => 6.74423, "Lon" => 73.1705),
+"HAS" => array("City" => "Hail", "Lat" => 27.437917, "Lon" => 41.686292),
+"HAU" => array("City" => "Haugesund", "Lat" => 59.345267, "Lon" => 5.208364),
+"HAV" => array("City" => "Havana", "Lat" => 22.989153, "Lon" => -82.409086),
+"HBA" => array("City" => "Hobart", "Lat" => -42.836111, "Lon" => 147.510278),
+"HBE" => array("City" => "Alexandria", "Lat" => 30.917669, "Lon" => 29.696408),
+"HBR" => array("City" => "Hobart", "Lat" => 34.991308, "Lon" => -99.051353),
+"HBT" => array("City" => "King Khalid Mil.city", "Lat" => 27.900917, "Lon" => 45.528194),
+"HCC" => array("City" => "Hudson NY", "Lat" => 42.2913, "Lon" => -73.7103),
+"HCN" => array("City" => "Hengchun", "Lat" => 22.041075, "Lon" => 120.730208),
+"HCQ" => array("City" => "Halls Creek", "Lat" => -18.233889, "Lon" => 127.669722),
+"HCR" => array("City" => "Holy Cross", "Lat" => 62.1883, "Lon" => -159.775),
+"HDB" => array("City" => "Heidelberg", "Lat" => 49.393333, "Lon" => 8.6525),
+"HDD" => array("City" => "Hyderabad", "Lat" => 25.3181, "Lon" => 68.3661),
+"HDF" => array("City" => "Heringsdorf", "Lat" => 53.878706, "Lon" => 14.152347),
+"HDH" => array("City" => "Dillingham", "Lat" => 21.579475, "Lon" => -158.197281),
+"HDM" => array("City" => "Hamadan", "Lat" => 34.869167, "Lon" => 48.5525),
+"HDN" => array("City" => "Hayden", "Lat" => 40.481181, "Lon" => -107.21766),
+"HDO" => array("City" => "Hondo", "Lat" => 29.3591, "Lon" => -99.1775),
+"HDS" => array("City" => "Hoedspruit", "Lat" => -24.368642, "Lon" => 31.048744),
+"HDY" => array("City" => "Songkhla", "Lat" => 6.933206, "Lon" => 100.392975),
+"HEA" => array("City" => "Herat", "Lat" => 34.210017, "Lon" => 62.2283),
+"HEH" => array("City" => "Heho", "Lat" => 20.747036, "Lon" => 96.792044),
+"HEI" => array("City" => "Büsum", "Lat" => 54.1533, "Lon" => 8.90167),
+"HEK" => array("City" => "Heihe", "Lat" => 50.25, "Lon" => 127.3),
+"HEL" => array("City" => "Helsinki", "Lat" => 60.317222, "Lon" => 24.963333),
+"HEM" => array("City" => "Helsinki", "Lat" => 60.254558, "Lon" => 25.042828),
+"HER" => array("City" => "Heraklion", "Lat" => 35.339719, "Lon" => 25.180297),
+"HET" => array("City" => "Huhhot", "Lat" => 40.851422, "Lon" => 111.824103),
+"HEW" => array("City" => "Athens", "Lat" => 37.8933, "Lon" => 23.7261),
+"HEX" => array("City" => "Santo Domingo", "Lat" => 18.475, "Lon" => -69.975),
+"HFA" => array("City" => "Haifa", "Lat" => 32.809444, "Lon" => 35.043056),
+"HFD" => array("City" => "Hartford", "Lat" => 41.736722, "Lon" => -72.649444),
+"HFE" => array("City" => "Hefei", "Lat" => 31.780019, "Lon" => 117.298436),
+"HFN" => array("City" => "Hofn", "Lat" => 64.295556, "Lon" => -15.227222),
+"HFS" => array("City" => "Hagfors", "Lat" => 60.020064, "Lon" => 13.578908),
+"HFT" => array("City" => "Hammerfest", "Lat" => 70.679722, "Lon" => 23.668889),
+"HGA" => array("City" => "Hargeisa", "Lat" => 9.518167, "Lon" => 44.088758),
+"HGH" => array("City" => "Hangzhou", "Lat" => 30.229503, "Lon" => 120.434453),
+"HGL" => array("City" => "Helgoland", "Lat" => 54.1853, "Lon" => 7.91583),
+"HGN" => array("City" => "Mae Hong Son", "Lat" => 19.301667, "Lon" => 97.975),
+"HGO" => array("City" => "Korhogo", "Lat" => 9.387183, "Lon" => -5.556664),
+"HGR" => array("City" => "Hagerstown", "Lat" => 39.7079, "Lon" => -77.7295),
+"HGS" => array("City" => "Freetown", "Lat" => 8.39713, "Lon" => -13.1291),
+"HGU" => array("City" => "Mount Hagen", "Lat" => -5.826789, "Lon" => 144.295861),
+"HHA" => array("City" => "Changsha", "Lat" => 28.189158, "Lon" => 113.219633),
+"HHH" => array("City" => "Hilton Head", "Lat" => 32.216, "Lon" => -80.752),
+"HHI" => array("City" => "Wheeler Afb.", "Lat" => 21.4835, "Lon" => -158.039667),
+"HHN" => array("City" => "Hahn", "Lat" => 49.948672, "Lon" => 7.263892),
+"HHQ" => array("City" => "Prachuap Khiri Khan", "Lat" => 12.636225, "Lon" => 99.951533),
+"HHR" => array("City" => "Hawthorne", "Lat" => 33.922839, "Lon" => -118.335186),
+"HIA" => array("City" => "Huai An", "Lat" => 33.7772, "Lon" => 119.1478),
+"HIB" => array("City" => "Hibbing", "Lat" => 47.3866, "Lon" => -92.838994),
+"HIF" => array("City" => "Ogden", "Lat" => 41.123939, "Lon" => -111.973039),
+"HII" => array("City" => "Lake Havasu City", "Lat" => 34.5711111, "Lon" => -114.3582778),
+"HIJ" => array("City" => "Hiroshima", "Lat" => 34.436111, "Lon" => 132.919444),
+"HIL" => array("City" => "Shilavo", "Lat" => 6.08333, "Lon" => 44.7667),
+"HIN" => array("City" => "Sacheon", "Lat" => 35.088543, "Lon" => 128.07037),
+"HIR" => array("City" => "Honiara", "Lat" => -9.428, "Lon" => 160.054789),
+"HIS" => array("City" => "Hayman Island", "Lat" => -20.066668, "Lon" => 148.86667),
+"HJJ" => array("City" => "Zhijiang", "Lat" => 27.441389, "Lon" => 109.699722),
+"HJR" => array("City" => "Khajuraho", "Lat" => 24.817197, "Lon" => 79.918597),
+"HKB" => array("City" => "Healy", "Lat" => 63.8675, "Lon" => -148.968889),
+"HKD" => array("City" => "Hakodate", "Lat" => 41.77, "Lon" => 140.821944),
+"HKG" => array("City" => "Hong Kong", "Lat" => 22.308919, "Lon" => 113.914603),
+"HKK" => array("City" => "Hokitika", "Lat" => -42.713611, "Lon" => 170.985278),
+"HKN" => array("City" => "Hoskins", "Lat" => -5.46217, "Lon" => 150.405),
+"HKT" => array("City" => "Phuket", "Lat" => 8.1132, "Lon" => 98.316872),
+"HKV" => array("City" => "Haskovo", "Lat" => 41.976375, "Lon" => 25.589817),
+"HKY" => array("City" => "Hickory", "Lat" => 35.741147, "Lon" => -81.38955),
+"HLA" => array("City" => "Johannesburg", "Lat" => -25.938514, "Lon" => 27.926133),
+"HLD" => array("City" => "Hailar", "Lat" => 49.204997, "Lon" => 119.825),
+"HLF" => array("City" => "Hultsfred", "Lat" => 57.525833, "Lon" => 15.823333),
+"HLH" => array("City" => "Ulanhot", "Lat" => 46.083, "Lon" => 122.017),
+"HLJ" => array("City" => "Barysiai", "Lat" => 56.070556, "Lon" => 23.558056),
+"HLN" => array("City" => "Helena", "Lat" => 46.606806, "Lon" => -111.98275),
+"HLP" => array("City" => "Jakarta", "Lat" => -6.26661, "Lon" => 106.891),
+"HLR" => array("City" => "Fort Hood", "Lat" => 31.138731, "Lon" => -97.714469),
+"HLT" => array("City" => "Hamilton", "Lat" => -37.648889, "Lon" => 142.065278),
+"HLY" => array("City" => "Angelsey", "Lat" => 53.248097, "Lon" => -4.535339),
+"HLZ" => array("City" => "Hamilton", "Lat" => -37.866661, "Lon" => 175.332056),
+"HMA" => array("City" => "Khanty-Mansiysk", "Lat" => 61.028479, "Lon" => 69.086067),
+"HME" => array("City" => "Hassi-messaoud", "Lat" => 31.672972, "Lon" => 6.140444),
+"HMI" => array("City" => "Hami", "Lat" => 42.8414, "Lon" => 93.6692),
+"HMN" => array("City" => "Alamogordo", "Lat" => 32.852519, "Lon" => -106.106525),
+"HMO" => array("City" => "Hermosillo", "Lat" => 29.095858, "Lon" => -111.047858),
+"HMR" => array("City" => "Hamar", "Lat" => 60.8181, "Lon" => 11.068),
+"HMV" => array("City" => "Hemavan", "Lat" => 65.806111, "Lon" => 15.082778),
+"HNA" => array("City" => "Hanamaki", "Lat" => 39.428611, "Lon" => 141.135278),
+"HND" => array("City" => "Tokyo", "Lat" => 35.552258, "Lon" => 139.779694),
+"HNH" => array("City" => "Hoonah", "Lat" => 58.096111, "Lon" => -135.409722),
+"HNL" => array("City" => "Honolulu", "Lat" => 21.318681, "Lon" => -157.922428),
+"HNM" => array("City" => "Hana", "Lat" => 20.795636, "Lon" => -156.014439),
+"HNS" => array("City" => "Haines", "Lat" => 59.2438, "Lon" => -135.524),
+"HOB" => array("City" => "Hobbs", "Lat" => 32.687528, "Lon" => -103.217028),
+"HOD" => array("City" => "Hodeidah", "Lat" => 14.753, "Lon" => 42.976336),
+"HOF" => array("City" => "Al-ahsa", "Lat" => 25.285306, "Lon" => 49.485189),
+"HOG" => array("City" => "Holguin", "Lat" => 20.785589, "Lon" => -76.315108),
+"HOI" => array("City" => "Hao Island", "Lat" => -18.074814, "Lon" => -140.945886),
+"HOJ" => array("City" => "Hohenems", "Lat" => 47.385, "Lon" => 9.7),
+"HOM" => array("City" => "Homer", "Lat" => 59.645556, "Lon" => -151.476583),
+"HON" => array("City" => "Huron", "Lat" => 44.3852, "Lon" => -98.228542),
+"HOP" => array("City" => "Hopkinsville", "Lat" => 36.668567, "Lon" => -87.496183),
+"HOQ" => array("City" => "Hof", "Lat" => 50.288836, "Lon" => 11.854919),
+"HOR" => array("City" => "Horta", "Lat" => 38.519894, "Lon" => -28.715872),
+"HOT" => array("City" => "Hot Springs", "Lat" => 34.478, "Lon" => -93.0962),
+"HOU" => array("City" => "Houston", "Lat" => 29.645419, "Lon" => -95.278889),
+"HOV" => array("City" => "Orsta-Volda", "Lat" => 62.18, "Lon" => 6.0742),
+"HOW" => array("City" => "Howard", "Lat" => 8.914794, "Lon" => -79.599633),
+"HPA" => array("City" => "Lifuka", "Lat" => -19.777, "Lon" => -174.341),
+"HPB" => array("City" => "Hooper Bay", "Lat" => 61.5239, "Lon" => -166.147),
+"HPH" => array("City" => "Haiphong", "Lat" => 20.819386, "Lon" => 106.724989),
+"HPN" => array("City" => "White Plains", "Lat" => 41.066959, "Lon" => -73.707575),
+"HQM" => array("City" => "Hoquiam", "Lat" => 46.9711944, "Lon" => -123.9365556),
+"HRB" => array("City" => "Harbin", "Lat" => 45.623403, "Lon" => 126.250328),
+"HRE" => array("City" => "Harare", "Lat" => -17.931806, "Lon" => 31.092847),
+"HRG" => array("City" => "Hurghada", "Lat" => 27.178317, "Lon" => 33.799436),
+"HRJ" => array("City" => "Chaurjhari", "Lat" => 28, "Lon" => 83.833),
+"HRK" => array("City" => "Kharkov", "Lat" => 49.924786, "Lon" => 36.289986),
+"HRL" => array("City" => "Harlingen", "Lat" => 26.2285, "Lon" => -97.654389),
+"HRM" => array("City" => "Tilrempt", "Lat" => 32.930431, "Lon" => 3.311542),
+"HRN" => array("City" => "Heron Island", "Lat" => -23.441667, "Lon" => 151.911389),
+"HRO" => array("City" => "Harrison", "Lat" => 36.261519, "Lon" => -93.154728),
+"HRT" => array("City" => "Mary Esther", "Lat" => 30.427803, "Lon" => -86.689278),
+"HSG" => array("City" => "Saga", "Lat" => 33.1497, "Lon" => 130.302),
+"HSH" => array("City" => "Henderson", "Lat" => 35.972778, "Lon" => -115.134444),
+"HSK" => array("City" => "Huesca", "Lat" => 42.080833, "Lon" => -0.323333),
+"HSL" => array("City" => "Huslia", "Lat" => 65.697778, "Lon" => -156.351389),
+"HSN" => array("City" => "Zhoushan", "Lat" => 29.9342, "Lon" => 122.362),
+"HST" => array("City" => "Homestead", "Lat" => 25.48855, "Lon" => -80.383567),
+"HSV" => array("City" => "HUNTSVILLE", "Lat" => 34.6371944, "Lon" => -86.7750556),
+"HTA" => array("City" => "Chita", "Lat" => 52.026317, "Lon" => 113.305556),
+"HTF" => array("City" => "Hatfield", "Lat" => 51.765, "Lon" => -0.24833),
+"HTG" => array("City" => "Khatanga", "Lat" => 71.978058, "Lon" => 102.490514),
+"HTL" => array("City" => "Houghton Lake", "Lat" => 44.359806, "Lon" => -84.671112),
+"HTN" => array("City" => "Hotan", "Lat" => 37.038522, "Lon" => 79.864933),
+"HTS" => array("City" => "Huntington", "Lat" => 38.3667, "Lon" => -82.558),
+"HTY" => array("City" => "Hatay", "Lat" => 36.362778, "Lon" => 36.282222),
+"HUA" => array("City" => "Redstone", "Lat" => 34.678653, "Lon" => -86.684781),
+"HUF" => array("City" => "Terre Haute", "Lat" => 39.451464, "Lon" => -87.307561),
+"HUH" => array("City" => "Huahine Island", "Lat" => -16.687242, "Lon" => -151.021667),
+"HUI" => array("City" => "Hue", "Lat" => 16.401499, "Lon" => 107.702614),
+"HUL" => array("City" => "Houlton", "Lat" => 46.123083, "Lon" => -67.792056),
+"HUN" => array("City" => "Hualien", "Lat" => 24.023725, "Lon" => 121.616906),
+"HUS" => array("City" => "Hughes", "Lat" => 66.039167, "Lon" => -154.264722),
+"HUT" => array("City" => "Hutchinson", "Lat" => 38.0655, "Lon" => -97.8606),
+"HUU" => array("City" => "Huánuco", "Lat" => -9.878811, "Lon" => -76.204797),
+"HUV" => array("City" => "Hudiksvall", "Lat" => 61.768092, "Lon" => 17.080719),
+"HUX" => array("City" => "Bahias Dehuatulco", "Lat" => 15.775317, "Lon" => -96.262572),
+"HUY" => array("City" => "Humberside", "Lat" => 53.574444, "Lon" => -0.350833),
+"HUZ" => array("City" => "Huizhou", "Lat" => 23.083332, "Lon" => 114.36667),
+"HVA" => array("City" => "Analalava", "Lat" => -14.629694, "Lon" => 47.763783),
+"HVB" => array("City" => "Hervey Bay", "Lat" => -25.318889, "Lon" => 152.880278),
+"HVG" => array("City" => "Honningsvag", "Lat" => 70.99, "Lon" => 25.83),
+"HVN" => array("City" => "New Haven", "Lat" => 41.26375, "Lon" => -72.886806),
+"HVR" => array("City" => "Havre", "Lat" => 48.542983, "Lon" => -109.762342),
+"HWO" => array("City" => "Hollywood", "Lat" => 26.001222, "Lon" => -80.240722),
+"HYA" => array("City" => "Barnstable", "Lat" => 41.669336, "Lon" => -70.280356),
+"HYD" => array("City" => "Hyderabad", "Lat" => 17.453117, "Lon" => 78.467586),
+"HYG" => array("City" => "Hydaburg", "Lat" => 55.206389, "Lon" => -132.828333),
+"HYL" => array("City" => "Hollis", "Lat" => 55.481667, "Lon" => -132.646111),
+"HYN" => array("City" => "Huangyan", "Lat" => 28.5622, "Lon" => 121.429),
+"HYS" => array("City" => "Hays", "Lat" => 38.8422, "Lon" => -99.2732),
+"HZG" => array("City" => "Hanzhong", "Lat" => 33.0636, "Lon" => 107.008),
+"HZH" => array("City" => "Liping", "Lat" => 26.206, "Lon" => 109.039),
+"HZK" => array("City" => "Husavik", "Lat" => 65.952328, "Lon" => -17.425978),
+"IAA" => array("City" => "Igarka", "Lat" => 67.4372, "Lon" => 86.6219),
+"IAB" => array("City" => "Wichita", "Lat" => 37.621853, "Lon" => -97.268192),
+"IAD" => array("City" => "Washington", "Lat" => 38.944533, "Lon" => -77.455811),
+"IAG" => array("City" => "Niagara Falls", "Lat" => 43.107333, "Lon" => -78.946194),
+"IAH" => array("City" => "Houston", "Lat" => 29.984433, "Lon" => -95.341442),
+"IAM" => array("City" => "Zarzaitine", "Lat" => 28.05155, "Lon" => 9.642911),
+"IAN" => array("City" => "Kiana", "Lat" => 66.975833, "Lon" => -160.436667),
+"IAR" => array("City" => "Yaroslavl", "Lat" => 57.560666676667, "Lon" => 40.157369454444),
+"IAS" => array("City" => "Iasi", "Lat" => 47.178492, "Lon" => 27.620631),
+"IBA" => array("City" => "Ibadan", "Lat" => 7.362458, "Lon" => 3.978333),
+"IBE" => array("City" => "Ibague", "Lat" => 4.421608, "Lon" => -75.1333),
+"IBL" => array("City" => "Indigo Bay Lodge", "Lat" => -21.707222, "Lon" => 35.452222),
+"IBR" => array("City" => "Ibaraki", "Lat" => 36.181083, "Lon" => 140.415444),
+"IBZ" => array("City" => "Ibiza", "Lat" => 38.872858, "Lon" => 1.373117),
+"ICI" => array("City" => "Cicia", "Lat" => -17.7433, "Lon" => -179.342),
+"ICK" => array("City" => "Nieuw Nickerie", "Lat" => 5.955556, "Lon" => -57.039444),
+"ICN" => array("City" => "Seoul", "Lat" => 37.469075, "Lon" => 126.450517),
+"ICT" => array("City" => "Wichita", "Lat" => 37.649944, "Lon" => -97.433056),
+"ICY" => array("City" => "Icy Bay", "Lat" => 59.968889, "Lon" => -141.661667),
+"IDA" => array("City" => "Idaho Falls", "Lat" => 43.514556, "Lon" => -112.07075),
+"IDL" => array("City" => "New York", "Lat" => 40.639751, "Lon" => -73.778925),
+"IDR" => array("City" => "Indore", "Lat" => 22.721786, "Lon" => 75.801086),
+"IDY" => array("City" => "Île d'Yeu", "Lat" => 46.718611, "Lon" => -2.391111),
+"IEG" => array("City" => "Zielona Gora", "Lat" => 52.138517, "Lon" => 15.798556),
+"IEO" => array("City" => "Aioun El Atrouss", "Lat" => 16.711294, "Lon" => -9.637883),
+"IEV" => array("City" => "Kiev", "Lat" => 50.401694, "Lon" => 30.449697),
+"IFJ" => array("City" => "Isafjordur", "Lat" => 66.058056, "Lon" => -23.135278),
+"IFN" => array("City" => "Isfahan", "Lat" => 32.750836, "Lon" => 51.861267),
+"IFO" => array("City" => "Ivano-Frankivsk", "Lat" => 48.884167, "Lon" => 24.686111),
+"IFP" => array("City" => "Bullhead", "Lat" => 35.1574, "Lon" => -114.56),
+"IGA" => array("City" => "Matthew Town", "Lat" => 20.975, "Lon" => -73.666862),
+"IGB" => array("City" => "Ingeniero Jacobacci", "Lat" => -41.3, "Lon" => -69.5833),
+"IGG" => array("City" => "Igiugig", "Lat" => 59.324, "Lon" => -155.902),
+"IGL" => array("City" => "Izmir", "Lat" => 38.513022, "Lon" => 27.010053),
+"IGM" => array("City" => "Kingman", "Lat" => 35.2595, "Lon" => -113.938),
+"IGR" => array("City" => "Iguazu Falls", "Lat" => -25.737281, "Lon" => -54.473444),
+"IGS" => array("City" => "Ingolstadt", "Lat" => 48.7777, "Lon" => 11.422),
+"IGU" => array("City" => "Foz Do Iguacu", "Lat" => -25.59615, "Lon" => -54.487206),
+"IHU" => array("City" => "Ihu", "Lat" => -7.89756, "Lon" => 145.396),
+"IIA" => array("City" => "Inishmaan", "Lat" => 53.091944, "Lon" => -9.57),
+"IIL" => array("City" => "Ilam", "Lat" => 33.586606, "Lon" => 46.404842),
+"IIS" => array("City" => "Nissan Island", "Lat" => -4.49972, "Lon" => 154.226),
+"IJK" => array("City" => "Izhevsk", "Lat" => 56.8281, "Lon" => 53.4575),
+"IKA" => array("City" => "Tehran", "Lat" => 35, "Lon" => 51),
+"IKI" => array("City" => "Iki", "Lat" => 33.749027, "Lon" => 129.785417),
+"IKK" => array("City" => "Kankakee", "Lat" => 41.071389, "Lon" => -87.846278),
+"IKO" => array("City" => "Nikolski", "Lat" => 52.941667, "Lon" => -168.848889),
+"IKR" => array("City" => "Kirtland A.f.b.", "Lat" => 35.040222, "Lon" => -106.609194),
+"IKS" => array("City" => "Tiksi", "Lat" => 71.6977, "Lon" => 128.903),
+"IKT" => array("City" => "Irkutsk", "Lat" => 52.268028, "Lon" => 104.388975),
+"IKV" => array("City" => "Ankeny", "Lat" => 41.691389, "Lon" => -93.566389),
+"ILD" => array("City" => "Lleida", "Lat" => 41.727778, "Lon" => 0.535833),
+"ILF" => array("City" => "Ilford", "Lat" => 56.0614, "Lon" => -95.6139),
+"ILG" => array("City" => "Wilmington", "Lat" => 39.678722, "Lon" => -75.606528),
+"ILI" => array("City" => "Iliamna", "Lat" => 59.754356, "Lon" => -154.910961),
+"ILM" => array("City" => "Wilmington", "Lat" => 34.270615, "Lon" => -77.902569),
+"ILN" => array("City" => "Wilmington", "Lat" => 39.42792, "Lon" => -83.792118),
+"ILO" => array("City" => "Iloilo", "Lat" => 10.713044, "Lon" => 122.545297),
+"ILR" => array("City" => "Ilorin", "Lat" => 8.440211, "Lon" => 4.493919),
+"ILY" => array("City" => "Islay", "Lat" => 55.681944, "Lon" => -6.256667),
+"ILZ" => array("City" => "Žilina", "Lat" => 49.231528, "Lon" => 18.6135),
+"IMB" => array("City" => "Imbaimadai", "Lat" => 5.69252, "Lon" => -60.28198),
+"IMF" => array("City" => "Imphal", "Lat" => 24.75995, "Lon" => 93.896697),
+"IMI" => array("City" => "Ine", "Lat" => 7.016667, "Lon" => 171.483333),
+"IMK" => array("City" => "Simikot", "Lat" => 29.971064, "Lon" => 81.818932),
+"IMP" => array("City" => "Imperatriz", "Lat" => -5.531292, "Lon" => -47.46005),
+"IMT" => array("City" => "Iron Mountain", "Lat" => 45.8183611, "Lon" => -88.1145556),
+"INC" => array("City" => "Yinchuan", "Lat" => 38.481944, "Lon" => 106.009167),
+"IND" => array("City" => "Indianapolis", "Lat" => 39.717331, "Lon" => -86.294383),
+"ING" => array("City" => "El Calafate", "Lat" => -50.3361, "Lon" => -72.2486),
+"INH" => array("City" => "Inhambane", "Lat" => -23.876431, "Lon" => 35.408544),
+"INI" => array("City" => "Nis", "Lat" => 43.337289, "Lon" => 21.853722),
+"INJ" => array("City" => "Santa Ana", "Lat" => 32.083486, "Lon" => -97.097228),
+"INK" => array("City" => "Wink", "Lat" => 31.779628, "Lon" => -103.201361),
+"INL" => array("City" => "International Falls", "Lat" => 48.566186, "Lon" => -93.403067),
+"INN" => array("City" => "Innsbruck", "Lat" => 47.260219, "Lon" => 11.343964),
+"INO" => array("City" => "Inongo", "Lat" => -1.94722, "Lon" => 18.2858),
+"INQ" => array("City" => "Inisheer", "Lat" => 53.0647, "Lon" => -9.5109),
+"INS" => array("City" => "Indian Springs", "Lat" => 36.587183, "Lon" => -115.673353),
+"INT" => array("City" => "Winston-salem", "Lat" => 36.133722, "Lon" => -80.222),
+"INU" => array("City" => "Nauru", "Lat" => -0.547458, "Lon" => 166.9191),
+"INV" => array("City" => "Inverness", "Lat" => 57.5425, "Lon" => -4.0475),
+"INW" => array("City" => "Winslow", "Lat" => 35.0219167, "Lon" => -110.7225278),
+"INZ" => array("City" => "In Salah", "Lat" => 27.251022, "Lon" => 2.512017),
+"IOA" => array("City" => "Ioannina", "Lat" => 39.696388, "Lon" => 20.8225),
+"IOM" => array("City" => "Isle Of Man", "Lat" => 54.083333, "Lon" => -4.623889),
+"IOR" => array("City" => "Inis Mor", "Lat" => 53.1067, "Lon" => -9.65361),
+"IOS" => array("City" => "Ilheus", "Lat" => -14.815964, "Lon" => -39.033197),
+"IPA" => array("City" => "Ipota", "Lat" => -18.8783, "Lon" => 169.308),
+"IPC" => array("City" => "Easter Island", "Lat" => -27.164792, "Lon" => -109.421831),
+"IPH" => array("City" => "Ipoh", "Lat" => 4.567972, "Lon" => 101.092194),
+"IPI" => array("City" => "Ipiales", "Lat" => 0.861925, "Lon" => -77.671764),
+"IPL" => array("City" => "Imperial", "Lat" => 32.834219, "Lon" => -115.578744),
+"IPN" => array("City" => "Ipatinga", "Lat" => -19.470722, "Lon" => -42.487583),
+"IPT" => array("City" => "Williamsport", "Lat" => 41.241836, "Lon" => -76.921094),
+"IQM" => array("City" => "Qiemo", "Lat" => 38.1494, "Lon" => 85.5328),
+"IQN" => array("City" => "Qingyang", "Lat" => 35.7997, "Lon" => 107.603),
+"IQQ" => array("City" => "Iquique", "Lat" => -20.535222, "Lon" => -70.181275),
+"IQT" => array("City" => "Iquitos", "Lat" => -3.784739, "Lon" => -73.308806),
+"IRA" => array("City" => "Kirakira", "Lat" => -10.4497, "Lon" => 161.898),
+"IRC" => array("City" => "Circle", "Lat" => 65.827778, "Lon" => -144.076111),
+"IRD" => array("City" => "Ishurdi", "Lat" => 24.1525, "Lon" => 89.049446),
+"IRI" => array("City" => "Iringa", "Lat" => -7.668633, "Lon" => 35.752114),
+"IRJ" => array("City" => "La Rioja", "Lat" => -29.381636, "Lon" => -66.795839),
+"IRK" => array("City" => "Kirksville", "Lat" => 40.0935, "Lon" => -92.5449),
+"IRP" => array("City" => "Isiro", "Lat" => 2.827606, "Lon" => 27.588253),
+"ISA" => array("City" => "Mount Isa", "Lat" => -20.663889, "Lon" => 139.488611),
+"ISB" => array("City" => "Islamabad", "Lat" => 33.616653, "Lon" => 73.099233),
+"ISC" => array("City" => "ST MARY\\'S", "Lat" => 49.919, "Lon" => -6.3075),
+"ISE" => array("City" => "Isparta", "Lat" => 37.8554, "Lon" => 30.3684),
+"ISG" => array("City" => "Ishigaki", "Lat" => 24.344525, "Lon" => 124.186983),
+"ISJ" => array("City" => "Isla Mujeres", "Lat" => 21.245033, "Lon" => -86.739967),
+"ISK" => array("City" => "Nasik Road", "Lat" => 19.963739, "Lon" => 73.807644),
+"ISM" => array("City" => "Kissimmee", "Lat" => 28.289806, "Lon" => -81.437083),
+"ISN" => array("City" => "Williston", "Lat" => 48.177939, "Lon" => -103.642347),
+"ISO" => array("City" => "Kinston", "Lat" => 35.331389, "Lon" => -77.608889),
+"ISP" => array("City" => "Islip", "Lat" => 40.79525, "Lon" => -73.100222),
+"IST" => array("City" => "Istanbul", "Lat" => 40.976922, "Lon" => 28.814606),
+"ISU" => array("City" => "Sulaymaniyah", "Lat" => 35.5608, "Lon" => 45.3147),
+"ITB" => array("City" => "Itaituba", "Lat" => -4.2446, "Lon" => -56.00384),
+"ITH" => array("City" => "Ithaca", "Lat" => 42.491028, "Lon" => -76.458444),
+"ITK" => array("City" => "Itokama", "Lat" => -9.2, "Lon" => 148.25),
+"ITM" => array("City" => "Osaka", "Lat" => 34.785528, "Lon" => 135.438222),
+"ITO" => array("City" => "Hilo", "Lat" => 19.721375, "Lon" => -155.048469),
+"IUD" => array("City" => "Doha", "Lat" => 25.1174, "Lon" => 51.3228),
+"IUE" => array("City" => "Alofi", "Lat" => -19.080028, "Lon" => -169.925639),
+"IVA" => array("City" => "Ambanja", "Lat" => -13.65, "Lon" => 48.467),
+"IVC" => array("City" => "Invercargill", "Lat" => -46.412408, "Lon" => 168.312992),
+"IVL" => array("City" => "Ivalo", "Lat" => 68.607269, "Lon" => 27.405328),
+"IWA" => array("City" => "Ivanovo", "Lat" => 56.939444, "Lon" => 40.940833),
+"IWD" => array("City" => "Ironwood", "Lat" => 46.5274747, "Lon" => -90.1313967),
+"IWO" => array("City" => "Iwojima", "Lat" => 24.784, "Lon" => 141.322722),
+"IWS" => array("City" => "Houston", "Lat" => 29.818194, "Lon" => -95.672611),
+"IXA" => array("City" => "Agartala", "Lat" => 23.886978, "Lon" => 91.24045),
+"IXB" => array("City" => "Baghdogra", "Lat" => 26.681206, "Lon" => 88.328567),
+"IXC" => array("City" => "Chandigarh", "Lat" => 30.673469, "Lon" => 76.788542),
+"IXD" => array("City" => "Allahabad", "Lat" => 25.440064, "Lon" => 81.733872),
+"IXE" => array("City" => "Mangalore", "Lat" => 12.961267, "Lon" => 74.890069),
+"IXG" => array("City" => "Belgaum", "Lat" => 15.859286, "Lon" => 74.618292),
+"IXH" => array("City" => "Kailashahar", "Lat" => 24.308192, "Lon" => 92.007156),
+"IXI" => array("City" => "Lilabari", "Lat" => 27.295494, "Lon" => 94.09765),
+"IXJ" => array("City" => "Jammu", "Lat" => 32.689142, "Lon" => 74.837389),
+"IXK" => array("City" => "Keshod", "Lat" => 21.317069, "Lon" => 70.270403),
+"IXL" => array("City" => "Leh", "Lat" => 34.135872, "Lon" => 77.546514),
+"IXM" => array("City" => "Madurai", "Lat" => 9.834508, "Lon" => 78.093378),
+"IXP" => array("City" => "Pathankot", "Lat" => 32.233778, "Lon" => 75.634628),
+"IXR" => array("City" => "Ranchi", "Lat" => 23.31425, "Lon" => 85.321675),
+"IXS" => array("City" => "Silchar", "Lat" => 24.912928, "Lon" => 92.978742),
+"IXU" => array("City" => "Aurangabad", "Lat" => 19.862728, "Lon" => 75.398114),
+"IXW" => array("City" => "Jamshedpur", "Lat" => 22.813211, "Lon" => 86.168844),
+"IXY" => array("City" => "Kandla", "Lat" => 23.112719, "Lon" => 70.100289),
+"IXZ" => array("City" => "Port Blair", "Lat" => 11.641161, "Lon" => 92.729744),
+"IYK" => array("City" => "Inyokern", "Lat" => 35.658889, "Lon" => -117.829444),
+"IZO" => array("City" => "Izumo", "Lat" => 35.413611, "Lon" => 132.89),
+"JAA" => array("City" => "Jalalabad", "Lat" => 34.399842, "Lon" => 70.498625),
+"JAB" => array("City" => "Jabiru", "Lat" => -12.6571, "Lon" => 132.893),
+"JAC" => array("City" => "Jacksn Hole", "Lat" => 43.607333333, "Lon" => -110.73775),
+"JAD" => array("City" => "Perth", "Lat" => -32.0975, "Lon" => 115.881111),
+"JAF" => array("City" => "Jaffna", "Lat" => 9.792331, "Lon" => 80.070089),
+"JAI" => array("City" => "Jaipur", "Lat" => 26.824192, "Lon" => 75.812161),
+"JAL" => array("City" => "Jalapa", "Lat" => 19.475083, "Lon" => -96.797506),
+"JAN" => array("City" => "Jackson", "Lat" => 32.311167, "Lon" => -90.075889),
+"JAQ" => array("City" => "Jacquinot Bay", "Lat" => -5.6525, "Lon" => 151.507),
+"JAT" => array("City" => "Ailinglapalap Atoll", "Lat" => 7.45235, "Lon" => 168.552),
+"JAV" => array("City" => "Ilulissat", "Lat" => 69.23444, "Lon" => -51.05111),
+"JAX" => array("City" => "Jacksonville", "Lat" => 30.494056, "Lon" => -81.687861),
+"JBQ" => array("City" => "La Isabela", "Lat" => 18.5725, "Lon" => -69.9856),
+"JBR" => array("City" => "Jonesboro", "Lat" => 35.831708, "Lon" => -90.646417),
+"JCA" => array("City" => "Cannes", "Lat" => 43.536, "Lon" => 7.03736),
+"JCB" => array("City" => "Joacaba", "Lat" => -27.172778, "Lon" => -51.500833),
+"JCH" => array("City" => "Qasigiannguit", "Lat" => 68.833336, "Lon" => -51),
+"JCI" => array("City" => "Olathe", "Lat" => 38.8309167, "Lon" => -94.8903056),
+"JCU" => array("City" => "Ceuta", "Lat" => 35.8969, "Lon" => -5.29908),
+"JDF" => array("City" => "Juiz De Fora", "Lat" => -21.7915, "Lon" => -43.386778),
+"JDH" => array("City" => "Jodhpur", "Lat" => 26.251092, "Lon" => 73.048869),
+"JDO" => array("City" => "Juazeiro Do Norte", "Lat" => -7.218958, "Lon" => -39.2701),
+"JDR" => array("City" => "Sao Joao del Rei", "Lat" => -21.0864, "Lon" => -44.2258),
+"JDZ" => array("City" => "Jingdezhen", "Lat" => 29.3386, "Lon" => 117.176),
+"JED" => array("City" => "Jeddah", "Lat" => 21.679564, "Lon" => 39.156536),
+"JEE" => array("City" => "Jeremie", "Lat" => 18.6631, "Lon" => -74.1703),
+"JEF" => array("City" => "Jefferson City", "Lat" => 38.5912, "Lon" => -92.1561),
+"JEG" => array("City" => "Aasiaat", "Lat" => 68.7, "Lon" => -52.75),
+"JEJ" => array("City" => "Ailinglapalap Atoll", "Lat" => 7.56535, "Lon" => 168.962),
+"JER" => array("City" => "Jersey", "Lat" => 49.207947, "Lon" => -2.195508),
+"JFK" => array("City" => "New York", "Lat" => 40.639751, "Lon" => -73.778925),
+"JFR" => array("City" => "Paamiut", "Lat" => 61.9922, "Lon" => -49.6625),
+"JGA" => array("City" => "Jamnagar", "Lat" => 22.465522, "Lon" => 70.012556),
+"JGC" => array("City" => "Grand Canyon", "Lat" => 35.96666666, "Lon" => -112.13333333),
+"JGN" => array("City" => "Jiayuguan", "Lat" => 39.8569, "Lon" => 98.3414),
+"JGO" => array("City" => "Qeqertarsuaq Airport", "Lat" => 69.2511, "Lon" => -53.5381),
+"JGR" => array("City" => "Groennedal", "Lat" => 61.2333, "Lon" => -48.1),
+"JGS" => array("City" => "Ji An", "Lat" => 26.8997, "Lon" => 114.7375),
+"JHB" => array("City" => "Johor Bahru", "Lat" => 1.641308, "Lon" => 103.669619),
+"JHE" => array("City" => "Helsingborg", "Lat" => 56.0419, "Lon" => 12.6912),
+"JHG" => array("City" => "Jinghong", "Lat" => 21.973914, "Lon" => 100.759611),
+"JHM" => array("City" => "Lahania-kapalua", "Lat" => 20.962936, "Lon" => -156.673031),
+"JHS" => array("City" => "Sisimiut", "Lat" => 66.9513, "Lon" => -53.7293),
+"JHW" => array("City" => "Jamestown", "Lat" => 42.153333, "Lon" => -79.258056),
+"JIB" => array("City" => "Djibouti", "Lat" => 11.5472, "Lon" => 43.1594),
+"JIJ" => array("City" => "Jijiga", "Lat" => 9.359722, "Lon" => 42.7875),
+"JIK" => array("City" => "Ikaria", "Lat" => 37.682717, "Lon" => 26.347061),
+"JIM" => array("City" => "Jimma", "Lat" => 7.666094, "Lon" => 36.816639),
+"JIU" => array("City" => "Jiujiang", "Lat" => 29.733, "Lon" => 115.983),
+"JIW" => array("City" => "Jiwani", "Lat" => 25.0678, "Lon" => 61.8054),
+"JJI" => array("City" => "Juanjui", "Lat" => -7.1691, "Lon" => -76.728561),
+"JJN" => array("City" => "Quanzhou", "Lat" => 24.7964, "Lon" => 118.59),
+"JKG" => array("City" => "Joenkoeping", "Lat" => 57.757594, "Lon" => 14.068731),
+"JKH" => array("City" => "Chios", "Lat" => 38.343175, "Lon" => 26.140572),
+"JKL" => array("City" => "Kalymnos", "Lat" => 36.963333, "Lon" => 26.940556),
+"JLD" => array("City" => "Landskrona", "Lat" => 55.944444, "Lon" => 12.869444),
+"JLN" => array("City" => "Joplin", "Lat" => 37.151814, "Lon" => -94.498269),
+"JLR" => array("City" => "Jabalpur", "Lat" => 23.177817, "Lon" => 80.052047),
+"JMK" => array("City" => "Mykonos", "Lat" => 37.435128, "Lon" => 25.348103),
+"JMO" => array("City" => "Jomsom", "Lat" => 28.782222, "Lon" => 83.7225),
+"JMS" => array("City" => "Jamestown", "Lat" => 46.9297, "Lon" => -98.6782),
+"JMU" => array("City" => "Jiamusi", "Lat" => 46.843394, "Lon" => 130.465389),
+"JMY" => array("City" => "Freetown", "Lat" => 8.490278, "Lon" => -13.289722),
+"JNB" => array("City" => "Johannesburg", "Lat" => -26.139166, "Lon" => 28.246),
+"JNG" => array("City" => "Jining", "Lat" => 35.417, "Lon" => 116.533),
+"JNN" => array("City" => "Nanortalik", "Lat" => 60.14, "Lon" => -45.2317),
+"JNS" => array("City" => "Narsaq", "Lat" => 60.9167, "Lon" => -46.0586),
+"JNU" => array("City" => "Juneau", "Lat" => 58.354972, "Lon" => -134.576278),
+"JNX" => array("City" => "Cyclades Islands", "Lat" => 37.080556, "Lon" => 25.368056),
+"JNZ" => array("City" => "Jinzhou", "Lat" => 41.1014, "Lon" => 121.062),
+"JOE" => array("City" => "Joensuu", "Lat" => 62.662906, "Lon" => 29.60755),
+"JOG" => array("City" => "Yogyakarta", "Lat" => -7.788181, "Lon" => 110.431758),
+"JOI" => array("City" => "Joinville", "Lat" => -26.224453, "Lon" => -48.797364),
+"JOK" => array("City" => "Yoshkar-Ola", "Lat" => 56.7006, "Lon" => 47.9047),
+"JON" => array("City" => "Johnston Island", "Lat" => 16.7286, "Lon" => -169.534),
+"JOS" => array("City" => "Jos", "Lat" => 9.639828, "Lon" => 8.86905),
+"JPA" => array("City" => "Joao Pessoa", "Lat" => -7.148381, "Lon" => -34.950681),
+"JPR" => array("City" => "Ji-Paraná", "Lat" => -10.8708, "Lon" => -61.8465),
+"JPU" => array("City" => "Paris", "Lat" => 48.86667, "Lon" => 2.333333),
+"JQA" => array("City" => "Uummannaq", "Lat" => 70.7342, "Lon" => -52.6962),
+"JQE" => array("City" => "Jaqué", "Lat" => 7.51778, "Lon" => -78.1572),
+"JRA" => array("City" => "New York", "Lat" => 40.7545, "Lon" => -74.0071),
+"JRB" => array("City" => "New York", "Lat" => 40.701214, "Lon" => -74.009028),
+"JRH" => array("City" => "Jorhat", "Lat" => 26.731528, "Lon" => 94.175536),
+"JRO" => array("City" => "Kilimanjaro", "Lat" => -3.429406, "Lon" => 37.074461),
+"JSA" => array("City" => "Jaisalmer", "Lat" => 26.888653, "Lon" => 70.864967),
+"JSH" => array("City" => "Sitia", "Lat" => 35.216108, "Lon" => 26.101325),
+"JSI" => array("City" => "Skiathos", "Lat" => 39.1771, "Lon" => 23.503675),
+"JSM" => array("City" => "Jose de San Martin", "Lat" => -44.016667, "Lon" => -70.466667),
+"JSR" => array("City" => "Jessore", "Lat" => 23.1838, "Lon" => 89.160833),
+"JST" => array("City" => "Johnstown", "Lat" => 40.316111, "Lon" => -78.833889),
+"JSU" => array("City" => "Maniitsoq", "Lat" => 65.4125, "Lon" => -52.9394),
+"JSY" => array("City" => "Syros Island", "Lat" => 37.422792, "Lon" => 24.950936),
+"JTR" => array("City" => "Santorini", "Lat" => 36.399169, "Lon" => 25.479333),
+"JTY" => array("City" => "Astypalaia", "Lat" => 36.579886, "Lon" => 26.375822),
+"JUB" => array("City" => "Juba", "Lat" => 4.872006, "Lon" => 31.601117),
+"JUI" => array("City" => "Juist", "Lat" => 53.681572, "Lon" => 7.055731),
+"JUJ" => array("City" => "Jujuy", "Lat" => -24.392778, "Lon" => -65.097778),
+"JUL" => array("City" => "Juliaca", "Lat" => -15.467103, "Lon" => -70.158169),
+"JUM" => array("City" => "Jumla", "Lat" => 29.274167, "Lon" => 82.193333),
+"JUV" => array("City" => "Upernavik", "Lat" => 72.7902, "Lon" => -56.1306),
+"JUZ" => array("City" => "Quzhou", "Lat" => 28.9658, "Lon" => 118.899),
+"JVA" => array("City" => "Ankavandra", "Lat" => -18.8, "Lon" => 45.283),
+"JVL" => array("City" => "Janesville", "Lat" => 42.62025, "Lon" => -89.0415556),
+"JWA" => array("City" => "Jwaneng", "Lat" => -24.602333, "Lon" => 24.690971),
+"JYV" => array("City" => "Jyvaskyla", "Lat" => 62.399453, "Lon" => 25.678253),
+"JZH" => array("City" => "Jiuzhaigou", "Lat" => 32.857, "Lon" => 103.683),
+"K03" => array("City" => "Fort Wainwright", "Lat" => 70.613378, "Lon" => -159.86035),
+"KAB" => array("City" => "Kariba", "Lat" => -16.519761, "Lon" => 28.884981),
+"KAC" => array("City" => "Kamishly", "Lat" => 37.020625, "Lon" => 41.191394),
+"KAD" => array("City" => "Kaduna", "Lat" => 10.696025, "Lon" => 7.320114),
+"KAE" => array("City" => "Kake", "Lat" => 56.973056, "Lon" => -133.945556),
+"KAG" => array("City" => "Kangnung", "Lat" => 37.753561, "Lon" => 128.943625),
+"KAI" => array("City" => "Kaieteur", "Lat" => 5.167, "Lon" => -59.483),
+"KAJ" => array("City" => "Kajaani", "Lat" => 64.285472, "Lon" => 27.692414),
+"KAL" => array("City" => "Kaltag", "Lat" => 64.3191, "Lon" => -158.741),
+"KAN" => array("City" => "Kano", "Lat" => 12.047589, "Lon" => 8.524622),
+"KAO" => array("City" => "Kuusamo", "Lat" => 65.987575, "Lon" => 29.239381),
+"KAR" => array("City" => "Kamarang", "Lat" => 5.865278, "Lon" => -60.614167),
+"KAT" => array("City" => "Kaitaia", "Lat" => -35.07, "Lon" => 173.285278),
+"KAU" => array("City" => "Kauhava", "Lat" => 63.127078, "Lon" => 23.051442),
+"KAW" => array("City" => "Kawthoung", "Lat" => 10.049258, "Lon" => 98.538006),
+"KBC" => array("City" => "Brich Creek", "Lat" => 66.256708, "Lon" => -145.815319),
+"KBL" => array("City" => "Kabul", "Lat" => 34.565853, "Lon" => 69.212328),
+"KBP" => array("City" => "Kiev", "Lat" => 50.345, "Lon" => 30.894722),
+"KBR" => array("City" => "Kota Bahru", "Lat" => 6.16685, "Lon" => 102.293014),
+"KBS" => array("City" => "Bo", "Lat" => 7.9444, "Lon" => -11.761),
+"KBT" => array("City" => "Kaben", "Lat" => 8.90056, "Lon" => 170.844),
+"KBU" => array("City" => "Laut Island", "Lat" => -3.29472, "Lon" => 116.165),
+"KBV" => array("City" => "Krabi", "Lat" => 8.095969, "Lon" => 98.988764),
+"KBW" => array("City" => "Chignik", "Lat" => 56.295556, "Lon" => -158.401398),
+"KBY" => array("City" => "Samara", "Lat" => 53.504858, "Lon" => 50.164336),
+"KBZ" => array("City" => "Kaikoura", "Lat" => 6.638, "Lon" => -42.253),
+"KCA" => array("City" => "Kuqa", "Lat" => 41.7181, "Lon" => 82.9869),
+"KCC" => array("City" => "Coffman Cove", "Lat" => 56.014722, "Lon" => -132.833889),
+"KCH" => array("City" => "Kuching", "Lat" => 1.484697, "Lon" => 110.346933),
+"KCL" => array("City" => "Chignik Lagoon", "Lat" => 56.311111, "Lon" => -158.534167),
+"KCQ" => array("City" => "Chignik Lake", "Lat" => 56.255, "Lon" => -158.775278),
+"KCZ" => array("City" => "Kochi", "Lat" => 33.546111, "Lon" => 133.669444),
+"KDD" => array("City" => "Khuzdar", "Lat" => 27.7906, "Lon" => 66.6473),
+"KDH" => array("City" => "Kandahar", "Lat" => 31.505756, "Lon" => 65.847822),
+"KDI" => array("City" => "Kendari", "Lat" => -4.081608, "Lon" => 122.418231),
+"KDL" => array("City" => "Armari Air Force Base", "Lat" => 59.260286, "Lon" => 24.208467),
+"KDM" => array("City" => "Kaadedhdhoo", "Lat" => 0.4880555, "Lon" => 72.995556),
+"KDO" => array("City" => "Laamu Atoll", "Lat" => 1.85917, "Lon" => 73.5219),
+"KDR" => array("City" => "Kandrian", "Lat" => -6.183, "Lon" => 149.533),
+"KDU" => array("City" => "Skardu", "Lat" => 35.335508, "Lon" => 75.536047),
+"KDV" => array("City" => "Vunisea", "Lat" => -19.0581, "Lon" => 178.157),
+"KED" => array("City" => "Kaedi", "Lat" => 16.159547, "Lon" => -13.507617),
+"KEF" => array("City" => "Keflavik", "Lat" => 63.985, "Lon" => -22.605556),
+"KEH" => array("City" => "Kenmore", "Lat" => 47.7548, "Lon" => -122.259),
+"KEJ" => array("City" => "Kemorovo", "Lat" => 55.270094, "Lon" => 86.107208),
+"KEK" => array("City" => "Ekwok", "Lat" => 59.356944, "Lon" => -157.471111),
+"KEL" => array("City" => "Kiel", "Lat" => 54.3795, "Lon" => 10.145167),
+"KEM" => array("City" => "Kemi", "Lat" => 65.781889, "Lon" => 24.5991),
+"KEN" => array("City" => "Kenema", "Lat" => 7.89129, "Lon" => -11.1766),
+"KEP" => array("City" => "Nepalgunj", "Lat" => 28.103633, "Lon" => 81.667006),
+"KER" => array("City" => "Kerman", "Lat" => 30.274444, "Lon" => 56.951111),
+"KET" => array("City" => "Kengtung", "Lat" => 21.301611, "Lon" => 99.635997),
+"KEV" => array("City" => "Halli", "Lat" => 61.85605, "Lon" => 24.7866),
+"KEX" => array("City" => "Kempten", "Lat" => 47.724, "Lon" => 10.311),
+"KFA" => array("City" => "Kiffa", "Lat" => 16.589983, "Lon" => -11.406208),
+"KFB" => array("City" => "Kaufbeuren", "Lat" => 47.874, "Lon" => 10.6294),
+"KFP" => array("City" => "False Pass", "Lat" => 54.8475, "Lon" => -163.410278),
+"KFX" => array("City" => "Kaufbeuren", "Lat" => 47.885, "Lon" => 10.6294),
+"KGA" => array("City" => "Kananga", "Lat" => -5.900055, "Lon" => 22.469166),
+"KGC" => array("City" => "Kingscote", "Lat" => -35.713889, "Lon" => 137.521389),
+"KGD" => array("City" => "Kaliningrad", "Lat" => 54.89005, "Lon" => 20.592633),
+"KGE" => array("City" => "Kagau Island", "Lat" => -7.333, "Lon" => 157.583),
+"KGF" => array("City" => "Karaganda", "Lat" => 49.670833, "Lon" => 73.334444),
+"KGG" => array("City" => "Kedougou", "Lat" => 12.572292, "Lon" => -12.220333),
+"KGI" => array("City" => "Kalgoorlie", "Lat" => -30.789444, "Lon" => 121.461667),
+"KGJ" => array("City" => "Karonga", "Lat" => -9.953569, "Lon" => 33.893022),
+"KGK" => array("City" => "Koliganek", "Lat" => 59.726667, "Lon" => -157.259444),
+"KGL" => array("City" => "Kigali", "Lat" => -1.968628, "Lon" => 30.13945),
+"KGO" => array("City" => "Kirovograd", "Lat" => 48.54, "Lon" => 32.29),
+"KGP" => array("City" => "Kogalym", "Lat" => 62.18, "Lon" => 74.53),
+"KGS" => array("City" => "Kos", "Lat" => 36.793335, "Lon" => 27.091667),
+"KGX" => array("City" => "Grayling", "Lat" => 62.894444, "Lon" => -160.065),
+"KHC" => array("City" => "Kerch", "Lat" => 45.372869, "Lon" => 36.402761),
+"KHD" => array("City" => "Khorram Abad", "Lat" => 33.435378, "Lon" => 48.282889),
+"KHE" => array("City" => "Kherson", "Lat" => 46.6758, "Lon" => 32.5064),
+"KHG" => array("City" => "Kashi", "Lat" => 39.542922, "Lon" => 76.019956),
+"KHH" => array("City" => "Kaohsiung", "Lat" => 22.577094, "Lon" => 120.350006),
+"KHI" => array("City" => "Karachi", "Lat" => 24.906547, "Lon" => 67.160797),
+"KHM" => array("City" => "Khamti", "Lat" => 25.988333, "Lon" => 95.674444),
+"KHN" => array("City" => "Nanchang", "Lat" => 28.865, "Lon" => 115.9),
+"KHS" => array("City" => "Khasab", "Lat" => 26.170986, "Lon" => 56.240569),
+"KHV" => array("City" => "Khabarovsk", "Lat" => 48.528044, "Lon" => 135.188361),
+"KHW" => array("City" => "Khwai River", "Lat" => -19.149166, "Lon" => 23.7875),
+"KIA" => array("City" => "Kaieteur Falls", "Lat" => 5.163333, "Lon" => -59.483333),
+"KID" => array("City" => "Kristianstad", "Lat" => 55.921686, "Lon" => 14.085536),
+"KIE" => array("City" => "Kineshma", "Lat" => 57.45000001, "Lon" => 42.15000001),
+"KIF" => array("City" => "Kingfisher Lake", "Lat" => 53.0125, "Lon" => -89.8553),
+"KIH" => array("City" => "Kish Island", "Lat" => 26.526156, "Lon" => 53.980211),
+"KIJ" => array("City" => "Niigata", "Lat" => 37.5711, "Lon" => 139.0646),
+"KIK" => array("City" => "Kirkuk", "Lat" => 35.17, "Lon" => 44.3483),
+"KIM" => array("City" => "Kimberley", "Lat" => -28.802834, "Lon" => 24.765167),
+"KIN" => array("City" => "Kingston", "Lat" => 17.935667, "Lon" => -76.7875),
+"KIO" => array("City" => "Kili Island", "Lat" => 5.64452, "Lon" => 169.12),
+"KIP" => array("City" => "KIEV", "Lat" => 50.1403, "Lon" => 30.1808),
+"KIR" => array("City" => "Kerry", "Lat" => 52.180878, "Lon" => -9.523783),
+"KIS" => array("City" => "Kisumu", "Lat" => -0.086139, "Lon" => 34.728892),
+"KIT" => array("City" => "Kithira", "Lat" => 36.274258, "Lon" => 23.016978),
+"KIV" => array("City" => "Kichinau Fir/acc/com", "Lat" => 46.927744, "Lon" => 28.930978),
+"KIW" => array("City" => "Southdowns", "Lat" => -12.900469, "Lon" => 28.149858),
+"KIX" => array("City" => "Osaka", "Lat" => 34.4347222, "Lon" => 135.244167),
+"KJA" => array("City" => "Krasnoyarsk", "Lat" => 56.18, "Lon" => 92.475),
+"KKA" => array("City" => "Koyuk", "Lat" => 64.939444, "Lon" => -161.154167),
+"KKB" => array("City" => "Kitoi Bay", "Lat" => 58.190833, "Lon" => -152.370556),
+"KKC" => array("City" => "Khon Kaen", "Lat" => 16.466628, "Lon" => 102.783661),
+"KKD" => array("City" => "Kokoda", "Lat" => -8.88468, "Lon" => 147.731),
+"KKE" => array("City" => "Kerikeri", "Lat" => -35.262779, "Lon" => 173.911944),
+"KKH" => array("City" => "Kongiganak", "Lat" => 59.960833, "Lon" => -162.881111),
+"KKJ" => array("City" => "Kitakyushu", "Lat" => 33.845942, "Lon" => 131.034689),
+"KKN" => array("City" => "Kirkenes", "Lat" => 69.725781, "Lon" => 29.891295),
+"KKR" => array("City" => "Kaukura Atoll", "Lat" => -15.663333, "Lon" => -146.884769),
+"KKW" => array("City" => "Kikwit", "Lat" => -5.035767, "Lon" => 18.785631),
+"KKX" => array("City" => "Kikai", "Lat" => 28.321389, "Lon" => 129.928056),
+"KLC" => array("City" => "Kaolack", "Lat" => 14.146881, "Lon" => -16.051297),
+"KLD" => array("City" => "Tver", "Lat" => 56.824736, "Lon" => 35.757678),
+"KLG" => array("City" => "Kalskag", "Lat" => 61.5363, "Lon" => -160.341),
+"KLH" => array("City" => "Kolhapur", "Lat" => 16.664658, "Lon" => 74.289353),
+"KLL" => array("City" => "Levelock", "Lat" => 59.128056, "Lon" => -156.858611),
+"KLN" => array("City" => "Larsen Bay", "Lat" => 57.535, "Lon" => -153.976667),
+"KLO" => array("City" => "Kalibo", "Lat" => 11.679431, "Lon" => 122.376294),
+"KLR" => array("City" => "Kalkmar", "Lat" => 56.685531, "Lon" => 16.287578),
+"KLS" => array("City" => "Kelso", "Lat" => 46.118, "Lon" => -122.898389),
+"KLU" => array("City" => "Klagenfurt", "Lat" => 46.642514, "Lon" => 14.337739),
+"KLV" => array("City" => "Karlovy Vary", "Lat" => 50.202978, "Lon" => 12.914983),
+"KLW" => array("City" => "Klawock", "Lat" => 55.579167, "Lon" => -133.076111),
+"KLX" => array("City" => "Kalamata", "Lat" => 37.068319, "Lon" => 22.025525),
+"KLZ" => array("City" => "Kleinsee", "Lat" => -29.688403, "Lon" => 17.094006),
+"KME" => array("City" => "Kamembe", "Lat" => -2.462242, "Lon" => 28.90795),
+"KMG" => array("City" => "Kunming", "Lat" => 24.992364, "Lon" => 102.743536),
+"KMI" => array("City" => "Miyazaki", "Lat" => 31.877222, "Lon" => 131.448611),
+"KMJ" => array("City" => "Kumamoto", "Lat" => 32.837319, "Lon" => 130.85505),
+"KMN" => array("City" => "Kamina Base", "Lat" => -8.642025, "Lon" => 25.252897),
+"KMO" => array("City" => "Manokotak", "Lat" => 58.990278, "Lon" => -159.05),
+"KMQ" => array("City" => "Kanazawa", "Lat" => 36.394611, "Lon" => 136.406544),
+"KMU" => array("City" => "Kismayu", "Lat" => -0.377353, "Lon" => 42.459233),
+"KMV" => array("City" => "Kalemyo", "Lat" => 23.188811, "Lon" => 94.051094),
+"KMW" => array("City" => "Kostroma", "Lat" => 57.7961, "Lon" => 41.0204),
+"KMY" => array("City" => "Moser Bay", "Lat" => 57.025556, "Lon" => -154.145833),
+"KNC" => array("City" => "Jian", "Lat" => 26.8575, "Lon" => 114.737222),
+"KND" => array("City" => "Kindu", "Lat" => -2.919178, "Lon" => 25.915361),
+"KNF" => array("City" => "Marham", "Lat" => 52.648353, "Lon" => 0.550692),
+"KNG" => array("City" => "Kaimana", "Lat" => -3.644517, "Lon" => 133.695553),
+"KNH" => array("City" => "Kinmen", "Lat" => 24.427892, "Lon" => 118.359197),
+"KNO" => array("City" => "Knokke", "Lat" => 51.3222, "Lon" => 3.29306),
+"KNP" => array("City" => "Kapanda", "Lat" => -9.771944, "Lon" => 15.456111),
+"KNQ" => array("City" => "Kone", "Lat" => -21.053428, "Lon" => 164.837806),
+"KNU" => array("City" => "Kanpur", "Lat" => 26.441444, "Lon" => 80.364864),
+"KNW" => array("City" => "New Stuyahok", "Lat" => 59.4499, "Lon" => -157.328),
+"KNX" => array("City" => "Kununurra", "Lat" => -15.778056, "Lon" => 128.7075),
+"KOA" => array("City" => "Kona", "Lat" => 19.738767, "Lon" => -156.045631),
+"KOC" => array("City" => "Koumac", "Lat" => -20.546314, "Lon" => 164.255625),
+"KOE" => array("City" => "Kupang", "Lat" => -10.171583, "Lon" => 123.671136),
+"KOI" => array("City" => "Kirkwall", "Lat" => 58.957778, "Lon" => -2.905),
+"KOJ" => array("City" => "Kagoshima", "Lat" => 31.803397, "Lon" => 130.719408),
+"KOK" => array("City" => "Kruunupyy", "Lat" => 63.721172, "Lon" => 23.143131),
+"KON" => array("City" => "Kontum", "Lat" => 14.35, "Lon" => 108.017),
+"KOP" => array("City" => "Nakhon Phanom", "Lat" => 17.383794, "Lon" => 104.643022),
+"KOS" => array("City" => "Sihanoukville", "Lat" => 10.579686, "Lon" => 103.636828),
+"KOT" => array("City" => "Kotlik", "Lat" => 63.030556, "Lon" => -163.532778),
+"KOU" => array("City" => "Koulamoutou", "Lat" => -1.18461, "Lon" => 12.4413),
+"KOV" => array("City" => "Kokshetau", "Lat" => 53.3291, "Lon" => 69.5946),
+"KOW" => array("City" => "Ganzhou", "Lat" => 25.8258, "Lon" => 114.912),
+"KOX" => array("City" => "Koln", "Lat" => 50.954, "Lon" => 7.183),
+"KOY" => array("City" => "Olga Bay", "Lat" => 57.161389, "Lon" => -154.229722),
+"KOZ" => array("City" => "Ouzinkie", "Lat" => 57.922876, "Lon" => -152.500511),
+"KPB" => array("City" => "Point Baker", "Lat" => 56.351944, "Lon" => -133.6225),
+"KPC" => array("City" => "Port Clarence", "Lat" => 65.2537, "Lon" => -166.859),
+"KPN" => array("City" => "Kipnuk", "Lat" => 59.933056, "Lon" => -164.030556),
+"KPO" => array("City" => "Pohang", "Lat" => 35.987858, "Lon" => 129.420486),
+"KPR" => array("City" => "Port Williams", "Lat" => 58.49, "Lon" => -152.582222),
+"KPV" => array("City" => "Perryville", "Lat" => 55.906667, "Lon" => -159.160833),
+"KPY" => array("City" => "Port Bailey", "Lat" => 57.93, "Lon" => -153.040556),
+"KQA" => array("City" => "Akutan", "Lat" => 54.1325, "Lon" => -165.785),
+"KRF" => array("City" => "Kramfors", "Lat" => 63.048597, "Lon" => 17.768856),
+"KRI" => array("City" => "Kikori", "Lat" => -7.42438, "Lon" => 144.25),
+"KRK" => array("City" => "Krakow", "Lat" => 50.077731, "Lon" => 19.784836),
+"KRL" => array("City" => "Korla", "Lat" => 41.6978, "Lon" => 86.1289),
+"KRN" => array("City" => "Kiruna", "Lat" => 67.821986, "Lon" => 20.336764),
+"KRO" => array("City" => "Kurgan", "Lat" => 55.4753, "Lon" => 65.4156),
+"KRP" => array("City" => "Karup", "Lat" => 56.297458, "Lon" => 9.124628),
+"KRR" => array("City" => "Krasnodar", "Lat" => 45.034689, "Lon" => 39.170539),
+"KRS" => array("City" => "Kristiansand", "Lat" => 58.204214, "Lon" => 8.085369),
+"KRT" => array("City" => "Khartoum", "Lat" => 15.589497, "Lon" => 32.553161),
+"KRW" => array("City" => "Krasnovodsk", "Lat" => 40.063333, "Lon" => 53.007222),
+"KRY" => array("City" => "Karamay", "Lat" => 45.617, "Lon" => 84.883),
+"KRZ" => array("City" => "Kiri", "Lat" => -1.435, "Lon" => 19.024),
+"KSA" => array("City" => "Kosrae", "Lat" => 5.356975, "Lon" => 162.958386),
+"KSC" => array("City" => "Kosice", "Lat" => 48.663055, "Lon" => 21.241112),
+"KSF" => array("City" => "Kassel", "Lat" => 51.408394, "Lon" => 9.377631),
+"KSH" => array("City" => "Bakhtaran", "Lat" => 34.345853, "Lon" => 47.158128),
+"KSJ" => array("City" => "Kasos", "Lat" => 35.421358, "Lon" => 26.910047),
+"KSK" => array("City" => "Karlskoga", "Lat" => 59.345867, "Lon" => 14.495922),
+"KSL" => array("City" => "Kassala", "Lat" => 15.387494, "Lon" => 36.328842),
+"KSM" => array("City" => "St Mary's", "Lat" => 62.0605, "Lon" => -163.302),
+"KSN" => array("City" => "Kostanay", "Lat" => 53.206944, "Lon" => 63.550278),
+"KSO" => array("City" => "Kastoria", "Lat" => 40.446294, "Lon" => 21.282186),
+"KSQ" => array("City" => "Khanabad", "Lat" => 38.8336, "Lon" => 65.9215),
+"KSU" => array("City" => "Kristiansund", "Lat" => 63.111781, "Lon" => 7.824522),
+"KSY" => array("City" => "Kars", "Lat" => 40.562222, "Lon" => 43.115002),
+"KSZ" => array("City" => "Kotlas", "Lat" => 61.2358, "Lon" => 46.6975),
+"KTA" => array("City" => "Karratha", "Lat" => -20.712222, "Lon" => 116.773333),
+"KTB" => array("City" => "Thorne Bay", "Lat" => 55.688056, "Lon" => -132.536667),
+"KTD" => array("City" => "Kitadaito", "Lat" => 25.944722, "Lon" => 131.326944),
+"KTE" => array("City" => "Kerteh", "Lat" => 4.537222, "Lon" => 103.426756),
+"KTF" => array("City" => "Takaka", "Lat" => -40.85, "Lon" => 172.8),
+"KTG" => array("City" => "Ketapang", "Lat" => -1.816639, "Lon" => 109.963483),
+"KTL" => array("City" => "Kitale", "Lat" => 0.971989, "Lon" => 34.958556),
+"KTM" => array("City" => "Kathmandu", "Lat" => 27.696583, "Lon" => 85.3591),
+"KTN" => array("City" => "Ketchikan", "Lat" => 55.355556, "Lon" => -131.71375),
+"KTP" => array("City" => "Kingston", "Lat" => 17.988558, "Lon" => -76.823761),
+"KTR" => array("City" => "Katherine", "Lat" => -14.5211, "Lon" => 132.378),
+"KTS" => array("City" => "Brevig Mission", "Lat" => 65.331389, "Lon" => -166.465833),
+"KTT" => array("City" => "Kittila", "Lat" => 67.701022, "Lon" => 24.84685),
+"KTU" => array("City" => "Kota", "Lat" => 25.160219, "Lon" => 75.845631),
+"KTW" => array("City" => "Katowice", "Lat" => 50.474253, "Lon" => 19.080019),
+"KUA" => array("City" => "Kuantan", "Lat" => 3.775389, "Lon" => 103.209056),
+"KUC" => array("City" => "Kuria", "Lat" => 0.228611, "Lon" => 173.410556),
+"KUD" => array("City" => "Kudat", "Lat" => 6.9225, "Lon" => 116.836),
+"KUF" => array("City" => "Samara", "Lat" => 53.5, "Lon" => 50.15),
+"KUK" => array("City" => "Kasigluk", "Lat" => 60.873333, "Lon" => -162.524444),
+"KUL" => array("City" => "Kuala Lumpur", "Lat" => 2.745578, "Lon" => 101.709917),
+"KUM" => array("City" => "Yakushima", "Lat" => 30.385569, "Lon" => 130.659017),
+"KUN" => array("City" => "Kaunas", "Lat" => 54.963919, "Lon" => 24.084778),
+"KUO" => array("City" => "Kuopio", "Lat" => 63.00715, "Lon" => 27.797756),
+"KUS" => array("City" => "Kulusuk", "Lat" => 65.566667, "Lon" => -37.1166667),
+"KUT" => array("City" => "Kutaisi", "Lat" => 42.176653, "Lon" => 42.482583),
+"KUU" => array("City" => "Kulu", "Lat" => 31.876706, "Lon" => 77.154367),
+"KUV" => array("City" => "Kunsan", "Lat" => 35.903756, "Lon" => 126.615906),
+"KUY" => array("City" => "Kamusi", "Lat" => -7.42035, "Lon" => 143.122),
+"KVA" => array("City" => "Kavala", "Lat" => 40.913306, "Lon" => 24.619223),
+"KVB" => array("City" => "Skovde", "Lat" => 58.4564, "Lon" => 13.972672),
+"KVC" => array("City" => "King Cove", "Lat" => 55.1163, "Lon" => -162.266),
+"KVD" => array("City" => "Ganja", "Lat" => 40.7377, "Lon" => 46.3176),
+"KVK" => array("City" => "Apatity", "Lat" => 67.4633, "Lon" => 33.5883),
+"KVL" => array("City" => "Kivalina", "Lat" => 67.7362, "Lon" => -164.563),
+"KVX" => array("City" => "Kirov", "Lat" => 58.5033, "Lon" => 49.3483),
+"KWA" => array("City" => "Kwajalein", "Lat" => 8.720122, "Lon" => 167.731661),
+"KWE" => array("City" => "Guiyang", "Lat" => 26.538522, "Lon" => 106.800703),
+"KWI" => array("City" => "Kuwait", "Lat" => 29.226567, "Lon" => 47.968928),
+"KWJ" => array("City" => "Kwangju", "Lat" => 35.126389, "Lon" => 126.808889),
+"KWK" => array("City" => "Kwigillingok", "Lat" => 59.876389, "Lon" => -163.168611),
+"KWL" => array("City" => "Guilin", "Lat" => 25.218106, "Lon" => 110.039197),
+"KWN" => array("City" => "Quinhagak", "Lat" => 59.755, "Lon" => -161.845278),
+"KWP" => array("City" => "West Point", "Lat" => 57.77, "Lon" => -153.548889),
+"KWT" => array("City" => "Kwethluk", "Lat" => 60.790278, "Lon" => -161.443611),
+"KWY" => array("City" => "Kiwayu", "Lat" => -1.96056, "Lon" => 41.2975),
+"KWZ" => array("City" => "Kolwezi", "Lat" => -10.765886, "Lon" => 25.505714),
+"KXF" => array("City" => "Koro Island", "Lat" => -17.3458, "Lon" => 179.422),
+"KXK" => array("City" => "Komsomolsk-on-Amur", "Lat" => 50.4094, "Lon" => 136.934),
+"KYA" => array("City" => "Konya", "Lat" => 37.979, "Lon" => 32.561861),
+"KYD" => array("City" => "Lanyu", "Lat" => 22.028842, "Lon" => 121.533642),
+"KYK" => array("City" => "Karluk", "Lat" => 57.566944, "Lon" => -154.450278),
+"KYP" => array("City" => "Kyaukpyu", "Lat" => 19.426447, "Lon" => 93.534836),
+"KYS" => array("City" => "Kayes", "Lat" => 14.481233, "Lon" => -11.404397),
+"KYU" => array("City" => "Koyukuk", "Lat" => 64.875833, "Lon" => -157.730556),
+"KYZ" => array("City" => "Kyzyl", "Lat" => 51.6694, "Lon" => 94.4006),
+"KZB" => array("City" => "Zachar Bay", "Lat" => 57.55, "Lon" => -153.75),
+"KZI" => array("City" => "Kozani", "Lat" => 40.28611, "Lon" => 21.840834),
+"KZN" => array("City" => "Kazan", "Lat" => 55.606186, "Lon" => 49.278728),
+"KZO" => array("City" => "Kzyl-Orda", "Lat" => 44.709, "Lon" => 65.591),
+"KZS" => array("City" => "Kastelorizo", "Lat" => 36.127777, "Lon" => 29.566656),
+"L35" => array("City" => "Big Bear", "Lat" => 34.2637778, "Lon" => -116.8560278),
+"LAA" => array("City" => "Lamar", "Lat" => 38.069694, "Lon" => -102.6885),
+"LAC" => array("City" => "Layang Layang Atoll", "Lat" => 7.372222, "Lon" => 113.841667),
+"LAD" => array("City" => "Luanda", "Lat" => -8.858375, "Lon" => 13.231178),
+"LAE" => array("City" => "Nadzab", "Lat" => -6.569828, "Lon" => 146.726242),
+"LAF" => array("City" => "Lafayette", "Lat" => 40.4123056, "Lon" => -86.9368889),
+"LAI" => array("City" => "Lannion", "Lat" => 48.754378, "Lon" => -3.471656),
+"LAK" => array("City" => "Aklavik", "Lat" => 68.223333, "Lon" => -135.005833),
+"LAL" => array("City" => "Lakeland", "Lat" => 27.9889167, "Lon" => -82.0185556),
+"LAM" => array("City" => "Los Alamos", "Lat" => 35.8798019, "Lon" => -106.2694153),
+"LAN" => array("City" => "Lansing", "Lat" => 42.7787, "Lon" => -84.587357),
+"LAO" => array("City" => "Laoag", "Lat" => 18.178092, "Lon" => 120.531522),
+"LAP" => array("City" => "La Paz", "Lat" => 24.072694, "Lon" => -110.362475),
+"LAQ" => array("City" => "Al Bayda'", "Lat" => 32.788673, "Lon" => 21.964333),
+"LAR" => array("City" => "Laramie", "Lat" => 41.3121, "Lon" => -105.675),
+"LAS" => array("City" => "Las Vegas", "Lat" => 36.080056, "Lon" => -115.15225),
+"LAU" => array("City" => "Lamu", "Lat" => -2.252417, "Lon" => 40.913097),
+"LAW" => array("City" => "Lawton", "Lat" => 34.5677144, "Lon" => -98.4166367),
+"LAX" => array("City" => "Los Angeles", "Lat" => 33.942536, "Lon" => -118.408075),
+"LAY" => array("City" => "Ladysmith", "Lat" => -28.581667, "Lon" => 29.749722),
+"LAZ" => array("City" => "Bom Jesus Da Lapa", "Lat" => -13.262086, "Lon" => -43.408114),
+"LBA" => array("City" => "Leeds", "Lat" => 53.865897, "Lon" => -1.660569),
+"LBB" => array("City" => "Lubbock", "Lat" => 33.663639, "Lon" => -101.822778),
+"LBC" => array("City" => "Luebeck", "Lat" => 53.805367, "Lon" => 10.719222),
+"LBD" => array("City" => "Khudzhand", "Lat" => 40.2154, "Lon" => 69.6947),
+"LBE" => array("City" => "Latrobe", "Lat" => 40.2759, "Lon" => -79.4048),
+"LBF" => array("City" => "North Platte", "Lat" => 41.1262, "Lon" => -100.684),
+"LBG" => array("City" => "Paris", "Lat" => 48.969444, "Lon" => 2.441389),
+"LBI" => array("City" => "Albi", "Lat" => 43.913887, "Lon" => 2.113056),
+"LBJ" => array("City" => "Labuhan Bajo", "Lat" => -8.486656, "Lon" => 119.88905),
+"LBL" => array("City" => "Liberal", "Lat" => 37.044222, "Lon" => -100.95986),
+"LBP" => array("City" => "Long Banga", "Lat" => 3.18495, "Lon" => 115.454),
+"LBQ" => array("City" => "Lambarene", "Lat" => -0.704389, "Lon" => 10.245722),
+"LBR" => array("City" => "Labrea", "Lat" => -7.258889, "Lon" => -64.797778),
+"LBS" => array("City" => "Lambasa", "Lat" => -16.466749, "Lon" => 179.33986),
+"LBU" => array("City" => "Labuan", "Lat" => 5.300683, "Lon" => 115.250181),
+"LBV" => array("City" => "Libreville", "Lat" => 0.4586, "Lon" => 9.412283),
+"LBW" => array("City" => "Long Bawan-Borneo Island", "Lat" => 3.867, "Lon" => 115.683),
+"LBX" => array("City" => "Lubang", "Lat" => 13.855833, "Lon" => 121.105833),
+"LBZ" => array("City" => "Lucapa", "Lat" => -8.443056, "Lon" => 20.732222),
+"LCA" => array("City" => "Larnaca", "Lat" => 34.875117, "Lon" => 33.62485),
+"LCC" => array("City" => "Lecce", "Lat" => 40.239228, "Lon" => 18.133325),
+"LCE" => array("City" => "La Ceiba", "Lat" => 15.742481, "Lon" => -86.853036),
+"LCG" => array("City" => "La Coruna", "Lat" => 43.302061, "Lon" => -8.377256),
+"LCH" => array("City" => "Lake Charles", "Lat" => 30.126112, "Lon" => -93.223335),
+"LCJ" => array("City" => "Lodz", "Lat" => 51.721881, "Lon" => 19.398133),
+"LCK" => array("City" => "Columbus", "Lat" => 39.813786, "Lon" => -82.927822),
+"LCL" => array("City" => "La Coloma", "Lat" => 22.336261, "Lon" => -83.642111),
+"LCQ" => array("City" => "Lake City", "Lat" => 30.181944, "Lon" => -82.576944),
+"LCR" => array("City" => "La Chorrera", "Lat" => -0.733333, "Lon" => -73.016667),
+"LCX" => array("City" => "Longyan", "Lat" => 25.674167, "Lon" => 116.746389),
+"LCY" => array("City" => "London", "Lat" => 51.505278, "Lon" => 0.055278),
+"LDB" => array("City" => "Londrina", "Lat" => -23.333625, "Lon" => -51.130072),
+"LDE" => array("City" => "Tarbes", "Lat" => 43.178675, "Lon" => -0.006439),
+"LDG" => array("City" => "Arkhangelsk", "Lat" => 64.895833, "Lon" => 45.722778),
+"LDI" => array("City" => "Lindi", "Lat" => -9.85111, "Lon" => 39.7578),
+"LDK" => array("City" => "Lidkoping", "Lat" => 58.465522, "Lon" => 13.174414),
+"LDN" => array("City" => "Lamidanda", "Lat" => 27.253117, "Lon" => 86.670044),
+"LDU" => array("City" => "Lahad Datu", "Lat" => 5.032247, "Lon" => 118.324036),
+"LDY" => array("City" => "Londonderry", "Lat" => 55.042778, "Lon" => -7.161111),
+"LEA" => array("City" => "Learmonth", "Lat" => -22.235556, "Lon" => 114.088611),
+"LEB" => array("City" => "Lebanon", "Lat" => 43.6261, "Lon" => -72.3042),
+"LEC" => array("City" => "Lençóis", "Lat" => -12.4823, "Lon" => -41.277),
+"LED" => array("City" => "St. Petersburg", "Lat" => 59.800292, "Lon" => 30.262503),
+"LEH" => array("City" => "Le Havre", "Lat" => 49.533889, "Lon" => 0.088056),
+"LEI" => array("City" => "Almeria", "Lat" => 36.843936, "Lon" => -2.370097),
+"LEJ" => array("City" => "Leipzig", "Lat" => 51.432447, "Lon" => 12.241633),
+"LEK" => array("City" => "Labe", "Lat" => 11.326058, "Lon" => -12.28685),
+"LEN" => array("City" => "Leon", "Lat" => 42.589, "Lon" => -5.655556),
+"LEQ" => array("City" => "Land's End", "Lat" => 50.1028, "Lon" => -5.67056),
+"LES" => array("City" => "Leuterschach", "Lat" => 47.75, "Lon" => 10.601),
+"LET" => array("City" => "Leticia", "Lat" => -4.193549, "Lon" => -69.943163),
+"LEU" => array("City" => "Seo De Urgel", "Lat" => 42.338611, "Lon" => 1.409167),
+"LEV" => array("City" => "Levuka", "Lat" => -17.68333, "Lon" => 178.83333),
+"LEX" => array("City" => "Lexington KY", "Lat" => 38.0365, "Lon" => -84.605889),
+"LEY" => array("City" => "Lelystad", "Lat" => 52.4603, "Lon" => 5.52722),
+"LFI" => array("City" => "Hampton", "Lat" => 37.082881, "Lon" => -76.360547),
+"LFK" => array("City" => "Lufkin", "Lat" => 31.234014, "Lon" => -94.75),
+"LFR" => array("City" => "La Fria", "Lat" => 8.239167, "Lon" => -72.271028),
+"LFT" => array("City" => "Lafayette", "Lat" => 30.205278, "Lon" => -91.987611),
+"LFW" => array("City" => "Lome", "Lat" => 6.165611, "Lon" => 1.254511),
+"LGA" => array("City" => "New York", "Lat" => 40.777245, "Lon" => -73.872608),
+"LGB" => array("City" => "Long Beach", "Lat" => 33.817722, "Lon" => -118.151611),
+"LGG" => array("City" => "Liege", "Lat" => 50.637417, "Lon" => 5.443222),
+"LGI" => array("City" => "Dead Man's Cay", "Lat" => 23.179014, "Lon" => -75.093597),
+"LGK" => array("City" => "Pulau", "Lat" => 6.329728, "Lon" => 99.728667),
+"LGL" => array("City" => "Long Datih", "Lat" => 3.421, "Lon" => 115.154),
+"LGO" => array("City" => "Langeoog", "Lat" => 53.7425, "Lon" => 7.49778),
+"LGP" => array("City" => "Legazpi", "Lat" => 13.157064, "Lon" => 123.746247),
+"LGQ" => array("City" => "Lago Agrio", "Lat" => 0.093056, "Lon" => -76.8675),
+"LGS" => array("City" => "Malargue", "Lat" => -35.493597, "Lon" => -69.574267),
+"LGU" => array("City" => "Logan", "Lat" => 41.791, "Lon" => -111.852),
+"LGW" => array("City" => "London", "Lat" => 51.148056, "Lon" => -0.190278),
+"LHA" => array("City" => "Lahr", "Lat" => 48.3693, "Lon" => 7.82772),
+"LHC" => array("City" => "Caballococha", "Lat" => -3.916858, "Lon" => -70.508225),
+"LHD" => array("City" => "Anchorage", "Lat" => 61.1866382, "Lon" => -149.9653918),
+"LHE" => array("City" => "Lahore", "Lat" => 31.521564, "Lon" => 74.403594),
+"LHR" => array("City" => "London", "Lat" => 51.4775, "Lon" => -0.461389),
+"LHS" => array("City" => "Las Heras", "Lat" => -46.533056, "Lon" => -68.951111),
+"LHW" => array("City" => "Lanzhou", "Lat" => 36.117, "Lon" => 103.617),
+"LHX" => array("City" => "La Junta", "Lat" => 38.049719, "Lon" => -103.509431),
+"LID" => array("City" => "Valkenburg", "Lat" => 52.166139, "Lon" => 4.417944),
+"LIF" => array("City" => "Lifou", "Lat" => -20.7748, "Lon" => 167.239864),
+"LIG" => array("City" => "Limoges", "Lat" => 45.862778, "Lon" => 1.179444),
+"LIH" => array("City" => "Lihue", "Lat" => 21.975983, "Lon" => -159.338958),
+"LIK" => array("City" => "Likiep Island", "Lat" => 9.82316, "Lon" => 169.308),
+"LIL" => array("City" => "Lille", "Lat" => 50.561942, "Lon" => 3.089444),
+"LIM" => array("City" => "Lima", "Lat" => -12.021889, "Lon" => -77.114319),
+"LIN" => array("City" => "Milan", "Lat" => 45.445103, "Lon" => 9.276739),
+"LIO" => array("City" => "Limon", "Lat" => 9.957961, "Lon" => -83.022006),
+"LIP" => array("City" => "Lins", "Lat" => -21.664039, "Lon" => -49.730519),
+"LIQ" => array("City" => "Lisala", "Lat" => 2.170658, "Lon" => 21.496906),
+"LIR" => array("City" => "Liberia", "Lat" => 10.593289, "Lon" => -85.544408),
+"LIS" => array("City" => "Lisbon", "Lat" => 38.781311, "Lon" => -9.135919),
+"LIT" => array("City" => "Little Rock", "Lat" => 34.729444, "Lon" => -92.224306),
+"LIV" => array("City" => "Livingood", "Lat" => 65.531111, "Lon" => -148.541111),
+"LIW" => array("City" => "Loikaw", "Lat" => 19.691494, "Lon" => 97.214825),
+"LJA" => array("City" => "Lodja", "Lat" => -3.417, "Lon" => 23.45),
+"LJG" => array("City" => "Lijiang", "Lat" => 26.883333, "Lon" => 100.23333),
+"LJU" => array("City" => "Ljubliana", "Lat" => 46.223686, "Lon" => 14.457611),
+"LKB" => array("City" => "Lakeba Island", "Lat" => -18.1992, "Lon" => -178.817),
+"LKE" => array("City" => "Seattle", "Lat" => 47.629, "Lon" => -122.339),
+"LKG" => array("City" => "Lokichoggio", "Lat" => 4.204117, "Lon" => 34.348186),
+"LKH" => array("City" => "Long Akah", "Lat" => 3.3, "Lon" => 114.783),
+"LKL" => array("City" => "Lakselv", "Lat" => 70.068814, "Lon" => 24.973489),
+"LKN" => array("City" => "Leknes", "Lat" => 68.1525, "Lon" => 13.6094),
+"LKO" => array("City" => "Lucknow", "Lat" => 26.760594, "Lon" => 80.889339),
+"LKS" => array("City" => "Sazena", "Lat" => 50.1929, "Lon" => 14.1532),
+"LKY" => array("City" => "Lake Manyara", "Lat" => -3.376306, "Lon" => 35.818278),
+"LLA" => array("City" => "Lulea", "Lat" => 65.543758, "Lon" => 22.121989),
+"LLI" => array("City" => "Lalibella", "Lat" => 11.975014, "Lon" => 38.979969),
+"LLU" => array("City" => "Alluitsup Paa", "Lat" => 60.4644, "Lon" => -45.5778),
+"LLW" => array("City" => "Lilongwe", "Lat" => -13.789378, "Lon" => 33.781),
+"LMC" => array("City" => "La Macarena", "Lat" => 2.179167, "Lon" => -73.7875),
+"LME" => array("City" => "Le Mans", "Lat" => 47.948611, "Lon" => 0.201667),
+"LML" => array("City" => "Lae", "Lat" => 8.921667, "Lon" => 166.265556),
+"LMM" => array("City" => "Los Mochis", "Lat" => 25.685194, "Lon" => -109.080806),
+"LMN" => array("City" => "Limbang", "Lat" => 4.808303, "Lon" => 115.010439),
+"LMO" => array("City" => "Lossiemouth", "Lat" => 57.705214, "Lon" => -3.339169),
+"LMP" => array("City" => "Lampedusa", "Lat" => 35.497914, "Lon" => 12.618083),
+"LMT" => array("City" => "Klamath Falls", "Lat" => 42.1561, "Lon" => -121.733),
+"LMY" => array("City" => "Lake Murray", "Lat" => -7.00992, "Lon" => 141.494),
+"LNA" => array("City" => "West Palm Beach", "Lat" => 26.593, "Lon" => -80.085056),
+"LNB" => array("City" => "Lamen Bay", "Lat" => -16.5842, "Lon" => 168.159),
+"LND" => array("City" => "Lindau", "Lat" => 47.5489, "Lon" => 9.688),
+"LNE" => array("City" => "Lonorore", "Lat" => -15.8656, "Lon" => 168.172),
+"LNJ" => array("City" => "Lincang", "Lat" => 23.738333, "Lon" => 100.025),
+"LNK" => array("City" => "Lincoln", "Lat" => 40.850971, "Lon" => -96.75925),
+"LNO" => array("City" => "Leonora", "Lat" => -28.8781, "Lon" => 121.315),
+"LNS" => array("City" => "Lancaster", "Lat" => 40.1217, "Lon" => -76.2961),
+"LNV" => array("City" => "Londolovit", "Lat" => -3.04361, "Lon" => 152.629),
+"LNY" => array("City" => "Lanai", "Lat" => 20.785611, "Lon" => -156.951419),
+"LNZ" => array("City" => "Linz", "Lat" => 48.233219, "Lon" => 14.187511),
+"LOD" => array("City" => "Longana", "Lat" => -15.3067, "Lon" => 167.967),
+"LOE" => array("City" => "Loei", "Lat" => 17.439133, "Lon" => 101.722064),
+"LOH" => array("City" => "La Toma (Catamayo)", "Lat" => -3.99589, "Lon" => -79.3719),
+"LOK" => array("City" => "Lodwar", "Lat" => 3.121967, "Lon" => 35.608692),
+"LOO" => array("City" => "Laghouat", "Lat" => 33.764383, "Lon" => 2.928344),
+"LOS" => array("City" => "Lagos", "Lat" => 6.577369, "Lon" => 3.321156),
+"LOT" => array("City" => "Lockport", "Lat" => 41.606326, "Lon" => -88.083003),
+"LOU" => array("City" => "Louisville", "Lat" => 38.228, "Lon" => -85.663722),
+"LOV" => array("City" => "Monclova", "Lat" => 26.955733, "Lon" => -101.470136),
+"LPA" => array("City" => "Gran Canaria", "Lat" => 27.931886, "Lon" => -15.386586),
+"LPB" => array("City" => "La Paz", "Lat" => -16.513339, "Lon" => -68.192256),
+"LPD" => array("City" => "La Pedrera", "Lat" => -1.33, "Lon" => -69.58),
+"LPG" => array("City" => "La Plata", "Lat" => -34.972222, "Lon" => -57.894694),
+"LPI" => array("City" => "Linkoeping", "Lat" => 58.40615, "Lon" => 15.680508),
+"LPK" => array("City" => "Lipetsk", "Lat" => 52.7028, "Lon" => 39.5378),
+"LPL" => array("City" => "Liverpool", "Lat" => 53.333611, "Lon" => -2.849722),
+"LPM" => array("City" => "Lamap", "Lat" => -16.454, "Lon" => 167.823),
+"LPP" => array("City" => "Lappeenranta", "Lat" => 61.044553, "Lon" => 28.144397),
+"LPQ" => array("City" => "Luang Prabang", "Lat" => 19.897914, "Lon" => 102.160764),
+"LPS" => array("City" => "Lopez", "Lat" => 48.4839, "Lon" => -122.938),
+"LPT" => array("City" => "Lampang", "Lat" => 18.270933, "Lon" => 99.504167),
+"LPU" => array("City" => "Long Apung-Borneo Island", "Lat" => 0.583, "Lon" => 115.6),
+"LPX" => array("City" => "Liepaja", "Lat" => 56.5175, "Lon" => 21.096944),
+"LPY" => array("City" => "Le Puy", "Lat" => 45.080689, "Lon" => 3.762889),
+"LQM" => array("City" => "Puerto Leguízamo", "Lat" => -0.18, "Lon" => -74.77),
+"LRA" => array("City" => "Larissa", "Lat" => 39.650253, "Lon" => 22.4655),
+"LRD" => array("City" => "Laredo", "Lat" => 27.54375, "Lon" => -99.461556),
+"LRF" => array("City" => "Jacksonville", "Lat" => 34.916944, "Lon" => -92.149722),
+"LRH" => array("City" => "La Rochelle", "Lat" => 46.1792, "Lon" => -1.19528),
+"LRL" => array("City" => "Niatougou", "Lat" => 9.767333, "Lon" => 1.09125),
+"LRM" => array("City" => "La Romana", "Lat" => 18.450711, "Lon" => -68.911833),
+"LRR" => array("City" => "Lar", "Lat" => 27.674725, "Lon" => 54.383278),
+"LRS" => array("City" => "Leros", "Lat" => 37.184903, "Lon" => 26.800289),
+"LRT" => array("City" => "Lorient", "Lat" => 47.760555, "Lon" => -3.44),
+"LRU" => array("City" => "Las Cruces", "Lat" => 32.289417, "Lon" => -106.921972),
+"LRV" => array("City" => "Los Roques", "Lat" => 11.95, "Lon" => -66.67),
+"LSA" => array("City" => "Losuia", "Lat" => -8.50582, "Lon" => 151.081),
+"LSC" => array("City" => "La Serena", "Lat" => -29.916233, "Lon" => -71.199522),
+"LSE" => array("City" => "LaCrosse", "Lat" => 43.878986, "Lon" => -91.256711),
+"LSF" => array("City" => "Fort Benning", "Lat" => 32.337322, "Lon" => -84.991283),
+"LSH" => array("City" => "Lashio", "Lat" => 22.977881, "Lon" => 97.752183),
+"LSI" => array("City" => "Sumburgh", "Lat" => 59.878889, "Lon" => -1.295556),
+"LSP" => array("City" => "Paraguana", "Lat" => 11.780775, "Lon" => -70.151497),
+"LSQ" => array("City" => "Los Angeles", "Lat" => -37.401731, "Lon" => -72.425444),
+"LSS" => array("City" => "Les Saintes", "Lat" => 15.8644, "Lon" => -61.5806),
+"LST" => array("City" => "Launceston", "Lat" => -41.545278, "Lon" => 147.214167),
+"LSV" => array("City" => "Las Vegas", "Lat" => 36.236197, "Lon" => -115.034253),
+"LSW" => array("City" => "Lhok Seumawe-Sumatra Island", "Lat" => 5.226681, "Lon" => 96.950342),
+"LTA" => array("City" => "Tzaneen", "Lat" => -23.824417, "Lon" => 30.329306),
+"LTD" => array("City" => "Ghadames", "Lat" => 30.151695, "Lon" => 9.715305),
+"LTK" => array("City" => "Latakia", "Lat" => 35.401094, "Lon" => 35.948681),
+"LTM" => array("City" => "Lethem", "Lat" => 3.372761, "Lon" => -59.789439),
+"LTN" => array("City" => "London", "Lat" => 51.874722, "Lon" => -0.368333),
+"LTO" => array("City" => "Loreto", "Lat" => 25.989194, "Lon" => -111.348361),
+"LTQ" => array("City" => "Le Tourquet", "Lat" => 50.517385, "Lon" => 1.620587),
+"LTS" => array("City" => "Altus", "Lat" => 34.667067, "Lon" => -99.266681),
+"LTT" => array("City" => "La Môle", "Lat" => 43.2054, "Lon" => 6.482),
+"LTU" => array("City" => "Latur", "Lat" => 18.411944, "Lon" => 76.465),
+"LTX" => array("City" => "Latacunga", "Lat" => -0.5425, "Lon" => -78.3657),
+"LUA" => array("City" => "Lukla", "Lat" => 27.687778, "Lon" => 86.731389),
+"LUD" => array("City" => "Luderitz", "Lat" => -26.6874, "Lon" => 15.2429),
+"LUF" => array("City" => "Phoenix", "Lat" => 33.535, "Lon" => -112.38306),
+"LUG" => array("City" => "Lugano", "Lat" => 46.004275, "Lon" => 8.910578),
+"LUH" => array("City" => "Ludhiaha", "Lat" => 30.854681, "Lon" => 75.952592),
+"LUK" => array("City" => "Cincinnati", "Lat" => 39.103333, "Lon" => -84.418611),
+"LUM" => array("City" => "Luxi", "Lat" => 24.4011, "Lon" => 98.5317),
+"LUN" => array("City" => "Lusaka", "Lat" => -15.330817, "Lon" => 28.452628),
+"LUO" => array("City" => "Luena", "Lat" => -11.768086, "Lon" => 19.897672),
+"LUP" => array("City" => "Molokai", "Lat" => 21.211, "Lon" => -156.974),
+"LUQ" => array("City" => "San Luis", "Lat" => -33.273192, "Lon" => -66.356422),
+"LUR" => array("City" => "Cape Lisburne", "Lat" => 68.875133, "Lon" => -166.110022),
+"LUV" => array("City" => "Langgur-Seram Island", "Lat" => -5.661619, "Lon" => 132.731431),
+"LUW" => array("City" => "Luwuk", "Lat" => -1.038919, "Lon" => 122.771906),
+"LUX" => array("City" => "Luxemburg", "Lat" => 49.626575, "Lon" => 6.211517),
+"LVA" => array("City" => "Laval", "Lat" => 48.031361, "Lon" => -0.742986),
+"LVI" => array("City" => "Livingstone", "Lat" => -17.821756, "Lon" => 25.822692),
+"LVK" => array("City" => "Livermore", "Lat" => 37.41362, "Lon" => -121.49133),
+"LVM" => array("City" => "Livingston-Montana", "Lat" => 45.6993889, "Lon" => -110.4483056),
+"LVR" => array("City" => "Lucas do Rio Verde", "Lat" => -13.05, "Lon" => -55.910833),
+"LVS" => array("City" => "Las Vegas", "Lat" => 35.654222, "Lon" => -105.142389),
+"LWB" => array("City" => "Lewisburg", "Lat" => 37.858333, "Lon" => -80.399444),
+"LWK" => array("City" => "Lerwick", "Lat" => 60.1922, "Lon" => -1.24361),
+"LWN" => array("City" => "Gyumri", "Lat" => 40.750369, "Lon" => 43.859342),
+"LWO" => array("City" => "Lvov", "Lat" => 49.8125, "Lon" => 23.956111),
+"LWR" => array("City" => "Leeuwarden", "Lat" => 53.228611, "Lon" => 5.760556),
+"LWS" => array("City" => "Lewiston", "Lat" => 46.3745, "Lon" => -117.015389),
+"LWT" => array("City" => "Lewistown", "Lat" => 47.0493, "Lon" => -109.467),
+"LWY" => array("City" => "Lawas", "Lat" => 4.84917, "Lon" => 115.408),
+"LXA" => array("City" => "Lhasa", "Lat" => 29.297778, "Lon" => 90.911944),
+"LXG" => array("City" => "Luang Namtha", "Lat" => 20.960556, "Lon" => 101.4025),
+"LXR" => array("City" => "Luxor", "Lat" => 25.671028, "Lon" => 32.706583),
+"LXS" => array("City" => "Limnos", "Lat" => 39.917072, "Lon" => 25.236308),
+"LXY" => array("City" => "Mexia", "Lat" => 31.6411783, "Lon" => -96.5144594),
+"LYA" => array("City" => "Luoyang", "Lat" => 34.41, "Lon" => 112.28),
+"LYB" => array("City" => "Little Cayman", "Lat" => 19.6591666667, "Lon" => -80.09083333),
+"LYC" => array("City" => "Lycksele", "Lat" => 64.548322, "Lon" => 18.716219),
+"LYE" => array("City" => "Lyneham", "Lat" => 51.505144, "Lon" => -1.993428),
+"LYG" => array("City" => "Lianyungang", "Lat" => 34.55, "Lon" => 119.25),
+"LYH" => array("City" => "Lynchburg", "Lat" => 37.3267, "Lon" => -79.2004),
+"LYI" => array("City" => "Linyi", "Lat" => 35.0461, "Lon" => 118.412),
+"LYM" => array("City" => "Lympne", "Lat" => 51.083333, "Lon" => 1.016667),
+"LYN" => array("City" => "Lyon", "Lat" => 45.727172, "Lon" => 4.944275),
+"LYP" => array("City" => "Faisalabad", "Lat" => 31.365014, "Lon" => 72.994842),
+"LYR" => array("City" => "Svalbard", "Lat" => 78.246111, "Lon" => 15.465556),
+"LYS" => array("City" => "Lyon", "Lat" => 45.726387, "Lon" => 5.090833),
+"LYT" => array("City" => "Lady Elliot Island", "Lat" => -24.113333, "Lon" => 152.715278),
+"LYU" => array("City" => "Ely", "Lat" => 47.824444, "Lon" => -91.830833),
+"LYX" => array("City" => "Lydd", "Lat" => 50.956111, "Lon" => 0.939167),
+"LZC" => array("City" => "Lazard Cardenas", "Lat" => 18.001731, "Lon" => -102.220525),
+"LZH" => array("City" => "Liuzhou", "Lat" => 24.2075, "Lon" => 109.391),
+"LZN" => array("City" => "Matsu Islands", "Lat" => 26.1598, "Lon" => 119.958),
+"LZO" => array("City" => "Luzhou", "Lat" => 28.8522, "Lon" => 105.393),
+"LZR" => array("City" => "Lizard Island", "Lat" => -14.673056, "Lon" => 145.454444),
+"LZU" => array("City" => "Lawrenceville", "Lat" => 33.9780761, "Lon" => -83.9623772),
+"LZY" => array("City" => "Nyingchi", "Lat" => 29.3033, "Lon" => 94.3353),
+"MAA" => array("City" => "Madras", "Lat" => 12.994414, "Lon" => 80.180517),
+"MAB" => array("City" => "Maraba", "Lat" => -5.368589, "Lon" => -49.138025),
+"MAD" => array("City" => "Madrid", "Lat" => 40.493556, "Lon" => -3.566764),
+"MAF" => array("City" => "Midland", "Lat" => 31.942528, "Lon" => -102.201914),
+"MAG" => array("City" => "Madang", "Lat" => -5.207083, "Lon" => 145.7887),
+"MAH" => array("City" => "Menorca", "Lat" => 39.862597, "Lon" => 4.218647),
+"MAJ" => array("City" => "Majuro", "Lat" => 7.064758, "Lon" => 171.272022),
+"MAK" => array("City" => "Malakal", "Lat" => 9.558969, "Lon" => 31.652242),
+"MAM" => array("City" => "Matamoros", "Lat" => 25.769894, "Lon" => -97.525311),
+"MAN" => array("City" => "Manchester", "Lat" => 53.353744, "Lon" => -2.27495),
+"MAO" => array("City" => "Manaus", "Lat" => -3.038611, "Lon" => -60.049721),
+"MAQ" => array("City" => "Tak", "Lat" => 16.699856, "Lon" => 98.545056),
+"MAR" => array("City" => "Maracaibo", "Lat" => 10.558208, "Lon" => -71.727856),
+"MAT" => array("City" => "Matadi", "Lat" => -5.79961, "Lon" => 13.4404),
+"MAU" => array("City" => "Maupiti", "Lat" => -16.426486, "Lon" => -152.243669),
+"MAV" => array("City" => "Maloelap Island", "Lat" => 8.70444, "Lon" => 171.23),
+"MAX" => array("City" => "Matam", "Lat" => 15.593611, "Lon" => -13.322778),
+"MAZ" => array("City" => "Mayaguez", "Lat" => 18.255694, "Lon" => -67.148472),
+"MBA" => array("City" => "Mombasa", "Lat" => -4.034833, "Lon" => 39.59425),
+"MBD" => array("City" => "Mafeking", "Lat" => -25.798444, "Lon" => 25.548028),
+"MBE" => array("City" => "Monbetsu", "Lat" => 44.303914, "Lon" => 143.404028),
+"MBJ" => array("City" => "Montego Bay", "Lat" => 18.503717, "Lon" => -77.913358),
+"MBL" => array("City" => "Manistee", "Lat" => 44.2725, "Lon" => -86.246944),
+"MBS" => array("City" => "Saginaw", "Lat" => 43.532913, "Lon" => -84.079647),
+"MBT" => array("City" => "Masbate", "Lat" => 12.3694, "Lon" => 123.629),
+"MBU" => array("City" => "Mbambanakira", "Lat" => -9.7475, "Lon" => 159.839),
+"MBW" => array("City" => "Melbourne", "Lat" => -37.975833, "Lon" => 145.102222),
+"MBX" => array("City" => "Maribor", "Lat" => 46.479861, "Lon" => 15.686131),
+"MBZ" => array("City" => "Maues", "Lat" => -3.383611, "Lon" => -57.718611),
+"MCC" => array("City" => "Sacramento", "Lat" => 38.667639, "Lon" => -121.400611),
+"MCD" => array("City" => "Mackinac Island", "Lat" => 45.8649344, "Lon" => -84.637344),
+"MCE" => array("City" => "Merced", "Lat" => 37.284722, "Lon" => -120.513889),
+"MCF" => array("City" => "Tampa", "Lat" => 27.849339, "Lon" => -82.521214),
+"MCG" => array("City" => "Mcgrath", "Lat" => 62.9529, "Lon" => -155.606),
+"MCH" => array("City" => "Machala", "Lat" => -3.268903, "Lon" => -79.961572),
+"MCI" => array("City" => "Kansas City", "Lat" => 39.297606, "Lon" => -94.713905),
+"MCK" => array("City" => "McCook", "Lat" => 40.206389, "Lon" => -100.592222),
+"MCL" => array("City" => "McKinley Park", "Lat" => 63.732757, "Lon" => -148.91129),
+"MCM" => array("City" => "Monaco", "Lat" => 43.73333333, "Lon" => 7.41666666),
+"MCN" => array("City" => "Macon", "Lat" => 32.69285, "Lon" => -83.649211),
+"MCO" => array("City" => "Orlando", "Lat" => 28.429394, "Lon" => -81.308994),
+"MCP" => array("City" => "Macapa", "Lat" => 0.050664, "Lon" => -51.072178),
+"MCT" => array("City" => "Muscat", "Lat" => 23.593278, "Lon" => 58.284444),
+"MCU" => array("City" => "Montlucon", "Lat" => 46.352525, "Lon" => 2.570486),
+"MCW" => array("City" => "Mason City", "Lat" => 43.2247, "Lon" => -93.4067),
+"MCX" => array("City" => "Makhachkala", "Lat" => 42.816822, "Lon" => 47.652294),
+"MCY" => array("City" => "Maroochydore", "Lat" => -26.603333, "Lon" => 153.091111),
+"MCZ" => array("City" => "Maceio", "Lat" => -9.510808, "Lon" => -35.791678),
+"MDC" => array("City" => "Manado", "Lat" => 1.549447, "Lon" => 124.925878),
+"MDE" => array("City" => "Rio Negro", "Lat" => 6.164536, "Lon" => -75.423119),
+"MDG" => array("City" => "Mudanjiang", "Lat" => 44.523889, "Lon" => 129.568889),
+"MDI" => array("City" => "Makurdi", "Lat" => 7.703883, "Lon" => 8.613939),
+"MDK" => array("City" => "Mbandaka", "Lat" => 0.0226, "Lon" => 18.288744),
+"MDL" => array("City" => "Mandalay", "Lat" => 21.702156, "Lon" => 95.977928),
+"MDO" => array("City" => "Maldonado", "Lat" => -34.917, "Lon" => -54.917),
+"MDQ" => array("City" => "Mar Del Plata", "Lat" => -37.934167, "Lon" => -57.573333),
+"MDS" => array("City" => "Middle Caicos", "Lat" => 21.833, "Lon" => -71.817),
+"MDT" => array("City" => "Harrisburg", "Lat" => 40.193494, "Lon" => -76.763403),
+"MDW" => array("City" => "Chicago", "Lat" => 41.785972, "Lon" => -87.752417),
+"MDY" => array("City" => "Midway", "Lat" => 28.201725, "Lon" => -177.380636),
+"MDZ" => array("City" => "Mendoza", "Lat" => -32.831717, "Lon" => -68.792856),
+"MEA" => array("City" => "Macaé", "Lat" => -22.343, "Lon" => -41.766),
+"MEB" => array("City" => "Melbourne", "Lat" => -37.728056, "Lon" => 144.901944),
+"MEC" => array("City" => "Manta", "Lat" => -0.946078, "Lon" => -80.678808),
+"MED" => array("City" => "Madinah", "Lat" => 24.553422, "Lon" => 39.705061),
+"MEE" => array("City" => "Mare", "Lat" => -21.481678, "Lon" => 168.037508),
+"MEG" => array("City" => "Malanje", "Lat" => -9.525086, "Lon" => 16.312406),
+"MEH" => array("City" => "Mehamn", "Lat" => 71.029722, "Lon" => 27.826667),
+"MEI" => array("City" => "Meridian", "Lat" => 32.332624, "Lon" => -88.751868),
+"MEK" => array("City" => "Meknes", "Lat" => 33.879067, "Lon" => -5.515125),
+"MEL" => array("City" => "Melbourne", "Lat" => -37.673333, "Lon" => 144.843333),
+"MEM" => array("City" => "Memphis", "Lat" => 35.042417, "Lon" => -89.976667),
+"MEN" => array("City" => "Mende", "Lat" => 44.502108, "Lon" => 3.532819),
+"MER" => array("City" => "Merced", "Lat" => 37.380481, "Lon" => -120.568189),
+"MES" => array("City" => "Medan", "Lat" => 3.558056, "Lon" => 98.671722),
+"MEX" => array("City" => "Mexico City", "Lat" => 19.436303, "Lon" => -99.072097),
+"MEY" => array("City" => "Meghauli", "Lat" => 27.583, "Lon" => 84.233),
+"MEZ" => array("City" => "Messina", "Lat" => -25.704458, "Lon" => 26.908978),
+"MFA" => array("City" => "Mafia Island", "Lat" => -7.913889, "Lon" => 39.665),
+"MFD" => array("City" => "Mansfield", "Lat" => 40.8214167, "Lon" => -82.5166389),
+"MFE" => array("City" => "Mcallen", "Lat" => 26.175833, "Lon" => -98.238611),
+"MFG" => array("City" => "Muzaffarabad", "Lat" => 34.339022, "Lon" => 73.508639),
+"MFJ" => array("City" => "Moala", "Lat" => -18.5667, "Lon" => 179.951),
+"MFK" => array("City" => "Matsu Islands", "Lat" => 26.224153, "Lon" => 120.00275),
+"MFM" => array("City" => "Macau", "Lat" => 22.149556, "Lon" => 113.591558),
+"MFN" => array("City" => "Milford Sound", "Lat" => -44.67333, "Lon" => 167.92333),
+"MFQ" => array("City" => "Maradi", "Lat" => 13.502531, "Lon" => 7.126753),
+"MFR" => array("City" => "Medford", "Lat" => 42.374228, "Lon" => -122.8735),
+"MFT" => array("City" => "Machu Pichu", "Lat" => -13.1167, "Lon" => -72.5667),
+"MFU" => array("City" => "Mfuwe", "Lat" => -13.258878, "Lon" => 31.936581),
+"MGA" => array("City" => "Managua", "Lat" => 12.141494, "Lon" => -86.168178),
+"MGC" => array("City" => "Michigan City", "Lat" => 41.7033, "Lon" => -86.8211),
+"MGE" => array("City" => "Marietta", "Lat" => 33.915382, "Lon" => -84.516319),
+"MGF" => array("City" => "Maringa", "Lat" => -23.476392, "Lon" => -52.016406),
+"MGH" => array("City" => "Margate", "Lat" => -30.857408, "Lon" => 30.343019),
+"MGL" => array("City" => "Moenchengladbach", "Lat" => 51.230356, "Lon" => 6.504494),
+"MGM" => array("City" => "MONTGOMERY", "Lat" => 32.3006389, "Lon" => -86.3939722),
+"MGN" => array("City" => "Magangue", "Lat" => 9.284739, "Lon" => -74.846092),
+"MGQ" => array("City" => "Mogadishu", "Lat" => 2.01444, "Lon" => 45.3047),
+"MGS" => array("City" => "Mangaia Island", "Lat" => -21.8956, "Lon" => -157.905),
+"MGW" => array("City" => "Morgantown", "Lat" => 39.642908, "Lon" => -79.916314),
+"MGY" => array("City" => "Dayton", "Lat" => 39.5889722, "Lon" => -84.2248611),
+"MGZ" => array("City" => "Myeik", "Lat" => 12.439797, "Lon" => 98.621478),
+"MHA" => array("City" => "Mahdia", "Lat" => 5.266667, "Lon" => -59.15),
+"MHD" => array("City" => "Mashhad", "Lat" => 36, "Lon" => 59),
+"MHG" => array("City" => "Mannheim", "Lat" => 49.472706, "Lon" => 8.514264),
+"MHH" => array("City" => "Marsh Harbor", "Lat" => 26.511406, "Lon" => -77.083472),
+"MHK" => array("City" => "Manhattan", "Lat" => 39.140972, "Lon" => -96.670833),
+"MHM" => array("City" => "Lake Minchumina", "Lat" => 63.886111, "Lon" => -152.301944),
+"MHP" => array("City" => "Minsk", "Lat" => 53.864472, "Lon" => 27.539683),
+"MHQ" => array("City" => "Mariehamn", "Lat" => 60.122203, "Lon" => 19.898156),
+"MHR" => array("City" => "Sacramento", "Lat" => 38.553897, "Lon" => -121.297592),
+"MHT" => array("City" => "Manchester NH", "Lat" => 42.932556, "Lon" => -71.435667),
+"MHV" => array("City" => "Mojave", "Lat" => 35.059364, "Lon" => -118.151856),
+"MHX" => array("City" => "Manihiki Island", "Lat" => -10.3767, "Lon" => -161.002),
+"MHZ" => array("City" => "Mildenhall", "Lat" => 52.361933, "Lon" => 0.486406),
+"MIA" => array("City" => "Miami", "Lat" => 25.79325, "Lon" => -80.290556),
+"MIB" => array("City" => "Minot", "Lat" => 48.415572, "Lon" => -101.357661),
+"MID" => array("City" => "Merida", "Lat" => 20.936981, "Lon" => -89.657672),
+"MIE" => array("City" => "Muncie", "Lat" => 40.2424722, "Lon" => -85.39575),
+"MIG" => array("City" => "Mianyang", "Lat" => 31.4281, "Lon" => 104.741),
+"MII" => array("City" => "Marília", "Lat" => -22.196892, "Lon" => -49.9264),
+"MIJ" => array("City" => "Mili Island", "Lat" => 6.08333, "Lon" => 171.733),
+"MIK" => array("City" => "Mikkeli", "Lat" => 61.6866, "Lon" => 27.201794),
+"MIR" => array("City" => "Monastir", "Lat" => 35.758056, "Lon" => 10.754722),
+"MIS" => array("City" => "Misima Island", "Lat" => -10.6892, "Lon" => 152.838),
+"MIU" => array("City" => "Maiduguri", "Lat" => 11.855347, "Lon" => 13.08095),
+"MIV" => array("City" => "Millville", "Lat" => 39.367806, "Lon" => -75.072222),
+"MJA" => array("City" => "Manja", "Lat" => -21.417, "Lon" => 44.317),
+"MJB" => array("City" => "Mejit Atoll", "Lat" => 10.2833, "Lon" => 170.883),
+"MJC" => array("City" => "Man", "Lat" => 7.272069, "Lon" => -7.587364),
+"MJD" => array("City" => "Moenjodaro", "Lat" => 27.335156, "Lon" => 68.143053),
+"MJE" => array("City" => "Majkin", "Lat" => 7.833, "Lon" => 168.167),
+"MJF" => array("City" => "Mosjoen", "Lat" => 65.783997, "Lon" => 13.214914),
+"MJI" => array("City" => "Tripoli", "Lat" => 32.8941, "Lon" => 13.276),
+"MJL" => array("City" => "Mouila", "Lat" => -1.84514, "Lon" => 11.0567),
+"MJM" => array("City" => "Mbuji-mayi", "Lat" => -6.121236, "Lon" => 23.569008),
+"MJN" => array("City" => "Mahajanga", "Lat" => -15.667144, "Lon" => 46.351828),
+"MJT" => array("City" => "Mytilini", "Lat" => 39.056667, "Lon" => 26.598333),
+"MJV" => array("City" => "Murcia", "Lat" => 37.774972, "Lon" => -0.812389),
+"MJZ" => array("City" => "Mirnyj", "Lat" => 62.534689, "Lon" => 114.038928),
+"MKC" => array("City" => "Kansas City", "Lat" => 39.1275, "Lon" => -94.598889),
+"MKE" => array("City" => "Milwaukee", "Lat" => 42.947222, "Lon" => -87.896583),
+"MKG" => array("City" => "Muskegon", "Lat" => 43.1695, "Lon" => -86.2382),
+"MKK" => array("City" => "Molokai", "Lat" => 21.152886, "Lon" => -157.096256),
+"MKL" => array("City" => "Jackson", "Lat" => 35.599889, "Lon" => -88.915611),
+"MKM" => array("City" => "Mukah", "Lat" => 2.90639, "Lon" => 112.08),
+"MKO" => array("City" => "Muskogee", "Lat" => 35.656489, "Lon" => -95.366656),
+"MKP" => array("City" => "Makemo", "Lat" => -16.583919, "Lon" => -143.658369),
+"MKQ" => array("City" => "Merauke", "Lat" => -8.520294, "Lon" => 140.418453),
+"MKS" => array("City" => "Mekane Selam", "Lat" => 10.633333, "Lon" => 38.783333),
+"MKU" => array("City" => "Makokou", "Lat" => 0.579211, "Lon" => 12.890908),
+"MKW" => array("City" => "Manokwari", "Lat" => -0.891833, "Lon" => 134.049183),
+"MKY" => array("City" => "Mackay", "Lat" => -21.171667, "Lon" => 149.179722),
+"MKZ" => array("City" => "Malacca", "Lat" => 2.263361, "Lon" => 102.251553),
+"MLA" => array("City" => "Malta", "Lat" => 35.857497, "Lon" => 14.4775),
+"MLB" => array("City" => "Melbourne", "Lat" => 28.102753, "Lon" => -80.645258),
+"MLC" => array("City" => "Mcalester", "Lat" => 34.882403, "Lon" => -95.783463),
+"MLD" => array("City" => "Malad City", "Lat" => 42.17, "Lon" => -112.289),
+"MLE" => array("City" => "Male", "Lat" => 4.191833, "Lon" => 73.529128),
+"MLG" => array("City" => "Malang", "Lat" => -7.926556, "Lon" => 112.714514),
+"MLH" => array("City" => "Mulhouse", "Lat" => 47.589583, "Lon" => 7.529914),
+"MLI" => array("City" => "Moline", "Lat" => 41.448528, "Lon" => -90.507539),
+"MLL" => array("City" => "Marshall", "Lat" => 61.8646418, "Lon" => -162.026111),
+"MLM" => array("City" => "Morelia", "Lat" => 19.849944, "Lon" => -101.0255),
+"MLN" => array("City" => "Melilla", "Lat" => 35.279817, "Lon" => -2.956256),
+"MLO" => array("City" => "Milos", "Lat" => 36.696111, "Lon" => 24.4775),
+"MLS" => array("City" => "Miles City", "Lat" => 46.428, "Lon" => -105.886),
+"MLT" => array("City" => "Millinocket", "Lat" => 45.647836, "Lon" => -68.685561),
+"MLU" => array("City" => "Monroe", "Lat" => 32.510864, "Lon" => -92.037689),
+"MLW" => array("City" => "Monrovia", "Lat" => 6.289061, "Lon" => -10.758722),
+"MLX" => array("City" => "Malatya", "Lat" => 38.435347, "Lon" => 38.091006),
+"MLY" => array("City" => "Manley Hot Springs", "Lat" => 64.9975, "Lon" => -150.644167),
+"MMB" => array("City" => "Memanbetsu", "Lat" => 43.880606, "Lon" => 144.164053),
+"MMD" => array("City" => "Minami Daito", "Lat" => 25.846533, "Lon" => 131.263494),
+"MME" => array("City" => "Teesside", "Lat" => 54.509189, "Lon" => -1.429406),
+"MMH" => array("City" => "Mammoth Lakes", "Lat" => 37.624049, "Lon" => -118.837772),
+"MMI" => array("City" => "Athens", "Lat" => 35.39919, "Lon" => -84.56177),
+"MMJ" => array("City" => "Matsumoto", "Lat" => 36.166758, "Lon" => 137.922669),
+"MMK" => array("City" => "Murmansk", "Lat" => 68.781672, "Lon" => 32.750822),
+"MMO" => array("City" => "Maio", "Lat" => 15.155928, "Lon" => -23.213703),
+"MMU" => array("City" => "Morristown", "Lat" => 40.79935, "Lon" => -74.4148747),
+"MMV" => array("City" => "Mackminnville", "Lat" => 45.194444, "Lon" => -123.135944),
+"MMX" => array("City" => "Malmoe", "Lat" => 55.530193, "Lon" => 13.371639),
+"MMY" => array("City" => "Miyako", "Lat" => 24.782833, "Lon" => 125.295111),
+"MMZ" => array("City" => "Maimama", "Lat" => 35.930789, "Lon" => 64.760917),
+"MNB" => array("City" => "Muanda", "Lat" => -5.930858, "Lon" => 12.351789),
+"MNC" => array("City" => "Nacala", "Lat" => -14.488233, "Lon" => 40.71225),
+"MNF" => array("City" => "Mana Island", "Lat" => -17.6731, "Lon" => 177.098),
+"MNI" => array("City" => "Geralds", "Lat" => 16.791389, "Lon" => -62.193333),
+"MNJ" => array("City" => "Mananjary", "Lat" => -21.201772, "Lon" => 48.358317),
+"MNK" => array("City" => "Maiana", "Lat" => 0.933333, "Lon" => 173),
+"MNL" => array("City" => "Manila", "Lat" => 14.508647, "Lon" => 121.019581),
+"MNM" => array("City" => "Macon", "Lat" => 45.12665, "Lon" => -87.638443),
+"MNT" => array("City" => "Minto", "Lat" => 65.143611, "Lon" => -149.37),
+"MNU" => array("City" => "Mawlamyine", "Lat" => 16.444747, "Lon" => 97.660669),
+"MNX" => array("City" => "Manicore", "Lat" => -5.811381, "Lon" => -61.278319),
+"MNY" => array("City" => "Stirling Island", "Lat" => -7.41694, "Lon" => 155.565),
+"MOA" => array("City" => "Moa", "Lat" => 20.654114, "Lon" => -74.922114),
+"MOB" => array("City" => "Mobile", "Lat" => 30.691231, "Lon" => -88.242814),
+"MOC" => array("City" => "Montes Claros", "Lat" => -16.706925, "Lon" => -43.8189),
+"MOD" => array("City" => "Modesto", "Lat" => 37.625817, "Lon" => -120.954422),
+"MOF" => array("City" => "Maumere", "Lat" => -8.640647, "Lon" => 122.236889),
+"MOG" => array("City" => "Mong Hsat", "Lat" => 20.516758, "Lon" => 99.256825),
+"MOH" => array("City" => "Mohanbari", "Lat" => 27.483853, "Lon" => 95.016922),
+"MOI" => array("City" => "Mitiaro Island", "Lat" => -19.8425, "Lon" => -157.703),
+"MOL" => array("City" => "Molde", "Lat" => 62.744722, "Lon" => 7.2625),
+"MON" => array("City" => "Glentanner", "Lat" => -43.906666, "Lon" => 170.128333),
+"MOQ" => array("City" => "Morondava", "Lat" => -20.28475, "Lon" => 44.317614),
+"MOS" => array("City" => "Marktoberdorf", "Lat" => 47.777, "Lon" => 10.623),
+"MOT" => array("City" => "Minot", "Lat" => 48.259378, "Lon" => -101.280333),
+"MOU" => array("City" => "Mountain Village", "Lat" => 62.0954, "Lon" => -163.682),
+"MOZ" => array("City" => "Moorea", "Lat" => -17.489972, "Lon" => -149.761869),
+"MPA" => array("City" => "Mpacha", "Lat" => -17.6344, "Lon" => 24.1767),
+"MPB" => array("City" => "Miami", "Lat" => 25.7783, "Lon" => -80.1703),
+"MPH" => array("City" => "Caticlan", "Lat" => 11.9214999, "Lon" => 121.953),
+"MPI" => array("City" => "Mariposa", "Lat" => 37.3039, "Lon" => -120.0222),
+"MPK" => array("City" => "Mokpo", "Lat" => 34.758906, "Lon" => 126.379872),
+"MPL" => array("City" => "Montpellier", "Lat" => 43.576194, "Lon" => 3.963014),
+"MPM" => array("City" => "Maputo", "Lat" => -25.920836, "Lon" => 32.572606),
+"MPN" => array("City" => "Mount Pleasant", "Lat" => -51.822777, "Lon" => -58.447222),
+"MPU" => array("City" => "Mamitupo", "Lat" => 9.186667, "Lon" => -77.984167),
+"MPV" => array("City" => "Montpelier", "Lat" => 44.203503, "Lon" => -72.562328),
+"MQB" => array("City" => "Macomb", "Lat" => 40.5200833, "Lon" => -90.6523889),
+"MQF" => array("City" => "Magnetiogorsk", "Lat" => 53.393131, "Lon" => 58.755661),
+"MQH" => array("City" => "Minacu", "Lat" => -13.526944, "Lon" => -48.220556),
+"MQN" => array("City" => "Mo i Rana", "Lat" => 66.3639, "Lon" => 14.3014),
+"MQP" => array("City" => "Mpumalanga", "Lat" => -25.3832, "Lon" => 31.1056),
+"MQQ" => array("City" => "Moundou", "Lat" => 8.624406, "Lon" => 16.071419),
+"MQS" => array("City" => "Mustique", "Lat" => 12.887947, "Lon" => -61.180161),
+"MQT" => array("City" => "Marquette", "Lat" => 46.353611, "Lon" => -87.395278),
+"MQX" => array("City" => "Makale", "Lat" => 13.467367, "Lon" => 39.533464),
+"MRA" => array("City" => "Misratah", "Lat" => 32.325, "Lon" => 15.061),
+"MRB" => array("City" => "Martinsburg", "Lat" => 39.2407, "Lon" => -77.591),
+"MRD" => array("City" => "Merida", "Lat" => 8.582294, "Lon" => -71.161186),
+"MRE" => array("City" => "Masai Mara", "Lat" => -1.406111, "Lon" => 35.008056),
+"MRI" => array("City" => "Anchorage", "Lat" => 61.213544, "Lon" => -149.844447),
+"MRO" => array("City" => "Masterton", "Lat" => -40.973333, "Lon" => 175.633611),
+"MRQ" => array("City" => "Gasan", "Lat" => 13.360967, "Lon" => 121.825583),
+"MRS" => array("City" => "Marseille", "Lat" => 43.435555, "Lon" => 5.213611),
+"MRU" => array("City" => "Plaisance", "Lat" => -20.430235, "Lon" => 57.6836),
+"MRV" => array("City" => "Mineralnye Vody", "Lat" => 44.225072, "Lon" => 43.081889),
+"MRX" => array("City" => "Bandar Mahshahr", "Lat" => 30.556192, "Lon" => 49.151879),
+"MRY" => array("City" => "Monterey", "Lat" => 36.587, "Lon" => -121.842944),
+"MSA" => array("City" => "Muskrat Dam", "Lat" => 53.4414, "Lon" => -91.7628),
+"MSE" => array("City" => "Manston", "Lat" => 51.342222, "Lon" => 1.346111),
+"MSH" => array("City" => "Masirah", "Lat" => 20.675434, "Lon" => 58.890467),
+"MSI" => array("City" => "South Aari Atoll", "Lat" => 3.48489, "Lon" => 72.80408),
+"MSJ" => array("City" => "Misawa", "Lat" => 40.703222, "Lon" => 141.368364),
+"MSL" => array("City" => "Muscle Shoals", "Lat" => 34.7453, "Lon" => -87.6102),
+"MSN" => array("City" => "Madison", "Lat" => 43.139858, "Lon" => -89.337514),
+"MSO" => array("City" => "Missoula", "Lat" => 46.916306, "Lon" => -114.090556),
+"MSP" => array("City" => "Minneapolis", "Lat" => 44.881956, "Lon" => -93.221767),
+"MSQ" => array("City" => "Minsk 2", "Lat" => 53.882469, "Lon" => 28.030731),
+"MSR" => array("City" => "Mus", "Lat" => 38.747769, "Lon" => 41.661236),
+"MSS" => array("City" => "Massena", "Lat" => 44.935833, "Lon" => -74.845547),
+"MST" => array("City" => "Maastricht", "Lat" => 50.911658, "Lon" => 5.770144),
+"MSU" => array("City" => "Maseru", "Lat" => -29.462256, "Lon" => 27.552503),
+"MSW" => array("City" => "Massawa", "Lat" => 15.669989, "Lon" => 39.370103),
+"MSY" => array("City" => "New Orleans", "Lat" => 29.993389, "Lon" => -90.258028),
+"MSZ" => array("City" => "Mocamedes", "Lat" => -15.261222, "Lon" => 12.146756),
+"MTC" => array("City" => "Mount Clemens", "Lat" => 42.608333, "Lon" => -82.8355),
+"MTF" => array("City" => "Mizan Teferi", "Lat" => 6.967, "Lon" => 35.533),
+"MTH" => array("City" => "Marathon", "Lat" => 24.726111, "Lon" => -81.051389),
+"MTJ" => array("City" => "Montrose CO", "Lat" => 38.509794, "Lon" => -107.894242),
+"MTK" => array("City" => "Makin", "Lat" => 3.383333, "Lon" => 173),
+"MTL" => array("City" => "Maitland", "Lat" => -32.7033, "Lon" => 151.488),
+"MTM" => array("City" => "Metakatla", "Lat" => 55.131111, "Lon" => -131.578056),
+"MTR" => array("City" => "Monteria", "Lat" => 8.823744, "Lon" => -75.825831),
+"MTS" => array("City" => "Manzini", "Lat" => -26.529022, "Lon" => 31.307519),
+"MTT" => array("City" => "Minatitlan", "Lat" => 18.103419, "Lon" => -94.580681),
+"MTV" => array("City" => "Ablow", "Lat" => -13.666, "Lon" => 167.712),
+"MTY" => array("City" => "Monterrey", "Lat" => 25.778489, "Lon" => -100.106878),
+"MUB" => array("City" => "Maun", "Lat" => -19.972564, "Lon" => 23.431086),
+"MUC" => array("City" => "Munich", "Lat" => 48.353783, "Lon" => 11.786086),
+"MUE" => array("City" => "Kamuela", "Lat" => 20.001328, "Lon" => -155.668108),
+"MUH" => array("City" => "Mersa-matruh", "Lat" => 31.325356, "Lon" => 27.221689),
+"MUI" => array("City" => "Muir", "Lat" => 40.434811, "Lon" => -76.569411),
+"MUK" => array("City" => "Mauke Island", "Lat" => -20.1361, "Lon" => -157.345),
+"MUN" => array("City" => "Maturin", "Lat" => 9.749067, "Lon" => -63.1534),
+"MUO" => array("City" => "Mountain Home", "Lat" => 43.043603, "Lon" => -115.872431),
+"MUQ" => array("City" => "Munich", "Lat" => 48.1408, "Lon" => 11.555),
+"MUR" => array("City" => "Marudi", "Lat" => 4.1775, "Lon" => 114.321944),
+"MUW" => array("City" => "Ghriss", "Lat" => 35.207725, "Lon" => 0.147142),
+"MUX" => array("City" => "Multan", "Lat" => 30.203222, "Lon" => 71.419111),
+"MUZ" => array("City" => "Musoma", "Lat" => -1.483, "Lon" => 33.8),
+"MVA" => array("City" => "Myvatn", "Lat" => 65.6558, "Lon" => -16.9181),
+"MVB" => array("City" => "Franceville", "Lat" => -1.656156, "Lon" => 13.438036),
+"MVD" => array("City" => "Montevideo", "Lat" => -34.838417, "Lon" => -56.030806),
+"MVF" => array("City" => "Mossoro", "Lat" => -5.20192, "Lon" => -37.3643),
+"MVP" => array("City" => "Mitu", "Lat" => 1.253664, "Lon" => -70.233878),
+"MVQ" => array("City" => "Mogilev", "Lat" => 53.9549, "Lon" => 30.0951),
+"MVR" => array("City" => "Maroua", "Lat" => 10.451392, "Lon" => 14.257361),
+"MVS" => array("City" => "Mucuri", "Lat" => -18.0489, "Lon" => -39.8642),
+"MVT" => array("City" => "Mataiva", "Lat" => -14.868055, "Lon" => -148.717225),
+"MVY" => array("City" => "Vineyard Haven MA", "Lat" => 41.391667, "Lon" => -70.615278),
+"MVZ" => array("City" => "Masvingo", "Lat" => -20.055333, "Lon" => 30.859111),
+"MWA" => array("City" => "Marion", "Lat" => 37.7549569, "Lon" => -89.0110936),
+"MWB" => array("City" => "Morawa", "Lat" => -29.211, "Lon" => 116.009),
+"MWC" => array("City" => "Milwaukee", "Lat" => 43.1103889, "Lon" => -88.0344167),
+"MWF" => array("City" => "Maewo Island", "Lat" => -15, "Lon" => 168.083),
+"MWH" => array("City" => "Grant County Airport", "Lat" => 47.207708, "Lon" => -119.32019),
+"MWK" => array("City" => "Anambas Islands", "Lat" => 3.348119, "Lon" => 106.25805),
+"MWL" => array("City" => "Mineral Wells", "Lat" => 32.781606, "Lon" => -98.060175),
+"MWP" => array("City" => "Mountain", "Lat" => 28, "Lon" => 85.333),
+"MWQ" => array("City" => "Magwe", "Lat" => 20.165453, "Lon" => 94.941185),
+"MWX" => array("City" => "Muan", "Lat" => 34.991389, "Lon" => 126.382778),
+"MWZ" => array("City" => "Mwanza", "Lat" => -2.444486, "Lon" => 32.932667),
+"MXF" => array("City" => "Montgomery", "Lat" => 32.382944, "Lon" => -86.365778),
+"MXH" => array("City" => "Moro", "Lat" => -6.36333, "Lon" => 143.238),
+"MXJ" => array("City" => "Minna", "Lat" => 9.652172, "Lon" => 6.462256),
+"MXL" => array("City" => "Mexicali", "Lat" => 32.630634, "Lon" => -115.241637),
+"MXM" => array("City" => "Morombe", "Lat" => -21.753867, "Lon" => 43.375533),
+"MXN" => array("City" => "Morlaix", "Lat" => 48.603222, "Lon" => -3.815783),
+"MXP" => array("City" => "Milano", "Lat" => 45.630606, "Lon" => 8.728111),
+"MXS" => array("City" => "Savaii Island", "Lat" => -13.733, "Lon" => -172.3),
+"MXT" => array("City" => "Maintirano", "Lat" => -18.05, "Lon" => 44.033),
+"MXX" => array("City" => "Mora", "Lat" => 60.957908, "Lon" => 14.511383),
+"MXY" => array("City" => "McCarthy", "Lat" => 61.4370608, "Lon" => -142.90307372),
+"MXZ" => array("City" => "Meixian", "Lat" => 24.35, "Lon" => 116.133),
+"MYB" => array("City" => "Mayumba", "Lat" => -3.416667, "Lon" => 10.65),
+"MYC" => array("City" => "Maracay", "Lat" => 10.249978, "Lon" => -67.649419),
+"MYD" => array("City" => "Malindi", "Lat" => -3.22931, "Lon" => 40.1017),
+"MYG" => array("City" => "Mayaguana", "Lat" => 22.379528, "Lon" => -73.0135),
+"MYI" => array("City" => "Murray Island", "Lat" => -9.91667, "Lon" => 144.055),
+"MYJ" => array("City" => "Matsuyama", "Lat" => 33.827222, "Lon" => 132.699722),
+"MYL" => array("City" => "McCall", "Lat" => 44.889722, "Lon" => -116.101389),
+"MYP" => array("City" => "Mary", "Lat" => 37.6194, "Lon" => 61.8967),
+"MYQ" => array("City" => "Mysore", "Lat" => 12.3072, "Lon" => 76.6497),
+"MYR" => array("City" => "Myrtle Beach", "Lat" => 33.67975, "Lon" => -78.928333),
+"MYT" => array("City" => "Myitkyina", "Lat" => 25.383636, "Lon" => 97.351919),
+"MYU" => array("City" => "Mekoryuk", "Lat" => 60.3714, "Lon" => -166.271),
+"MYV" => array("City" => "Yuba City", "Lat" => 39.0553, "Lon" => -121.3411),
+"MYW" => array("City" => "Mtwara", "Lat" => -10.339058, "Lon" => 40.181781),
+"MYY" => array("City" => "Miri", "Lat" => 4.322014, "Lon" => 113.986806),
+"MZB" => array("City" => "Mocimboa Da Praia", "Lat" => -11.361789, "Lon" => 40.354875),
+"MZG" => array("City" => "Makung", "Lat" => 23.568669, "Lon" => 119.628311),
+"MZH" => array("City" => "Merzifon", "Lat" => 40.829375, "Lon" => 35.521992),
+"MZI" => array("City" => "Mopti", "Lat" => 14.512803, "Lon" => -4.079561),
+"MZK" => array("City" => "Marakei", "Lat" => 2.050278, "Lon" => 173.266667),
+"MZL" => array("City" => "Manizales", "Lat" => 5.029597, "Lon" => -75.464708),
+"MZM" => array("City" => "Metz", "Lat" => 49.071667, "Lon" => 6.131667),
+"MZO" => array("City" => "Manzanillo", "Lat" => 20.288172, "Lon" => -77.0893),
+"MZR" => array("City" => "Mazar-i-sharif", "Lat" => 36.706914, "Lon" => 67.209678),
+"MZT" => array("City" => "Mazatlan", "Lat" => 23.161356, "Lon" => -106.266072),
+"MZV" => array("City" => "Mulu", "Lat" => 4.048333, "Lon" => 114.805),
+"NAG" => array("City" => "Nagpur", "Lat" => 21.092192, "Lon" => 79.047183),
+"NAH" => array("City" => "Naha", "Lat" => 3.683214, "Lon" => 125.528019),
+"NAI" => array("City" => "Annai", "Lat" => 3.95, "Lon" => -59.133333),
+"NAJ" => array("City" => "Nakhchivan", "Lat" => 39.1888, "Lon" => 45.4584),
+"NAK" => array("City" => "Nakhon Ratchasima", "Lat" => 14.949497, "Lon" => 102.312736),
+"NAL" => array("City" => "Nalchik", "Lat" => 43.5129, "Lon" => 43.6366),
+"NAN" => array("City" => "Nandi", "Lat" => -17.755392, "Lon" => 177.443378),
+"NAO" => array("City" => "Nanchong", "Lat" => 30.754, "Lon" => 106.062),
+"NAP" => array("City" => "Naples", "Lat" => 40.886033, "Lon" => 14.290781),
+"NAQ" => array("City" => "Qaanaaq", "Lat" => 77.4886, "Lon" => -69.3887),
+"NAS" => array("City" => "Nassau", "Lat" => 25.038958, "Lon" => -77.466231),
+"NAT" => array("City" => "Natal", "Lat" => -5.911417, "Lon" => -35.247717),
+"NAV" => array("City" => "Nevsehir", "Lat" => 38.771867, "Lon" => 34.53455),
+"NAW" => array("City" => "Narathiwat", "Lat" => 6.519922, "Lon" => 101.7434),
+"NAY" => array("City" => "Beijing", "Lat" => 39.9608, "Lon" => 116.257),
+"NBB" => array("City" => "Berezovo", "Lat" => 63.9241, "Lon" => 65.0487),
+"NBC" => array("City" => "Beaufort", "Lat" => 32.477411, "Lon" => -80.723161),
+"NBE" => array("City" => "Enfidha", "Lat" => 36.075833, "Lon" => 10.438611),
+"NBG" => array("City" => "New Orleans", "Lat" => 29.825333, "Lon" => -90.035),
+"NBO" => array("City" => "Nairobi", "Lat" => -1.319167, "Lon" => 36.9275),
+"NBW" => array("City" => "Nizhnekamsk", "Lat" => 55.34, "Lon" => 52.06),
+"NBX" => array("City" => "Nabire", "Lat" => -3.368183, "Lon" => 135.496406),
+"NCA" => array("City" => "North Caicos", "Lat" => 21.917475, "Lon" => -71.939561),
+"NCE" => array("City" => "Nice", "Lat" => 43.658411, "Lon" => 7.215872),
+"NCL" => array("City" => "Newcastle", "Lat" => 55.0375, "Lon" => -1.691667),
+"NCN" => array("City" => "Chenega", "Lat" => 60.077222, "Lon" => -147.991944),
+"NCS" => array("City" => "Newcastle", "Lat" => -27.770586, "Lon" => 29.976894),
+"NCU" => array("City" => "Nukus", "Lat" => 42.4884, "Lon" => 59.6233),
+"NCY" => array("City" => "Annecy", "Lat" => 45.929233, "Lon" => 6.098764),
+"NDB" => array("City" => "Nouadhibou", "Lat" => 20.933067, "Lon" => -17.029956),
+"NDG" => array("City" => "Qiqihar", "Lat" => 47.239628, "Lon" => 123.918131),
+"NDJ" => array("City" => "N'djamena", "Lat" => 12.133689, "Lon" => 15.034019),
+"NDK" => array("City" => "Namorik Atoll", "Lat" => 5.63167, "Lon" => 168.125),
+"NDU" => array("City" => "Rundu", "Lat" => -17.956461, "Lon" => 19.719439),
+"NDY" => array("City" => "Sanday", "Lat" => 59.2503, "Lon" => -2.57667),
+"NDZ" => array("City" => "Cuxhaven", "Lat" => 53.768612, "Lon" => 8.644722),
+"NEC" => array("City" => "Necochea", "Lat" => -38.483056, "Lon" => -58.817222),
+"NEG" => array("City" => "Negril", "Lat" => 18.34, "Lon" => -78.335556),
+"NEL" => array("City" => "Lakehurst", "Lat" => 40.033333, "Lon" => -74.353333),
+"NER" => array("City" => "Neryungri", "Lat" => 56.9, "Lon" => 124.8833),
+"NEV" => array("City" => "Charlestown", "Lat" => 17.205678, "Lon" => -62.589869),
+"NEZ" => array("City" => "Nezhitino", "Lat" => 57.479444454444, "Lon" => 43.29750001),
+"NFG" => array("City" => "Nefteyugansk", "Lat" => 61.1083, "Lon" => 72.65),
+"NFL" => array("City" => "Fallon", "Lat" => 39.416584, "Lon" => -118.70098),
+"NGB" => array("City" => "Ninbo", "Lat" => 29.826683, "Lon" => 121.461906),
+"NGE" => array("City" => "N'gaoundere", "Lat" => 7.357011, "Lon" => 13.559242),
+"NGF" => array("City" => "Kaneohe Bay", "Lat" => 21.450453, "Lon" => -157.768),
+"NGI" => array("City" => "Ngau", "Lat" => -18.1156, "Lon" => 179.34),
+"NGO" => array("City" => "Nagoya", "Lat" => 34.858414, "Lon" => 136.805408),
+"NGP" => array("City" => "Corpus Christi", "Lat" => 27.692701, "Lon" => -97.290376),
+"NGQ" => array("City" => "Shiquanhe", "Lat" => 32.10027, "Lon" => 80.052778),
+"NGS" => array("City" => "Nagasaki", "Lat" => 32.916944, "Lon" => 129.913611),
+"NGU" => array("City" => "Norfolk", "Lat" => 36.937644, "Lon" => -76.289289),
+"NGX" => array("City" => "Manang", "Lat" => 28.633, "Lon" => 84),
+"NHA" => array("City" => "Nhatrang", "Lat" => 12.227467, "Lon" => 109.192322),
+"NHD" => array("City" => "Minhad AB", "Lat" => 25.02694, "Lon" => 55.36611),
+"NHK" => array("City" => "Patuxent River", "Lat" => 38.285981, "Lon" => -76.411781),
+"NHT" => array("City" => "Northolt", "Lat" => 51.553, "Lon" => -0.418167),
+"NHV" => array("City" => "Nuku Hiva", "Lat" => -8.795603, "Lon" => -140.228789),
+"NIB" => array("City" => "Nikolai", "Lat" => 63.010833, "Lon" => -154.383889),
+"NID" => array("City" => "China", "Lat" => 35.685422, "Lon" => -117.692039),
+"NIG" => array("City" => "Nikunau", "Lat" => -1.35, "Lon" => 176.45),
+"NIM" => array("City" => "Niamey", "Lat" => 13.481547, "Lon" => 2.183614),
+"NIO" => array("City" => "Nioki", "Lat" => -2.7175, "Lon" => 17.6847),
+"NIP" => array("City" => "Jacksonville", "Lat" => 30.235834, "Lon" => -81.680556),
+"NIT" => array("City" => "Niort", "Lat" => 46.311303, "Lon" => -0.401503),
+"NIU" => array("City" => "Niau", "Lat" => -16.119037, "Lon" => -146.368406),
+"NJC" => array("City" => "Nizhnevartovsk", "Lat" => 60.949272, "Lon" => 76.483617),
+"NJF" => array("City" => "Najaf", "Lat" => 31.991667, "Lon" => 44.404167),
+"NJK" => array("City" => "El Centro", "Lat" => 32.829222, "Lon" => -115.671667),
+"NKC" => array("City" => "Nouakschott", "Lat" => 18.097856, "Lon" => -15.947956),
+"NKG" => array("City" => "Nanjing", "Lat" => 31.742042, "Lon" => 118.862025),
+"NKM" => array("City" => "Nagoya", "Lat" => 35.255, "Lon" => 136.924),
+"NKT" => array("City" => "Cherry Point", "Lat" => 34.900872, "Lon" => -76.880733),
+"NKX" => array("City" => "Miramar", "Lat" => 32.867694, "Lon" => -117.14175),
+"NLA" => array("City" => "Ndola", "Lat" => -12.998139, "Lon" => 28.664944),
+"NLC" => array("City" => "Lemoore", "Lat" => 36.333012, "Lon" => -119.95208),
+"NLD" => array("City" => "Nuevo Laredo", "Lat" => 27.443918, "Lon" => -99.57046),
+"NLF" => array("City" => "Darnley Island", "Lat" => -9.58333, "Lon" => 143.767),
+"NLG" => array("City" => "Nelson Lagoon", "Lat" => 56.0075, "Lon" => -161.160278),
+"NLK" => array("City" => "Norfolk Island", "Lat" => -29.041625, "Lon" => 167.938742),
+"NLO" => array("City" => "Kinshasa", "Lat" => -4.326689, "Lon" => 15.327342),
+"NLP" => array("City" => "Nelspruit", "Lat" => -25.5, "Lon" => 30.9138),
+"NLV" => array("City" => "Nikolayev", "Lat" => 47.0579, "Lon" => 31.9198),
+"NMA" => array("City" => "Namangan", "Lat" => 40.9846, "Lon" => 71.5567),
+"NMB" => array("City" => "Daman", "Lat" => 20.434364, "Lon" => 72.843206),
+"NMM" => array("City" => "Meridian", "Lat" => 32.552083, "Lon" => -88.555557),
+"NNA" => array("City" => "Kentira", "Lat" => 34.298864, "Lon" => -6.595878),
+"NNB" => array("City" => "Santa Ana", "Lat" => -10.848056, "Lon" => 162.454167),
+"NNG" => array("City" => "Nanning", "Lat" => 22.608267, "Lon" => 108.172442),
+"NNL" => array("City" => "Nondalton", "Lat" => 59.966944, "Lon" => -154.851667),
+"NNM" => array("City" => "Naryan-Mar", "Lat" => 67.380537, "Lon" => 53.051016),
+"NNR" => array("City" => "Indreabhan", "Lat" => 53.2303, "Lon" => -9.46778),
+"NNT" => array("City" => "Nan", "Lat" => 18.807914, "Lon" => 100.783419),
+"NNX" => array("City" => "Nunukan-Nunukan Island", "Lat" => 4.13653, "Lon" => 117.667),
+"NNY" => array("City" => "Nanyang", "Lat" => 32.9808, "Lon" => 112.615),
+"NOA" => array("City" => "Nowra", "Lat" => -34.9489, "Lon" => 150.537),
+"NOB" => array("City" => "Nosara Beach", "Lat" => 9.97649, "Lon" => -85.653),
+"NOC" => array("City" => "Connaught", "Lat" => 53.910297, "Lon" => -8.818492),
+"NOE" => array("City" => "Norden", "Lat" => 53.632221, "Lon" => 7.191389),
+"NOG" => array("City" => "Nogales", "Lat" => 31.226083, "Lon" => -110.975831),
+"NOI" => array("City" => "Novorossiysk", "Lat" => 44.4016, "Lon" => 37.7779),
+"NOJ" => array("City" => "Noyabrsk", "Lat" => 63.110079, "Lon" => 75.162243),
+"NON" => array("City" => "Nonouti", "Lat" => -0.616667, "Lon" => 174.366667),
+"NOS" => array("City" => "Nosy-be", "Lat" => -13.312067, "Lon" => 48.314822),
+"NOU" => array("City" => "Noumea", "Lat" => -22.014553, "Lon" => 166.212972),
+"NOV" => array("City" => "Huambo", "Lat" => -12.808878, "Lon" => 15.760547),
+"NOW" => array("City" => "Port Angeles", "Lat" => 48.141481, "Lon" => -123.414075),
+"NOZ" => array("City" => "Novokuznetsk", "Lat" => 53.8114, "Lon" => 86.8772),
+"NPA" => array("City" => "Pensacola", "Lat" => 30.352656, "Lon" => -87.318647),
+"NPE" => array("City" => "NAPIER", "Lat" => -39.465833, "Lon" => 176.87),
+"NPL" => array("City" => "New Plymouth", "Lat" => -39.008611, "Lon" => 174.179167),
+"NPZ" => array("City" => "Valparaiso", "Lat" => 41.4539722, "Lon" => -87.0070833),
+"NQA" => array("City" => "Millington", "Lat" => 35.356667, "Lon" => -89.870278),
+"NQI" => array("City" => "Kingsville", "Lat" => 27.507223, "Lon" => -97.809723),
+"NQN" => array("City" => "Neuquen", "Lat" => -38.949, "Lon" => -68.155711),
+"NQT" => array("City" => "Nottingham", "Lat" => 52.92, "Lon" => -1.079167),
+"NQU" => array("City" => "Nuquí", "Lat" => 5.7, "Lon" => -77.28),
+"NQX" => array("City" => "Key West", "Lat" => 24.575834, "Lon" => -81.688889),
+"NQY" => array("City" => "Newquai", "Lat" => 50.440558, "Lon" => -4.995408),
+"NRD" => array("City" => "Norderney", "Lat" => 53.706822, "Lon" => 7.230247),
+"NRK" => array("City" => "Norrkoeping", "Lat" => 58.586253, "Lon" => 16.250622),
+"NRL" => array("City" => "North Ronaldsay", "Lat" => 59.3675, "Lon" => -2.43444),
+"NRN" => array("City" => "Weeze", "Lat" => 51.602222, "Lon" => 6.141944),
+"NRT" => array("City" => "Tokyo", "Lat" => 35.764722, "Lon" => 140.386389),
+"NSB" => array("City" => "Bimini", "Lat" => 25.767, "Lon" => -79.25),
+"NSE" => array("City" => "Milton", "Lat" => 30.724167, "Lon" => -87.021944),
+"NSH" => array("City" => "Noshahr", "Lat" => 36.663333, "Lon" => 51.464722),
+"NSI" => array("City" => "Yaounde", "Lat" => 3.722556, "Lon" => 11.553269),
+"NSK" => array("City" => "Norilsk", "Lat" => 69.311053, "Lon" => 87.332183),
+"NSN" => array("City" => "Nelson", "Lat" => -41.298333, "Lon" => 173.221111),
+"NSO" => array("City" => "Scone", "Lat" => -32.0372, "Lon" => 150.832),
+"NST" => array("City" => "Nakhon Si Thammarat", "Lat" => 8.539617, "Lon" => 99.944725),
+"NSY" => array("City" => "Sigonella", "Lat" => 37.401664, "Lon" => 14.922358),
+"NTD" => array("City" => "Point Mugu", "Lat" => 34.120285, "Lon" => -119.12094),
+"NTE" => array("City" => "Nantes", "Lat" => 47.153189, "Lon" => -1.610725),
+"NTG" => array("City" => "Nantong", "Lat" => 32.0708, "Lon" => 120.976),
+"NTL" => array("City" => "Newcastle", "Lat" => -32.78, "Lon" => 151.83),
+"NTQ" => array("City" => "Wajima", "Lat" => 37.293097, "Lon" => 136.961853),
+"NTR" => array("City" => "Monterrey", "Lat" => 25.865572, "Lon" => -100.237239),
+"NTT" => array("City" => "Niuatoputapu", "Lat" => -15.9767, "Lon" => -173.755),
+"NTU" => array("City" => "Oceana", "Lat" => 36.820703, "Lon" => -76.033542),
+"NTX" => array("City" => "Ranai-Natuna Besar Island", "Lat" => 3.908714, "Lon" => 108.387897),
+"NTY" => array("City" => "Pilanesberg", "Lat" => -25.333822, "Lon" => 27.173358),
+"NUE" => array("City" => "Nuernberg", "Lat" => 49.4987, "Lon" => 11.066897),
+"NUI" => array("City" => "Nuiqsut", "Lat" => 70.21, "Lon" => -151.005556),
+"NUL" => array("City" => "Nulato", "Lat" => 64.729444, "Lon" => -158.074167),
+"NUP" => array("City" => "Nunapitchuk", "Lat" => 60.905833, "Lon" => -162.439167),
+"NUQ" => array("City" => "Mountain View", "Lat" => 37.416142, "Lon" => -122.049139),
+"NUR" => array("City" => "Nurnberg", "Lat" => 49.446, "Lon" => 11.081944),
+"NUS" => array("City" => "Norsup", "Lat" => -16.0797, "Lon" => 167.401),
+"NUW" => array("City" => "Whidbey Island", "Lat" => 48.351803, "Lon" => -122.655906),
+"NUX" => array("City" => "Novy Urengoy", "Lat" => 66.041811, "Lon" => 76.313938),
+"NVA" => array("City" => "Neiva", "Lat" => 2.95015, "Lon" => -75.294),
+"NVI" => array("City" => "Navoi", "Lat" => 40.1172, "Lon" => 65.1708),
+"NVK" => array("City" => "Narvik", "Lat" => 68.435833, "Lon" => 17.388056),
+"NVP" => array("City" => "Novo Aripuana", "Lat" => -5.121389, "Lon" => -60.380556),
+"NVS" => array("City" => "Nevers", "Lat" => 47.002625, "Lon" => 3.113333),
+"NVT" => array("City" => "Navegantes", "Lat" => -26.879999, "Lon" => -48.65139),
+"NWA" => array("City" => "Moheli", "Lat" => -12.298108, "Lon" => 43.7664),
+"NWI" => array("City" => "Norwich", "Lat" => 52.675833, "Lon" => 1.282778),
+"NXP" => array("City" => "Twenty Nine Palms", "Lat" => 34.296161, "Lon" => -116.162203),
+"NXX" => array("City" => "Willow Grove", "Lat" => 40.199833, "Lon" => -75.148167),
+"NYA" => array("City" => "Nyagan", "Lat" => 62.11, "Lon" => 65.615),
+"NYG" => array("City" => "Quantico", "Lat" => 38.501683, "Lon" => -77.305333),
+"NYI" => array("City" => "Sunyani", "Lat" => 7.361828, "Lon" => -2.328756),
+"NYK" => array("City" => "Nanyuki", "Lat" => -0.067, "Lon" => 37.033),
+"NYM" => array("City" => "Nadym", "Lat" => 65.4809, "Lon" => 72.6989),
+"NYO" => array("City" => "Stockholm", "Lat" => 58.788636, "Lon" => 16.912189),
+"NYU" => array("City" => "Nyuang U", "Lat" => 21.173833266, "Lon" => 94.9246666),
+"NZA" => array("City" => "Nazca", "Lat" => -14.854192, "Lon" => -74.961811),
+"NZC" => array("City" => "Jacksonville", "Lat" => 30.2187, "Lon" => -81.8767),
+"NZH" => array("City" => "Manzhouli", "Lat" => 49.566667, "Lon" => 117.329444),
+"NZJ" => array("City" => "Santa Ana", "Lat" => 33.676132, "Lon" => -117.731164),
+"NZY" => array("City" => "San Diego", "Lat" => 32.699219, "Lon" => -117.21531),
+"OAJ" => array("City" => "Jacksonville NC", "Lat" => 34.829164, "Lon" => -77.612139),
+"OAK" => array("City" => "Oakland", "Lat" => 37.721278, "Lon" => -122.220722),
+"OAL" => array("City" => "Marktoberdorf", "Lat" => 47.78, "Lon" => 10.627),
+"OAM" => array("City" => "Oamaru", "Lat" => -44.97, "Lon" => 171.081667),
+"OAR" => array("City" => "Fort Ord", "Lat" => 36.681878, "Lon" => -121.762347),
+"OAX" => array("City" => "Oaxaca", "Lat" => 16.999906, "Lon" => -96.726639),
+"OBF" => array("City" => "Oberpfaffenhofen", "Lat" => 48.081364, "Lon" => 11.283067),
+"OBN" => array("City" => "North Connel", "Lat" => 56.464, "Lon" => -5.4),
+"OBO" => array("City" => "Obihiro", "Lat" => 42.733333, "Lon" => 143.217222),
+"OBS" => array("City" => "Aubenas-vals-lanas", "Lat" => 44.544236, "Lon" => 4.372192),
+"OBU" => array("City" => "Kobuk", "Lat" => 66.912222, "Lon" => -156.897222),
+"OBX" => array("City" => "Obo", "Lat" => -7.583, "Lon" => 141.317),
+"OCA" => array("City" => "Ocean Reef Club Airport", "Lat" => 25.325393, "Lon" => -80.274775),
+"OCC" => array("City" => "Coca", "Lat" => -0.462886, "Lon" => -76.986842),
+"OCJ" => array("City" => "Ocho Rios", "Lat" => 18.404247, "Lon" => -76.969017),
+"OCV" => array("City" => "Ocana", "Lat" => 8.315061, "Lon" => -73.358331),
+"ODB" => array("City" => "Cordoba", "Lat" => 37.842006, "Lon" => -4.848878),
+"ODE" => array("City" => "Odense", "Lat" => 55.476664, "Lon" => 10.330933),
+"ODH" => array("City" => "Odiham", "Lat" => 51.234139, "Lon" => -0.942825),
+"ODN" => array("City" => "Long Seridan", "Lat" => 3.967, "Lon" => 115.05),
+"ODS" => array("City" => "Odessa", "Lat" => 46.426767, "Lon" => 30.676464),
+"ODY" => array("City" => "Muang Xay", "Lat" => 20.6827, "Lon" => 101.994),
+"OEM" => array("City" => "Paloemeu", "Lat" => 5.811111, "Lon" => -55.190833),
+"OER" => array("City" => "Ornskoldsvik", "Lat" => 63.408339, "Lon" => 18.990039),
+"OES" => array("City" => "San Antonio Oeste", "Lat" => -40.7512, "Lon" => -65.0343),
+"OFF" => array("City" => "Omaha", "Lat" => 41.118332, "Lon" => -95.912511),
+"OFU" => array("City" => "Ofu", "Lat" => -14.184444, "Lon" => -169.67),
+"OGG" => array("City" => "Kahului", "Lat" => 20.89865, "Lon" => -156.430458),
+"OGL" => array("City" => "Georgetown", "Lat" => 6.806944, "Lon" => -58.104444),
+"OGN" => array("City" => "Yonaguni Jima", "Lat" => 24.466944, "Lon" => 122.977778),
+"OGS" => array("City" => "Ogdensburg", "Lat" => 44.681854, "Lon" => -75.4655),
+"OGX" => array("City" => "Ouargla", "Lat" => 31.917223, "Lon" => 5.412778),
+"OGZ" => array("City" => "Beslan", "Lat" => 43.2051, "Lon" => 44.6066),
+"OHD" => array("City" => "Ohrid", "Lat" => 41.179956, "Lon" => 20.742325),
+"OHE" => array("City" => "Mohe County", "Lat" => 53, "Lon" => 122.5),
+"OHH" => array("City" => "Okha", "Lat" => 53.583333, "Lon" => 142.933333),
+"OHO" => array("City" => "Okhotsk", "Lat" => 59.4101, "Lon" => 143.057),
+"OIM" => array("City" => "Oshima", "Lat" => 34.782033, "Lon" => 139.360306),
+"OIR" => array("City" => "Okushiri", "Lat" => 42.071667, "Lon" => 139.432911),
+"OIT" => array("City" => "Oita", "Lat" => 33.479444, "Lon" => 131.737222),
+"OKA" => array("City" => "Okinawa", "Lat" => 26.195814, "Lon" => 127.645869),
+"OKB" => array("City" => "Fraser Island", "Lat" => -24.95841, "Lon" => 153.3145),
+"OKC" => array("City" => "Oklahoma City", "Lat" => 35.393089, "Lon" => -97.600733),
+"OKD" => array("City" => "Sapporo", "Lat" => 43.1161, "Lon" => 141.38),
+"OKI" => array("City" => "Oki Island", "Lat" => 36.181125, "Lon" => 133.324844),
+"OKJ" => array("City" => "Okayama", "Lat" => 34.756944, "Lon" => 133.855278),
+"OKN" => array("City" => "Okondja", "Lat" => -0.665214, "Lon" => 13.673133),
+"OKO" => array("City" => "Yokota", "Lat" => 35.748492, "Lon" => 139.348483),
+"OKR" => array("City" => "Yorke Island", "Lat" => -9.75703, "Lon" => 143.411),
+"OKY" => array("City" => "Oakey", "Lat" => -27.411389, "Lon" => 151.735278),
+"OLA" => array("City" => "Orland", "Lat" => 63.698908, "Lon" => 9.604003),
+"OLB" => array("City" => "Olbia", "Lat" => 40.898661, "Lon" => 9.517628),
+"OLF" => array("City" => "Wolf Point", "Lat" => 48.094444, "Lon" => -105.575),
+"OLH" => array("City" => "Old Harbor", "Lat" => 57.218056, "Lon" => -153.269722),
+"OLM" => array("City" => "Olympia", "Lat" => 46.9694044, "Lon" => -122.9025447),
+"OLN" => array("City" => "Colonia Sarmiento", "Lat" => -45.6, "Lon" => -69.083333),
+"OLS" => array("City" => "Nogales", "Lat" => 31.417722, "Lon" => -110.84789),
+"OLV" => array("City" => "Olive Branch", "Lat" => 34.876944, "Lon" => -89.783333),
+"OLZ" => array("City" => "Olpoi", "Lat" => -14.8817, "Lon" => 166.558),
+"OMA" => array("City" => "Omaha", "Lat" => 41.303167, "Lon" => -95.894069),
+"OMB" => array("City" => "Omboue Hospial", "Lat" => -1.574733, "Lon" => 9.262694),
+"OMC" => array("City" => "Ormoc City", "Lat" => 11.057997, "Lon" => 124.565322),
+"OMD" => array("City" => "Oranjemund", "Lat" => -28.5847, "Lon" => 16.4467),
+"OME" => array("City" => "Nome", "Lat" => 64.512203, "Lon" => -165.445247),
+"OMF" => array("City" => "Mafraq", "Lat" => 32.356353, "Lon" => 36.259181),
+"OMO" => array("City" => "Mostar", "Lat" => 43.2829, "Lon" => 17.845878),
+"OMR" => array("City" => "Oradea", "Lat" => 47.025278, "Lon" => 21.9025),
+"OMS" => array("City" => "Omsk", "Lat" => 54.967042, "Lon" => 73.310514),
+"ONB" => array("City" => "Ononge", "Lat" => -8.583, "Lon" => 147.2),
+"OND" => array("City" => "Ondangwa", "Lat" => -17.8782, "Lon" => 15.9526),
+"ONH" => array("City" => "Oneonta", "Lat" => 42.524722, "Lon" => -75.064444),
+"ONP" => array("City" => "Newport", "Lat" => 44.580361, "Lon" => -124.057917),
+"ONQ" => array("City" => "Zonguldak", "Lat" => 41.506111, "Lon" => 32.088611),
+"ONT" => array("City" => "Ontario", "Lat" => 34.056, "Lon" => -117.601194),
+"ONX" => array("City" => "Colón", "Lat" => 9.35664, "Lon" => -79.8674),
+"OOL" => array("City" => "Coolangatta", "Lat" => -28.164444, "Lon" => 153.504722),
+"OPF" => array("City" => "Miami", "Lat" => 25.907, "Lon" => -80.278389),
+"OPO" => array("City" => "Porto", "Lat" => 41.248055, "Lon" => -8.681389),
+"OPS" => array("City" => "Sinop", "Lat" => -11.85, "Lon" => -55.46),
+"OPU" => array("City" => "Balimo", "Lat" => -8.05, "Lon" => 142.933),
+"ORA" => array("City" => "Oran", "Lat" => -23.152779, "Lon" => -64.32917),
+"ORB" => array("City" => "Orebro", "Lat" => 59.223733, "Lon" => 15.037956),
+"ORD" => array("City" => "Chicago", "Lat" => 41.978603, "Lon" => -87.904842),
+"ORE" => array("City" => "Orleans", "Lat" => 47.987778, "Lon" => 1.760556),
+"ORF" => array("City" => "Norfolk", "Lat" => 36.894611, "Lon" => -76.201222),
+"ORG" => array("City" => "Paramaribo", "Lat" => 5.81108, "Lon" => -55.1907),
+"ORH" => array("City" => "Worcester", "Lat" => 42.2673, "Lon" => -71.8757),
+"ORI" => array("City" => "Port Lions", "Lat" => 57.885278, "Lon" => -152.846111),
+"ORJ" => array("City" => "Orinduik", "Lat" => 4.7, "Lon" => -60.016667),
+"ORK" => array("City" => "Cork", "Lat" => 51.841269, "Lon" => -8.491111),
+"ORL" => array("City" => "Orlando", "Lat" => 28.545464, "Lon" => -81.332936),
+"ORN" => array("City" => "Oran", "Lat" => 35.623858, "Lon" => -0.621183),
+"ORS" => array("City" => "Orpheus Island", "Lat" => -18.634, "Lon" => 146.5),
+"ORT" => array("City" => "Northway", "Lat" => 62.961334, "Lon" => -141.929136),
+"ORV" => array("City" => "Noorvik", "Lat" => 66.8175, "Lon" => -161.022222),
+"ORW" => array("City" => "Ormara Raik", "Lat" => 25.2747, "Lon" => 64.586),
+"ORY" => array("City" => "Paris", "Lat" => 48.725278, "Lon" => 2.359444),
+"OSB" => array("City" => "Mosul", "Lat" => 36.305833, "Lon" => 43.1475),
+"OSC" => array("City" => "Oscoda", "Lat" => 44.451558, "Lon" => -83.394053),
+"OSD" => array("City" => "Östersund", "Lat" => 63.1944, "Lon" => 14.5003),
+"OSH" => array("City" => "Oshkosh", "Lat" => 44.024983, "Lon" => -88.551336),
+"OSI" => array("City" => "Osijek", "Lat" => 45.462667, "Lon" => 18.810156),
+"OSK" => array("City" => "Oskarshamn", "Lat" => 57.350453, "Lon" => 16.497972),
+"OSL" => array("City" => "Oslo", "Lat" => 60.193917, "Lon" => 11.100361),
+"OSN" => array("City" => "Osan", "Lat" => 37.090617, "Lon" => 127.029594),
+"OSP" => array("City" => "Slupsk", "Lat" => 54.478889, "Lon" => 17.1075),
+"OSR" => array("City" => "Ostrava", "Lat" => 49.696292, "Lon" => 18.111053),
+"OSS" => array("City" => "Osh", "Lat" => 40.608989, "Lon" => 72.793269),
+"OST" => array("City" => "Ostend", "Lat" => 51.198889, "Lon" => 2.862222),
+"OSU" => array("City" => "Columbus", "Lat" => 40.0798, "Lon" => -83.073),
+"OSW" => array("City" => "Orsk", "Lat" => 51.0725, "Lon" => 58.5956),
+"OSY" => array("City" => "Namsos", "Lat" => 64.4722, "Lon" => 11.5786),
+"OSZ" => array("City" => "Koszalin", "Lat" => 54.2, "Lon" => 16.15),
+"OTD" => array("City" => "Contadora Island", "Lat" => 8.62876, "Lon" => -79.0347),
+"OTH" => array("City" => "North Bend", "Lat" => 43.4171, "Lon" => -124.246),
+"OTI" => array("City" => "Morotai Island", "Lat" => 2.045992, "Lon" => 128.324708),
+"OTP" => array("City" => "Bucharest", "Lat" => 44.572161, "Lon" => 26.102178),
+"OTR" => array("City" => "Coto 47", "Lat" => 8.601556, "Lon" => -82.968614),
+"OTS" => array("City" => "Anacortes", "Lat" => 48.498889, "Lon" => -122.6625),
+"OTU" => array("City" => "Otu", "Lat" => 7.010369, "Lon" => -74.715497),
+"OTZ" => array("City" => "Kotzebue", "Lat" => 66.884678, "Lon" => -162.59855),
+"OUA" => array("City" => "Ouagadougou", "Lat" => 12.353194, "Lon" => -1.512417),
+"OUD" => array("City" => "Oujda", "Lat" => 34.78715, "Lon" => -1.923986),
+"OUE" => array("City" => "Ouesso", "Lat" => 1.615994, "Lon" => 16.037917),
+"OUI" => array("City" => "Huay Xai", "Lat" => 20.2573, "Lon" => 100.437),
+"OUL" => array("City" => "Oulu", "Lat" => 64.930061, "Lon" => 25.354564),
+"OVB" => array("City" => "Novosibirsk", "Lat" => 55.012622, "Lon" => 82.650656),
+"OVD" => array("City" => "Aviles", "Lat" => 43.563567, "Lon" => -6.034622),
+"OVS" => array("City" => "Sovetskiy", "Lat" => 61.32, "Lon" => 63.6044),
+"OWB" => array("City" => "Owensboro", "Lat" => 37.7401, "Lon" => -87.1668),
+"OXB" => array("City" => "Bissau", "Lat" => 11.89485, "Lon" => -15.653681),
+"OXD" => array("City" => "Oxford", "Lat" => 39.5022607, "Lon" => -84.7843814),
+"OXF" => array("City" => "Oxford", "Lat" => 51.836944, "Lon" => -1.32),
+"OXR" => array("City" => "Oxnard", "Lat" => 34.200833, "Lon" => -119.207222),
+"OYE" => array("City" => "Oyem", "Lat" => 1.543108, "Lon" => 11.581361),
+"OYG" => array("City" => "Moyo", "Lat" => 3.633, "Lon" => 31.75),
+"OZA" => array("City" => "Ozona", "Lat" => 30.735281, "Lon" => -101.202972),
+"OZC" => array("City" => "Ozamis", "Lat" => 8.178508, "Lon" => 123.841731),
+"OZP" => array("City" => "Sevilla", "Lat" => 37.174917, "Lon" => -5.615944),
+"OZZ" => array("City" => "Ouarzazate", "Lat" => 30.939053, "Lon" => -6.909431),
+"PAB" => array("City" => "Bilaspur", "Lat" => 21.9884, "Lon" => 82.110983),
+"PAC" => array("City" => "Panama", "Lat" => 8.973339, "Lon" => -79.555583),
+"PAD" => array("City" => "Paderborn", "Lat" => 51.614089, "Lon" => 8.616317),
+"PAE" => array("City" => "Everett", "Lat" => 47.906342, "Lon" => -122.281564),
+"PAF" => array("City" => "Pakuba", "Lat" => 2.3275, "Lon" => 31.5),
+"PAH" => array("City" => "PADUCAH", "Lat" => 37.0602875, "Lon" => -88.7729583),
+"PAJ" => array("City" => "Parachinar", "Lat" => 33.9021, "Lon" => 70.0716),
+"PAM" => array("City" => "Panama City", "Lat" => 30.069567, "Lon" => -85.575417),
+"PAN" => array("City" => "Pattani", "Lat" => 6.785458, "Lon" => 101.153569),
+"PAP" => array("City" => "Port-au-prince", "Lat" => 18.58005, "Lon" => -72.292542),
+"PAQ" => array("City" => "Palmer", "Lat" => 61.594914, "Lon" => -149.088711),
+"PAS" => array("City" => "Paros", "Lat" => 37.010278, "Lon" => 25.127778),
+"PAT" => array("City" => "Patina", "Lat" => 25.591317, "Lon" => 85.087992),
+"PAV" => array("City" => "Paulo Alfonso", "Lat" => -9.400878, "Lon" => -38.250575),
+"PAX" => array("City" => "Port-de-Paix", "Lat" => 19.9336, "Lon" => -72.8486),
+"PAZ" => array("City" => "Poza Rico", "Lat" => 20.602671, "Lon" => -97.460839),
+"PBC" => array("City" => "Puebla", "Lat" => 19.158144, "Lon" => -98.371447),
+"PBD" => array("City" => "Porbandar", "Lat" => 21.648675, "Lon" => 69.657219),
+"PBF" => array("City" => "Pine Bluff", "Lat" => 34.173142, "Lon" => -91.935597),
+"PBG" => array("City" => "Plattsburgh", "Lat" => 44.650944, "Lon" => -73.468139),
+"PBH" => array("City" => "Thimphu", "Lat" => 27.403192, "Lon" => 89.424606),
+"PBI" => array("City" => "West Palm Beach", "Lat" => 26.683161, "Lon" => -80.095589),
+"PBJ" => array("City" => "Paama Island", "Lat" => -16.439, "Lon" => 168.257),
+"PBL" => array("City" => "Puerto Cabello", "Lat" => 10.4805, "Lon" => -68.073025),
+"PBM" => array("City" => "Zandery", "Lat" => 5.452831, "Lon" => -55.187783),
+"PBN" => array("City" => "Porto Amboim", "Lat" => -10.721956, "Lon" => 13.765528),
+"PBP" => array("City" => "Nandayure", "Lat" => 9.85611, "Lon" => -85.3708),
+"PBR" => array("City" => "Puerto Barrios", "Lat" => 15.730878, "Lon" => -88.583767),
+"PBU" => array("City" => "Putao", "Lat" => 27.329922, "Lon" => 97.426269),
+"PBV" => array("City" => "Point Barrow", "Lat" => 56.578344, "Lon" => -169.661611),
+"PCA" => array("City" => "Pachuca", "Lat" => 20.0772, "Lon" => -98.782814),
+"PCB" => array("City" => "Jakarta", "Lat" => -6.336964, "Lon" => 106.764561),
+"PCL" => array("City" => "Pucallpa", "Lat" => -8.377939, "Lon" => -74.574297),
+"PCN" => array("City" => "Picton", "Lat" => -41.348333, "Lon" => 173.955278),
+"PCP" => array("City" => "Principe", "Lat" => 1.662936, "Lon" => 7.411742),
+"PCR" => array("City" => "Puerto Carreno", "Lat" => 6.184717, "Lon" => -67.493164),
+"PCW" => array("City" => "Port Clinton", "Lat" => 41.5162703, "Lon" => -82.8694868),
+"PDA" => array("City" => "Puerto Inírida", "Lat" => 3.85, "Lon" => -67.91),
+"PDB" => array("City" => "Pedro Bay", "Lat" => 59.782222, "Lon" => -154.1325),
+"PDG" => array("City" => "Padang", "Lat" => -0.874989, "Lon" => 100.351881),
+"PDK" => array("City" => "Atlanta", "Lat" => 33.8756111, "Lon" => -84.3019722),
+"PDL" => array("City" => "Ponta Delgada", "Lat" => 37.741184, "Lon" => -25.69787),
+"PDO" => array("City" => "Talang Gudang-Sumatra Island", "Lat" => -3.286069, "Lon" => 103.8796),
+"PDP" => array("City" => "Punta del Este", "Lat" => -34.855139, "Lon" => -55.094278),
+"PDS" => array("City" => "Piedras Negras", "Lat" => 28.627394, "Lon" => -100.535211),
+"PDT" => array("City" => "Pendleton", "Lat" => 45.695, "Lon" => -118.841389),
+"PDV" => array("City" => "Plovdiv", "Lat" => 42.067806, "Lon" => 24.850833),
+"PDX" => array("City" => "Portland", "Lat" => 45.588722, "Lon" => -122.5975),
+"PEA" => array("City" => "Penneshaw", "Lat" => -34.75, "Lon" => 137.933),
+"PEC" => array("City" => "Pelican", "Lat" => 57.955278, "Lon" => -136.236389),
+"PED" => array("City" => "Pardubice", "Lat" => 50.013419, "Lon" => 15.738647),
+"PEE" => array("City" => "Perm", "Lat" => 57.914517, "Lon" => 56.021214),
+"PEG" => array("City" => "Perugia", "Lat" => 43.095906, "Lon" => 12.513222),
+"PEI" => array("City" => "Pereira", "Lat" => 4.812675, "Lon" => -75.739519),
+"PEK" => array("City" => "Beijing", "Lat" => 40.080111, "Lon" => 116.584556),
+"PEM" => array("City" => "Puerto Maldonado", "Lat" => -12.613611, "Lon" => -69.228611),
+"PEN" => array("City" => "Penang", "Lat" => 5.297139, "Lon" => 100.276864),
+"PER" => array("City" => "Perth", "Lat" => -31.940278, "Lon" => 115.966944),
+"PES" => array("City" => "Petrozavodsk", "Lat" => 61.8852, "Lon" => 34.1547),
+"PET" => array("City" => "Pelotas", "Lat" => -31.718353, "Lon" => -52.327689),
+"PEU" => array("City" => "Puerto Lempira", "Lat" => 15.2622, "Lon" => -83.7812),
+"PEV" => array("City" => "Pécs-Pogány", "Lat" => 45.990928, "Lon" => 18.240983),
+"PEW" => array("City" => "Peshawar", "Lat" => 33.993911, "Lon" => 71.514581),
+"PEX" => array("City" => "Pechora", "Lat" => 65.070387, "Lon" => 57.082045),
+"PEZ" => array("City" => "Penza", "Lat" => 53.1106, "Lon" => 45.0211),
+"PFB" => array("City" => "Passo Fundo", "Lat" => -28.243989, "Lon" => -52.326558),
+"PFJ" => array("City" => "Patreksfjordur", "Lat" => 65.555833, "Lon" => -23.965),
+"PFN" => array("City" => "Panama City", "Lat" => 30.212083, "Lon" => -85.682806),
+"PFO" => array("City" => "Paphos", "Lat" => 34.718039, "Lon" => 32.485731),
+"PFQ" => array("City" => "Parsabad", "Lat" => 39.603606, "Lon" => 47.8815),
+"PFR" => array("City" => "Ilebo", "Lat" => -4.333, "Lon" => 20.583),
+"PGA" => array("City" => "Page", "Lat" => 36.9261, "Lon" => -111.4483),
+"PGD" => array("City" => "Punta Gorda", "Lat" => 26.919722, "Lon" => -81.990556),
+"PGF" => array("City" => "Perpignan", "Lat" => 42.740442, "Lon" => 2.870667),
+"PGH" => array("City" => "Nainital", "Lat" => 29.033408, "Lon" => 79.473744),
+"PGK" => array("City" => "Pangkal Pinang", "Lat" => -2.1622, "Lon" => 106.139064),
+"PGU" => array("City" => "Khalije Fars", "Lat" => 27.379444, "Lon" => 52.7375),
+"PGV" => array("City" => "Greenville", "Lat" => 35.635278, "Lon" => -77.385278),
+"PGX" => array("City" => "Perigueux", "Lat" => 45.198055, "Lon" => 0.815556),
+"PHA" => array("City" => "Phan Rang", "Lat" => 11.6335, "Lon" => 108.952),
+"PHC" => array("City" => "Port Hartcourt", "Lat" => 5.015494, "Lon" => 6.949594),
+"PHE" => array("City" => "Port Hedland", "Lat" => -20.377778, "Lon" => 118.626389),
+"PHF" => array("City" => "Newport News", "Lat" => 37.131894, "Lon" => -76.492989),
+"PHK" => array("City" => "Pahokee", "Lat" => 47.06139, "Lon" => -41.36079),
+"PHL" => array("City" => "Philadelphia", "Lat" => 39.871944, "Lon" => -75.241139),
+"PHN" => array("City" => "Port Huron", "Lat" => 42.910957, "Lon" => -82.528862),
+"PHO" => array("City" => "Point Hope", "Lat" => 68.3488, "Lon" => -166.799),
+"PHS" => array("City" => "Phitsanulok", "Lat" => 16.782939, "Lon" => 100.279122),
+"PHW" => array("City" => "Phalaborwa", "Lat" => -23.937166, "Lon" => 31.15539),
+"PHX" => array("City" => "Phoenix", "Lat" => 33.434278, "Lon" => -112.011583),
+"PHY" => array("City" => "Phetchabun", "Lat" => 16.676028, "Lon" => 101.195108),
+"PIA" => array("City" => "Peoria", "Lat" => 40.664203, "Lon" => -89.693258),
+"PIB" => array("City" => "Hattiesburg/Laurel", "Lat" => 31.4671, "Lon" => -89.3371),
+"PID" => array("City" => "Nassau", "Lat" => 25.083, "Lon" => -77.3),
+"PIE" => array("City" => "St. Petersburg", "Lat" => 27.910167, "Lon" => -82.687389),
+"PIF" => array("City" => "Pingtung", "Lat" => 22.672367, "Lon" => 120.461728),
+"PIH" => array("City" => "Pocatello", "Lat" => 42.9098, "Lon" => -112.596),
+"PIK" => array("City" => "Prestwick", "Lat" => 55.509444, "Lon" => -4.586667),
+"PIN" => array("City" => "Parintins", "Lat" => -2.627778, "Lon" => -56.735833),
+"PIO" => array("City" => "Pisco", "Lat" => -13.744864, "Lon" => -76.220284),
+"PIP" => array("City" => "Pilot Point", "Lat" => 57.585393, "Lon" => -157.571944),
+"PIR" => array("City" => "Pierre", "Lat" => 44.3827, "Lon" => -100.286),
+"PIS" => array("City" => "Poitiers", "Lat" => 46.587745, "Lon" => 0.306666),
+"PIT" => array("City" => "Pittsburgh (pennsylva)", "Lat" => 40.491467, "Lon" => -80.232872),
+"PIU" => array("City" => "Piura", "Lat" => -5.20575, "Lon" => -80.616444),
+"PIX" => array("City" => "Pico", "Lat" => 38.554333, "Lon" => -28.441333),
+"PIZ" => array("City" => "Point Lay", "Lat" => 69.732875, "Lon" => -163.005342),
+"PJC" => array("City" => "Pedro Juan Caballero", "Lat" => -22.641389, "Lon" => -55.829722),
+"PJG" => array("City" => "Panjgur", "Lat" => 26.954547, "Lon" => 64.132517),
+"PJM" => array("City" => "Puerto Jimenez", "Lat" => 8.53333, "Lon" => -83.3),
+"PKB" => array("City" => "PARKERSBURG", "Lat" => 39.3451039, "Lon" => -81.4392031),
+"PKC" => array("City" => "Petropavlovsk", "Lat" => 53.167889, "Lon" => 158.453669),
+"PKG" => array("City" => "Pangkor Island", "Lat" => 4.24472, "Lon" => 100.553),
+"PKH" => array("City" => "Porto Heli", "Lat" => 37.298792, "Lon" => 23.148986),
+"PKK" => array("City" => "Pakhokku", "Lat" => 21.3333, "Lon" => 95.1),
+"PKN" => array("City" => "Pangkalan Bun", "Lat" => -2.705197, "Lon" => 111.673208),
+"PKP" => array("City" => "Puka Puka", "Lat" => -14.809458, "Lon" => -138.812811),
+"PKR" => array("City" => "Pokhara", "Lat" => 28.200881, "Lon" => 83.982056),
+"PKU" => array("City" => "Pekanbaru", "Lat" => 0.460786, "Lon" => 101.444539),
+"PKV" => array("City" => "Pskov", "Lat" => 57.783917, "Lon" => 28.395614),
+"PKW" => array("City" => "Selebi-phikwe", "Lat" => -22.05835, "Lon" => 27.828767),
+"PKY" => array("City" => "Palangkaraya", "Lat" => -2.225128, "Lon" => 113.942661),
+"PKZ" => array("City" => "Pakse", "Lat" => 15.132053, "Lon" => 105.781417),
+"PLD" => array("City" => "Playa Samara", "Lat" => 10.25, "Lon" => -85.417),
+"PLH" => array("City" => "Plymouth", "Lat" => 50.422778, "Lon" => -4.105833),
+"PLJ" => array("City" => "Placencia", "Lat" => 16.536944, "Lon" => -88.361667),
+"PLL" => array("City" => "Manaus", "Lat" => -3.14604, "Lon" => -59.9863),
+"PLM" => array("City" => "Palembang", "Lat" => -2.89825, "Lon" => 104.699903),
+"PLN" => array("City" => "Pellston", "Lat" => 45.5709, "Lon" => -84.7967),
+"PLP" => array("City" => "La Palma", "Lat" => 8.40667, "Lon" => -78.1417),
+"PLQ" => array("City" => "Palanga", "Lat" => 55.973228, "Lon" => 21.093856),
+"PLS" => array("City" => "Providenciales", "Lat" => 21.773625, "Lon" => -72.265886),
+"PLU" => array("City" => "Belo Horizonte", "Lat" => -19.851181, "Lon" => -43.950628),
+"PLW" => array("City" => "Palu", "Lat" => -0.918542, "Lon" => 119.909642),
+"PLX" => array("City" => "Semiplatinsk", "Lat" => 50.3513, "Lon" => 80.2344),
+"PLZ" => array("City" => "Port Elizabeth", "Lat" => -33.984919, "Lon" => 25.617275),
+"PMA" => array("City" => "Pemba", "Lat" => -5.257264, "Lon" => 39.811417),
+"PMB" => array("City" => "Pembina", "Lat" => 48.942501, "Lon" => -97.240833),
+"PMC" => array("City" => "Puerto Montt", "Lat" => -41.438886, "Lon" => -73.093953),
+"PMD" => array("City" => "Palmdale", "Lat" => 34.629391, "Lon" => -118.08456),
+"PME" => array("City" => "Portsmouth", "Lat" => 50.8, "Lon" => -1.083333),
+"PMF" => array("City" => "Parma", "Lat" => 44.824483, "Lon" => 10.296367),
+"PMG" => array("City" => "Ponta Pora", "Lat" => -22.549639, "Lon" => -55.702614),
+"PMI" => array("City" => "Palma de Mallorca", "Lat" => 39.55361, "Lon" => 2.727778),
+"PML" => array("City" => "Cold Bay", "Lat" => 56.006111, "Lon" => -160.560833),
+"PMO" => array("City" => "Palermo", "Lat" => 38.175958, "Lon" => 13.091019),
+"PMQ" => array("City" => "Perito Moreno", "Lat" => -46.537911, "Lon" => -70.978689),
+"PMR" => array("City" => "Palmerston North", "Lat" => -40.320556, "Lon" => 175.616944),
+"PMS" => array("City" => "Palmyra", "Lat" => 34.557361, "Lon" => 38.316889),
+"PMV" => array("City" => "Porlamar", "Lat" => 10.912926, "Lon" => -63.967581),
+"PMW" => array("City" => "Palmas", "Lat" => -10.241667, "Lon" => -48.35278),
+"PMY" => array("City" => "Puerto Madryn", "Lat" => -42.759161, "Lon" => -65.102725),
+"PMZ" => array("City" => "Palmar Sur", "Lat" => 8.951025, "Lon" => -83.468583),
+"PNA" => array("City" => "Pamplona", "Lat" => 42.770039, "Lon" => -1.646331),
+"PNB" => array("City" => "Porto Nacional", "Lat" => -10.719417, "Lon" => -48.399736),
+"PNC" => array("City" => "Ponca City", "Lat" => 36.731958, "Lon" => -97.099781),
+"PND" => array("City" => "Punta Gorda", "Lat" => 16.1024, "Lon" => -88.8083),
+"PNE" => array("City" => "Philadelphia", "Lat" => 40.081944, "Lon" => -75.010586),
+"PNH" => array("City" => "Phnom-penh", "Lat" => 11.546556, "Lon" => 104.844139),
+"PNI" => array("City" => "Pohnpei", "Lat" => 6.9851, "Lon" => 158.208989),
+"PNK" => array("City" => "Pontianak", "Lat" => -0.150711, "Lon" => 109.403892),
+"PNL" => array("City" => "Pantelleria", "Lat" => 36.816519, "Lon" => 11.968864),
+"PNM" => array("City" => "Princeton", "Lat" => 45.559868, "Lon" => -93.608217),
+"PNQ" => array("City" => "Pune", "Lat" => 18.582111, "Lon" => 73.919697),
+"PNR" => array("City" => "Pointe-noire", "Lat" => -4.816028, "Lon" => 11.886597),
+"PNS" => array("City" => "Pensacola", "Lat" => 30.473425, "Lon" => -87.186611),
+"PNT" => array("City" => "Puerto Natales", "Lat" => -51.733333, "Lon" => -72.516667),
+"PNV" => array("City" => "Panevezys", "Lat" => 55.729444, "Lon" => 24.460833),
+"PNZ" => array("City" => "Petrolina", "Lat" => -9.362411, "Lon" => -40.569097),
+"POA" => array("City" => "Porto Alegre", "Lat" => -29.994428, "Lon" => -51.171428),
+"POB" => array("City" => "Fayetteville", "Lat" => 35.170883, "Lon" => -79.014472),
+"POE" => array("City" => "Fort Polk", "Lat" => 31.044833, "Lon" => -93.191667),
+"POG" => array("City" => "Port Gentil", "Lat" => -0.711739, "Lon" => 8.754383),
+"POI" => array("City" => "Potosi", "Lat" => -19.543069, "Lon" => -65.723706),
+"POL" => array("City" => "Pemba", "Lat" => -12.986753, "Lon" => 40.522492),
+"POM" => array("City" => "Port Moresby", "Lat" => -9.443383, "Lon" => 147.22005),
+"POO" => array("City" => "Pocos De Caldas", "Lat" => -21.843014, "Lon" => -46.567917),
+"POP" => array("City" => "Puerto Plata", "Lat" => 19.7579, "Lon" => -70.570033),
+"POR" => array("City" => "Pori", "Lat" => 61.461686, "Lon" => 21.799983),
+"POS" => array("City" => "Port-of-spain", "Lat" => 10.595369, "Lon" => -61.337242),
+"POT" => array("City" => "Port Antonio", "Lat" => 18.198806, "Lon" => -76.534528),
+"POW" => array("City" => "Portoroz", "Lat" => 45.473353, "Lon" => 13.614978),
+"POX" => array("City" => "Pontoise", "Lat" => 49.096647, "Lon" => 2.040833),
+"POZ" => array("City" => "Poznan", "Lat" => 52.421031, "Lon" => 16.826325),
+"PPB" => array("City" => "President Prudente", "Lat" => -22.175056, "Lon" => -51.424639),
+"PPC" => array("City" => "Prospect Creek", "Lat" => 66.4851, "Lon" => -150.3837),
+"PPE" => array("City" => "Punta Penasco", "Lat" => 31.351878, "Lon" => -113.525728),
+"PPG" => array("City" => "Pago Pago", "Lat" => -14.331, "Lon" => -170.7105),
+"PPK" => array("City" => "Petropavlosk", "Lat" => 54.7747, "Lon" => 69.1839),
+"PPL" => array("City" => "Phaplu", "Lat" => 27.517, "Lon" => 86.6),
+"PPN" => array("City" => "Popayan", "Lat" => 2.4544, "Lon" => -76.609319),
+"PPP" => array("City" => "Prosserpine", "Lat" => -20.495, "Lon" => 148.552222),
+"PPQ" => array("City" => "Paraparaumu", "Lat" => -40.904722, "Lon" => 174.989167),
+"PPS" => array("City" => "Puerto Princesa", "Lat" => 9.742119, "Lon" => 118.758731),
+"PPT" => array("City" => "Papeete", "Lat" => -17.556667, "Lon" => -149.611389),
+"PPV" => array("City" => "Port Protection", "Lat" => 56.328889, "Lon" => -133.61),
+"PPW" => array("City" => "Papa Westray", "Lat" => 59.3517, "Lon" => -2.90028),
+"PQC" => array("City" => "Phu Quoc", "Lat" => 10.227025, "Lon" => 103.967169),
+"PQI" => array("City" => "Presque Isle", "Lat" => 46.688958, "Lon" => -68.044797),
+"PQS" => array("City" => "Pilot Station", "Lat" => 61.934444, "Lon" => -162.899444),
+"PRA" => array("City" => "Parana", "Lat" => -31.794778, "Lon" => -60.480361),
+"PRC" => array("City" => "Prescott", "Lat" => 34.654472, "Lon" => -112.419583),
+"PRG" => array("City" => "Prague", "Lat" => 50.100833, "Lon" => 14.26),
+"PRH" => array("City" => "Phrae", "Lat" => 18.132169, "Lon" => 100.164664),
+"PRI" => array("City" => "Praslin", "Lat" => -4.319292, "Lon" => 55.691417),
+"PRN" => array("City" => "Pristina", "Lat" => 42.572778, "Lon" => 21.035833),
+"PRV" => array("City" => "Prerov", "Lat" => 49.425833, "Lon" => 17.404722),
+"PRY" => array("City" => "Pretoria", "Lat" => -25.653858, "Lon" => 28.224231),
+"PSA" => array("City" => "Pisa", "Lat" => 43.683917, "Lon" => 10.39275),
+"PSC" => array("City" => "Pasco", "Lat" => 46.2647, "Lon" => -119.119),
+"PSD" => array("City" => "Port Said", "Lat" => 31.279444, "Lon" => 32.24),
+"PSE" => array("City" => "Ponce", "Lat" => 18.008306, "Lon" => -66.563028),
+"PSG" => array("City" => "Petersburg", "Lat" => 56.801667, "Lon" => -132.945278),
+"PSI" => array("City" => "Pasni", "Lat" => 25.290487, "Lon" => 63.345083),
+"PSJ" => array("City" => "Poso", "Lat" => -1.416753, "Lon" => 120.657669),
+"PSM" => array("City" => "Portsmouth", "Lat" => 43.0779, "Lon" => -70.8233),
+"PSO" => array("City" => "Pasto", "Lat" => 1.396247, "Lon" => -77.291478),
+"PSP" => array("City" => "Palm Springs", "Lat" => 33.829667, "Lon" => -116.506694),
+"PSR" => array("City" => "Pescara", "Lat" => 42.431656, "Lon" => 14.181067),
+"PSS" => array("City" => "Posadas", "Lat" => -27.385839, "Lon" => -55.970728),
+"PSU" => array("City" => "Putussibau-Borneo Island", "Lat" => 0.835578, "Lon" => 112.937144),
+"PSV" => array("City" => "Papa Stour", "Lat" => 60.3217, "Lon" => -1.69306),
+"PSX" => array("City" => "Palacios", "Lat" => 28.727508, "Lon" => -96.250958),
+"PSY" => array("City" => "Stanley", "Lat" => -51.685672, "Lon" => -57.777644),
+"PSZ" => array("City" => "Puerto Suarez", "Lat" => -18.975281, "Lon" => -57.820586),
+"PTF" => array("City" => "Malolo Lailai Island", "Lat" => -17.7779, "Lon" => 177.197),
+"PTG" => array("City" => "Pietersburg", "Lat" => -23.926089, "Lon" => 29.484422),
+"PTH" => array("City" => "Port Heiden", "Lat" => 56.9591, "Lon" => -158.633),
+"PTP" => array("City" => "Pointe-a-pitre", "Lat" => 16.265306, "Lon" => -61.531806),
+"PTU" => array("City" => "Port Moller", "Lat" => 59.011356, "Lon" => -161.819664),
+"PTY" => array("City" => "Panama City", "Lat" => 9.071364, "Lon" => -79.383453),
+"PUB" => array("City" => "Pueblo Memorial", "Lat" => 38.289085, "Lon" => -104.496572),
+"PUC" => array("City" => "Price", "Lat" => 39.609722, "Lon" => -110.75278),
+"PUD" => array("City" => "Puerto Deseado", "Lat" => -47.735292, "Lon" => -65.904097),
+"PUE" => array("City" => "Puerto Obaldia", "Lat" => 8.68333, "Lon" => -77.5333),
+"PUF" => array("City" => "Pau", "Lat" => 43.38, "Lon" => -0.418611),
+"PUG" => array("City" => "Argyle", "Lat" => -32.506944, "Lon" => 137.716667),
+"PUJ" => array("City" => "Punta Cana", "Lat" => 18.567367, "Lon" => -68.363431),
+"PUQ" => array("City" => "Punta Arenas", "Lat" => -53.002642, "Lon" => -70.854586),
+"PUR" => array("City" => "Puerto Rico/Manuripi", "Lat" => -11.1077, "Lon" => -67.5512),
+"PUS" => array("City" => "Kimhae", "Lat" => 35.179528, "Lon" => 128.938222),
+"PUU" => array("City" => "Puerto Asis", "Lat" => 0.505228, "Lon" => -76.500836),
+"PUW" => array("City" => "Pullman", "Lat" => 46.743861, "Lon" => -117.109583),
+"PUY" => array("City" => "Pula", "Lat" => 44.893533, "Lon" => 13.922192),
+"PUZ" => array("City" => "Puerto Cabezas", "Lat" => 14.047194, "Lon" => -83.386722),
+"PVA" => array("City" => "Providencia", "Lat" => 13.356944, "Lon" => -81.35833),
+"PVC" => array("City" => "Provincetown", "Lat" => 42.071945, "Lon" => -70.22139),
+"PVD" => array("City" => "Providence", "Lat" => 41.732581, "Lon" => -71.420383),
+"PVE" => array("City" => "El Porvenir", "Lat" => 9.559167, "Lon" => -78.971111),
+"PVG" => array("City" => "Shanghai", "Lat" => 31.143378, "Lon" => 121.805214),
+"PVH" => array("City" => "Porto Velho", "Lat" => -8.709294, "Lon" => -63.902281),
+"PVK" => array("City" => "Preveza", "Lat" => 38.925467, "Lon" => 20.765311),
+"PVO" => array("City" => "Portoviejo", "Lat" => -1.041647, "Lon" => -80.472206),
+"PVP" => array("City" => "San Bruno", "Lat" => 27.093056, "Lon" => -112.098889),
+"PVR" => array("City" => "Puerto Vallarta", "Lat" => 20.680083, "Lon" => -105.254167),
+"PVS" => array("City" => "Provideniya Bay", "Lat" => 64.378139, "Lon" => -173.243306),
+"PVU" => array("City" => "Provo", "Lat" => 40.21805555, "Lon" => -111.72222222),
+"PWK" => array("City" => "Chicago-Wheeling", "Lat" => 42.1142897, "Lon" => -87.9015376),
+"PWM" => array("City" => "Portland", "Lat" => 43.646161, "Lon" => -70.309281),
+"PWQ" => array("City" => "Pavlodar", "Lat" => 52.195, "Lon" => 77.073889),
+"PWT" => array("City" => "Bremerton", "Lat" => 47.490244, "Lon" => -122.764814),
+"PXM" => array("City" => "Puerto Escondido", "Lat" => 15.876861, "Lon" => -97.089117),
+"PXO" => array("City" => "Porto Santo", "Lat" => 33.073386, "Lon" => -16.349975),
+"PXU" => array("City" => "Pleiku", "Lat" => 14.004522, "Lon" => 108.017158),
+"PYC" => array("City" => "Playon Chico", "Lat" => 9.303333, "Lon" => -78.236111),
+"PYE" => array("City" => "Penrhyn Island", "Lat" => -9.00667, "Lon" => -158.037),
+"PYH" => array("City" => "Puerto Ayacucho", "Lat" => 5.619992, "Lon" => -67.606103),
+"PYJ" => array("City" => "Yakutia", "Lat" => 66.400431, "Lon" => 112.030325),
+"PYR" => array("City" => "Andravida", "Lat" => 37.920708, "Lon" => 21.292583),
+"PYY" => array("City" => "Pai", "Lat" => 19.372, "Lon" => 98.437),
+"PZB" => array("City" => "Pietermaritzburg", "Lat" => -29.648975, "Lon" => 30.398667),
+"PZE" => array("City" => "Penzance", "Lat" => 50.1281, "Lon" => -5.51845),
+"PZH" => array("City" => "Zhob", "Lat" => 31.358381, "Lon" => 69.463606),
+"PZI" => array("City" => "Panzhihua", "Lat" => 26.54, "Lon" => 101.799),
+"PZO" => array("City" => "Guayana", "Lat" => 8.288528, "Lon" => -62.760361),
+"PZU" => array("City" => "Port Sudan", "Lat" => 19.4336, "Lon" => 37.2341),
+"PZY" => array("City" => "Piestany", "Lat" => 48.625247, "Lon" => 17.828444),
+"QAS" => array("City" => "Ech-cheliff", "Lat" => 36.212658, "Lon" => 1.331775),
+"QBC" => array("City" => "Bella Coola", "Lat" => 52.3875, "Lon" => -126.596),
+"QCY" => array("City" => "Coningsby", "Lat" => 53.093014, "Lon" => -0.166014),
+"QDJ" => array("City" => "Djelfa", "Lat" => 34.6657, "Lon" => 3.351),
+"QDU" => array("City" => "Dusseldorf", "Lat" => 51.220278, "Lon" => 6.792778),
+"QEF" => array("City" => "Egelsbach", "Lat" => 49.9608, "Lon" => 8.64361),
+"QFZ" => array("City" => "Mainz", "Lat" => 0, "Lon" => 0),
+"QGY" => array("City" => "Győr", "Lat" => 47.627097, "Lon" => 17.808347),
+"QHR" => array("City" => "Debre Zeyit", "Lat" => 8.7163, "Lon" => 39.0059),
+"QKL" => array("City" => "Cologne", "Lat" => 50.9, "Lon" => 7.183),
+"QKT" => array("City" => "Kortrijk-vevelgem", "Lat" => 50.817222, "Lon" => 3.204722),
+"QLA" => array("City" => "Lasham", "Lat" => 51.187167, "Lon" => -1.0335),
+"QLT" => array("City" => "Latina", "Lat" => 41.542436, "Lon" => 12.909019),
+"QMJ" => array("City" => "Masjed Soleiman", "Lat" => 32.002372, "Lon" => 49.270364),
+"QMZ" => array("City" => "Mainz", "Lat" => 50.00829, "Lon" => 8.27356),
+"QNC" => array("City" => "Neuchatel", "Lat" => 46.9575, "Lon" => 6.86472),
+"QNJ" => array("City" => "Annemasse", "Lat" => 46.191972, "Lon" => 6.268386),
+"QNV" => array("City" => "Nova Iguacu", "Lat" => -22.7453, "Lon" => -43.4603),
+"QNX" => array("City" => "Macon", "Lat" => 46.295103, "Lon" => 4.795767),
+"QPA" => array("City" => "Padova", "Lat" => 45.395767, "Lon" => 11.847903),
+"QPG" => array("City" => "Paya Lebar", "Lat" => 1.360417, "Lon" => 103.90953),
+"QPP" => array("City" => "Berlin", "Lat" => 52.52493, "Lon" => 13.36963),
+"QPS" => array("City" => "Piracununga", "Lat" => -21.984561, "Lon" => -47.334764),
+"QPZ" => array("City" => "Piacenza", "Lat" => 44.913055, "Lon" => 9.723333),
+"QQP" => array("City" => "London", "Lat" => 51.515833, "Lon" => -0.176111),
+"QQS" => array("City" => "London", "Lat" => 51.532519492138, "Lon" => -0.12630037301642),
+"QRA" => array("City" => "Johannesburg", "Lat" => -26.242506, "Lon" => 28.151169),
+"QRO" => array("City" => "Queretaro", "Lat" => 20.617289, "Lon" => -100.185658),
+"QRW" => array("City" => "Osubi", "Lat" => 5.31, "Lon" => 5.45),
+"QSA" => array("City" => "Sabadell", "Lat" => 41.5209, "Lon" => 2.10508),
+"QSF" => array("City" => "Setif", "Lat" => 36.1781, "Lon" => 5.32449),
+"QSR" => array("City" => "Salerno", "Lat" => 40.6204, "Lon" => 14.911294),
+"QUB" => array("City" => "Ubari", "Lat" => 26.5675, "Lon" => 12.8231),
+"QUS" => array("City" => "Gusau", "Lat" => 12.171667, "Lon" => 6.696111),
+"QVY" => array("City" => "Utti", "Lat" => 60.896394, "Lon" => 26.938353),
+"QXB" => array("City" => "Aix-les-milles", "Lat" => 43.505554, "Lon" => 5.367778),
+"QXR" => array("City" => "RADOM", "Lat" => 51.231978, "Lon" => 21.124183),
+"QYD" => array("City" => "Gdynia", "Lat" => 54.5797, "Lon" => 18.5172),
+"QYI" => array("City" => "Hilversum", "Lat" => 52.226389, "Lon" => 5.181667),
+"QYR" => array("City" => "Troyes", "Lat" => 48.322136, "Lon" => 4.016703),
+"R49" => array("City" => "Republic", "Lat" => 48.7182058, "Lon" => -118.6564714),
+"RAE" => array("City" => "Arar", "Lat" => 30.906589, "Lon" => 41.138217),
+"RAF" => array("City" => "Rafaela", "Lat" => -31.282072, "Lon" => -61.501594),
+"RAH" => array("City" => "Rafha", "Lat" => 29.626419, "Lon" => 43.490614),
+"RAJ" => array("City" => "Rajkot", "Lat" => 22.309183, "Lon" => 70.779525),
+"RAK" => array("City" => "Marrakech", "Lat" => 31.606886, "Lon" => -8.0363),
+"RAL" => array("City" => "Riverside", "Lat" => 33.951875, "Lon" => -117.445103),
+"RAO" => array("City" => "Ribeirao Preto", "Lat" => -21.134167, "Lon" => -47.774189),
+"RAP" => array("City" => "Rapid City", "Lat" => 44.045278, "Lon" => -103.057222),
+"RAR" => array("City" => "Avarua", "Lat" => -21.202739, "Lon" => -159.805556),
+"RAS" => array("City" => "Rasht", "Lat" => 37.325314, "Lon" => 49.605817),
+"RAT" => array("City" => "Raduzhnyi", "Lat" => 62.1586, "Lon" => 77.3289),
+"RAZ" => array("City" => "Rawala Kot", "Lat" => 33.849658, "Lon" => 73.798147),
+"RBA" => array("City" => "Rabat", "Lat" => 34.051467, "Lon" => -6.751519),
+"RBB" => array("City" => "Borba", "Lat" => -4.387778, "Lon" => -59.593889),
+"RBE" => array("City" => "Ratanakiri", "Lat" => 13.73, "Lon" => 106.987),
+"RBM" => array("City" => "Robinson", "Lat" => 34.850089, "Lon" => -92.300153),
+"RBN" => array("City" => "Fort Jefferson - Dry Tortugas", "Lat" => 24.61667, "Lon" => -82.86667),
+"RBQ" => array("City" => "Rerrenabaque", "Lat" => -14.4275, "Lon" => -67.498056),
+"RBR" => array("City" => "Rio Branco", "Lat" => -9.869158, "Lon" => -67.894072),
+"RBV" => array("City" => "Ramata", "Lat" => -8.16806, "Lon" => 157.643),
+"RBX" => array("City" => "Rumbek", "Lat" => 6.825, "Lon" => 29.669),
+"RBY" => array("City" => "Ruby", "Lat" => 64.7272, "Lon" => -155.47),
+"RCA" => array("City" => "Rapid City", "Lat" => 44.145042, "Lon" => -103.103567),
+"RCB" => array("City" => "Richard's Bay", "Lat" => -28.741039, "Lon" => 32.092111),
+"RCH" => array("City" => "Rio Hacha", "Lat" => 11.526222, "Lon" => -72.925958),
+"RCL" => array("City" => "Redcliffe", "Lat" => -15.472, "Lon" => 167.835),
+"RCM" => array("City" => "Richmond", "Lat" => -33.600556, "Lon" => 150.780833),
+"RCO" => array("City" => "Rochefort", "Lat" => 45.887779, "Lon" => -0.983056),
+"RCU" => array("City" => "Rio Cuarto", "Lat" => -33.085128, "Lon" => -64.261314),
+"RDD" => array("City" => "Redding", "Lat" => 40.509, "Lon" => -122.293389),
+"RDG" => array("City" => "Reading", "Lat" => 40.3785, "Lon" => -75.9652),
+"RDM" => array("City" => "Redmond-Bend", "Lat" => 44.254066, "Lon" => -121.149964),
+"RDN" => array("City" => "Redang", "Lat" => 5.76528, "Lon" => 103.007),
+"RDR" => array("City" => "Red River", "Lat" => 47.961098, "Lon" => -97.401194),
+"RDS" => array("City" => "Rincon de los Sauces", "Lat" => -37.390617, "Lon" => -68.904211),
+"RDU" => array("City" => "Raleigh-durham", "Lat" => 35.877639, "Lon" => -78.787472),
+"RDV" => array("City" => "Red Devil", "Lat" => 61.788056, "Lon" => -157.350278),
+"RDZ" => array("City" => "Rodez", "Lat" => 44.407869, "Lon" => 2.482672),
+"REA" => array("City" => "Reao", "Lat" => -18.465861, "Lon" => -136.439706),
+"REC" => array("City" => "Recife", "Lat" => -8.126794, "Lon" => -34.923039),
+"REG" => array("City" => "Reggio Calabria", "Lat" => 38.071206, "Lon" => 15.651556),
+"REL" => array("City" => "Trelew", "Lat" => -43.2105, "Lon" => -65.270319),
+"REN" => array("City" => "Orenburg", "Lat" => 51.795786, "Lon" => 55.456744),
+"REP" => array("City" => "Siem-reap", "Lat" => 13.410666, "Lon" => 103.81284),
+"RES" => array("City" => "Resistencia", "Lat" => -27.449986, "Lon" => -59.056125),
+"REU" => array("City" => "Reus", "Lat" => 41.147392, "Lon" => 1.167172),
+"REX" => array("City" => "Reynosa", "Lat" => 26.008908, "Lon" => -98.228513),
+"REY" => array("City" => "Reyes", "Lat" => -14.3044, "Lon" => -67.3534),
+"RFD" => array("City" => "Rockford", "Lat" => 42.1953611, "Lon" => -89.0972222),
+"RFP" => array("City" => "Raiatea Island", "Lat" => -16.722861, "Lon" => -151.465856),
+"RFS" => array("City" => "Rosita", "Lat" => 13.897222, "Lon" => -84.404722),
+"RGA" => array("City" => "Rio Grande", "Lat" => -53.777667, "Lon" => -67.749389),
+"RGB" => array("City" => "Regensburg", "Lat" => 49.022, "Lon" => 12.1111),
+"RGI" => array("City" => "Rangiroa", "Lat" => -14.954283, "Lon" => -147.6608),
+"RGL" => array("City" => "Rio Gallegos", "Lat" => -51.608875, "Lon" => -69.312636),
+"RGN" => array("City" => "Yangon", "Lat" => 16.907305, "Lon" => 96.133222),
+"RGS" => array("City" => "Burgos", "Lat" => 42.357628, "Lon" => -3.620764),
+"RGT" => array("City" => "Rengat", "Lat" => -0.352808, "Lon" => 102.334917),
+"RHE" => array("City" => "Reims", "Lat" => 49.31, "Lon" => 4.05),
+"RHI" => array("City" => "Rhinelander", "Lat" => 45.6312, "Lon" => -89.4675),
+"RHO" => array("City" => "Rhodos", "Lat" => 36.405419, "Lon" => 28.086192),
+"RHP" => array("City" => "Ramechhap", "Lat" => 27.394005, "Lon" => 86.06144),
+"RIA" => array("City" => "Santa Maria", "Lat" => -29.711358, "Lon" => -53.688153),
+"RIB" => array("City" => "Riberalta", "Lat" => -11, "Lon" => -66),
+"RIC" => array("City" => "Richmond", "Lat" => 37.505167, "Lon" => -77.319667),
+"RID" => array("City" => "Richmond", "Lat" => 39.7561006, "Lon" => -84.8427175),
+"RIF" => array("City" => "Richfield", "Lat" => 38.7364361, "Lon" => -112.0989444),
+"RIG" => array("City" => "Rio Grande", "Lat" => -32.082617, "Lon" => -52.166542),
+"RIK" => array("City" => "Carrillo", "Lat" => 9.866667, "Lon" => -85.483333),
+"RIL" => array("City" => "Rifle", "Lat" => 39.5263056, "Lon" => -107.7269444),
+"RIN" => array("City" => "Ringi Cove", "Lat" => -8.12639, "Lon" => 157.143),
+"RIS" => array("City" => "Rishiri Island", "Lat" => 45.242006, "Lon" => 141.186431),
+"RIU" => array("City" => "Rancho Murieta", "Lat" => 38.486778, "Lon" => -121.102778),
+"RIV" => array("City" => "Riverside", "Lat" => 33.880711, "Lon" => -117.259453),
+"RIW" => array("City" => "Riverton WY", "Lat" => 43.064167, "Lon" => -108.459722),
+"RIX" => array("City" => "Riga", "Lat" => 56.923611, "Lon" => 23.971111),
+"RIY" => array("City" => "Mukalla", "Lat" => 14.662639, "Lon" => 49.375028),
+"RJA" => array("City" => "Rajahmundry", "Lat" => 17.110361, "Lon" => 81.818208),
+"RJH" => array("City" => "Rajshahi", "Lat" => 24.437219, "Lon" => 88.616511),
+"RJK" => array("City" => "Rijeka", "Lat" => 45.216889, "Lon" => 14.570267),
+"RJN" => array("City" => "Rafsanjan", "Lat" => 30.297714, "Lon" => 56.051139),
+"RKD" => array("City" => "Rockland", "Lat" => 44.0601111, "Lon" => -69.0992303),
+"RKE" => array("City" => "Copenhagen", "Lat" => 55.585567, "Lon" => 12.131428),
+"RKH" => array("City" => "Rock Hill", "Lat" => 34.9878, "Lon" => -81.0572),
+"RKS" => array("City" => "Rock Springs", "Lat" => 41.5942, "Lon" => -109.065),
+"RKT" => array("City" => "Ras Al Khaimah", "Lat" => 25.613483, "Lon" => 55.938817),
+"RKV" => array("City" => "Reykjavik", "Lat" => 64.13, "Lon" => -21.940556),
+"RLG" => array("City" => "Laage", "Lat" => 53.918167, "Lon" => 12.278333),
+"RLO" => array("City" => "Merlo", "Lat" => -32.349803, "Lon" => -65.179932),
+"RME" => array("City" => "Rome", "Lat" => 43.2338, "Lon" => -75.407033),
+"RMF" => array("City" => "Marsa Alam", "Lat" => 25.557111, "Lon" => 34.583711),
+"RMI" => array("City" => "Rimini", "Lat" => 44.020292, "Lon" => 12.611747),
+"RML" => array("City" => "Colombo", "Lat" => 6.821994, "Lon" => 79.886208),
+"RMP" => array("City" => "Rampart", "Lat" => 65.507778, "Lon" => -150.140833),
+"RMS" => array("City" => "Ramstein", "Lat" => 49.436911, "Lon" => 7.600283),
+"RMT" => array("City" => "Rimatara", "Lat" => -22.637253, "Lon" => -152.805192),
+"RNA" => array("City" => "Ulawa", "Lat" => -9.854722, "Lon" => 161.979167),
+"RNB" => array("City" => "Ronneby", "Lat" => 56.266667, "Lon" => 15.265),
+"RND" => array("City" => "San Antonio", "Lat" => 29.529675, "Lon" => -98.2789),
+"RNE" => array("City" => "Roanne", "Lat" => 46.058334, "Lon" => 4.001389),
+"RNI" => array("City" => "Corn Island", "Lat" => 12.168611, "Lon" => -83.0675),
+"RNJ" => array("City" => "Yoron", "Lat" => 27.043964, "Lon" => 128.401517),
+"RNL" => array("City" => "Rennell Island", "Lat" => -11.5339, "Lon" => 160.063),
+"RNN" => array("City" => "Ronne", "Lat" => 55.063267, "Lon" => 14.759558),
+"RNO" => array("City" => "Reno", "Lat" => 39.499108, "Lon" => -119.768108),
+"RNP" => array("City" => "Rongelap Island", "Lat" => 11.1572, "Lon" => 166.887),
+"RNS" => array("City" => "Rennes", "Lat" => 48.069508, "Lon" => -1.734794),
+"ROA" => array("City" => "Roanoke VA", "Lat" => 37.325472, "Lon" => -79.975417),
+"ROB" => array("City" => "Monrovia", "Lat" => 6.233789, "Lon" => -10.362311),
+"ROC" => array("City" => "Rochester", "Lat" => 43.118866, "Lon" => -77.672389),
+"ROI" => array("City" => "Roi Et", "Lat" => 16.116761, "Lon" => 103.773797),
+"ROK" => array("City" => "Rockhampton", "Lat" => -23.381944, "Lon" => 150.475278),
+"ROO" => array("City" => "Rondonopolis", "Lat" => -16.466667, "Lon" => -54.633333),
+"ROP" => array("City" => "Rota", "Lat" => 14.174308, "Lon" => 145.242536),
+"ROR" => array("City" => "Babelthuap", "Lat" => 7.367303, "Lon" => 134.544278),
+"ROS" => array("City" => "Rosario", "Lat" => -32.903611, "Lon" => -60.785),
+"ROT" => array("City" => "Rotorua", "Lat" => -38.109167, "Lon" => 176.317222),
+"ROV" => array("City" => "Rostov", "Lat" => 47.258208, "Lon" => 39.818089),
+"ROW" => array("City" => "Roswell", "Lat" => 33.301556, "Lon" => -104.530556),
+"RPN" => array("City" => "Rosh Pina", "Lat" => 32.981047, "Lon" => 35.571908),
+"RPR" => array("City" => "Raipur", "Lat" => 21.180406, "Lon" => 81.738753),
+"RRA" => array("City" => "Ronda", "Lat" => 36.75, "Lon" => -5.166667),
+"RRG" => array("City" => "Rodriguez Island", "Lat" => -19.757658, "Lon" => 63.360983),
+"RRK" => array("City" => "Rourkela", "Lat" => 22.25665, "Lon" => 84.814567),
+"RRS" => array("City" => "Roros", "Lat" => 62.578411, "Lon" => 11.342347),
+"RSA" => array("City" => "Santa Rosa", "Lat" => -36.588322, "Lon" => -64.275694),
+"RSD" => array("City" => "Rock Sound", "Lat" => 24.8917, "Lon" => -76.177739),
+"RSH" => array("City" => "Russian Mission", "Lat" => 61.775, "Lon" => -161.319444),
+"RSI" => array("City" => "Rio Sidra", "Lat" => 8.966667, "Lon" => -80.333336),
+"RST" => array("City" => "Rochester", "Lat" => 43.908283, "Lon" => -92.500014),
+"RSU" => array("City" => "Yeosu", "Lat" => 34.842328, "Lon" => 127.61685),
+"RSW" => array("City" => "Fort Myers", "Lat" => 26.536167, "Lon" => -81.755167),
+"RTA" => array("City" => "Rotuma", "Lat" => -12.4825, "Lon" => 177.071),
+"RTB" => array("City" => "Roatan", "Lat" => 16.316814, "Lon" => -86.522961),
+"RTG" => array("City" => "Ruteng", "Lat" => -8.597011, "Lon" => 120.477061),
+"RTM" => array("City" => "Rotterdam", "Lat" => 51.956944, "Lon" => 4.437222),
+"RTW" => array("City" => "Saratov", "Lat" => 51.334366, "Lon" => 46.022952),
+"RUA" => array("City" => "Arua", "Lat" => 3.05, "Lon" => 30.917),
+"RUH" => array("City" => "Riyadh", "Lat" => 24.95764, "Lon" => 46.698776),
+"RUK" => array("City" => "Rukumkot", "Lat" => 28.627, "Lon" => 82.195),
+"RUM" => array("City" => "Rumjatar", "Lat" => 27.303509, "Lon" => 86.55043),
+"RUN" => array("City" => "St.-denis", "Lat" => -20.8871, "Lon" => 55.510308),
+"RUR" => array("City" => "Rurutu", "Lat" => -22.434069, "Lon" => -151.360614),
+"RUS" => array("City" => "Marau", "Lat" => -9.86167, "Lon" => 160.825),
+"RUT" => array("City" => "Rutland", "Lat" => 43.5294, "Lon" => -72.9496),
+"RVA" => array("City" => "Farafangana", "Lat" => -22.805286, "Lon" => 47.820614),
+"RVD" => array("City" => "Rio Verde", "Lat" => -17.790278, "Lon" => -50.918333),
+"RVE" => array("City" => "Saravena", "Lat" => 6.916667, "Lon" => -71.9),
+"RVK" => array("City" => "Rørvik", "Lat" => 64.8383, "Lon" => 11.1461),
+"RVN" => array("City" => "Rovaniemi", "Lat" => 66.564822, "Lon" => 25.830411),
+"RVR" => array("City" => "Ceiba", "Lat" => 18.245278, "Lon" => -65.643333),
+"RVS" => array("City" => "Tulsa", "Lat" => 36.0396111, "Lon" => -95.9846389),
+"RVT" => array("City" => "Ravensthorpe", "Lat" => -33.797222, "Lon" => 120.208056),
+"RVV" => array("City" => "Raivavae", "Lat" => -23.87, "Lon" => -147.67),
+"RWI" => array("City" => "Rocky Mount", "Lat" => 35.8563, "Lon" => -77.8919),
+"RWL" => array("City" => "Rawlins", "Lat" => 41.8055975, "Lon" => -107.19994),
+"RWN" => array("City" => "Rivne", "Lat" => 50.6071, "Lon" => 26.1416),
+"RXS" => array("City" => "Roxas City", "Lat" => 11.597669, "Lon" => 122.751669),
+"RYB" => array("City" => "Rybinsk", "Lat" => 58.1042, "Lon" => 38.9294),
+"RYG" => array("City" => "Rygge", "Lat" => 59.378933, "Lon" => 10.785389),
+"RYK" => array("City" => "Rahim Yar Khan", "Lat" => 28.3839, "Lon" => 70.279572),
+"RYN" => array("City" => "Royan", "Lat" => 45.628056, "Lon" => -0.9725),
+"RYO" => array("City" => "Rio Turbio", "Lat" => -51.533333, "Lon" => -72.3),
+"RYY" => array("City" => "Atlanta", "Lat" => 34.0131569, "Lon" => -84.5970556),
+"RZA" => array("City" => "Santa Cruz", "Lat" => -50.01655, "Lon" => -68.579197),
+"RZE" => array("City" => "Rzeszow", "Lat" => 50.109958, "Lon" => 22.019),
+"RZR" => array("City" => "Ramsar", "Lat" => 36.909908, "Lon" => 50.679589),
+"S46" => array("City" => "Port O\\'Connor", "Lat" => 28.429977, "Lon" => -96.442859),
+"SAA" => array("City" => "SARATOGA", "Lat" => 41.4448594, "Lon" => -106.8235264),
+"SAB" => array("City" => "Saba", "Lat" => 17.645278, "Lon" => -63.220556),
+"SAC" => array("City" => "Sacramento", "Lat" => 38.512524, "Lon" => -121.49347),
+"SAF" => array("City" => "Santa Fe", "Lat" => 35.617108, "Lon" => -106.089422),
+"SAH" => array("City" => "Sanaa", "Lat" => 15.476258, "Lon" => 44.219739),
+"SAK" => array("City" => "Sauoarkrokur", "Lat" => 65.731667, "Lon" => -19.572778),
+"SAL" => array("City" => "San Salvador", "Lat" => 13.440947, "Lon" => -89.055728),
+"SAN" => array("City" => "San Diego", "Lat" => 32.733556, "Lon" => -117.189667),
+"SAP" => array("City" => "San Pedro Sula", "Lat" => 15.452639, "Lon" => -87.923556),
+"SAQ" => array("City" => "San Andros", "Lat" => 25.053814, "Lon" => -78.048997),
+"SAT" => array("City" => "San Antonio", "Lat" => 29.533694, "Lon" => -98.469778),
+"SAV" => array("City" => "Savannah", "Lat" => 32.127583, "Lon" => -81.202139),
+"SAW" => array("City" => "Istanbul", "Lat" => 40.898553, "Lon" => 29.309219),
+"SAX" => array("City" => "Boca de Sábalo", "Lat" => 8.017, "Lon" => -78.2),
+"SAY" => array("City" => "Siena", "Lat" => 43.256286, "Lon" => 11.255036),
+"SBA" => array("City" => "Santa Barbara", "Lat" => 34.426211, "Lon" => -119.840372),
+"SBD" => array("City" => "San Bernardino", "Lat" => 34.0953521, "Lon" => -117.2348722),
+"SBG" => array("City" => "Sabang", "Lat" => 5.874131, "Lon" => 95.339672),
+"SBH" => array("City" => "Gustavia", "Lat" => 17.9023, "Lon" => -62.8324),
+"SBK" => array("City" => "St.-brieuc Armor", "Lat" => 48.537777, "Lon" => -2.854445),
+"SBN" => array("City" => "South Bend", "Lat" => 41.708661, "Lon" => -86.31725),
+"SBO" => array("City" => "Santa Barbara", "Lat" => 32.609139, "Lon" => -82.369944),
+"SBP" => array("City" => "San Luis Obispo", "Lat" => 35.2368, "Lon" => -120.642),
+"SBR" => array("City" => "Saibai Island", "Lat" => -9.37833, "Lon" => 142.625),
+"SBS" => array("City" => "Steamboat Springs", "Lat" => 40.51625, "Lon" => -106.8663056),
+"SBU" => array("City" => "Springbok", "Lat" => -29.689333, "Lon" => 17.939611),
+"SBW" => array("City" => "Sibu", "Lat" => 2.261603, "Lon" => 111.985322),
+"SBY" => array("City" => "Salisbury", "Lat" => 38.340525, "Lon" => -75.510289),
+"SBZ" => array("City" => "Sibiu", "Lat" => 45.785597, "Lon" => 24.091342),
+"SCC" => array("City" => "Deadhorse", "Lat" => 70.19475, "Lon" => -148.465167),
+"SCE" => array("City" => "State College Pennsylvania", "Lat" => 40.849278, "Lon" => -77.848694),
+"SCH" => array("City" => "Scotia NY", "Lat" => 42.85245555, "Lon" => -73.928866666),
+"SCK" => array("City" => "Stockton", "Lat" => 37.894167, "Lon" => -121.238306),
+"SCL" => array("City" => "Santiago", "Lat" => -33.392975, "Lon" => -70.785803),
+"SCM" => array("City" => "Scammon Bay", "Lat" => 61.845278, "Lon" => -165.571389),
+"SCN" => array("City" => "Saarbruecken", "Lat" => 49.214553, "Lon" => 7.109508),
+"SCO" => array("City" => "Aktau", "Lat" => 43.513557, "Lon" => 51.052817),
+"SCQ" => array("City" => "Santiago", "Lat" => 42.896333, "Lon" => -8.415144),
+"SCT" => array("City" => "Socotra", "Lat" => 12.630672, "Lon" => 53.905778),
+"SCU" => array("City" => "Santiago De Cuba", "Lat" => 19.969769, "Lon" => -75.835414),
+"SCV" => array("City" => "Suceava", "Lat" => 47.6875, "Lon" => 26.354056),
+"SCW" => array("City" => "Syktyvkar", "Lat" => 61.64705, "Lon" => 50.84505),
+"SCX" => array("City" => "Salina Cruz", "Lat" => 16.2126, "Lon" => -95.2016),
+"SCY" => array("City" => "San Cristóbal", "Lat" => -0.910206, "Lon" => -89.61745),
+"SCZ" => array("City" => "Santa Cruz/Graciosa Bay/Luova", "Lat" => -10.7203, "Lon" => 165.795),
+"SDD" => array("City" => "Lubango", "Lat" => -14.924733, "Lon" => 13.575022),
+"SDE" => array("City" => "Santiago Del Estero", "Lat" => -27.765617, "Lon" => -64.310122),
+"SDF" => array("City" => "Louisville", "Lat" => 38.1740858, "Lon" => -85.7364989),
+"SDG" => array("City" => "Sanandaj", "Lat" => 35.245856, "Lon" => 47.009247),
+"SDJ" => array("City" => "Sendai", "Lat" => 38.139722, "Lon" => 140.916944),
+"SDK" => array("City" => "Sandakan", "Lat" => 5.900897, "Lon" => 118.059486),
+"SDL" => array("City" => "Sundsvall", "Lat" => 62.528125, "Lon" => 17.443928),
+"SDM" => array("City" => "San Diego", "Lat" => 32.5722722, "Lon" => -116.9801611),
+"SDN" => array("City" => "Sandane", "Lat" => 61.83, "Lon" => 6.10583),
+"SDP" => array("City" => "Sand Point", "Lat" => 55.315, "Lon" => -160.523),
+"SDQ" => array("City" => "Santo Domingo", "Lat" => 18.429664, "Lon" => -69.668925),
+"SDR" => array("City" => "Santander", "Lat" => 43.427064, "Lon" => -3.820006),
+"SDT" => array("City" => "Saidu Sharif", "Lat" => 34.813556, "Lon" => 72.352814),
+"SDU" => array("City" => "Rio De Janeiro", "Lat" => -22.910461, "Lon" => -43.163133),
+"SDV" => array("City" => "Tel-aviv", "Lat" => 32.114661, "Lon" => 34.782239),
+"SDX" => array("City" => "Sedona", "Lat" => 34.848628, "Lon" => -111.788472),
+"SDY" => array("City" => "Sidney", "Lat" => 47.706944, "Lon" => -104.1925),
+"SDZ" => array("City" => "Scatsta", "Lat" => 60.432778, "Lon" => -1.296111),
+"SEA" => array("City" => "Seattle", "Lat" => 47.449, "Lon" => -122.309306),
+"SEB" => array("City" => "Sebha", "Lat" => 26.986964, "Lon" => 14.472525),
+"SEE" => array("City" => "El Cajon", "Lat" => 32.8262222, "Lon" => -116.9724444),
+"SEH" => array("City" => "Senggeh-Papua Island", "Lat" => -3.43333, "Lon" => 140.817),
+"SEM" => array("City" => "Selma", "Lat" => 32.343947, "Lon" => -86.987803),
+"SEN" => array("City" => "Southend", "Lat" => 51.571389, "Lon" => 0.695556),
+"SEU" => array("City" => "Seronera", "Lat" => -2.458056, "Lon" => 34.8225),
+"SEY" => array("City" => "Selibabi", "Lat" => 15.179692, "Lon" => -12.207272),
+"SEZ" => array("City" => "Mahe", "Lat" => -4.674342, "Lon" => 55.521839),
+"SFA" => array("City" => "Sfax", "Lat" => 34.717953, "Lon" => 10.690972),
+"SFB" => array("City" => "Sanford", "Lat" => 28.777639, "Lon" => -81.237489),
+"SFC" => array("City" => "St-François", "Lat" => 16.2578, "Lon" => -61.2625),
+"SFD" => array("City" => "San Fernando De Apure", "Lat" => 7.883317, "Lon" => -67.444025),
+"SFE" => array("City" => "San Fernando", "Lat" => 16.595589, "Lon" => 120.303219),
+"SFF" => array("City" => "Spokane", "Lat" => 47.682819, "Lon" => -117.322558),
+"SFG" => array("City" => "St. Martin", "Lat" => 18.099914, "Lon" => -63.047197),
+"SFH" => array("City" => "San Felipe", "Lat" => 10.278728, "Lon" => -68.755211),
+"SFJ" => array("City" => "Sondrestrom", "Lat" => 67.016969, "Lon" => -50.689325),
+"SFK" => array("City" => "Soure", "Lat" => -0.716944, "Lon" => -48.522778),
+"SFM" => array("City" => "Sanford ME", "Lat" => 43.39383, "Lon" => -70.708),
+"SFN" => array("City" => "Santa Fe", "Lat" => -31.711666, "Lon" => -60.811668),
+"SFO" => array("City" => "San Francisco", "Lat" => 37.618972, "Lon" => -122.374889),
+"SFQ" => array("City" => "Sanliurfa", "Lat" => 37.094261, "Lon" => 38.847103),
+"SFS" => array("City" => "Olongapo City", "Lat" => 14.7944, "Lon" => 120.271),
+"SFT" => array("City" => "Skelleftea", "Lat" => 64.624772, "Lon" => 21.076892),
+"SFZ" => array("City" => "Smithfield", "Lat" => 41.920764, "Lon" => -71.491381),
+"SGC" => array("City" => "Surgut", "Lat" => 61.343694, "Lon" => 73.401842),
+"SGD" => array("City" => "Soenderborg", "Lat" => 54.964367, "Lon" => 9.791731),
+"SGF" => array("City" => "Springfield", "Lat" => 37.245667, "Lon" => -93.388639),
+"SGH" => array("City" => "Springfield", "Lat" => 39.8402778, "Lon" => -83.8401667),
+"SGN" => array("City" => "Ho Chi Minh City", "Lat" => 10.818797, "Lon" => 106.651856),
+"SGR" => array("City" => "Sugar Land", "Lat" => 29.62225, "Lon" => -95.6565278),
+"SGU" => array("City" => "Saint George", "Lat" => 37.090583, "Lon" => -113.593056),
+"SGV" => array("City" => "Sierra Grande", "Lat" => -41.6, "Lon" => -65.366667),
+"SGY" => array("City" => "Skagway", "Lat" => 59.4601, "Lon" => -135.316),
+"SHA" => array("City" => "Shanghai", "Lat" => 31.197875, "Lon" => 121.336319),
+"SHB" => array("City" => "Nakashibetsu", "Lat" => 43.5775, "Lon" => 144.96),
+"SHC" => array("City" => "Shire Indasilase", "Lat" => 14.0781, "Lon" => 38.2725),
+"SHD" => array("City" => "Weyers Cave", "Lat" => 38.263889, "Lon" => -78.896389),
+"SHE" => array("City" => "Shenyang", "Lat" => 41.3824, "Lon" => 123.2901),
+"SHG" => array("City" => "Shungnak", "Lat" => 66.888056, "Lon" => -157.1625),
+"SHH" => array("City" => "Shishmaref", "Lat" => 66.2496, "Lon" => -166.089),
+"SHI" => array("City" => "Shimojishima", "Lat" => 24.826667, "Lon" => 125.144722),
+"SHJ" => array("City" => "Sharjah", "Lat" => 25.328575, "Lon" => 55.51715),
+"SHL" => array("City" => "Shillong", "Lat" => 25.7036, "Lon" => 91.9787),
+"SHM" => array("City" => "Nanki-shirahama", "Lat" => 33.662222, "Lon" => 135.364444),
+"SHO" => array("City" => "Sokch'o", "Lat" => 38.142614, "Lon" => 128.598556),
+"SHP" => array("City" => "Qinhuangdao", "Lat" => 39.9681, "Lon" => 119.731),
+"SHR" => array("City" => "Sheridan", "Lat" => 44.7692, "Lon" => -106.98),
+"SHV" => array("City" => "Shreveport", "Lat" => 32.446629, "Lon" => -93.8256),
+"SHW" => array("City" => "Sharurah", "Lat" => 17.466875, "Lon" => 47.121431),
+"SHX" => array("City" => "Shageluk", "Lat" => 62.692222, "Lon" => -159.569167),
+"SHY" => array("City" => "Shinyanga", "Lat" => -3.667, "Lon" => 33.417),
+"SIA" => array("City" => "Xi\\'AN", "Lat" => 34.3767, "Lon" => 109.12),
+"SIC" => array("City" => "Sinop", "Lat" => 42.0158, "Lon" => 35.0664),
+"SID" => array("City" => "Amilcar Cabral", "Lat" => 16.741389, "Lon" => -22.949444),
+"SIF" => array("City" => "Simara", "Lat" => 27.159456, "Lon" => 84.980122),
+"SIG" => array("City" => "San Juan", "Lat" => 18.456828, "Lon" => -66.098139),
+"SIJ" => array("City" => "Siglufjordur", "Lat" => 66.133333, "Lon" => -18.916667),
+"SIM" => array("City" => "Simbai", "Lat" => -4, "Lon" => 144),
+"SIN" => array("City" => "Singapore", "Lat" => 1.350189, "Lon" => 103.994433),
+"SIP" => array("City" => "Simferopol", "Lat" => 45.052222, "Lon" => 33.975139),
+"SIQ" => array("City" => "Singkep", "Lat" => -0.479189, "Lon" => 104.579283),
+"SIR" => array("City" => "Sion", "Lat" => 46.219592, "Lon" => 7.326764),
+"SIS" => array("City" => "Sishen", "Lat" => -27.648606, "Lon" => 22.999278),
+"SIT" => array("City" => "Sitka", "Lat" => 57.047138, "Lon" => -135.361611),
+"SIU" => array("City" => "Siuna", "Lat" => 13.716667, "Lon" => -84.776944),
+"SJC" => array("City" => "San Jose", "Lat" => 37.3626, "Lon" => -121.929022),
+"SJD" => array("City" => "San Jose Del Cabo", "Lat" => 23.15185, "Lon" => -109.721044),
+"SJE" => array("City" => "San Jose Del Guaviare", "Lat" => 2.579694, "Lon" => -72.639358),
+"SJI" => array("City" => "San Jose", "Lat" => 10.766044, "Lon" => 121.933439),
+"SJJ" => array("City" => "Sarajevo", "Lat" => 43.824583, "Lon" => 18.331467),
+"SJK" => array("City" => "Sao Jose Dos Campos", "Lat" => -23.228172, "Lon" => -45.862739),
+"SJL" => array("City" => "Sao Gabriel da Cachoeira", "Lat" => -0.148056, "Lon" => -66.9858),
+"SJO" => array("City" => "San Jose", "Lat" => 9.993861, "Lon" => -84.208806),
+"SJP" => array("City" => "Sao Jose Do Rio Preto", "Lat" => -20.816567, "Lon" => -49.406511),
+"SJT" => array("City" => "San Angelo", "Lat" => 31.35775, "Lon" => -100.496306),
+"SJU" => array("City" => "San Juan", "Lat" => 18.439417, "Lon" => -66.001833),
+"SJW" => array("City" => "Shijiazhuang", "Lat" => 38.280686, "Lon" => 114.6973),
+"SJX" => array("City" => "Sarteneja", "Lat" => 18.355556, "Lon" => -88.130833),
+"SJY" => array("City" => "Seinäjoki / Ilmajoki", "Lat" => 62.6921, "Lon" => 22.8323),
+"SJZ" => array("City" => "Sao Jorge Island", "Lat" => 38.6655, "Lon" => -28.175817),
+"SKA" => array("City" => "Spokane", "Lat" => 47.615058, "Lon" => -117.655772),
+"SKB" => array("City" => "Basse Terre", "Lat" => 17.311194, "Lon" => -62.718667),
+"SKC" => array("City" => "Suki", "Lat" => -8.033, "Lon" => 141.717),
+"SKD" => array("City" => "Samarkand", "Lat" => 39.700547, "Lon" => 66.983829),
+"SKE" => array("City" => "Skien", "Lat" => 59.185, "Lon" => 9.566944),
+"SKF" => array("City" => "San Antonio", "Lat" => 29.384228, "Lon" => -98.581108),
+"SKG" => array("City" => "Thessaloniki", "Lat" => 40.519725, "Lon" => 22.97095),
+"SKH" => array("City" => "Surkhet", "Lat" => 28.586, "Lon" => 81.636),
+"SKK" => array("City" => "Shaktoolik", "Lat" => 64.371111, "Lon" => -161.223889),
+"SKN" => array("City" => "Stokmarknes", "Lat" => 68.580833, "Lon" => 15.026111),
+"SKO" => array("City" => "Sokoto", "Lat" => 12.916322, "Lon" => 5.207189),
+"SKP" => array("City" => "Skopje", "Lat" => 41.961622, "Lon" => 21.621381),
+"SKS" => array("City" => "Skrydstrup", "Lat" => 55.225553, "Lon" => 9.263931),
+"SKT" => array("City" => "Sialkot", "Lat" => 32.5356, "Lon" => 74.3639),
+"SKU" => array("City" => "Skiros", "Lat" => 38.967553, "Lon" => 24.487228),
+"SKV" => array("City" => "St. Catherine", "Lat" => 28.685278, "Lon" => 34.0625),
+"SKX" => array("City" => "Saransk", "Lat" => 54.1251, "Lon" => 45.2123),
+"SKY" => array("City" => "Sandusky", "Lat" => 41.433361, "Lon" => -82.652333),
+"SKZ" => array("City" => "Sukkur", "Lat" => 27.721989, "Lon" => 68.791683),
+"SLA" => array("City" => "Salta", "Lat" => -24.855978, "Lon" => -65.486169),
+"SLC" => array("City" => "Salt Lake City", "Lat" => 40.788389, "Lon" => -111.977772),
+"SLD" => array("City" => "Sliac", "Lat" => 48.637839, "Lon" => 19.134108),
+"SLE" => array("City" => "Salem", "Lat" => 44.9095, "Lon" => -123.003),
+"SLF" => array("City" => "Sulayel", "Lat" => 20.464744, "Lon" => 45.619644),
+"SLH" => array("City" => "Sola", "Lat" => -13.8517, "Lon" => 167.537),
+"SLI" => array("City" => "Solwesi", "Lat" => -12.1737, "Lon" => 26.3651),
+"SLK" => array("City" => "Saranac Lake", "Lat" => 44.3853, "Lon" => -74.2062),
+"SLL" => array("City" => "Salalah", "Lat" => 17.038719, "Lon" => 54.091297),
+"SLM" => array("City" => "Salamanca", "Lat" => 40.952117, "Lon" => -5.501986),
+"SLN" => array("City" => "Salina", "Lat" => 38.791, "Lon" => -97.6522),
+"SLP" => array("City" => "San Luis Potosi", "Lat" => 22.254303, "Lon" => -100.930806),
+"SLQ" => array("City" => "Sleetmute", "Lat" => 61.700566, "Lon" => -157.165833),
+"SLU" => array("City" => "Castries", "Lat" => 14.020228, "Lon" => -60.992936),
+"SLV" => array("City" => "Shimla", "Lat" => 31.081803, "Lon" => 77.067967),
+"SLW" => array("City" => "Saltillo", "Lat" => 25.549497, "Lon" => -100.928669),
+"SLX" => array("City" => "Salt Cay", "Lat" => 21.333, "Lon" => -71.2),
+"SLY" => array("City" => "Salekhard", "Lat" => 66.590753, "Lon" => 66.611042),
+"SLZ" => array("City" => "Sao Luis", "Lat" => -2.585361, "Lon" => -44.234139),
+"SMA" => array("City" => "Santa Maria (island)", "Lat" => 36.97139, "Lon" => -25.170639),
+"SMD" => array("City" => "Fort Wayne IN", "Lat" => 41.143353, "Lon" => -85.152778),
+"SME" => array("City" => "Somerset", "Lat" => 37.053611, "Lon" => -84.615556),
+"SMF" => array("City" => "Sacramento", "Lat" => 38.695417, "Lon" => -121.590778),
+"SMI" => array("City" => "Samos", "Lat" => 37.689999, "Lon" => 26.911667),
+"SMK" => array("City" => "St. Michael", "Lat" => 63.49, "Lon" => -162.110278),
+"SML" => array("City" => "Stella Maris", "Lat" => 23.581444, "Lon" => -75.270475),
+"SMN" => array("City" => "Salmon", "Lat" => 45.123889, "Lon" => -113.881389),
+"SMO" => array("City" => "Santa Monica", "Lat" => 34.0158333, "Lon" => -118.4513056),
+"SMQ" => array("City" => "Sampit-Borneo Island", "Lat" => -2.499194, "Lon" => 112.974992),
+"SMR" => array("City" => "Santa Marta", "Lat" => 11.11965, "Lon" => -74.230647),
+"SMS" => array("City" => "Sainte Marie", "Lat" => -17.093889, "Lon" => 49.815834),
+"SMV" => array("City" => "Samedan", "Lat" => 46.534075, "Lon" => 9.884106),
+"SMW" => array("City" => "Smara", "Lat" => 26.7318, "Lon" => -11.6847),
+"SMX" => array("City" => "Santa Maria", "Lat" => 34.8989, "Lon" => -120.457),
+"SMZ" => array("City" => "Stoelmans Eiland", "Lat" => 4.35, "Lon" => -54.41667),
+"SNA" => array("City" => "Santa Ana", "Lat" => 33.675667, "Lon" => -117.868222),
+"SNC" => array("City" => "Salinas", "Lat" => -2.204994, "Lon" => -80.988878),
+"SNE" => array("City" => "Sao Nocolau Island", "Lat" => 16.588356, "Lon" => -24.284656),
+"SNN" => array("City" => "Shannon", "Lat" => 52.701978, "Lon" => -8.924817),
+"SNO" => array("City" => "Sakon Nakhon", "Lat" => 17.195142, "Lon" => 104.118625),
+"SNP" => array("City" => "St. Paul Island", "Lat" => 57.167333, "Lon" => -170.220444),
+"SNR" => array("City" => "St.-nazaire", "Lat" => 47.312189, "Lon" => -2.149181),
+"SNU" => array("City" => "Santa Clara", "Lat" => 22.492192, "Lon" => -79.943611),
+"SNV" => array("City" => "Santa Elena de Uairen", "Lat" => 4.55, "Lon" => -61.11667),
+"SNW" => array("City" => "Thandwe", "Lat" => 18.460731, "Lon" => 94.300119),
+"SOB" => array("City" => "Sármellék", "Lat" => 46.686389, "Lon" => 17.159056),
+"SOC" => array("City" => "Solo City", "Lat" => -7.516089, "Lon" => 110.756892),
+"SOD" => array("City" => "Sorocaba", "Lat" => -23.478, "Lon" => -47.49),
+"SOF" => array("City" => "Sofia", "Lat" => 42.695194, "Lon" => 23.406167),
+"SOG" => array("City" => "Sogndal", "Lat" => 61.1561, "Lon" => 7.13778),
+"SOM" => array("City" => "San Tome", "Lat" => 8.945147, "Lon" => -64.151083),
+"SON" => array("City" => "Santo", "Lat" => -15.505033, "Lon" => 167.219742),
+"SOQ" => array("City" => "Sorong", "Lat" => -0.926358, "Lon" => 131.121194),
+"SOT" => array("City" => "Sodankyla", "Lat" => 67.395033, "Lon" => 26.619133),
+"SOU" => array("City" => "Southampton", "Lat" => 50.950261, "Lon" => -1.356803),
+"SOW" => array("City" => "Show Low", "Lat" => 34.265556, "Lon" => -110.005556),
+"SOY" => array("City" => "Stronsay", "Lat" => 59.1553, "Lon" => -2.64139),
+"SOZ" => array("City" => "Solenzara", "Lat" => 41.924416, "Lon" => 9.406),
+"SPB" => array("City" => "San Luis", "Lat" => 45.771028, "Lon" => -122.861833),
+"SPC" => array("City" => "Santa Cruz De La Palma", "Lat" => 28.626478, "Lon" => -17.755611),
+"SPD" => array("City" => "Saidpur", "Lat" => 25.759228, "Lon" => 88.908869),
+"SPF" => array("City" => "Spearfish-South Dakota", "Lat" => 44.4811407, "Lon" => -103.7860053),
+"SPG" => array("City" => "St. Petersburg", "Lat" => 27.765111, "Lon" => -82.626972),
+"SPI" => array("City" => "Springfield", "Lat" => 39.8441, "Lon" => -89.677889),
+"SPK" => array("City" => "Chitose", "Lat" => 42.794475, "Lon" => 141.666447),
+"SPM" => array("City" => "Spangdahlem", "Lat" => 49.972667, "Lon" => 6.6925),
+"SPN" => array("City" => "Saipan", "Lat" => 15.119003, "Lon" => 145.729356),
+"SPP" => array("City" => "Menongue", "Lat" => -14.657583, "Lon" => 17.719833),
+"SPR" => array("City" => "San Pedro", "Lat" => 17.913936, "Lon" => -87.971075),
+"SPS" => array("City" => "Wichita Falls", "Lat" => 33.988797, "Lon" => -98.491894),
+"SPU" => array("City" => "Split", "Lat" => 43.538944, "Lon" => 16.297964),
+"SPW" => array("City" => "Spencer", "Lat" => 43.165527, "Lon" => -95.202805),
+"SPY" => array("City" => "San Pedro", "Lat" => 4.746717, "Lon" => -6.660817),
+"SQG" => array("City" => "Sintang-Borneo Island", "Lat" => 0.063619, "Lon" => 111.473428),
+"SQH" => array("City" => "Son-La", "Lat" => 21.217, "Lon" => 104.033),
+"SQL" => array("City" => "San Carlos", "Lat" => 37.511944, "Lon" => -122.249444),
+"SQO" => array("City" => "Mohed", "Lat" => 64.960894, "Lon" => 17.696583),
+"SQQ" => array("City" => "Siauliai", "Lat" => 55.893886, "Lon" => 23.394975),
+"SRA" => array("City" => "Santa Rosa", "Lat" => -27.9067, "Lon" => -54.5204),
+"SRE" => array("City" => "Sucre", "Lat" => -19.007083, "Lon" => -65.288747),
+"SRG" => array("City" => "Semarang", "Lat" => -6.971447, "Lon" => 110.374122),
+"SRH" => array("City" => "Sarh", "Lat" => 9.14444, "Lon" => 18.3744),
+"SRI" => array("City" => "Samarinda", "Lat" => -0.484531, "Lon" => 117.157111),
+"SRJ" => array("City" => "San Borja", "Lat" => -14.8592, "Lon" => -66.7375),
+"SRP" => array("City" => "Stord", "Lat" => 59.791925, "Lon" => 5.34085),
+"SRQ" => array("City" => "Sarasota", "Lat" => 27.395444, "Lon" => -82.554389),
+"SRR" => array("City" => "Ruidoso", "Lat" => 33.46285, "Lon" => -105.534751),
+"SRT" => array("City" => "Soroti", "Lat" => 1.727578, "Lon" => 33.622861),
+"SRV" => array("City" => "Stony River", "Lat" => 61.7875, "Lon" => -156.591111),
+"SRX" => array("City" => "Sirt", "Lat" => 31.0635, "Lon" => 16.595),
+"SRY" => array("City" => "Dasht-e-naz", "Lat" => 36.635833, "Lon" => 53.193611),
+"SRZ" => array("City" => "Santa Cruz", "Lat" => -17.8, "Lon" => -63.166667),
+"SSA" => array("City" => "Salvador", "Lat" => -12.910994, "Lon" => -38.331044),
+"SSB" => array("City" => "Christiansted", "Lat" => 17.747222, "Lon" => -64.705),
+"SSC" => array("City" => "Sumter", "Lat" => 33.972719, "Lon" => -80.470564),
+"SSE" => array("City" => "Sholapur", "Lat" => 17.627958, "Lon" => 75.934842),
+"SSG" => array("City" => "Malabo", "Lat" => 3.755267, "Lon" => 8.708717),
+"SSH" => array("City" => "Sharm El Sheikh", "Lat" => 27.977286, "Lon" => 34.39495),
+"SSJ" => array("City" => "Sandnessjoen", "Lat" => 65.956828, "Lon" => 12.468944),
+"SSN" => array("City" => "Seoul East", "Lat" => 37.445833, "Lon" => 127.113889),
+"SSR" => array("City" => "Pentecost Island", "Lat" => -15.4708, "Lon" => 168.152),
+"SST" => array("City" => "Santa Teresita", "Lat" => -36.542317, "Lon" => -56.721756),
+"SSY" => array("City" => "M'banza-congo", "Lat" => -6.269897, "Lon" => 14.247025),
+"SSZ" => array("City" => "Santos", "Lat" => -23.925206, "Lon" => -46.2875),
+"STA" => array("City" => "Stauning", "Lat" => 55.990122, "Lon" => 8.353906),
+"STB" => array("City" => "Santa Barbara", "Lat" => 8.974425, "Lon" => -71.943014),
+"STC" => array("City" => "Saint Cloud", "Lat" => 45.546556, "Lon" => -94.059889),
+"STD" => array("City" => "Santo Domingo", "Lat" => 7.565111, "Lon" => -72.035125),
+"STG" => array("City" => "St. George", "Lat" => 56.577222, "Lon" => -169.663611),
+"STI" => array("City" => "Santiago", "Lat" => 19.406092, "Lon" => -70.604689),
+"STJ" => array("City" => "Rosecrans", "Lat" => 39.771944, "Lon" => -94.909706),
+"STK" => array("City" => "Sterling", "Lat" => 40.6153136, "Lon" => -103.2648454),
+"STL" => array("City" => "St. Louis", "Lat" => 38.748697, "Lon" => -90.370028),
+"STM" => array("City" => "Santarem", "Lat" => -2.422431, "Lon" => -54.792789),
+"STN" => array("City" => "London", "Lat" => 51.885, "Lon" => 0.235),
+"STO" => array("City" => "Stockholm", "Lat" => 59.3233, "Lon" => 18.081),
+"STP" => array("City" => "London", "Lat" => 51.53, "Lon" => -0.125),
+"STR" => array("City" => "Stuttgart", "Lat" => 48.689878, "Lon" => 9.221964),
+"STS" => array("City" => "Santa Rosa", "Lat" => 38.508978, "Lon" => -122.81288),
+"STT" => array("City" => "St. Thomas", "Lat" => 18.337306, "Lon" => -64.973361),
+"STU" => array("City" => "Rio De Janeiro", "Lat" => -22.93235, "Lon" => -43.719092),
+"STV" => array("City" => "Surat", "Lat" => 21.114061, "Lon" => 72.741792),
+"STW" => array("City" => "Stavropol", "Lat" => 45.109165, "Lon" => 42.112778),
+"STX" => array("City" => "St. Criox Island", "Lat" => 17.701889, "Lon" => -64.798556),
+"STY" => array("City" => "Salto", "Lat" => -31.438481, "Lon" => -57.985294),
+"STZ" => array("City" => "Santa Terezinha", "Lat" => -10.47, "Lon" => -50.502778),
+"SUA" => array("City" => "Stuart", "Lat" => 27.1816996, "Lon" => -80.221294),
+"SUB" => array("City" => "Surabaya", "Lat" => -7.379831, "Lon" => 112.786858),
+"SUE" => array("City" => "Sturgeon Bay", "Lat" => 44.8436667, "Lon" => -87.4215556),
+"SUF" => array("City" => "Lamezia", "Lat" => 38.905394, "Lon" => 16.242269),
+"SUG" => array("City" => "Sangley Point", "Lat" => 9.757567, "Lon" => 125.479328),
+"SUI" => array("City" => "Sukhumi", "Lat" => 42.87, "Lon" => 41.12),
+"SUJ" => array("City" => "Satu Mare", "Lat" => 47.703275, "Lon" => 22.8857),
+"SUL" => array("City" => "Sui", "Lat" => 28.645142, "Lon" => 69.176917),
+"SUN" => array("City" => "Hailey", "Lat" => 43.504444, "Lon" => -114.296194),
+"SUR" => array("City" => "Summer Beaver", "Lat" => 52.7086, "Lon" => -88.5419),
+"SUS" => array("City" => "Null", "Lat" => 38.662119, "Lon" => -90.652044),
+"SUU" => array("City" => "Fairfield", "Lat" => 38.262692, "Lon" => -121.927464),
+"SUV" => array("City" => "Nausori", "Lat" => -18.043267, "Lon" => 178.559228),
+"SUX" => array("City" => "Sioux City", "Lat" => 42.402603, "Lon" => -96.384367),
+"SVA" => array("City" => "Savoonga", "Lat" => 63.6864, "Lon" => -170.493),
+"SVB" => array("City" => "Sambava", "Lat" => -14.278611, "Lon" => 50.174721),
+"SVC" => array("City" => "Silver City", "Lat" => 32.6365, "Lon" => -108.156),
+"SVD" => array("City" => "Kingstown", "Lat" => 13.144306, "Lon" => -61.210861),
+"SVG" => array("City" => "Stavanger", "Lat" => 58.876778, "Lon" => 5.637856),
+"SVI" => array("City" => "San Vincente De Caguan", "Lat" => 2.152175, "Lon" => -74.76635),
+"SVJ" => array("City" => "Svolvær", "Lat" => 68.2433, "Lon" => 14.6692),
+"SVL" => array("City" => "Savonlinna", "Lat" => 61.943064, "Lon" => 28.945136),
+"SVN" => array("City" => "Hunter Aaf", "Lat" => 32.01, "Lon" => -81.145683),
+"SVO" => array("City" => "Moscow", "Lat" => 55.972642, "Lon" => 37.414589),
+"SVP" => array("City" => "Kuito", "Lat" => -12.404633, "Lon" => 16.947414),
+"SVQ" => array("City" => "Sevilla", "Lat" => 37.418, "Lon" => -5.893106),
+"SVU" => array("City" => "Savusavu", "Lat" => -16.8028, "Lon" => 179.341),
+"SVW" => array("City" => "Sparrevohn", "Lat" => 61.097369, "Lon" => -155.574228),
+"SVX" => array("City" => "Sverdlovsk", "Lat" => 56.743108, "Lon" => 60.802728),
+"SVZ" => array("City" => "San Antonio", "Lat" => 7.840831, "Lon" => -72.439742),
+"SWA" => array("City" => "Shantou", "Lat" => 23.4, "Lon" => 116.683),
+"SWD" => array("City" => "Seward", "Lat" => 60.1269383, "Lon" => -149.4188122),
+"SWF" => array("City" => "Newburgh", "Lat" => 41.504094, "Lon" => -74.104839),
+"SWJ" => array("City" => "Malekula Island", "Lat" => -16.495, "Lon" => 167.438),
+"SWP" => array("City" => "Swakopmund", "Lat" => -22.6619, "Lon" => 14.5681),
+"SWQ" => array("City" => "Sumbawa Island", "Lat" => -8.489039, "Lon" => 117.412119),
+"SWS" => array("City" => "Swansea", "Lat" => 51.605333, "Lon" => -4.067833),
+"SWT" => array("City" => "Strezhevoy", "Lat" => 60.716667, "Lon" => 77.65),
+"SWX" => array("City" => "Shakawe", "Lat" => -18.3739, "Lon" => 21.8326),
+"SXB" => array("City" => "Strasbourg", "Lat" => 48.538319, "Lon" => 7.628233),
+"SXF" => array("City" => "Berlin", "Lat" => 52.380001, "Lon" => 13.5225),
+"SXL" => array("City" => "Sligo", "Lat" => 54.280214, "Lon" => -8.599206),
+"SXM" => array("City" => "Philipsburg", "Lat" => 18.040953, "Lon" => -63.1089),
+"SXP" => array("City" => "Nunam Iqua", "Lat" => 62.520556, "Lon" => -164.847778),
+"SXQ" => array("City" => "Soldotna", "Lat" => 60.4749583, "Lon" => -151.0382389),
+"SXR" => array("City" => "Srinagar", "Lat" => 33.987139, "Lon" => 74.77425),
+"SYA" => array("City" => "Shemya", "Lat" => 52.712275, "Lon" => 174.11362),
+"SYB" => array("City" => "Seal Bay", "Lat" => 58.166667, "Lon" => -152.5),
+"SYD" => array("City" => "Sydney", "Lat" => -33.946111, "Lon" => 151.177222),
+"SYH" => array("City" => "Syangboche", "Lat" => 27.811187, "Lon" => 86.712661),
+"SYM" => array("City" => "Simao", "Lat" => 22.7933, "Lon" => 100.959),
+"SYO" => array("City" => "Shonai", "Lat" => 38.812222, "Lon" => 139.787222),
+"SYQ" => array("City" => "San Jose", "Lat" => 9.957053, "Lon" => -84.139797),
+"SYR" => array("City" => "Syracuse", "Lat" => 43.111187, "Lon" => -76.106311),
+"SYU" => array("City" => "Sue Islet", "Lat" => -10.2083, "Lon" => 142.825),
+"SYW" => array("City" => "Sehwan Sharif", "Lat" => 26.4731, "Lon" => 67.7172),
+"SYX" => array("City" => "Sanya", "Lat" => 18.302897, "Lon" => 109.412272),
+"SYY" => array("City" => "Stornoway", "Lat" => 58.215556, "Lon" => -6.331111),
+"SYZ" => array("City" => "Shiraz", "Lat" => 29.539242, "Lon" => 52.589786),
+"SZA" => array("City" => "Soyo", "Lat" => -6.141086, "Lon" => 12.371764),
+"SZB" => array("City" => "Kuala Lumpur", "Lat" => 3.130583, "Lon" => 101.549333),
+"SZF" => array("City" => "Samsun", "Lat" => 41.2545, "Lon" => 36.5671),
+"SZG" => array("City" => "Salzburg", "Lat" => 47.793304, "Lon" => 13.004333),
+"SZK" => array("City" => "Skukuza", "Lat" => -24.960944, "Lon" => 31.588731),
+"SZL" => array("City" => "Knobnoster", "Lat" => 38.730306, "Lon" => -93.547864),
+"SZS" => array("City" => "Stewart Island", "Lat" => -46.899693, "Lon" => 168.101592),
+"SZW" => array("City" => "Parchim", "Lat" => 53.426997, "Lon" => 11.783436),
+"SZX" => array("City" => "Shenzhen", "Lat" => 22.639258, "Lon" => 113.810664),
+"SZZ" => array("City" => "Szczechin", "Lat" => 53.584731, "Lon" => 14.902206),
+"TAB" => array("City" => "Scarborough", "Lat" => 11.149658, "Lon" => -60.832194),
+"TAC" => array("City" => "Tacloban", "Lat" => 11.227628, "Lon" => 125.027758),
+"TAE" => array("City" => "Taegu", "Lat" => 35.894108, "Lon" => 128.658856),
+"TAF" => array("City" => "Oran", "Lat" => 35.542444, "Lon" => -0.532278),
+"TAG" => array("City" => "Tagbilaran", "Lat" => 9.66408056, "Lon" => 123.853247),
+"TAH" => array("City" => "Tanna", "Lat" => -19.455198, "Lon" => 169.22394),
+"TAI" => array("City" => "Taiz", "Lat" => 13.685964, "Lon" => 44.139056),
+"TAK" => array("City" => "Takamatsu", "Lat" => 34.214167, "Lon" => 134.015556),
+"TAL" => array("City" => "Tanana", "Lat" => 65.179556, "Lon" => -152.075833),
+"TAM" => array("City" => "Tampico", "Lat" => 22.29645, "Lon" => -97.865931),
+"TAO" => array("City" => "Qingdao", "Lat" => 36.266108, "Lon" => 120.374436),
+"TAP" => array("City" => "Tapachula", "Lat" => 14.794339, "Lon" => -92.370025),
+"TAR" => array("City" => "Grottaglie", "Lat" => 40.517514, "Lon" => 17.403212),
+"TAS" => array("City" => "Tashkent", "Lat" => 41.257861, "Lon" => 69.281186),
+"TAT" => array("City" => "Poprad", "Lat" => 49.073594, "Lon" => 20.241142),
+"TAY" => array("City" => "Tartu-ulenurme", "Lat" => 58.307461, "Lon" => 26.690428),
+"TAZ" => array("City" => "Dasoguz", "Lat" => 41.764722, "Lon" => 59.833056),
+"TBB" => array("City" => "Tuy Hoa", "Lat" => 13.04955, "Lon" => 109.333706),
+"TBF" => array("City" => "Tabiteuea North", "Lat" => -1.224469, "Lon" => 174.775614),
+"TBG" => array("City" => "Tabubil", "Lat" => -5.27861, "Lon" => 141.226),
+"TBH" => array("City" => "Romblon", "Lat" => 12.311, "Lon" => 122.085),
+"TBJ" => array("City" => "Tabarka", "Lat" => 36.978333, "Lon" => 8.876389),
+"TBN" => array("City" => "Fort Leonardwood", "Lat" => 37.741631, "Lon" => -92.140736),
+"TBO" => array("City" => "Tabora", "Lat" => -5.07639, "Lon" => 32.8333),
+"TBP" => array("City" => "Tumbes", "Lat" => -3.552528, "Lon" => -80.381356),
+"TBS" => array("City" => "Tbilisi", "Lat" => 41.669167, "Lon" => 44.954722),
+"TBT" => array("City" => "Tabatinga", "Lat" => -4.255669, "Lon" => -69.935828),
+"TBU" => array("City" => "Tongatapu", "Lat" => -21.241214, "Lon" => -175.149644),
+"TBW" => array("City" => "Tambow", "Lat" => 52.81, "Lon" => 41.48),
+"TBZ" => array("City" => "Tabriz", "Lat" => 38.133889, "Lon" => 46.235),
+"TCA" => array("City" => "Tennant Creek", "Lat" => -19.6344, "Lon" => 134.183),
+"TCB" => array("City" => "Treasure Cay", "Lat" => 26.745336, "Lon" => -77.391269),
+"TCC" => array("City" => "Tucumcari", "Lat" => 35.182777, "Lon" => -103.603186),
+"TCD" => array("City" => "Tarapacá", "Lat" => -2.867, "Lon" => -69.733),
+"TCE" => array("City" => "Tulcea", "Lat" => 45.062486, "Lon" => 28.714311),
+"TCG" => array("City" => "Tacheng", "Lat" => 46.6725, "Lon" => 83.3408),
+"TCG" => array("City" => "Tocache", "Lat" => -8.183, "Lon" => -76.517),
+"TCH" => array("City" => "Tchibanga", "Lat" => -2.85, "Lon" => 11.017),
+"TCL" => array("City" => "Tuscaloosa AL", "Lat" => 33.220627, "Lon" => -87.611403),
+"TCM" => array("City" => "Tacoma", "Lat" => 47.137678, "Lon" => -122.476475),
+"TCN" => array("City" => "Tehuacan", "Lat" => 18.497189, "Lon" => -97.419942),
+"TCO" => array("City" => "Tumaco", "Lat" => 1.814417, "Lon" => -78.749228),
+"TCP" => array("City" => "Taba", "Lat" => 29.587778, "Lon" => 34.778056),
+"TCQ" => array("City" => "Tacna", "Lat" => -18.053333, "Lon" => -70.275833),
+"TCS" => array("City" => "Truth Or Consequences", "Lat" => 33.236944, "Lon" => -107.27175),
+"TCT" => array("City" => "Takotna", "Lat" => 62.971944, "Lon" => -156.082778),
+"TCZ" => array("City" => "Tengchong", "Lat" => 24.938651, "Lon" => 98.483591),
+"TDD" => array("City" => "Trinidad", "Lat" => -14.818739, "Lon" => -64.918019),
+"TDK" => array("City" => "Taldykorgan", "Lat" => 45.016667, "Lon" => 78.366667),
+"TDL" => array("City" => "Tandil", "Lat" => -37.237392, "Lon" => -59.227922),
+"TDX" => array("City" => "Trat", "Lat" => 12.274572, "Lon" => 102.318958),
+"TEA" => array("City" => "Tela", "Lat" => 15.775864, "Lon" => -87.475847),
+"TEB" => array("City" => "Teterboro", "Lat" => 40.850103, "Lon" => -74.060837),
+"TED" => array("City" => "Thisted", "Lat" => 57.0688, "Lon" => 8.705225),
+"TEE" => array("City" => "Tebessa", "Lat" => 35.431611, "Lon" => 8.120717),
+"TEK" => array("City" => "Tatitlek", "Lat" => 60.8725, "Lon" => -146.691111),
+"TEN" => array("City" => "Tongren", "Lat" => 27.884, "Lon" => 109.31),
+"TEQ" => array("City" => "Çorlu", "Lat" => 41.13825, "Lon" => 27.919094),
+"TER" => array("City" => "Lajes (terceira Island)", "Lat" => 38.761842, "Lon" => -27.090797),
+"TET" => array("City" => "Tete", "Lat" => -16.104817, "Lon" => 33.640181),
+"TEU" => array("City" => "Manapouri", "Lat" => -45.533056, "Lon" => 167.65),
+"TEX" => array("City" => "Telluride", "Lat" => 37.953759, "Lon" => -107.90848),
+"TFF" => array("City" => "Tefe", "Lat" => -3.382944, "Lon" => -64.724056),
+"TFI" => array("City" => "Tufi", "Lat" => -9.07595, "Lon" => 149.32),
+"TFM" => array("City" => "Telefomin", "Lat" => -5.117, "Lon" => 141.633),
+"TFN" => array("City" => "Tenerife", "Lat" => 28.482653, "Lon" => -16.341536),
+"TFS" => array("City" => "Tenerife", "Lat" => 28.044475, "Lon" => -16.572489),
+"TGC" => array("City" => "Tanjung Manis", "Lat" => 2.17784, "Lon" => 111.202),
+"TGD" => array("City" => "Podgorica", "Lat" => 42.359392, "Lon" => 19.251894),
+"TGG" => array("City" => "Kuala Terengganu", "Lat" => 5.382639, "Lon" => 103.10336),
+"TGH" => array("City" => "Tongoa Island", "Lat" => -16.8911, "Lon" => 168.551),
+"TGJ" => array("City" => "Tiga", "Lat" => -21.0961, "Lon" => 167.804),
+"TGM" => array("City" => "Tirgu Mures", "Lat" => 46.467714, "Lon" => 24.412525),
+"TGO" => array("City" => "Tongliao", "Lat" => 43.5567, "Lon" => 122.2),
+"TGR" => array("City" => "Touggourt", "Lat" => 33.067803, "Lon" => 6.088672),
+"TGT" => array("City" => "Tanga", "Lat" => -5.092358, "Lon" => 39.071158),
+"TGU" => array("City" => "Tegucigalpa", "Lat" => 14.060883, "Lon" => -87.217197),
+"TGZ" => array("City" => "Tuxtla Gutierrez", "Lat" => 16.561822, "Lon" => -93.026081),
+"THE" => array("City" => "Teresina", "Lat" => -5.059942, "Lon" => -42.823478),
+"THF" => array("City" => "Berlin", "Lat" => 52.473025, "Lon" => 13.403944),
+"THG" => array("City" => "Biloela", "Lat" => -24.493889, "Lon" => 150.576111),
+"THL" => array("City" => "Tachilek", "Lat" => 20.483831, "Lon" => 99.935353),
+"THN" => array("City" => "Trollhattan", "Lat" => 58.318056, "Lon" => 12.345),
+"THO" => array("City" => "Thorshofn", "Lat" => 66.2185, "Lon" => -15.3356),
+"THR" => array("City" => "Teheran", "Lat" => 35.689167, "Lon" => 51.313416),
+"THS" => array("City" => "Sukhothai", "Lat" => 17.237992, "Lon" => 99.818183),
+"THU" => array("City" => "Thule", "Lat" => 76.531203, "Lon" => -68.703161),
+"THZ" => array("City" => "Tahoua", "Lat" => 14.875658, "Lon" => 5.265358),
+"TIA" => array("City" => "Tirana", "Lat" => 41.414742, "Lon" => 19.720561),
+"TIC" => array("City" => "Tinak", "Lat" => 7.133333, "Lon" => 171.916667),
+"TID" => array("City" => "Tiaret", "Lat" => 35.341136, "Lon" => 1.463147),
+"TIE" => array("City" => "Tippi", "Lat" => 7.117, "Lon" => 35.383),
+"TIF" => array("City" => "Taif", "Lat" => 21.483418, "Lon" => 40.544334),
+"TIH" => array("City" => "Tikehau", "Lat" => -15.119617, "Lon" => -148.230697),
+"TII" => array("City" => "Tarin Kowt", "Lat" => 32.605278, "Lon" => 65.864167),
+"TIJ" => array("City" => "Tijuana", "Lat" => 32.541064, "Lon" => -116.970158),
+"TIK" => array("City" => "Oklahoma City", "Lat" => 35.414739, "Lon" => -97.386633),
+"TIM" => array("City" => "Timika", "Lat" => -4.528275, "Lon" => 136.887375),
+"TIN" => array("City" => "Tindouf", "Lat" => 27.700372, "Lon" => -8.167103),
+"TIP" => array("City" => "Tripoli", "Lat" => 32.663544, "Lon" => 13.159011),
+"TIQ" => array("City" => "West Tinian", "Lat" => 14.999203, "Lon" => 145.61935),
+"TIR" => array("City" => "Tirupeti", "Lat" => 13.632492, "Lon" => 79.543256),
+"TIU" => array("City" => "Timaru", "Lat" => -44.302778, "Lon" => 171.225278),
+"TIV" => array("City" => "Tivat", "Lat" => 42.404664, "Lon" => 18.723286),
+"TIY" => array("City" => "Tidjikja", "Lat" => 18.570103, "Lon" => -11.423547),
+"TIZ" => array("City" => "Tari", "Lat" => -5.845, "Lon" => 142.948),
+"TJA" => array("City" => "Tarija", "Lat" => -21.555736, "Lon" => -64.701325),
+"TJG" => array("City" => "Tanjung-Borneo Island", "Lat" => -2.21656, "Lon" => 115.436),
+"TJH" => array("City" => "Toyooka", "Lat" => 35.512778, "Lon" => 134.786944),
+"TJM" => array("City" => "Tyumen", "Lat" => 57.189567, "Lon" => 65.3243),
+"TJQ" => array("City" => "Tanjung Pandan", "Lat" => -2.745722, "Lon" => 107.754917),
+"TJS" => array("City" => "Tanjung Selor-Borneo Island", "Lat" => 2.83641, "Lon" => 117.374),
+"TJU" => array("City" => "Kulyab", "Lat" => 37.981667, "Lon" => 69.799444),
+"TKA" => array("City" => "Talkeetna", "Lat" => 62.3205, "Lon" => -150.093694),
+"TKC" => array("City" => "Tiko", "Lat" => 4.089192, "Lon" => 9.360528),
+"TKD" => array("City" => "Takoradi", "Lat" => 4.896056, "Lon" => -1.774756),
+"TKE" => array("City" => "Tenakee Springs", "Lat" => 57.779722, "Lon" => -135.218333),
+"TKG" => array("City" => "Bandar Lampung-Sumatra Island", "Lat" => -5.242339, "Lon" => 105.178939),
+"TKI" => array("City" => "DALLAS", "Lat" => 33.1779444, "Lon" => -96.5905278),
+"TKK" => array("City" => "Chuuk", "Lat" => 7.461869, "Lon" => 151.843006),
+"TKN" => array("City" => "Tokunoshima", "Lat" => 27.836381, "Lon" => 128.881253),
+"TKP" => array("City" => "Takapoto", "Lat" => -14.709544, "Lon" => -145.245814),
+"TKQ" => array("City" => "Kigoma", "Lat" => -4.883, "Lon" => 29.633),
+"TKS" => array("City" => "Tokushima", "Lat" => 34.132808, "Lon" => 134.606639),
+"TKU" => array("City" => "Turku", "Lat" => 60.514142, "Lon" => 22.262808),
+"TKX" => array("City" => "Takaroa", "Lat" => -14.455781, "Lon" => -145.024542),
+"TLA" => array("City" => "Teller", "Lat" => 65.240278, "Lon" => -166.339444),
+"TLC" => array("City" => "Toluca", "Lat" => 19.337072, "Lon" => -99.566008),
+"TLD" => array("City" => "Tuli Lodge", "Lat" => -22.1892, "Lon" => 29.1269),
+"TLE" => array("City" => "Toliara", "Lat" => -23.383369, "Lon" => 43.728453),
+"TLG" => array("City" => "Treuchtlingen", "Lat" => 49.04, "Lon" => 11.081944),
+"TLH" => array("City" => "Tallahassee", "Lat" => 30.396528, "Lon" => -84.350333),
+"TLJ" => array("City" => "Tatalina", "Lat" => 62.894369, "Lon" => -155.976525),
+"TLL" => array("City" => "Tallinn-ulemiste International", "Lat" => 59.413317, "Lon" => 24.832844),
+"TLM" => array("City" => "Tlemcen", "Lat" => 35.016667, "Lon" => -1.45),
+"TLN" => array("City" => "Hyeres", "Lat" => 43.0973, "Lon" => 6.14603),
+"TLS" => array("City" => "Toulouse", "Lat" => 43.629075, "Lon" => 1.363819),
+"TLT" => array("City" => "Tuluksak", "Lat" => 61.096944, "Lon" => -160.969444),
+"TLU" => array("City" => "Tolu", "Lat" => 9.511944, "Lon" => -75.586389),
+"TLV" => array("City" => "Tel-aviv", "Lat" => 32.011389, "Lon" => 34.886667),
+"TMA" => array("City" => "Tifton", "Lat" => 31.4289814, "Lon" => -83.488545),
+"TMB" => array("City" => "Kendall-tamiami", "Lat" => 25.647889, "Lon" => -80.432777),
+"TMC" => array("City" => "Waikabubak-Sumba Island", "Lat" => -9.409717, "Lon" => 119.244494),
+"TME" => array("City" => "Tame", "Lat" => 6.451081, "Lon" => -71.760261),
+"TMG" => array("City" => "Tomanggong", "Lat" => 5.4, "Lon" => 118.65),
+"TMI" => array("City" => "Tumling Tar", "Lat" => 27.315, "Lon" => 87.193333),
+"TMJ" => array("City" => "Termez", "Lat" => 37.286667, "Lon" => 67.31),
+"TMK" => array("City" => "Thamkharka", "Lat" => 27.052222, "Lon" => 86.861944),
+"TML" => array("City" => "Tamale", "Lat" => 9.557192, "Lon" => -0.863214),
+"TMM" => array("City" => "Toamasina", "Lat" => -18.109517, "Lon" => 49.392536),
+"TMN" => array("City" => "Tamana", "Lat" => -2.5, "Lon" => 175.983333),
+"TMP" => array("City" => "Tampere", "Lat" => 61.414147, "Lon" => 23.604392),
+"TMR" => array("City" => "Tamanrasset", "Lat" => 22.811461, "Lon" => 5.451075),
+"TMS" => array("City" => "Sao Tome", "Lat" => 0.378175, "Lon" => 6.712153),
+"TMU" => array("City" => "Nicoya", "Lat" => 9.73852, "Lon" => -85.0138),
+"TMW" => array("City" => "Tamworth", "Lat" => -31.083889, "Lon" => 150.846667),
+"TMX" => array("City" => "Timimoun", "Lat" => 29.237119, "Lon" => 0.276033),
+"TNA" => array("City" => "Jinan", "Lat" => 36.857214, "Lon" => 117.215992),
+"TNC" => array("City" => "Tin City", "Lat" => 65.563056, "Lon" => -167.921667),
+"TND" => array("City" => "Trinidad", "Lat" => 21.788461, "Lon" => -79.997203),
+"TNE" => array("City" => "Tanegashima", "Lat" => 30.605067, "Lon" => 130.991231),
+"TNF" => array("City" => "Toussous-le-noble", "Lat" => 48.751922, "Lon" => 2.106189),
+"TNG" => array("City" => "Tanger", "Lat" => 35.726917, "Lon" => -5.916889),
+"TNI" => array("City" => "Satna", "Lat" => 24.562319, "Lon" => 80.854933),
+"TNJ" => array("City" => "Tanjung Pinang", "Lat" => 0.922683, "Lon" => 104.532311),
+"TNL" => array("City" => "Ternopol", "Lat" => 49.31, "Lon" => 25.42),
+"TNN" => array("City" => "Tainan", "Lat" => 22.950361, "Lon" => 120.205778),
+"TNO" => array("City" => "Nicoya", "Lat" => 10.3557, "Lon" => -85.852892),
+"TNR" => array("City" => "Antananarivo", "Lat" => -18.79695, "Lon" => 47.478806),
+"TNT" => array("City" => "Miami", "Lat" => 25.861806, "Lon" => -80.897),
+"TNX" => array("City" => "Tonopah", "Lat" => 37.798836, "Lon" => -116.78075),
+"TOA" => array("City" => "Torrance", "Lat" => 33.803392, "Lon" => -118.339611),
+"TOB" => array("City" => "Tobruk", "Lat" => 31.861, "Lon" => 23.907),
+"TOD" => array("City" => "Tioman", "Lat" => 2.818183, "Lon" => 104.160019),
+"TOE" => array("City" => "Tozeur", "Lat" => 33.939722, "Lon" => 8.110556),
+"TOF" => array("City" => "Tomsk", "Lat" => 56.380278, "Lon" => 85.208333),
+"TOG" => array("City" => "Togiak Village", "Lat" => 59.0528, "Lon" => -160.397),
+"TOH" => array("City" => "Loh/Linua", "Lat" => -13.328, "Lon" => 166.638),
+"TOJ" => array("City" => "Madrid", "Lat" => 40.496747, "Lon" => -3.445872),
+"TOL" => array("City" => "Toledo", "Lat" => 41.586806, "Lon" => -83.807833),
+"TOM" => array("City" => "Tombouctou", "Lat" => 16.730458, "Lon" => -3.007583),
+"TOP" => array("City" => "Topeka", "Lat" => 39.068657, "Lon" => -95.622482),
+"TOS" => array("City" => "Tromso", "Lat" => 69.683333, "Lon" => 18.918919),
+"TOT" => array("City" => "Totness", "Lat" => 5.865833, "Lon" => -56.3275),
+"TOU" => array("City" => "Touho", "Lat" => -20.790028, "Lon" => 165.259486),
+"TOW" => array("City" => "Toledo", "Lat" => -24.6863, "Lon" => -53.6975),
+"TOY" => array("City" => "Toyama", "Lat" => 36.648333, "Lon" => 137.1875),
+"TPA" => array("City" => "Tampa", "Lat" => 27.975472, "Lon" => -82.53325),
+"TPC" => array("City" => "Tarapoa", "Lat" => -0.122956, "Lon" => -76.33775),
+"TPE" => array("City" => "Taipei", "Lat" => 25.077731, "Lon" => 121.232822),
+"TPI" => array("City" => "Tapini", "Lat" => -8.35, "Lon" => 146.983),
+"TPJ" => array("City" => "Taplejung", "Lat" => 27.35, "Lon" => 84.667),
+"TPL" => array("City" => "Temple", "Lat" => 31.1525, "Lon" => -97.407778),
+"TPP" => array("City" => "Tarapoto", "Lat" => -6.508742, "Lon" => -76.373247),
+"TPQ" => array("City" => "Tepic", "Lat" => 21.419453, "Lon" => -104.842581),
+"TPS" => array("City" => "Trapani", "Lat" => 37.911403, "Lon" => 12.487961),
+"TQR" => array("City" => "Tremiti Islands", "Lat" => 42.1025, "Lon" => 15.488),
+"TRC" => array("City" => "Torreon", "Lat" => 25.568278, "Lon" => -103.410583),
+"TRD" => array("City" => "Trondheim", "Lat" => 63.457556, "Lon" => 10.92425),
+"TRE" => array("City" => "Tiree", "Lat" => 56.499167, "Lon" => -6.869167),
+"TRF" => array("City" => "Sandefjord", "Lat" => 59.186703, "Lon" => 10.258628),
+"TRG" => array("City" => "Tauranga", "Lat" => -37.671944, "Lon" => 176.19611),
+"TRI" => array("City" => "BRISTOL", "Lat" => 36.4752222, "Lon" => -82.4074167),
+"TRK" => array("City" => "Taraken", "Lat" => 3.326694, "Lon" => 117.565569),
+"TRM" => array("City" => "Palm Springs", "Lat" => 33.626666, "Lon" => -116.1596667),
+"TRN" => array("City" => "Torino", "Lat" => 45.200761, "Lon" => 7.649631),
+"TRR" => array("City" => "Trinciomalee", "Lat" => 8.538514, "Lon" => 81.181853),
+"TRS" => array("City" => "Ronchi De Legionari", "Lat" => 45.8275, "Lon" => 13.472222),
+"TRU" => array("City" => "Trujillo", "Lat" => -8.081411, "Lon" => -79.108761),
+"TRV" => array("City" => "Trivandrum", "Lat" => 8.482122, "Lon" => 76.920114),
+"TRW" => array("City" => "Tarawa", "Lat" => 1.381636, "Lon" => 173.147036),
+"TRZ" => array("City" => "Tiruchirappalli", "Lat" => 10.765364, "Lon" => 78.709722),
+"TSA" => array("City" => "Taipei", "Lat" => 25.069722, "Lon" => 121.5525),
+"TSE" => array("City" => "Tselinograd", "Lat" => 51.022222, "Lon" => 71.466944),
+"TSF" => array("City" => "Treviso", "Lat" => 45.6484, "Lon" => 12.194422),
+"TSH" => array("City" => "Tshikapa", "Lat" => -6.43833, "Lon" => 20.7947),
+"TSJ" => array("City" => "Tsushima", "Lat" => 34.284889, "Lon" => 129.33055),
+"TSL" => array("City" => "Tamuin", "Lat" => 22.038292, "Lon" => -98.806503),
+"TSN" => array("City" => "Tianjin", "Lat" => 39.124353, "Lon" => 117.346183),
+"TSO" => array("City" => "Tresco", "Lat" => 49.945556, "Lon" => -6.331389),
+"TSR" => array("City" => "Timisoara", "Lat" => 45.809861, "Lon" => 21.337861),
+"TSS" => array("City" => "New York", "Lat" => 40.7425, "Lon" => -73.971944),
+"TST" => array("City" => "Trang", "Lat" => 7.508744, "Lon" => 99.616578),
+"TSU" => array("City" => "Tabiteuea", "Lat" => -1.35, "Lon" => 174.8),
+"TSV" => array("City" => "Townsville", "Lat" => -19.2525, "Lon" => 146.765278),
+"TTA" => array("City" => "Tan Tan", "Lat" => 28.448194, "Lon" => -11.161347),
+"TTB" => array("City" => "Tortoli", "Lat" => 39.918761, "Lon" => 9.682981),
+"TTE" => array("City" => "Ternate", "Lat" => 0.831414, "Lon" => 127.381486),
+"TTG" => array("City" => "Tartagal", "Lat" => -22.619167, "Lon" => -63.793189),
+"TTH" => array("City" => "Thumrait", "Lat" => 17.666, "Lon" => 54.024612),
+"TTJ" => array("City" => "Tottori", "Lat" => 35.530069, "Lon" => 134.166553),
+"TTN" => array("City" => "Trenton", "Lat" => 40.276692, "Lon" => -74.813469),
+"TTQ" => array("City" => "Roxana", "Lat" => 10.569, "Lon" => -83.5148),
+"TTR" => array("City" => "Toraja", "Lat" => -3.416667, "Lon" => 119.916664),
+"TTS" => array("City" => "Tsaratanana", "Lat" => -16.75, "Lon" => 47.617),
+"TTT" => array("City" => "Fengnin", "Lat" => 22.754986, "Lon" => 121.101681),
+"TTU" => array("City" => "Tetouan", "Lat" => 35.594333, "Lon" => -5.320019),
+"TUA" => array("City" => "Tulcan", "Lat" => 0.809506, "Lon" => -77.708056),
+"TUB" => array("City" => "Tubuai", "Lat" => -23.365353, "Lon" => -149.524072),
+"TUC" => array("City" => "Tucuman", "Lat" => -26.840861, "Lon" => -65.104944),
+"TUD" => array("City" => "Tambacounda", "Lat" => 13.736817, "Lon" => -13.653122),
+"TUF" => array("City" => "Tours", "Lat" => 47.432222, "Lon" => 0.727606),
+"TUG" => array("City" => "Tuguegarao", "Lat" => 17.638311, "Lon" => 121.730614),
+"TUI" => array("City" => "Turaif", "Lat" => 31.692683, "Lon" => 38.7312),
+"TUK" => array("City" => "Turbat", "Lat" => 25.986369, "Lon" => 63.030167),
+"TUL" => array("City" => "Tulsa", "Lat" => 36.198389, "Lon" => -95.888111),
+"TUN" => array("City" => "Tunis", "Lat" => 36.851033, "Lon" => 10.227217),
+"TUO" => array("City" => "Taupo", "Lat" => -38.739723, "Lon" => 176.084444),
+"TUP" => array("City" => "Tupelo", "Lat" => 34.2681, "Lon" => -88.7699),
+"TUR" => array("City" => "Tucurui", "Lat" => -3.786008, "Lon" => -49.720267),
+"TUS" => array("City" => "Tucson", "Lat" => 32.116083, "Lon" => -110.941028),
+"TUU" => array("City" => "Tabuk", "Lat" => 28.365417, "Lon" => 36.618889),
+"TUV" => array("City" => "Tucupita", "Lat" => 9.088994, "Lon" => -62.094175),
+"TVA" => array("City" => "Morafenobe", "Lat" => -17.85, "Lon" => 44.917),
+"TVC" => array("City" => "Traverse City", "Lat" => 44.741445, "Lon" => -85.582235),
+"TVF" => array("City" => "Thief River Falls", "Lat" => 48.065556, "Lon" => -96.185),
+"TVI" => array("City" => "Thomasville", "Lat" => 30.9017921, "Lon" => -83.8811285),
+"TVL" => array("City" => "South Lake Tahoe", "Lat" => 38.893889, "Lon" => -119.995278),
+"TVU" => array("City" => "Matei", "Lat" => -16.6906, "Lon" => -179.877),
+"TVY" => array("City" => "Dawei", "Lat" => 14.103886, "Lon" => 98.203636),
+"TWA" => array("City" => "Twin Hills", "Lat" => 59.074444, "Lon" => -160.275),
+"TWB" => array("City" => "Tawoomba", "Lat" => -27.542778, "Lon" => 151.916389),
+"TWD" => array("City" => "Port Townsend", "Lat" => 48.0314, "Lon" => -122.4838),
+"TWF" => array("City" => "Twin Falls", "Lat" => 42.481803, "Lon" => -114.487733),
+"TWU" => array("City" => "Tawau", "Lat" => 4.313369, "Lon" => 118.121953),
+"TXA" => array("City" => "Tlaxcala", "Lat" => 19.537964, "Lon" => -98.173467),
+"TXG" => array("City" => "Taichung", "Lat" => 24.1863, "Lon" => 120.654),
+"TXK" => array("City" => "Texarkana", "Lat" => 33.453722, "Lon" => -93.991028),
+"TXL" => array("City" => "Berlin", "Lat" => 52.559686, "Lon" => 13.287711),
+"TXN" => array("City" => "Huangshan", "Lat" => 29.7333, "Lon" => 118.256),
+"TYA" => array("City" => "Tula", "Lat" => 54.142208, "Lon" => 37.355619),
+"TYE" => array("City" => "Tyonek", "Lat" => 61.076667, "Lon" => -151.138056),
+"TYF" => array("City" => "Torsby", "Lat" => 60.157622, "Lon" => 12.991269),
+"TYL" => array("City" => "Talara", "Lat" => -4.576639, "Lon" => -81.254139),
+"TYN" => array("City" => "Taiyuan", "Lat" => 37.746897, "Lon" => 112.628428),
+"TYR" => array("City" => "Tyler", "Lat" => 32.354139, "Lon" => -95.402386),
+"TYS" => array("City" => "Knoxville", "Lat" => 35.810972, "Lon" => -83.994028),
+"TZA" => array("City" => "Belize", "Lat" => 17.5344, "Lon" => -88.298),
+"TZX" => array("City" => "Trabzon", "Lat" => 40.995108, "Lon" => 39.789728),
+"UAB" => array("City" => "Adana", "Lat" => 37.00028, "Lon" => 35.41833),
+"UAH" => array("City" => "Ua Huka", "Lat" => -8.93611, "Lon" => -139.552),
+"UAK" => array("City" => "Narssarssuaq", "Lat" => 61.160517, "Lon" => -45.425978),
+"UAM" => array("City" => "Andersen", "Lat" => 13.583953, "Lon" => 144.930025),
+"UAP" => array("City" => "Ua Pou", "Lat" => -9.35167, "Lon" => -140.078),
+"UAQ" => array("City" => "San Julian", "Lat" => -31.571472, "Lon" => -68.418194),
+"UAS" => array("City" => "Samburu South", "Lat" => 0.530583, "Lon" => 37.5342),
+"UBA" => array("City" => "Uberaba", "Lat" => -19.765, "Lon" => -47.964778),
+"UBB" => array("City" => "Mabuiag Island", "Lat" => -9.95, "Lon" => 142.183),
+"UBJ" => array("City" => "Yamaguchi", "Lat" => 33.93, "Lon" => 131.278611),
+"UBP" => array("City" => "Ubon Ratchathani", "Lat" => 15.251278, "Lon" => 104.870231),
+"UCT" => array("City" => "Ukhta", "Lat" => 63.340297, "Lon" => 53.482592),
+"UDD" => array("City" => "Palm Springs", "Lat" => 33.7484375, "Lon" => -116.2748133),
+"UDE" => array("City" => "Volkel", "Lat" => 51.656389, "Lon" => 5.708611),
+"UDI" => array("City" => "Uberlandia", "Lat" => -18.882844, "Lon" => -48.225594),
+"UDJ" => array("City" => "Uzhgorod", "Lat" => 48.634278, "Lon" => 22.263356),
+"UDR" => array("City" => "Udaipur", "Lat" => 24.617697, "Lon" => 73.8961),
+"UEL" => array("City" => "Quelimane", "Lat" => -17.8555, "Lon" => 36.869106),
+"UEO" => array("City" => "Kumejima", "Lat" => 26.363506, "Lon" => 126.713806),
+"UES" => array("City" => "Waukesha", "Lat" => 43.0410278, "Lon" => -88.2370556),
+"UET" => array("City" => "Quetta", "Lat" => 30.251369, "Lon" => 66.937764),
+"UFA" => array("City" => "Ufa", "Lat" => 54.557511, "Lon" => 55.874417),
+"UGA" => array("City" => "Bulgan", "Lat" => 48.854167, "Lon" => 103.484167),
+"UGC" => array("City" => "Urgench", "Lat" => 41.5843, "Lon" => 60.6417),
+"UGN" => array("City" => "Chicago", "Lat" => 42.422161, "Lon" => -87.867908),
+"UGO" => array("City" => "Uige", "Lat" => -7.603067, "Lon" => 15.027822),
+"UIB" => array("City" => "Quibdo", "Lat" => 5.690758, "Lon" => -76.641181),
+"UIH" => array("City" => "Phucat", "Lat" => 13.954986, "Lon" => 109.042267),
+"UII" => array("City" => "Utila", "Lat" => 16.091667, "Lon" => -86.8875),
+"UIK" => array("City" => "Ust Ilimsk", "Lat" => 58.08, "Lon" => 108.08),
+"UIN" => array("City" => "Quincy", "Lat" => 39.9427, "Lon" => -91.1946),
+"UIO" => array("City" => "Quito", "Lat" => -0.141144, "Lon" => -78.488214),
+"UIP" => array("City" => "Quimper", "Lat" => 47.974981, "Lon" => -4.167786),
+"UIT" => array("City" => "Jabor Jaluit Atoll", "Lat" => 5.90924, "Lon" => 169.637),
+"UJE" => array("City" => "Ujae Atoll", "Lat" => 8.92806, "Lon" => 165.762),
+"UKA" => array("City" => "Ukunda", "Lat" => -4.29694, "Lon" => 39.5714),
+"UKB" => array("City" => "Kobe", "Lat" => 34.632778, "Lon" => 135.223889),
+"UKC" => array("City" => "Lutsk", "Lat" => 50.6833, "Lon" => 25.4833),
+"UKK" => array("City" => "Ust Kamenogorsk", "Lat" => 50.0366, "Lon" => 82.4942),
+"UKS" => array("City" => "Sevastopol", "Lat" => 44.691431, "Lon" => 33.57567),
+"UKU" => array("City" => "Nuku", "Lat" => -3.667, "Lon" => 142.483),
+"UKX" => array("City" => "Ust-Kut", "Lat" => 56.85, "Lon" => 105.7167),
+"UKY" => array("City" => "Kyoto", "Lat" => 35.016667, "Lon" => 135.766667),
+"ULA" => array("City" => "San Julian", "Lat" => -49.306775, "Lon" => -67.802589),
+"ULB" => array("City" => "Ambryn Island", "Lat" => -16.333, "Lon" => 168.283),
+"ULD" => array("City" => "Ulundi", "Lat" => -28.320586, "Lon" => 31.416519),
+"ULG" => array("City" => "Olgii", "Lat" => 48.991667, "Lon" => 89.919722),
+"ULN" => array("City" => "Ulan Bator", "Lat" => 47.843056, "Lon" => 106.766639),
+"ULO" => array("City" => "Ulaangom", "Lat" => 49.973333, "Lon" => 92.079722),
+"ULQ" => array("City" => "Tulua", "Lat" => 4.088358, "Lon" => -76.235133),
+"ULU" => array("City" => "Gulu", "Lat" => 2.805556, "Lon" => 32.271792),
+"ULX" => array("City" => "Ulusaba", "Lat" => -24.782766, "Lon" => 31.353929),
+"ULY" => array("City" => "Ulyanovsk", "Lat" => 54.401, "Lon" => 48.8027),
+"UME" => array("City" => "Umea", "Lat" => 63.791828, "Lon" => 20.282758),
+"UMR" => array("City" => "Woomera", "Lat" => -31.144167, "Lon" => 136.816944),
+"UND" => array("City" => "Kunduz", "Lat" => 36.665111, "Lon" => 68.910833),
+"UNG" => array("City" => "Kiunga", "Lat" => -6.12571, "Lon" => 141.282),
+"UNI" => array("City" => "Union Island", "Lat" => 12.583, "Lon" => -61.417),
+"UNK" => array("City" => "Unalakleet", "Lat" => 63.888333, "Lon" => -160.798889),
+"UNN" => array("City" => "Ranong", "Lat" => 9.777622, "Lon" => 98.585483),
+"UNT" => array("City" => "Unst", "Lat" => 60.7472, "Lon" => -0.85385),
+"UPG" => array("City" => "Ujung Pandang", "Lat" => -5.061631, "Lon" => 119.554042),
+"UPN" => array("City" => "Uruapan", "Lat" => 19.396692, "Lon" => -102.039056),
+"UPP" => array("City" => "Opolu", "Lat" => 20.265256, "Lon" => -155.859989),
+"URA" => array("City" => "Uralsk", "Lat" => 51.150833, "Lon" => 51.543056),
+"URC" => array("City" => "Urumqi", "Lat" => 43.907106, "Lon" => 87.474244),
+"URE" => array("City" => "Kuressaare", "Lat" => 58.229883, "Lon" => 22.509494),
+"URG" => array("City" => "Uruguaiana", "Lat" => -29.782178, "Lon" => -57.038189),
+"URJ" => array("City" => "Uraj", "Lat" => 60.1, "Lon" => 64.83),
+"URO" => array("City" => "Rouen", "Lat" => 49.384172, "Lon" => 1.1748),
+"URS" => array("City" => "Kursk", "Lat" => 51.7506, "Lon" => 36.2956),
+"URT" => array("City" => "Surat Thani", "Lat" => 9.1325, "Lon" => 99.135556),
+"URY" => array("City" => "Guriat", "Lat" => 31.411942, "Lon" => 37.279469),
+"USH" => array("City" => "Ushuaia", "Lat" => -54.843278, "Lon" => -68.29575),
+"USI" => array("City" => "Mabaruma", "Lat" => 8.2, "Lon" => -59.783333),
+"USK" => array("City" => "Usinsk", "Lat" => 66.00077, "Lon" => 57.221113),
+"USM" => array("City" => "Ko Samui", "Lat" => 9.547794, "Lon" => 100.062272),
+"USN" => array("City" => "Ulsan", "Lat" => 35.593494, "Lon" => 129.351722),
+"USQ" => array("City" => "Usak", "Lat" => 38.681478, "Lon" => 29.471675),
+"UST" => array("City" => "St. Augustine Airport", "Lat" => 29.959167, "Lon" => -81.339722),
+"USU" => array("City" => "Busuanga", "Lat" => 12.121458, "Lon" => 120.100031),
+"UTC" => array("City" => "Soesterberg", "Lat" => 52.1273, "Lon" => 5.27619),
+"UTH" => array("City" => "Udon Thani", "Lat" => 17.386436, "Lon" => 102.788247),
+"UTK" => array("City" => "Utirik Island", "Lat" => 11.222, "Lon" => 169.852),
+"UTM" => array("City" => "Tunica", "Lat" => 34.681, "Lon" => -90.3467),
+"UTN" => array("City" => "Upington", "Lat" => -28.399097, "Lon" => 21.260239),
+"UTO" => array("City" => "Indian Mountains", "Lat" => 65.992794, "Lon" => -153.704289),
+"UTP" => array("City" => "Pattaya", "Lat" => 12.679944, "Lon" => 101.005028),
+"UTT" => array("City" => "Umtata", "Lat" => -31.547903, "Lon" => 28.674289),
+"UTU" => array("City" => "Ustupo", "Lat" => 9.137778, "Lon" => -77.933611),
+"UTW" => array("City" => "Queenstown", "Lat" => -31.920197, "Lon" => 26.882206),
+"UUA" => array("City" => "Bugulma", "Lat" => 54.64, "Lon" => 52.8017),
+"UUD" => array("City" => "Ulan-ude", "Lat" => 51.807764, "Lon" => 107.437644),
+"UUK" => array("City" => "Kuparuk", "Lat" => 70.330833, "Lon" => -149.5975),
+"UUS" => array("City" => "Yuzhno-sakhalinsk", "Lat" => 46.888672, "Lon" => 142.717531),
+"UUU" => array("City" => "Newport RI", "Lat" => 41.533056, "Lon" => -71.282222),
+"UVA" => array("City" => "Uvalde", "Lat" => 29.215429, "Lon" => -99.748962),
+"UVE" => array("City" => "Ouvea", "Lat" => -20.640556, "Lon" => 166.572778),
+"UVF" => array("City" => "Hewandorra", "Lat" => 13.733194, "Lon" => -60.952597),
+"UYL" => array("City" => "Nyala", "Lat" => 12.0535, "Lon" => 24.9562),
+"UYN" => array("City" => "Yulin", "Lat" => 38.2692, "Lon" => 109.731),
+"VAA" => array("City" => "Vaasa", "Lat" => 63.05065, "Lon" => 21.762175),
+"VAD" => array("City" => "Valdosta", "Lat" => 30.967833, "Lon" => -83.193),
+"VAF" => array("City" => "Valence", "Lat" => 44.921594, "Lon" => 4.9699),
+"VAG" => array("City" => "Varginha", "Lat" => -21.590067, "Lon" => -45.473342),
+"VAK" => array("City" => "Chevak", "Lat" => 61.5338, "Lon" => -165.584),
+"VAL" => array("City" => "Valenca", "Lat" => -13.2965, "Lon" => -38.9924),
+"VAN" => array("City" => "Van", "Lat" => 38.468219, "Lon" => 43.3323),
+"VAO" => array("City" => "Suavanao", "Lat" => -7.58556, "Lon" => 158.731),
+"VAR" => array("City" => "Varna", "Lat" => 43.232072, "Lon" => 27.825106),
+"VAS" => array("City" => "Sivas", "Lat" => 39.813828, "Lon" => 36.903497),
+"VAV" => array("City" => "Vava'u", "Lat" => -18.585336, "Lon" => -173.961717),
+"VAW" => array("City" => "Vardø", "Lat" => 70.355392, "Lon" => 31.044889),
+"VBG" => array("City" => "Lompoc", "Lat" => 34.737333, "Lon" => -120.584306),
+"VBS" => array("City" => "Montichiari", "Lat" => 45.428889, "Lon" => 10.330556),
+"VBV" => array("City" => "Vanua Balavu", "Lat" => -17.269, "Lon" => -178.976),
+"VBY" => array("City" => "Visby", "Lat" => 57.662797, "Lon" => 18.346211),
+"VCA" => array("City" => "Can Tho", "Lat" => 10.085119, "Lon" => 105.711922),
+"VCE" => array("City" => "Venice", "Lat" => 45.505278, "Lon" => 12.351944),
+"VCL" => array("City" => "Chu Lai", "Lat" => 15.405944, "Lon" => 108.705889),
+"VCP" => array("City" => "Campinas", "Lat" => -23.0074, "Lon" => -47.1345),
+"VCS" => array("City" => "Conson", "Lat" => 8.731831, "Lon" => 106.632589),
+"VCT" => array("City" => "Victoria", "Lat" => 28.8526, "Lon" => -96.9185),
+"VCV" => array("City" => "Victorville", "Lat" => 34.597453, "Lon" => -117.382997),
+"VDA" => array("City" => "Ovda", "Lat" => 29.94025, "Lon" => 34.93585),
+"VDB" => array("City" => "Fagernes", "Lat" => 61.015556, "Lon" => 9.288056),
+"VDC" => array("City" => "Vitória Da Conquista", "Lat" => -14.862761, "Lon" => -40.863106),
+"VDE" => array("City" => "Hierro", "Lat" => 27.814847, "Lon" => -17.887056),
+"VDH" => array("City" => "Dong Hoi", "Lat" => 17.515, "Lon" => 106.590556),
+"VDM" => array("City" => "Viedma", "Lat" => -40.869222, "Lon" => -63.000389),
+"VDP" => array("City" => "Valle De La Pascua", "Lat" => 9.222028, "Lon" => -65.993583),
+"VDR" => array("City" => "Villa Dolores", "Lat" => -31.945183, "Lon" => -65.146283),
+"VDS" => array("City" => "Vadso", "Lat" => 70.065, "Lon" => 29.844),
+"VDZ" => array("City" => "Valdez", "Lat" => 61.133949, "Lon" => -146.248342),
+"VEE" => array("City" => "Venetie", "Lat" => 67.008611, "Lon" => -146.366389),
+"VEL" => array("City" => "Vernal", "Lat" => 40.440833, "Lon" => -109.51),
+"VER" => array("City" => "Vera Cruz", "Lat" => 19.145931, "Lon" => -96.187267),
+"VEY" => array("City" => "Vestmannaeyjar", "Lat" => 63.424303, "Lon" => -20.278875),
+"VFA" => array("City" => "Victoria Falls", "Lat" => -18.095881, "Lon" => 25.839006),
+"VGA" => array("City" => "Vijayawada", "Lat" => 16.530433, "Lon" => 80.796847),
+"VGD" => array("City" => "Vologda", "Lat" => 59.281667, "Lon" => 39.946667),
+"VGO" => array("City" => "Vigo", "Lat" => 42.2318, "Lon" => -8.626775),
+"VGT" => array("City" => "Las Vegas", "Lat" => 36.2106944, "Lon" => -115.1944444),
+"VGZ" => array("City" => "Villa Garzon", "Lat" => 0.978889, "Lon" => -76.605556),
+"VHC" => array("City" => "Saurimo", "Lat" => -9.689067, "Lon" => 20.431875),
+"VHM" => array("City" => "Vilhelmina", "Lat" => 64.579083, "Lon" => 16.833575),
+"VHY" => array("City" => "Vichy", "Lat" => 46.169689, "Lon" => 3.403736),
+"VIC" => array("City" => "Vicenza", "Lat" => 45.573411, "Lon" => 11.52955),
+"VIE" => array("City" => "Vienna", "Lat" => 48.110278, "Lon" => 16.569722),
+"VIG" => array("City" => "El Vigía", "Lat" => 8.6241, "Lon" => -71.672819),
+"VII" => array("City" => "Vinh", "Lat" => 18.737569, "Lon" => 105.670764),
+"VIJ" => array("City" => "Spanish Town", "Lat" => 18.4464, "Lon" => -64.4275),
+"VIL" => array("City" => "Dakhla", "Lat" => 23.7183, "Lon" => -15.932),
+"VIR" => array("City" => "Durban", "Lat" => -29.770606, "Lon" => 31.058406),
+"VIS" => array("City" => "Visalia", "Lat" => 36.318611, "Lon" => -119.392778),
+"VIT" => array("City" => "Vitoria", "Lat" => 42.882836, "Lon" => -2.724469),
+"VIX" => array("City" => "Vitoria", "Lat" => -20.258056, "Lon" => -40.286389),
+"VIY" => array("City" => "Bisho", "Lat" => -32.89715, "Lon" => 27.279111),
+"VKG" => array("City" => "Rach Gia", "Lat" => 9.949676, "Lon" => 105.133659),
+"VKO" => array("City" => "Moscow", "Lat" => 55.591531, "Lon" => 37.261486),
+"VKT" => array("City" => "Vorkuta", "Lat" => 67.4886, "Lon" => 63.9931),
+"VLC" => array("City" => "Valencia", "Lat" => 39.489314, "Lon" => -0.481625),
+"VLD" => array("City" => "Valdosta", "Lat" => 30.7825, "Lon" => -83.2767),
+"VLG" => array("City" => "Villa Gesell", "Lat" => -37.235408, "Lon" => -57.029239),
+"VLI" => array("City" => "Port-vila", "Lat" => -17.699325, "Lon" => 168.319794),
+"VLL" => array("City" => "Valladolid", "Lat" => 41.706111, "Lon" => -4.851944),
+"VLN" => array("City" => "Valencia", "Lat" => 10.149733, "Lon" => -67.9284),
+"VLS" => array("City" => "Valesdir", "Lat" => -16.7961, "Lon" => 168.177),
+"VLV" => array("City" => "Valera", "Lat" => 9.340797, "Lon" => -70.584089),
+"VMU" => array("City" => "Baimuru", "Lat" => -7.49686, "Lon" => 144.82),
+"VNE" => array("City" => "Vannes", "Lat" => 47.723303, "Lon" => -2.718561),
+"VNO" => array("City" => "Vilnius", "Lat" => 54.634133, "Lon" => 25.285767),
+"VNS" => array("City" => "Varanasi", "Lat" => 25.452358, "Lon" => 82.859342),
+"VNX" => array("City" => "Vilankulu", "Lat" => -22.018431, "Lon" => 35.313297),
+"VNY" => array("City" => "Van Nuys", "Lat" => 34.209811, "Lon" => -118.489972),
+"VOG" => array("City" => "Volgograd", "Lat" => 48.782528, "Lon" => 44.345544),
+"VOH" => array("City" => "Vohemar", "Lat" => -13.375834, "Lon" => 50.002777),
+"VOK" => array("City" => "Camp Douglas", "Lat" => 43.938956, "Lon" => -90.253433),
+"VOL" => array("City" => "Nea Anghialos", "Lat" => 39.219619, "Lon" => 22.794339),
+"VOZ" => array("City" => "Voronezh", "Lat" => 51.814211, "Lon" => 39.229589),
+"VPE" => array("City" => "Ondjiva", "Lat" => -17.043464, "Lon" => 15.683822),
+"VPN" => array("City" => "Vopnafjörður", "Lat" => 65.7206, "Lon" => -14.8506),
+"VPS" => array("City" => "Valparaiso", "Lat" => 30.48325, "Lon" => -86.5254),
+"VPY" => array("City" => "Chimoio", "Lat" => -19.151267, "Lon" => 33.428958),
+"VQS" => array("City" => "Vieques Island", "Lat" => 18.1158, "Lon" => -65.4227),
+"VRA" => array("City" => "Varadero", "Lat" => 23.034445, "Lon" => -81.435278),
+"VRB" => array("City" => "Vero Beach", "Lat" => 27.655556, "Lon" => -80.417944),
+"VRC" => array("City" => "Virac", "Lat" => 13.576439, "Lon" => 124.205672),
+"VRK" => array("City" => "Varkaus", "Lat" => 62.171111, "Lon" => 27.868611),
+"VRL" => array("City" => "Vila Real", "Lat" => 41.274334, "Lon" => -7.720472),
+"VRN" => array("City" => "Villafranca", "Lat" => 45.395706, "Lon" => 10.888533),
+"VRU" => array("City" => "Vryburg", "Lat" => -26.982408, "Lon" => 24.728756),
+"VRY" => array("City" => "Værøy", "Lat" => 67.6667, "Lon" => 12.6833),
+"VSA" => array("City" => "Villahermosa", "Lat" => 17.997, "Lon" => -92.817361),
+"VSF" => array("City" => "Springfield VT", "Lat" => 43.343333, "Lon" => -72.517222),
+"VST" => array("City" => "Vasteras", "Lat" => 59.589444, "Lon" => 16.633611),
+"VTB" => array("City" => "Vitebsk", "Lat" => 55.1265, "Lon" => 30.349639),
+"VTE" => array("City" => "Vientiane", "Lat" => 17.988322, "Lon" => 102.563256),
+"VTS" => array("City" => "Ventspils", "Lat" => 57.357778, "Lon" => 21.544167),
+"VTU" => array("City" => "Las Tunas", "Lat" => 20.987642, "Lon" => -76.9358),
+"VTZ" => array("City" => "Vishakhapatnam", "Lat" => 17.721167, "Lon" => 83.224483),
+"VUP" => array("City" => "Valledupar", "Lat" => 10.435042, "Lon" => -73.249506),
+"VVC" => array("City" => "Villavicencio", "Lat" => 4.167875, "Lon" => -73.613761),
+"VVI" => array("City" => "Santa Cruz", "Lat" => -17.644756, "Lon" => -63.135364),
+"VVO" => array("City" => "Vladivostok", "Lat" => 43.398953, "Lon" => 132.148017),
+"VVZ" => array("City" => "Illizi", "Lat" => 26.723536, "Lon" => 8.622653),
+"VXC" => array("City" => "Lichinga", "Lat" => -13.273986, "Lon" => 35.266262),
+"VXE" => array("City" => "Sao Vicente Island", "Lat" => 16.833689, "Lon" => -25.054661),
+"VXO" => array("City" => "Vaxjo", "Lat" => 56.929144, "Lon" => 14.727994),
+"WAA" => array("City" => "Wales", "Lat" => 65.6225, "Lon" => -168.095),
+"WAG" => array("City" => "Wanganui", "Lat" => -39.962222, "Lon" => 175.025278),
+"WAI" => array("City" => "Antsohihy", "Lat" => -14.89875, "Lon" => 47.993894),
+"WAL" => array("City" => "Wallops Island", "Lat" => 37.940194, "Lon" => -75.466389),
+"WAM" => array("City" => "Ambatondrazaka", "Lat" => -17.8, "Lon" => 48.433),
+"WAQ" => array("City" => "Antsalova", "Lat" => -18.7, "Lon" => 44.617),
+"WAT" => array("City" => "Waterford", "Lat" => 52.1872, "Lon" => -7.086964),
+"WAW" => array("City" => "Warsaw", "Lat" => 52.16575, "Lon" => 20.967122),
+"WBB" => array("City" => "Stebbins", "Lat" => 63.515833, "Lon" => -162.278056),
+"WBQ" => array("City" => "Beaver", "Lat" => 66.362222, "Lon" => -147.406667),
+"WCH" => array("City" => "Chaiten", "Lat" => -42.932808, "Lon" => -72.699114),
+"WDH" => array("City" => "Windhoek", "Lat" => -22.486667, "Lon" => 17.4625),
+"WEF" => array("City" => "Weifang", "Lat" => 36.6467, "Lon" => 119.119),
+"WEH" => array("City" => "Weihai", "Lat" => 37.1871, "Lon" => 122.229),
+"WEI" => array("City" => "Weipa", "Lat" => -12.678611, "Lon" => 141.925278),
+"WEL" => array("City" => "Welkom", "Lat" => -27.998, "Lon" => 26.669586),
+"WFB" => array("City" => "Ketchikan", "Lat" => 55.344444, "Lon" => -131.663333),
+"WFI" => array("City" => "Fianarantsoa", "Lat" => -21.441558, "Lon" => 47.111736),
+"WFK" => array("City" => "Frenchville", "Lat" => 47.285556, "Lon" => -68.312778),
+"WGA" => array("City" => "Wagga Wagga", "Lat" => -35.165278, "Lon" => 147.466389),
+"WGE" => array("City" => "Walgett", "Lat" => -30.0318, "Lon" => 148.1222),
+"WGP" => array("City" => "Waingapu", "Lat" => -9.669217, "Lon" => 120.302006),
+"WHD" => array("City" => "Hyder", "Lat" => 55.903333, "Lon" => -130.006667),
+"WHF" => array("City" => "Wadi Halfa", "Lat" => 21.800278, "Lon" => 31.516389),
+"WHK" => array("City" => "Whakatane", "Lat" => -37.920556, "Lon" => 176.914167),
+"WIC" => array("City" => "Wick", "Lat" => 58.458889, "Lon" => -3.093056),
+"WIL" => array("City" => "Nairobi", "Lat" => -1.321719, "Lon" => 36.814833),
+"WJA" => array("City" => "Majuro Atoll", "Lat" => 7.083, "Lon" => 171.133),
+"WJR" => array("City" => "Wajir", "Lat" => 1.733239, "Lon" => 40.091606),
+"WJU" => array("City" => "Wonju", "Lat" => 37.438081, "Lon" => 127.960383),
+"WKA" => array("City" => "Wanaka", "Lat" => -44.722222, "Lon" => 169.245556),
+"WKJ" => array("City" => "Wakkanai", "Lat" => 45.404167, "Lon" => 141.800833),
+"WKK" => array("City" => "Aleknagik", "Lat" => 59.2826, "Lon" => -158.618),
+"WKL" => array("City" => "Waikoloa Village", "Lat" => 19.9136, "Lon" => -155.864),
+"WKM" => array("City" => "Hwange National Park", "Lat" => -18.629872, "Lon" => 27.021042),
+"WLG" => array("City" => "Wellington", "Lat" => -41.327221, "Lon" => 174.805278),
+"WLH" => array("City" => "Walaha", "Lat" => -15.412, "Lon" => 167.691),
+"WLK" => array("City" => "Selawik", "Lat" => 66.6, "Lon" => -159.985833),
+"WLS" => array("City" => "Wallis", "Lat" => -13.238281, "Lon" => -176.199228),
+"WMA" => array("City" => "Mandritsara", "Lat" => -15.817, "Lon" => 48.833),
+"WME" => array("City" => "Mount Keith", "Lat" => -27.286389, "Lon" => 120.554722),
+"WMN" => array("City" => "Maroantsetra", "Lat" => -15.436666, "Lon" => 49.688332),
+"WMO" => array("City" => "White Mountain", "Lat" => 64.689167, "Lon" => -163.412778),
+"WMP" => array("City" => "Mampikony", "Lat" => -16.049, "Lon" => 47.622),
+"WMR" => array("City" => "Mananara", "Lat" => -16.1639, "Lon" => 49.773753),
+"WMX" => array("City" => "Wamena", "Lat" => -4.102511, "Lon" => 138.957372),
+"WNH" => array("City" => "Wenshan", "Lat" => 23.375833, "Lon" => 104.243056),
+"WNN" => array("City" => "Wunnumin Lake", "Lat" => 52.8939, "Lon" => -89.2892),
+"WNP" => array("City" => "Naga", "Lat" => 13.584886, "Lon" => 123.270239),
+"WNS" => array("City" => "Nawabshah", "Lat" => 26.219442, "Lon" => 68.390053),
+"WNZ" => array("City" => "Wenzhou", "Lat" => 27.9122, "Lon" => 120.852),
+"WOE" => array("City" => "Woensdrecht", "Lat" => 51.449092, "Lon" => 4.342031),
+"WOT" => array("City" => "Wang An", "Lat" => 23.370833, "Lon" => 119.494444),
+"WPB" => array("City" => "Port Bergé", "Lat" => -15.583, "Lon" => 47.617),
+"WPM" => array("City" => "Wipim", "Lat" => -8.78822, "Lon" => 142.882),
+"WPR" => array("City" => "Porvenir", "Lat" => -53.2537, "Lon" => -70.319228),
+"WPU" => array("City" => "Puerto Williams", "Lat" => -54.9311, "Lon" => -67.6263),
+"WRB" => array("City" => "Macon", "Lat" => 32.640144, "Lon" => -83.59185),
+"WRE" => array("City" => "Whangarei", "Lat" => -35.768333, "Lon" => 174.365),
+"WRG" => array("City" => "Wrangell", "Lat" => 56.4843, "Lon" => -132.37),
+"WRI" => array("City" => "Wrightstown", "Lat" => 40.015556, "Lon" => -74.591667),
+"WRL" => array("City" => "Worland", "Lat" => 43.9657, "Lon" => -107.951),
+"WRO" => array("City" => "Wroclaw", "Lat" => 51.102683, "Lon" => 16.885836),
+"WRY" => array("City" => "Westray", "Lat" => 59.3503, "Lon" => -2.95),
+"WRZ" => array("City" => "Wirawila", "Lat" => 6.254494, "Lon" => 81.235189),
+"WSD" => array("City" => "White Sands", "Lat" => 32.341484, "Lon" => -106.40277),
+"WSJ" => array("City" => "San Juan", "Lat" => 57.730278, "Lon" => -153.320556),
+"WSN" => array("City" => "South Naknek", "Lat" => 58.702222, "Lon" => -157.0025),
+"WSP" => array("City" => "Waspam", "Lat" => 14.737778, "Lon" => -83.975833),
+"WST" => array("City" => "Leixlip", "Lat" => 53.351333, "Lon" => -6.4875),
+"WSY" => array("City" => "Airlie Beach", "Lat" => -20.276, "Lon" => 148.755),
+"WSZ" => array("City" => "Westport", "Lat" => -41.738056, "Lon" => 171.580833),
+"WTA" => array("City" => "Tambohorano", "Lat" => -17.4761, "Lon" => 43.9728),
+"WTE" => array("City" => "Wotje Atoll", "Lat" => 9.46667, "Lon" => 170.233),
+"WTK" => array("City" => "Noatak", "Lat" => 67.5661, "Lon" => -162.975),
+"WTL" => array("City" => "Tuntutuliak", "Lat" => 60.335278, "Lon" => -162.666944),
+"WTN" => array("City" => "Waddington", "Lat" => 53.166167, "Lon" => -0.523811),
+"WTO" => array("City" => "Wotho Island", "Lat" => 10.1733, "Lon" => 166.003),
+"WTP" => array("City" => "Woitape", "Lat" => -8.533, "Lon" => 147.25),
+"WTS" => array("City" => "Tsiroanomandidy", "Lat" => -18.75, "Lon" => 46.05),
+"WTZ" => array("City" => "Whitianga", "Lat" => -36.835833, "Lon" => 175.700278),
+"WUA" => array("City" => "Wuhai", "Lat" => 39.794444, "Lon" => 106.799444),
+"WUH" => array("City" => "Wuhan", "Lat" => 30.783758, "Lon" => 114.2081),
+"WUS" => array("City" => "Wuyishan", "Lat" => 27.7019, "Lon" => 118.001),
+"WUX" => array("City" => "Wuxi", "Lat" => 31.4944, "Lon" => 120.429),
+"WUZ" => array("City" => "Wuzhou", "Lat" => 23.4567, "Lon" => 111.248),
+"WVB" => array("City" => "Walvis Bay", "Lat" => -22.9799, "Lon" => 14.6453),
+"WVK" => array("City" => "Manakara", "Lat" => -22.119722, "Lon" => 48.021667),
+"WVN" => array("City" => "Wilhelmshaven", "Lat" => 53.504833, "Lon" => 8.053333),
+"WWD" => array("City" => "Wildwood", "Lat" => 39.008507, "Lon" => -74.908275),
+"WWK" => array("City" => "Wewak", "Lat" => -3.583828, "Lon" => 143.669186),
+"WWP" => array("City" => "North Whale Pass", "Lat" => 56.116389, "Lon" => -133.121667),
+"WXN" => array("City" => "Wanxian", "Lat" => 30.8361, "Lon" => 108.406),
+"WYA" => array("City" => "Whyalla", "Lat" => -33.0589, "Lon" => 137.514),
+"WYS" => array("City" => "West Yellowstone", "Lat" => 44.688333, "Lon" => -111.1175),
+"WZB" => array("City" => "Wurzburg", "Lat" => 49.7999, "Lon" => 9.95555),
+"WZY" => array("City" => "Nassau", "Lat" => 25.0872, "Lon" => -77.3239),
+"X01" => array("City" => "Everglades", "Lat" => 25.8488611, "Lon" => -81.3902778),
+"X21" => array("City" => "Titusville", "Lat" => 28.622552, "Lon" => -80.83541),
+"XAC" => array("City" => "Arcachon", "Lat" => 44.59639, "Lon" => -1.110833),
+"XAD" => array("City" => "Churchill", "Lat" => 58.76775, "Lon" => -94.17425),
+"XAP" => array("City" => "Chapeco", "Lat" => -27.134219, "Lon" => -52.656553),
+"XAU" => array("City" => "Saul", "Lat" => 3.61361, "Lon" => -53.2042),
+"XBE" => array("City" => "Bearskin Lake", "Lat" => 53.9656, "Lon" => -91.0272),
+"XBJ" => array("City" => "Birjand", "Lat" => 32.898056, "Lon" => 59.266111),
+"XBK" => array("City" => "Bourg", "Lat" => 46.20089, "Lon" => 5.292028),
+"XCD" => array("City" => "Chalon", "Lat" => 46.826108, "Lon" => 4.817633),
+"XCH" => array("City" => "Christmas Island", "Lat" => -10.450556, "Lon" => 105.690278),
+"XDB" => array("City" => "Lille", "Lat" => 50.563333, "Lon" => 3.08805),
+"XDS" => array("City" => "Ottawa", "Lat" => 45.4164, "Lon" => -75.6517),
+"XEF" => array("City" => "Winnipeg", "Lat" => 49.8889, "Lon" => -97.1342),
+"XFN" => array("City" => "Xiangfan", "Lat" => 32.1506, "Lon" => 112.291),
+"XFW" => array("City" => "Hamburg", "Lat" => 53.535886, "Lon" => 9.837025),
+"XGB" => array("City" => "Paris", "Lat" => 48.84, "Lon" => 2.318611),
+"XGN" => array("City" => "Xangongo", "Lat" => -16.755417, "Lon" => 14.965344),
+"XGR" => array("City" => "Kangiqsualujjuaq", "Lat" => 58.7114, "Lon" => -65.9928),
+"XIC" => array("City" => "Xichang", "Lat" => 27.989083, "Lon" => 102.184361),
+"XIL" => array("City" => "Xilinhot", "Lat" => 43.9156, "Lon" => 115.964),
+"XIY" => array("City" => "Xi'an", "Lat" => 34.447119, "Lon" => 108.751592),
+"XKH" => array("City" => "Phon Savan", "Lat" => 19.449997, "Lon" => 103.158333),
+"XKL" => array("City" => "Kuala Lumpur", "Lat" => 3.134, "Lon" => 101.686),
+"XKS" => array("City" => "Kasabonika", "Lat" => 53.5247, "Lon" => -88.6428),
+"XLB" => array("City" => "Lac Brochet", "Lat" => 58.614167, "Lon" => -101.468889),
+"XLS" => array("City" => "St. Louis", "Lat" => 16.050761, "Lon" => -16.463172),
+"XMH" => array("City" => "Manihi", "Lat" => -14.436764, "Lon" => -146.070056),
+"XMN" => array("City" => "Xiamen", "Lat" => 24.544036, "Lon" => 118.127739),
+"XMS" => array("City" => "Macas", "Lat" => -2.299167, "Lon" => -78.12075),
+"XMU" => array("City" => "Moulins", "Lat" => 46.534581, "Lon" => 3.423725),
+"XMY" => array("City" => "Yam Island", "Lat" => -9.90111, "Lon" => 142.776),
+"XNA" => array("City" => "Bentonville", "Lat" => 36.2818694, "Lon" => -94.3068111),
+"XNN" => array("City" => "Xining", "Lat" => 36.5275, "Lon" => 102.043),
+"XOZ" => array("City" => "Doha", "Lat" => 24.8333, "Lon" => 50.9166),
+"XPG" => array("City" => "Paris", "Lat" => 48.880931, "Lon" => 2.355323),
+"XQP" => array("City" => "Quepos", "Lat" => 9.443164, "Lon" => -84.129772),
+"XQU" => array("City" => "Qualicum Beach", "Lat" => 49.337222, "Lon" => -124.393889),
+"XRY" => array("City" => "Jerez", "Lat" => 36.744622, "Lon" => -6.060111),
+"XSC" => array("City" => "South Caicos", "Lat" => 21.515739, "Lon" => -71.528528),
+"XSH" => array("City" => "Tours", "Lat" => 47.385626, "Lon" => 0.723347),
+"XSI" => array("City" => "South Indian Lake", "Lat" => 56.792778, "Lon" => -98.907222),
+"XSP" => array("City" => "Singapore", "Lat" => 1.41695, "Lon" => 103.867653),
+"XTL" => array("City" => "Tadoule Lake", "Lat" => 58.706111, "Lon" => -98.512222),
+"XUZ" => array("City" => "Xuzhou", "Lat" => 34.16, "Lon" => 117.11),
+"XVF" => array("City" => "Vilefrance", "Lat" => 45.901947, "Lon" => 4.634906),
+"XVV" => array("City" => "Belleville", "Lat" => 44.1793, "Lon" => -77.3747),
+"XYA" => array("City" => "Yandina", "Lat" => -9.086111, "Lon" => 159.218889),
+"XYD" => array("City" => "Lyon", "Lat" => 46, "Lon" => 5),
+"XYG" => array("City" => "Prague", "Lat" => 50.0826892098189, "Lon" => 14.4350297593689),
+"XZL" => array("City" => "Edmonton", "Lat" => 53.5789, "Lon" => -113.5307),
+"XZM" => array("City" => "Macau", "Lat" => 22.197075, "Lon" => 113.558911),
+"YAA" => array("City" => "Anahim Lake", "Lat" => 52.4525, "Lon" => -125.303),
+"YAC" => array("City" => "Cat Lake", "Lat" => 51.7272, "Lon" => -91.8244),
+"YAG" => array("City" => "Fort Frances", "Lat" => 48.6542, "Lon" => -93.4397),
+"YAK" => array("City" => "Yakutat", "Lat" => 59.3012, "Lon" => -139.3937),
+"YAM" => array("City" => "Sault Sainte Marie", "Lat" => 46.485001, "Lon" => -84.509445),
+"YAO" => array("City" => "Yaounde", "Lat" => 3.836039, "Lon" => 11.523461),
+"YAP" => array("City" => "Yap", "Lat" => 9.498911, "Lon" => 138.082497),
+"YAT" => array("City" => "Attawapiskat", "Lat" => 52.9275, "Lon" => -82.4319),
+"YAV" => array("City" => "Winnipeg", "Lat" => 50.056389, "Lon" => -97.0325),
+"YAW" => array("City" => "Halifax", "Lat" => 44.639721, "Lon" => -63.499444),
+"YAX" => array("City" => "Angling Lake", "Lat" => 53.8492, "Lon" => -89.5794),
+"YAY" => array("City" => "St. Anthony", "Lat" => 51.391944, "Lon" => -56.083056),
+"YAZ" => array("City" => "Tofino", "Lat" => 49.082222, "Lon" => -125.7725),
+"YBB" => array("City" => "Pelly Bay", "Lat" => 68.534444, "Lon" => -89.808056),
+"YBC" => array("City" => "Baie Comeau", "Lat" => 49.1325, "Lon" => -68.204444),
+"YBE" => array("City" => "Uranium City", "Lat" => 59.5614, "Lon" => -108.481),
+"YBG" => array("City" => "Bagotville", "Lat" => 48.330555, "Lon" => -70.996391),
+"YBK" => array("City" => "Baker Lake", "Lat" => 64.298889, "Lon" => -96.077778),
+"YBL" => array("City" => "Campbell River", "Lat" => 49.950832, "Lon" => -125.270833),
+"YBP" => array("City" => "Yibin", "Lat" => 28.800278, "Lon" => 104.544444),
+"YBR" => array("City" => "Brandon", "Lat" => 49.91, "Lon" => -99.951944),
+"YBT" => array("City" => "Brochet", "Lat" => 57.889444, "Lon" => -101.679167),
+"YBV" => array("City" => "Berens River", "Lat" => 52.358889, "Lon" => -97.018333),
+"YBW" => array("City" => "Calgary", "Lat" => 51.1031, "Lon" => -114.374),
+"YBX" => array("City" => "Lourdes-De-Blanc-Sablon", "Lat" => 51.4436, "Lon" => -57.1853),
+"YBY" => array("City" => "Bonnyville", "Lat" => 54.304722, "Lon" => -110.741111),
+"YBZ" => array("City" => "Toronto", "Lat" => 43.645278, "Lon" => -79.380556),
+"YCB" => array("City" => "Cambridge Bay", "Lat" => 69.108055, "Lon" => -105.138333),
+"YCD" => array("City" => "Nanaimo", "Lat" => 49.052333, "Lon" => -123.870167),
+"YCG" => array("City" => "Castlegar", "Lat" => 49.296389, "Lon" => -117.6325),
+"YCH" => array("City" => "Chatham", "Lat" => 47.007778, "Lon" => -65.449167),
+"YCK" => array("City" => "Colville Lake", "Lat" => 67.0333, "Lon" => -126.083),
+"YCL" => array("City" => "Charlo", "Lat" => 47.990833, "Lon" => -66.330278),
+"YCO" => array("City" => "Coppermine", "Lat" => 67.816667, "Lon" => -115.143889),
+"YCR" => array("City" => "Cross Lake", "Lat" => 54.610833, "Lon" => -97.760278),
+"YCS" => array("City" => "Chesterfield Inlet", "Lat" => 63.3469, "Lon" => -90.7311),
+"YCT" => array("City" => "Coronation", "Lat" => 52.075001, "Lon" => -111.445278),
+"YCU" => array("City" => "Yuncheng", "Lat" => 35.018, "Lon" => 110.993),
+"YCW" => array("City" => "Chilliwack", "Lat" => 49.152779, "Lon" => -121.93889),
+"YCY" => array("City" => "Clyde River", "Lat" => 70.486111, "Lon" => -68.516667),
+"YDA" => array("City" => "Dawson", "Lat" => 64.043056, "Lon" => -139.127778),
+"YDB" => array("City" => "Burwash", "Lat" => 61.371111, "Lon" => -139.040556),
+"YDC" => array("City" => "Princeton", "Lat" => 49.468056, "Lon" => -120.511389),
+"YDF" => array("City" => "Deer Lake", "Lat" => 49.210833, "Lon" => -57.391388),
+"YDL" => array("City" => "Dease Lake", "Lat" => 58.422222, "Lon" => -130.032222),
+"YDN" => array("City" => "Dauphin", "Lat" => 51.100834, "Lon" => -100.0525),
+"YDP" => array("City" => "Nain", "Lat" => 56.5492, "Lon" => -61.6803),
+"YDQ" => array("City" => "Dawson Creek", "Lat" => 55.742333, "Lon" => -120.183),
+"YDT" => array("City" => "Boundary Bay", "Lat" => 49.073889, "Lon" => -123.0075),
+"YEC" => array("City" => "Yechon", "Lat" => 36.631933, "Lon" => 128.35485),
+"YEG" => array("City" => "Edmonton", "Lat" => 53.309723, "Lon" => -113.579722),
+"YEI" => array("City" => "Yenisehir", "Lat" => 40.255208, "Lon" => 29.562569),
+"YEK" => array("City" => "Eskimo Point", "Lat" => 61.094166, "Lon" => -94.070833),
+"YEN" => array("City" => "Estevan", "Lat" => 49.210278, "Lon" => -102.965833),
+"YEO" => array("City" => "Yeovilton", "Lat" => 51.009358, "Lon" => -2.638819),
+"YER" => array("City" => "Fort Severn", "Lat" => 56.0189, "Lon" => -87.6761),
+"YES" => array("City" => "Yasuj", "Lat" => 30.700556, "Lon" => 51.545),
+"YET" => array("City" => "Edson", "Lat" => 53.578888, "Lon" => -116.465),
+"YEU" => array("City" => "Eureka", "Lat" => 79.994722, "Lon" => -85.814167),
+"YEV" => array("City" => "Inuvik", "Lat" => 68.304167, "Lon" => -133.482778),
+"YFA" => array("City" => "Fort Albany", "Lat" => 52.2014, "Lon" => -81.6969),
+"YFB" => array("City" => "Iqaluit", "Lat" => 63.75639, "Lon" => -68.555832),
+"YFC" => array("City" => "Fredericton", "Lat" => 45.868889, "Lon" => -66.537222),
+"YFH" => array("City" => "Fort Hope", "Lat" => 51.5619, "Lon" => -87.9078),
+"YFO" => array("City" => "Flin Flon", "Lat" => 54.678055, "Lon" => -101.681667),
+"YFR" => array("City" => "Fort Resolution", "Lat" => 61.180832, "Lon" => -113.689722),
+"YFS" => array("City" => "Fort Simpson", "Lat" => 61.760153, "Lon" => -121.236525),
+"YFX" => array("City" => "St. Lewis", "Lat" => 52.3728, "Lon" => -55.6739),
+"YGB" => array("City" => "Texada", "Lat" => 49.6942, "Lon" => -124.518),
+"YGE" => array("City" => "Golden", "Lat" => 51.2992, "Lon" => -116.982),
+"YGH" => array("City" => "Fort Good Hope", "Lat" => 66.26666667, "Lon" => -128.65),
+"YGJ" => array("City" => "Miho", "Lat" => 35.492222, "Lon" => 133.236389),
+"YGK" => array("City" => "Kingston", "Lat" => 44.225277, "Lon" => -76.596944),
+"YGL" => array("City" => "La Grande Riviere", "Lat" => 53.625278, "Lon" => -77.704167),
+"YGO" => array("City" => "Gods Lake Narrows", "Lat" => 54.5589, "Lon" => -94.4914),
+"YGP" => array("City" => "Gaspe", "Lat" => 48.775278, "Lon" => -64.478611),
+"YGQ" => array("City" => "Geraldton", "Lat" => 49.778332, "Lon" => -86.939445),
+"YGR" => array("City" => "Iles De La Madeleine", "Lat" => 47.424721, "Lon" => -61.778056),
+"YGT" => array("City" => "Igloolik", "Lat" => 69.3647, "Lon" => -81.8161),
+"YGV" => array("City" => "Havre-Saint-Pierre", "Lat" => 50.281944, "Lon" => -63.611389),
+"YGW" => array("City" => "Kuujjuarapik", "Lat" => 55.2819, "Lon" => -77.7653),
+"YGX" => array("City" => "Gillam", "Lat" => 56.3575, "Lon" => -94.7106),
+"YGZ" => array("City" => "Grise Fiord", "Lat" => 76.4261, "Lon" => -82.9092),
+"YHA" => array("City" => "Port Hope Simpson", "Lat" => 52.5281, "Lon" => -56.2861),
+"YHB" => array("City" => "Hudson Bay", "Lat" => 52.816666, "Lon" => -102.31139),
+"YHD" => array("City" => "Dryden", "Lat" => 49.831667, "Lon" => -92.744167),
+"YHI" => array("City" => "Holman Island", "Lat" => 70.762778, "Lon" => -117.806111),
+"YHK" => array("City" => "Gjoa Haven", "Lat" => 68.635556, "Lon" => -95.849722),
+"YHM" => array("City" => "Hamilton", "Lat" => 43.173611, "Lon" => -79.935),
+"YHO" => array("City" => "Hopedale", "Lat" => 55.4483, "Lon" => -60.2286),
+"YHP" => array("City" => "Poplar Hill", "Lat" => 52.1133, "Lon" => -94.2556),
+"YHR" => array("City" => "Chevery", "Lat" => 50.4689, "Lon" => -59.6367),
+"YHS" => array("City" => "Sechelt-Gibsons", "Lat" => 49.460556, "Lon" => -123.718611),
+"YHU" => array("City" => "Montreal", "Lat" => 45.5175, "Lon" => -73.416944),
+"YHY" => array("City" => "Hay River", "Lat" => 60.839722, "Lon" => -115.782778),
+"YHZ" => array("City" => "Halifax", "Lat" => 44.880833, "Lon" => -63.50861),
+"YIB" => array("City" => "Atikokan", "Lat" => 48.773888, "Lon" => -91.638611),
+"YIF" => array("City" => "St-Augustin", "Lat" => 51.2117, "Lon" => -58.6583),
+"YIH" => array("City" => "Yichang", "Lat" => 30.671, "Lon" => 111.441),
+"YIK" => array("City" => "Ivujivik", "Lat" => 62.4173, "Lon" => -77.9253),
+"YIN" => array("City" => "Yining", "Lat" => 43.9558, "Lon" => 81.3303),
+"YIO" => array("City" => "Pond Inlet", "Lat" => 72.683334, "Lon" => -77.966667),
+"YIP" => array("City" => "Detroit", "Lat" => 42.237928, "Lon" => -83.530408),
+"YIV" => array("City" => "Island Lake", "Lat" => 53.8572, "Lon" => -94.6536),
+"YIW" => array("City" => "Yiwu", "Lat" => 29.3447, "Lon" => 120.032),
+"YJM" => array("City" => "Fort St. James", "Lat" => 54.397222, "Lon" => -124.262778),
+"YJN" => array("City" => "St. Jean", "Lat" => 45.294445, "Lon" => -73.281111),
+"YJT" => array("City" => "Stephenville", "Lat" => 48.544167, "Lon" => -58.549999),
+"YKA" => array("City" => "Kamloops", "Lat" => 50.702222, "Lon" => -120.444444),
+"YKF" => array("City" => "Waterloo", "Lat" => 43.460833, "Lon" => -80.378611),
+"YKG" => array("City" => "Kangirsuk", "Lat" => 60.0272, "Lon" => -69.9992),
+"YKL" => array("City" => "Schefferville", "Lat" => 54.805278, "Lon" => -66.805278),
+"YKM" => array("City" => "Yakima", "Lat" => 46.5682, "Lon" => -120.544),
+"YKQ" => array("City" => "Waskaganish", "Lat" => 51.4733, "Lon" => -78.7583),
+"YKS" => array("City" => "Yakutsk", "Lat" => 62.09325, "Lon" => 129.770672),
+"YKU" => array("City" => "Chisasibi", "Lat" => 53.8056, "Lon" => -78.9169),
+"YKY" => array("City" => "Kindersley", "Lat" => 51.5175, "Lon" => -109.180833),
+"YKZ" => array("City" => "Toronto", "Lat" => 43.862221, "Lon" => -79.37),
+"YLC" => array("City" => "Kimmirut", "Lat" => 62.85, "Lon" => -69.8833),
+"YLD" => array("City" => "Chapleau", "Lat" => 47.82, "Lon" => -83.346667),
+"YLE" => array("City" => "Whatì", "Lat" => 63.1317, "Lon" => -117.246),
+"YLH" => array("City" => "Lansdowne House", "Lat" => 52.1956, "Lon" => -87.9342),
+"YLJ" => array("City" => "Meadow Lake", "Lat" => 54.125278, "Lon" => -108.522778),
+"YLL" => array("City" => "Lloydminster", "Lat" => 53.309166, "Lon" => -110.0725),
+"YLT" => array("City" => "Alert", "Lat" => 82.517778, "Lon" => -62.280556),
+"YLW" => array("City" => "Kelowna", "Lat" => 49.956112, "Lon" => -119.377778),
+"YMA" => array("City" => "Mayo", "Lat" => 63.616389, "Lon" => -135.868333),
+"YMH" => array("City" => "Mary's Harbour", "Lat" => 52.3028, "Lon" => -55.8472),
+"YMJ" => array("City" => "Moose Jaw", "Lat" => 50.330278, "Lon" => -105.559167),
+"YMM" => array("City" => "Fort Mcmurray", "Lat" => 56.653333, "Lon" => -111.221944),
+"YMN" => array("City" => "Makkovik", "Lat" => 55.0769, "Lon" => -59.1864),
+"YMO" => array("City" => "Moosonee", "Lat" => 51.291111, "Lon" => -80.607778),
+"YMS" => array("City" => "Yurimaguas", "Lat" => -5.893772, "Lon" => -76.118211),
+"YMT" => array("City" => "Chibougamau", "Lat" => 49.7719, "Lon" => -74.5281),
+"YMW" => array("City" => "Maniwaki", "Lat" => 46.272778, "Lon" => -75.990556),
+"YMX" => array("City" => "Montreal", "Lat" => 45.681944, "Lon" => -74.005278),
+"YMY" => array("City" => "Montreal", "Lat" => 45.499722, "Lon" => -73.566111),
+"YNA" => array("City" => "Natashquan", "Lat" => 50.19, "Lon" => -61.789167),
+"YNB" => array("City" => "Yenbo", "Lat" => 24.144244, "Lon" => 38.06335),
+"YNC" => array("City" => "Wemindji", "Lat" => 53.0106, "Lon" => -78.8311),
+"YND" => array("City" => "Gatineau", "Lat" => 45.521694, "Lon" => -75.563589),
+"YNE" => array("City" => "Norway House", "Lat" => 53.9583, "Lon" => -97.8442),
+"YNG" => array("City" => "Youngstown", "Lat" => 41.260736, "Lon" => -80.679097),
+"YNJ" => array("City" => "Yanji", "Lat" => 42.8828, "Lon" => 129.451258),
+"YNL" => array("City" => "Points North Landing", "Lat" => 58.2767, "Lon" => -104.082),
+"YNM" => array("City" => "Matagami", "Lat" => 49.761667, "Lon" => -77.802778),
+"YNO" => array("City" => "North Spirit Lake", "Lat" => 52.49, "Lon" => -92.9711),
+"YNS" => array("City" => "Nemiscau", "Lat" => 51.6911, "Lon" => -76.1356),
+"YNT" => array("City" => "Yantai", "Lat" => 37.401667, "Lon" => 121.371667),
+"YNY" => array("City" => "Sokcho / Gangneung", "Lat" => 38.061311, "Lon" => 128.669164),
+"YNZ" => array("City" => "Yancheng", "Lat" => 33.3856, "Lon" => 120.125),
+"YOA" => array("City" => "Ekati", "Lat" => 64.698889, "Lon" => -110.614722),
+"YOC" => array("City" => "Old Crow", "Lat" => 67.570556, "Lon" => -139.839167),
+"YOD" => array("City" => "Cold Lake", "Lat" => 54.404999, "Lon" => -110.279444),
+"YOG" => array("City" => "Ogoki Post", "Lat" => 51.6586, "Lon" => -85.9017),
+"YOH" => array("City" => "Oxford House", "Lat" => 54.9333, "Lon" => -95.2789),
+"YOJ" => array("City" => "High Level", "Lat" => 58.621389, "Lon" => -117.164722),
+"YOL" => array("City" => "Yola", "Lat" => 9.257553, "Lon" => 12.430422),
+"YOO" => array("City" => "Oshawa", "Lat" => 43.9228, "Lon" => -78.895),
+"YOP" => array("City" => "Rainbow Lake", "Lat" => 58.491389, "Lon" => -119.407778),
+"YOW" => array("City" => "Ottawa", "Lat" => 45.3225, "Lon" => -75.669167),
+"YPA" => array("City" => "Prince Albert", "Lat" => 53.214167, "Lon" => -105.672778),
+"YPC" => array("City" => "Paulatuk", "Lat" => 62.35, "Lon" => -124.3333),
+"YPE" => array("City" => "Peace River", "Lat" => 56.226944, "Lon" => -117.447222),
+"YPG" => array("City" => "Portage-la-prairie", "Lat" => 49.903056, "Lon" => -98.273889),
+"YPH" => array("City" => "Inukjuak", "Lat" => 58.4719, "Lon" => -78.0769),
+"YPI" => array("City" => "Port Simpson", "Lat" => 54.566667, "Lon" => -130.433333),
+"YPJ" => array("City" => "Aupaluk", "Lat" => 59.2967, "Lon" => -69.5997),
+"YPL" => array("City" => "Pickle Lake", "Lat" => 51.446388, "Lon" => -90.214167),
+"YPM" => array("City" => "Pikangikum", "Lat" => 51.8197, "Lon" => -93.9733),
+"YPN" => array("City" => "Port Menier", "Lat" => 49.836389, "Lon" => -64.288611),
+"YPO" => array("City" => "Peawanuck", "Lat" => 54.9881, "Lon" => -85.4433),
+"YPQ" => array("City" => "Peterborough", "Lat" => 44.23, "Lon" => -78.363333),
+"YPR" => array("City" => "Prince Pupert", "Lat" => 54.28611, "Lon" => -130.444722),
+"YPW" => array("City" => "Powell River", "Lat" => 49.8342, "Lon" => -124.5),
+"YPX" => array("City" => "Puvirnituq", "Lat" => 60.0506, "Lon" => -77.2869),
+"YPY" => array("City" => "Fort Chipewyan", "Lat" => 58.767223, "Lon" => -111.117222),
+"YQA" => array("City" => "Muskoka", "Lat" => 44.974722, "Lon" => -79.303333),
+"YQB" => array("City" => "Quebec", "Lat" => 46.791111, "Lon" => -71.393333),
+"YQC" => array("City" => "Quaqtaq", "Lat" => 61.0464, "Lon" => -69.6178),
+"YQD" => array("City" => "The Pas", "Lat" => 53.9714, "Lon" => -101.091),
+"YQF" => array("City" => "Red Deer Industrial", "Lat" => 52.182222, "Lon" => -113.894444),
+"YQG" => array("City" => "Windsor", "Lat" => 42.275556, "Lon" => -82.955556),
+"YQH" => array("City" => "Watson Lake", "Lat" => 60.116389, "Lon" => -128.8225),
+"YQI" => array("City" => "Yarmouth", "Lat" => 43.8269, "Lon" => -66.0881),
+"YQK" => array("City" => "Kenora", "Lat" => 49.788334, "Lon" => -94.363056),
+"YQL" => array("City" => "Lethbridge", "Lat" => 49.630278, "Lon" => -112.799722),
+"YQM" => array("City" => "Moncton", "Lat" => 46.112221, "Lon" => -64.678611),
+"YQN" => array("City" => "Nakina", "Lat" => 50.182777, "Lon" => -86.696388),
+"YQQ" => array("City" => "Comox", "Lat" => 49.710833, "Lon" => -124.886667),
+"YQR" => array("City" => "Regina", "Lat" => 50.431944, "Lon" => -104.665833),
+"YQT" => array("City" => "Thunder Bay", "Lat" => 48.371944, "Lon" => -89.323889),
+"YQU" => array("City" => "Grande Prairie", "Lat" => 55.179722, "Lon" => -118.885),
+"YQV" => array("City" => "Yorkton", "Lat" => 51.264721, "Lon" => -102.461667),
+"YQW" => array("City" => "North Battleford", "Lat" => 52.769167, "Lon" => -108.24361),
+"YQX" => array("City" => "Gander", "Lat" => 48.936944, "Lon" => -54.568056),
+"YQY" => array("City" => "Sydney", "Lat" => 46.161388, "Lon" => -60.047779),
+"YQZ" => array("City" => "Quesnel", "Lat" => 53.026112, "Lon" => -122.510278),
+"YRA" => array("City" => "Gamètì", "Lat" => 64.1161, "Lon" => -117.31),
+"YRB" => array("City" => "Resolute", "Lat" => 74.716944, "Lon" => -94.969444),
+"YRF" => array("City" => "Cartwright", "Lat" => 53.6828, "Lon" => -57.0419),
+"YRG" => array("City" => "Rigolet", "Lat" => 54.1797, "Lon" => -58.4575),
+"YRI" => array("City" => "Riviere Du Loup", "Lat" => 47.764444, "Lon" => -69.584722),
+"YRJ" => array("City" => "Roberval", "Lat" => 48.52, "Lon" => -72.265556),
+"YRL" => array("City" => "Red Lake", "Lat" => 51.0669, "Lon" => -93.7931),
+"YRM" => array("City" => "Rocky Mountain House", "Lat" => 52.429722, "Lon" => -114.904167),
+"YRS" => array("City" => "Red Sucker Lake", "Lat" => 54.167222, "Lon" => -93.557222),
+"YRT" => array("City" => "Rankin Inlet", "Lat" => 62.81139, "Lon" => -92.115833),
+"YRV" => array("City" => "Revelstoke", "Lat" => 50.9667, "Lon" => -118.183),
+"YSB" => array("City" => "Sudbury", "Lat" => 46.625, "Lon" => -80.798889),
+"YSC" => array("City" => "Sherbrooke", "Lat" => 45.438611, "Lon" => -71.691389),
+"YSF" => array("City" => "Stony Rapids", "Lat" => 59.2503, "Lon" => -105.841),
+"YSG" => array("City" => "Lutselk'e", "Lat" => 62.4183, "Lon" => -110.682),
+"YSJ" => array("City" => "St. John", "Lat" => 45.316111, "Lon" => -65.890278),
+"YSK" => array("City" => "Sanikiluaq", "Lat" => 56.5378, "Lon" => -79.2467),
+"YSM" => array("City" => "Fort Smith", "Lat" => 60.020278, "Lon" => -111.961944),
+"YSO" => array("City" => "Postville", "Lat" => 54.910278, "Lon" => -59.785278),
+"YSR" => array("City" => "Nanisivik", "Lat" => 72.982222, "Lon" => -84.613611),
+"YST" => array("City" => "St. Theresa Point", "Lat" => 53.8456, "Lon" => -94.8519),
+"YSU" => array("City" => "Summerside", "Lat" => 46.440556, "Lon" => -63.833611),
+"YSY" => array("City" => "Sachs Harbour", "Lat" => 71.993889, "Lon" => -125.2425),
+"YTE" => array("City" => "Cape Dorset", "Lat" => 64.23, "Lon" => -76.526667),
+"YTF" => array("City" => "Alma", "Lat" => 48.508611, "Lon" => -71.641389),
+"YTH" => array("City" => "Thompson", "Lat" => 55.801111, "Lon" => -97.864166),
+"YTL" => array("City" => "Big Trout Lake", "Lat" => 53.8178, "Lon" => -89.8969),
+"YTM" => array("City" => "Mont-Tremblant", "Lat" => 46.409444, "Lon" => -74.78),
+"YTQ" => array("City" => "Tasiujaq", "Lat" => 58.6678, "Lon" => -69.9558),
+"YTR" => array("City" => "Trenton", "Lat" => 44.118889, "Lon" => -77.528056),
+"YTS" => array("City" => "Timmins", "Lat" => 48.569721, "Lon" => -81.376667),
+"YTZ" => array("City" => "Toronto", "Lat" => 43.627499, "Lon" => -79.396167),
+"YUB" => array("City" => "Tuktoyaktuk", "Lat" => 69.433334, "Lon" => -133.026389),
+"YUD" => array("City" => "Umiujaq", "Lat" => 56.5361, "Lon" => -76.5183),
+"YUL" => array("City" => "Montreal", "Lat" => 45.470556, "Lon" => -73.740833),
+"YUM" => array("City" => "Yuma", "Lat" => 32.656578, "Lon" => -114.60598),
+"YUS" => array("City" => "Yushu", "Lat" => 32.825, "Lon" => 97.125),
+"YUT" => array("City" => "Repulse Bay", "Lat" => 66.521389, "Lon" => -86.224722),
+"YUX" => array("City" => "Hall Beach", "Lat" => 68.776111, "Lon" => -81.243611),
+"YUY" => array("City" => "Rouyn", "Lat" => 48.206111, "Lon" => -78.835556),
+"YVA" => array("City" => "Moroni", "Lat" => -11.7108, "Lon" => 43.2439),
+"YVB" => array("City" => "Bonaventure", "Lat" => 48.0711, "Lon" => -65.4603),
+"YVC" => array("City" => "La Ronge", "Lat" => 55.15139, "Lon" => -105.261944),
+"YVG" => array("City" => "Vermillion", "Lat" => 53.355833, "Lon" => -110.82389),
+"YVM" => array("City" => "Broughton Island", "Lat" => 67.545833, "Lon" => -64.031389),
+"YVO" => array("City" => "Val D'or", "Lat" => 48.053333, "Lon" => -77.782778),
+"YVP" => array("City" => "Quujjuaq", "Lat" => 58.096111, "Lon" => -68.426944),
+"YVQ" => array("City" => "Norman Wells", "Lat" => 65.281617, "Lon" => -126.798219),
+"YVR" => array("City" => "Vancouver", "Lat" => 49.193889, "Lon" => -123.184444),
+"YVT" => array("City" => "Buffalo Narrows", "Lat" => 55.841944, "Lon" => -108.4175),
+"YVV" => array("City" => "Wiarton", "Lat" => 44.745834, "Lon" => -81.107222),
+"YVZ" => array("City" => "Deer Lake", "Lat" => 52.6558, "Lon" => -94.0614),
+"YWA" => array("City" => "Petawawa", "Lat" => 45.952221, "Lon" => -77.319168),
+"YWB" => array("City" => "Kangiqsujuaq", "Lat" => 61.588611, "Lon" => -71.929444),
+"YWG" => array("City" => "Winnipeg", "Lat" => 49.910036, "Lon" => -97.239886),
+"YWH" => array("City" => "Victoria", "Lat" => 48.422778, "Lon" => -123.3875),
+"YWJ" => array("City" => "Deline", "Lat" => 65.1833333, "Lon" => -125.41666667),
+"YWK" => array("City" => "Wabush", "Lat" => 52.921944, "Lon" => -66.864444),
+"YWL" => array("City" => "Williams Lake", "Lat" => 52.183056, "Lon" => -122.054167),
+"YWM" => array("City" => "Williams Harbour", "Lat" => 52.5669, "Lon" => -55.7847),
+"YWP" => array("City" => "Webequie", "Lat" => 52.9597, "Lon" => -87.3689),
+"YWS" => array("City" => "Whistler", "Lat" => 50.1436, "Lon" => -122.949),
+"YWY" => array("City" => "Wrigley", "Lat" => 63.209444, "Lon" => -123.436667),
+"YXC" => array("City" => "Cranbrook", "Lat" => 49.612222, "Lon" => -115.781944),
+"YXD" => array("City" => "Edmonton", "Lat" => 53.5725, "Lon" => -113.520556),
+"YXE" => array("City" => "Saskatoon", "Lat" => 52.170834, "Lon" => -106.699722),
+"YXH" => array("City" => "Medicine Hat", "Lat" => 50.01889, "Lon" => -110.720833),
+"YXJ" => array("City" => "Fort Saint John", "Lat" => 56.238056, "Lon" => -120.740278),
+"YXK" => array("City" => "Rimouski", "Lat" => 48.478056, "Lon" => -68.496944),
+"YXL" => array("City" => "Sioux Lookout", "Lat" => 50.113889, "Lon" => -91.905278),
+"YXN" => array("City" => "Whale Cove", "Lat" => 62.24, "Lon" => -92.5981),
+"YXP" => array("City" => "Pangnirtung", "Lat" => 66.145, "Lon" => -65.713611),
+"YXR" => array("City" => "Earlton", "Lat" => 47.695, "Lon" => -79.848889),
+"YXS" => array("City" => "Prince George", "Lat" => 53.889444, "Lon" => -122.678889),
+"YXT" => array("City" => "Terrace", "Lat" => 54.468508, "Lon" => -128.576219),
+"YXU" => array("City" => "London", "Lat" => 43.033056, "Lon" => -81.151111),
+"YXX" => array("City" => "Abbotsford", "Lat" => 49.025278, "Lon" => -122.360556),
+"YXY" => array("City" => "Whitehorse", "Lat" => 60.709553, "Lon" => -135.067269),
+"YYB" => array("City" => "North Bay", "Lat" => 46.363611, "Lon" => -79.422778),
+"YYC" => array("City" => "Calgary", "Lat" => 51.113888, "Lon" => -114.020278),
+"YYD" => array("City" => "Smithers", "Lat" => 54.824722, "Lon" => -127.182778),
+"YYE" => array("City" => "Fort Nelson", "Lat" => 58.836389, "Lon" => -122.596944),
+"YYF" => array("City" => "Penticton", "Lat" => 49.463056, "Lon" => -119.602222),
+"YYG" => array("City" => "Charlottetown", "Lat" => 46.290001, "Lon" => -63.121111),
+"YYH" => array("City" => "Spence Bay", "Lat" => 69.546667, "Lon" => -93.576667),
+"YYJ" => array("City" => "Victoria", "Lat" => 48.646944, "Lon" => -123.425833),
+"YYL" => array("City" => "Lynn Lake", "Lat" => 56.863888, "Lon" => -101.07611),
+"YYN" => array("City" => "Swift Current", "Lat" => 50.291944, "Lon" => -107.690556),
+"YYQ" => array("City" => "Churchill", "Lat" => 58.739167, "Lon" => -94.065),
+"YYR" => array("City" => "Goose Bay", "Lat" => 53.319168, "Lon" => -60.425833),
+"YYT" => array("City" => "St. John's", "Lat" => 47.61861, "Lon" => -52.751945),
+"YYU" => array("City" => "Kapuskasing", "Lat" => 49.413889, "Lon" => -82.4675),
+"YYW" => array("City" => "Armstrong", "Lat" => 50.290279, "Lon" => -88.909721),
+"YYY" => array("City" => "Mont Joli", "Lat" => 48.608612, "Lon" => -68.208056),
+"YYZ" => array("City" => "Toronto", "Lat" => 43.677223, "Lon" => -79.630556),
+"YZD" => array("City" => "Toronto", "Lat" => 43.7425, "Lon" => -79.465556),
+"YZE" => array("City" => "Gore Bay", "Lat" => 45.885277, "Lon" => -82.567778),
+"YZF" => array("City" => "Yellowknife", "Lat" => 62.462778, "Lon" => -114.440278),
+"YZG" => array("City" => "Salluit", "Lat" => 62.1794, "Lon" => -75.6672),
+"YZH" => array("City" => "Slave Lake", "Lat" => 55.293056, "Lon" => -114.777222),
+"YZP" => array("City" => "Sandspit", "Lat" => 53.254333, "Lon" => -131.813833),
+"YZR" => array("City" => "Sarnia", "Lat" => 42.999444, "Lon" => -82.308889),
+"YZS" => array("City" => "Coral Harbour", "Lat" => 50.330278, "Lon" => -115.873333),
+"YZT" => array("City" => "Port Hardy", "Lat" => 50.680556, "Lon" => -127.366667),
+"YZU" => array("City" => "Whitecourt", "Lat" => 54.14389, "Lon" => -115.786667),
+"YZV" => array("City" => "Sept-iles", "Lat" => 50.223333, "Lon" => -66.265556),
+"YZW" => array("City" => "Teslin", "Lat" => 60.172779, "Lon" => -132.742778),
+"YZX" => array("City" => "Greenwood", "Lat" => 44.984444, "Lon" => -64.916944),
+"YZY" => array("City" => "Mackenzie British Columbia", "Lat" => 55.29944, "Lon" => -123.08333),
+"Z84" => array("City" => "Clear Mews", "Lat" => 64.301203, "Lon" => -149.120144),
+"ZAC" => array("City" => "York Landing", "Lat" => 56.0894, "Lon" => -96.0892),
+"ZAD" => array("City" => "Zadar", "Lat" => 44.108269, "Lon" => 15.346697),
+"ZAG" => array("City" => "Zagreb", "Lat" => 45.742931, "Lon" => 16.068778),
+"ZAH" => array("City" => "Zahedan", "Lat" => 29.475686, "Lon" => 60.906189),
+"ZAJ" => array("City" => "Zaranj", "Lat" => 30.969167, "Lon" => 61.866944),
+"ZAL" => array("City" => "Valdivia", "Lat" => -39.649956, "Lon" => -73.086111),
+"ZAM" => array("City" => "Zamboanga", "Lat" => 6.922419, "Lon" => 122.059633),
+"ZAQ" => array("City" => "Nuernberg", "Lat" => 49.446389, "Lon" => 11.081944),
+"ZAR" => array("City" => "Zaria", "Lat" => 11.130192, "Lon" => 7.685806),
+"ZAT" => array("City" => "Zhaotong", "Lat" => 27.3256, "Lon" => 103.755),
+"ZAU" => array("City" => "Augsburg", "Lat" => 48.3655, "Lon" => 10.8863),
+"ZAZ" => array("City" => "Zaragoza", "Lat" => 41.666242, "Lon" => -1.041553),
+"ZBF" => array("City" => "Bathurst", "Lat" => 47.6297, "Lon" => -65.7389),
+"ZBP" => array("City" => "Baltimore", "Lat" => 39.307222, "Lon" => -76.615556),
+"ZBR" => array("City" => "Chah Bahar", "Lat" => 25.44335, "Lon" => 60.382114),
+"ZCA" => array("City" => "Arnsberg", "Lat" => 51.483333, "Lon" => 7.899333),
+"ZCL" => array("City" => "Zacatecas", "Lat" => 22.897112, "Lon" => -102.68689),
+"ZCN" => array("City" => "Celle", "Lat" => 52.5912, "Lon" => 10.022133),
+"ZCO" => array("City" => "Temuco", "Lat" => -38.766819, "Lon" => -72.637097),
+"ZEL" => array("City" => "Bella Bella", "Lat" => 52.139722, "Lon" => -128.063611),
+"ZEM" => array("City" => "Eastmain River", "Lat" => 52.2264, "Lon" => -78.5225),
+"ZES" => array("City" => "Essen", "Lat" => 51.451389, "Lon" => 7.013889),
+"ZFA" => array("City" => "Faro", "Lat" => 62.2075, "Lon" => -133.375833),
+"ZFD" => array("City" => "Fond-Du-Lac", "Lat" => 59.3344, "Lon" => -107.182),
+"ZFM" => array("City" => "Fort Mcpherson", "Lat" => 67.4075, "Lon" => -134.860556),
+"ZFN" => array("City" => "Tulita", "Lat" => 64.0833333, "Lon" => -125.5833333),
+"ZFV" => array("City" => "Philadelphia", "Lat" => 39.9557, "Lon" => -75.182),
+"ZGC" => array("City" => "Lanzhou", "Lat" => 36.515242, "Lon" => 103.620775),
+"ZGI" => array("City" => "Gods River", "Lat" => 54.8397, "Lon" => -94.0786),
+"ZGR" => array("City" => "Little Grand Rapids", "Lat" => 52.045, "Lon" => -95.466111),
+"ZGU" => array("City" => "Gaua Island", "Lat" => -14.2181, "Lon" => 167.587),
+"ZHA" => array("City" => "Zhanjiang", "Lat" => 21.2144, "Lon" => 110.358),
+"ZHY" => array("City" => "Zhongwei", "Lat" => 37.5728, "Lon" => 105.1544),
+"ZIG" => array("City" => "Ziguinchor", "Lat" => 12.555617, "Lon" => -16.281783),
+"ZIH" => array("City" => "Zihuatanejo", "Lat" => 17.601569, "Lon" => -101.460536),
+"ZIN" => array("City" => "Interlaken", "Lat" => 46.6766, "Lon" => 7.87908),
+"ZJI" => array("City" => "Locarno", "Lat" => 46.1608, "Lon" => 8.87861),
+"ZJN" => array("City" => "Swan River", "Lat" => 52.1206, "Lon" => -101.236),
+"ZKB" => array("City" => "Kasaba Bay", "Lat" => -8.525, "Lon" => 30.663),
+"ZKE" => array("City" => "Kashechewan", "Lat" => 52.2825, "Lon" => -81.6778),
+"ZLO" => array("City" => "Manzanillo", "Lat" => 19.144778, "Lon" => -104.558631),
+"ZLT" => array("City" => "La Tabatière", "Lat" => 50.8308, "Lon" => -58.9756),
+"ZMA" => array("City" => "Mannheim", "Lat" => 49.479633, "Lon" => 8.469858),
+"ZMM" => array("City" => "Zamora", "Lat" => 20.045036, "Lon" => -102.275955),
+"ZMT" => array("City" => "Masset", "Lat" => 54.0275, "Lon" => -132.125),
+"ZMU" => array("City" => "Munich", "Lat" => 48.1408, "Lon" => 11.555),
+"ZNA" => array("City" => "Nanaimo", "Lat" => 49.183333, "Lon" => -123.95),
+"ZND" => array("City" => "Zinder", "Lat" => 13.778997, "Lon" => 8.983761),
+"ZNE" => array("City" => "Newman", "Lat" => -23.4178, "Lon" => 119.803),
+"ZNF" => array("City" => "Hanau", "Lat" => 50.169189, "Lon" => 8.961586),
+"ZNV" => array("City" => "Koblenz", "Lat" => 50.3255, "Lon" => 7.528667),
+"ZNZ" => array("City" => "Zanzibar", "Lat" => -6.222025, "Lon" => 39.224886),
+"ZOS" => array("City" => "Osorno", "Lat" => -40.611208, "Lon" => -73.061042),
+"ZPB" => array("City" => "Sachigo Lake", "Lat" => 53.8911, "Lon" => -92.1964),
+"ZPC" => array("City" => "Pucon", "Lat" => -39.2928, "Lon" => -71.9159),
+"ZPQ" => array("City" => "Rheine", "Lat" => 52.27656, "Lon" => 7.43843),
+"ZQC" => array("City" => "Speyer", "Lat" => 49.302776, "Lon" => 8.451195),
+"ZQF" => array("City" => "Trier", "Lat" => 49.8635, "Lon" => 6.788167),
+"ZQL" => array("City" => "Donaueschingen", "Lat" => 47.973331, "Lon" => 8.522223),
+"ZQN" => array("City" => "Queenstown International", "Lat" => -45.021111, "Lon" => 168.739167),
+"ZQW" => array("City" => "Zweibruecken", "Lat" => 49.209445, "Lon" => 7.401323),
+"ZRB" => array("City" => "Frankfurt", "Lat" => 50.1070257990375, "Lon" => 8.66276050515751),
+"ZRD" => array("City" => "Richmond", "Lat" => 37.5343, "Lon" => -77.42945),
+"ZRH" => array("City" => "Zurich", "Lat" => 47.464722, "Lon" => 8.549167),
+"ZRJ" => array("City" => "Round Lake", "Lat" => 52.9436, "Lon" => -91.3128),
+"ZRP" => array("City" => "Newark", "Lat" => 40.734722, "Lon" => -74.164167),
+"ZRT" => array("City" => "Hartford", "Lat" => 41.76888, "Lon" => -72.6815),
+"ZSA" => array("City" => "Cockburn Town", "Lat" => 24.063275, "Lon" => -74.523967),
+"ZSE" => array("City" => "St.-pierre", "Lat" => -21.320039, "Lon" => 55.423581),
+"ZSJ" => array("City" => "Sandy Lake", "Lat" => 53.0642, "Lon" => -93.3444),
+"ZSW" => array("City" => "Prince Rupert", "Lat" => 54.3333, "Lon" => -130.283),
+"ZSY" => array("City" => "Scottsdale", "Lat" => 33.6228889, "Lon" => -111.9105278),
+"ZTA" => array("City" => "Tureia", "Lat" => -20.7897, "Lon" => -138.57),
+"ZTB" => array("City" => "Tête-à-la-Baleine", "Lat" => 50.6744, "Lon" => -59.3836),
+"ZTF" => array("City" => "Stamford", "Lat" => 41.046937, "Lon" => -73.541493),
+"ZTH" => array("City" => "Zakynthos", "Lat" => 37.750853, "Lon" => 20.88425),
+"ZTM" => array("City" => "Shamattawa", "Lat" => 55.8656, "Lon" => -92.0814),
+"ZUH" => array("City" => "Zhuhai", "Lat" => 22.0064, "Lon" => 113.376),
+"ZUM" => array("City" => "Churchill Falls", "Lat" => 53.5619, "Lon" => -64.1064),
+"ZUN" => array("City" => "Zuni Pueblo", "Lat" => 35.083228, "Lon" => -108.791778),
+"ZVA" => array("City" => "Miandrivazo", "Lat" => -19.562778, "Lon" => 45.450832),
+"ZVE" => array("City" => "New Haven", "Lat" => 41.298669, "Lon" => -72.925992),
+"ZVK" => array("City" => "Savannakhet", "Lat" => 16.556594, "Lon" => 104.759531),
+"ZWA" => array("City" => "Andapa", "Lat" => -14.651667, "Lon" => 49.620556),
+"ZWL" => array("City" => "Wollaston Lake", "Lat" => 58.1069, "Lon" => -103.172),
+"ZWR" => array("City" => "Kota Kinabalu", "Lat" => 11.1111, "Lon" => 11.1111),
+"ZWS" => array("City" => "Stuttgart", "Lat" => 48.783611, "Lon" => 9.181667),
+"ZWU" => array("City" => "Washington", "Lat" => 38.89746, "Lon" => -77.00643),
+"ZXB" => array("City" => "Jan Mayen", "Lat" => 70.961111, "Lon" => -8.575833),
+"ZYA" => array("City" => "Amsterdam", "Lat" => 52.7873, "Lon" => 4.90074),
+"ZYL" => array("City" => "Sylhet Osmani", "Lat" => 24.963242, "Lon" => 91.866783),
+"ZYP" => array("City" => "New York", "Lat" => 40.7505, "Lon" => -73.9935),
+"ZYR" => array("City" => "Brussels", "Lat" => 50.8, "Lon" => 4.4),
+"ZZU" => array("City" => "Mzuzu", "Lat" => -11.44475, "Lon" => 34.011776)
 );
 
-?>
+//print_r($openflights_airports);
 
-1,"Goroka","Goroka","Papua New Guinea","GKA","AYGA",-6.081689,145.391881,5282,10,"U"
-2,"Madang","Madang","Papua New Guinea","MAG","AYMD",-5.207083,145.7887,20,10,"U"
-3,"Mount Hagen","Mount Hagen","Papua New Guinea","HGU","AYMH",-5.826789,144.295861,5388,10,"U"
-4,"Nadzab","Nadzab","Papua New Guinea","LAE","AYNZ",-6.569828,146.726242,239,10,"U"
-5,"Port Moresby Jacksons Intl","Port Moresby","Papua New Guinea","POM","AYPY",-9.443383,147.22005,146,10,"U"
-6,"Wewak Intl","Wewak","Papua New Guinea","WWK","AYWK",-3.583828,143.669186,19,10,"U"
-7,"Narsarsuaq","Narssarssuaq","Greenland","UAK","BGBW",61.160517,-45.425978,112,-3,"E"
-8,"Nuuk","Godthaab","Greenland","GOH","BGGH",64.190922,-51.678064,283,-3,"E"
-9,"Sondre Stromfjord","Sondrestrom","Greenland","SFJ","BGSF",67.016969,-50.689325,165,-3,"E"
-10,"Thule Air Base","Thule","Greenland","THU","BGTL",76.531203,-68.703161,251,-4,"E"
-11,"Akureyri","Akureyri","Iceland","AEY","BIAR",65.659994,-18.072703,6,0,"N"
-12,"Egilsstadir","Egilsstadir","Iceland","EGS","BIEG",65.283333,-14.401389,76,0,"N"
-13,"Hornafjordur","Hofn","Iceland","HFN","BIHN",64.295556,-15.227222,24,0,"N"
-14,"Husavik","Husavik","Iceland","HZK","BIHU",65.952328,-17.425978,48,0,"N"
-15,"Isafjordur","Isafjordur","Iceland","IFJ","BIIS",66.058056,-23.135278,8,0,"N"
-16,"Keflavik International Airport","Keflavik","Iceland","KEF","BIKF",63.985,-22.605556,171,0,"N"
-17,"Patreksfjordur","Patreksfjordur","Iceland","PFJ","BIPA",65.555833,-23.965,11,0,"N"
-18,"Reykjavik","Reykjavik","Iceland","RKV","BIRK",64.13,-21.940556,48,0,"N"
-19,"Siglufjordur","Siglufjordur","Iceland","SIJ","BISI",66.133333,-18.916667,10,0,"N"
-20,"Vestmannaeyjar","Vestmannaeyjar","Iceland","VEY","BIVM",63.424303,-20.278875,326,0,"N"
-21,"Sault Ste Marie","Sault Sainte Marie","Canada","YAM","CYAM",46.485001,-84.509445,630,-5,"A"
-22,"Winnipeg St Andrews","Winnipeg","Canada","YAV","CYAV",50.056389,-97.0325,760,-6,"A"
-23,"Shearwater","Halifax","Canada","YAW","CYAW",44.639721,-63.499444,167,-4,"A"
-24,"St Anthony","St. Anthony","Canada","YAY","CYAY",51.391944,-56.083056,108,-4,"A"
-25,"Tofino","Tofino","Canada","YAZ","CYAZ",49.082222,-125.7725,80,-8,"A"
-26,"Kugaaruk","Pelly Bay","Canada","YBB","CYBB",68.534444,-89.808056,56,-6,"A"
-27,"Baie Comeau","Baie Comeau","Canada","YBC","CYBC",49.1325,-68.204444,71,-5,"A"
-28,"Bagotville","Bagotville","Canada","YBG","CYBG",48.330555,-70.996391,522,-5,"A"
-29,"Baker Lake","Baker Lake","Canada","YBK","CYBK",64.298889,-96.077778,59,-6,"A"
-30,"Campbell River","Campbell River","Canada","YBL","CYBL",49.950832,-125.270833,346,-8,"A"
-31,"Brandon Muni","Brandon","Canada","YBR","CYBR",49.91,-99.951944,1343,-6,"A"
-32,"Cambridge Bay","Cambridge Bay","Canada","YCB","CYCB",69.108055,-105.138333,90,-7,"A"
-33,"Nanaimo","Nanaimo","Canada","YCD","CYCD",49.052333,-123.870167,93,-8,"A"
-34,"Castlegar","Castlegar","Canada","YCG","CYCG",49.296389,-117.6325,1624,-8,"A"
-35,"Miramichi","Chatham","Canada","YCH","CYCH",47.007778,-65.449167,108,-4,"A"
-36,"Charlo","Charlo","Canada","YCL","CYCL",47.990833,-66.330278,132,-4,"A"
-37,"Kugluktuk","Coppermine","Canada","YCO","CYCO",67.816667,-115.143889,74,-7,"A"
-38,"Coronation","Coronation","Canada","YCT","CYCT",52.075001,-111.445278,2595,-7,"A"
-39,"Chilliwack","Chilliwack","Canada","YCW","CYCW",49.152779,-121.93889,32,-8,"A"
-40,"Clyde River","Clyde River","Canada","YCY","CYCY",70.486111,-68.516667,87,-5,"A"
-41,"Fairmont Hot Springs","Coral Harbour","Canada","YZS","CYCZ",50.330278,-115.873333,2661,-7,"A"
-42,"Dawson City","Dawson","Canada","YDA","CYDA",64.043056,-139.127778,1215,-8,"A"
-43,"Burwash","Burwash","Canada","YDB","CYDB",61.371111,-139.040556,2647,-8,"A"
-44,"Princeton","Princeton","Canada","YDC","CYDC",49.468056,-120.511389,2298,-8,"A"
-45,"Deer Lake","Deer Lake","Canada","YDF","CYDF",49.210833,-57.391388,72,-4,"A"
-46,"Dease Lake","Dease Lake","Canada","YDL","CYDL",58.422222,-130.032222,2600,-8,"A"
-47,"Dauphin Barker","Dauphin","Canada","YDN","CYDN",51.100834,-100.0525,999,-6,"A"
-48,"Dawson Creek","Dawson Creek","Canada","YDQ","CYDQ",55.742333,-120.183,2148,-7,"A"
-49,"Edmonton Intl","Edmonton","Canada","YEG","CYEG",53.309723,-113.579722,2373,-7,"A"
-50,"Arviat","Eskimo Point","Canada","YEK","CYEK",61.094166,-94.070833,32,-6,"A"
-51,"Estevan","Estevan","Canada","YEN","CYEN",49.210278,-102.965833,1905,-6,"A"
-52,"Edson","Edson","Canada","YET","CYET",53.578888,-116.465,3041,-7,"A"
-53,"Eureka","Eureka","Canada","YEU","CYEU",79.994722,-85.814167,256,-6,"A"
-54,"Inuvik Mike Zubko","Inuvik","Canada","YEV","CYEV",68.304167,-133.482778,224,-7,"A"
-55,"Iqaluit","Iqaluit","Canada","YFB","CYFB",63.75639,-68.555832,110,-5,"A"
-56,"Fredericton","Fredericton","Canada","YFC","CYFC",45.868889,-66.537222,68,-4,"A"
-57,"Forestville","Forestville","Canada","","CYFE",48.746111,-69.097222,293,-5,"A"
-58,"Flin Flon","Flin Flon","Canada","YFO","CYFO",54.678055,-101.681667,997,-6,"A"
-59,"Fort Resolution","Fort Resolution","Canada","YFR","CYFR",61.180832,-113.689722,526,-7,"A"
-60,"Fort Simpson","Fort Simpson","Canada","YFS","CYFS",61.760153,-121.236525,555,-7,"A"
-61,"Kingston","Kingston","Canada","YGK","CYGK",44.225277,-76.596944,305,-5,"A"
-62,"La Grande Riviere","La Grande Riviere","Canada","YGL","CYGL",53.625278,-77.704167,639,-5,"A"
-63,"Gaspe","Gaspe","Canada","YGP","CYGP",48.775278,-64.478611,108,-5,"A"
-64,"Geraldton Greenstone Regional","Geraldton","Canada","YGQ","CYGQ",49.778332,-86.939445,1144,-5,"A"
-65,"Iles De La Madeleine","Iles De La Madeleine","Canada","YGR","CYGR",47.424721,-61.778056,35,-4,"A"
-66,"Hudson Bay","Hudson Bay","Canada","YHB","CYHB",52.816666,-102.31139,1175,-6,"A"
-67,"Dryden Rgnl","Dryden","Canada","YHD","CYHD",49.831667,-92.744167,1354,-6,"A"
-68,"Ulukhaktok Holman","Holman Island","Canada","YHI","CYHI",70.762778,-117.806111,117,-7,"A"
-69,"Gjoa Haven","Gjoa Haven","Canada","YHK","CYHK",68.635556,-95.849722,152,-6,"A"
-70,"Hamilton","Hamilton","Canada","YHM","CYHM",43.173611,-79.935,780,-5,"A"
-71,"St Hubert","Montreal","Canada","YHU","CYHU",45.5175,-73.416944,90,-5,"A"
-72,"Hay River","Hay River","Canada","YHY","CYHY",60.839722,-115.782778,543,-7,"A"
-73,"Halifax Intl","Halifax","Canada","YHZ","CYHZ",44.880833,-63.50861,477,-4,"A"
-74,"Atikokan Muni","Atikokan","Canada","YIB","CYIB",48.773888,-91.638611,1408,-6,"A"
-75,"Pond Inlet","Pond Inlet","Canada","YIO","CYIO",72.683334,-77.966667,181,-5,"A"
-76,"St Jean","St. Jean","Canada","YJN","CYJN",45.294445,-73.281111,136,-5,"A"
-77,"Stephenville","Stephenville","Canada","YJT","CYJT",48.544167,-58.549999,80,-4,"A"
-78,"Kamloops","Kamloops","Canada","YKA","CYKA",50.702222,-120.444444,1133,-8,"A"
-79,"Waterloo","Waterloo","Canada","YKF","CYKF",43.460833,-80.378611,1054,-5,"A"
-80,"Schefferville","Schefferville","Canada","YKL","CYKL",54.805278,-66.805278,1709,-4,"A"
-81,"Kindersley","Kindersley","Canada","YKY","CYKY",51.5175,-109.180833,2277,-6,"A"
-82,"Buttonville Muni","Toronto","Canada","YKZ","CYKZ",43.862221,-79.37,650,-5,"A"
-83,"Chapleau","Chapleau","Canada","YLD","CYLD",47.82,-83.346667,1470,-5,"A"
-84,"Meadow Lake","Meadow Lake","Canada","YLJ","CYLJ",54.125278,-108.522778,1576,-6,"A"
-85,"Lloydminster","Lloydminster","Canada","YLL","CYLL",53.309166,-110.0725,2193,-6,"A"
-86,"Alert","Alert","Canada","YLT","CYLT",82.517778,-62.280556,100,-5,"A"
-87,"Kelowna","Kelowna","Canada","YLW","CYLW",49.956112,-119.377778,1409,-8,"A"
-88,"Mayo","Mayo","Canada","YMA","CYMA",63.616389,-135.868333,1653,-8,"A"
-89,"Moose Jaw Air Vice Marshal C M Mcewen","Moose Jaw","Canada","YMJ","CYMJ",50.330278,-105.559167,1892,-6,"A"
-90,"Fort Mcmurray","Fort Mcmurray","Canada","YMM","CYMM",56.653333,-111.221944,1211,-7,"A"
-91,"Moosonee","Moosonee","Canada","YMO","CYMO",51.291111,-80.607778,30,-5,"A"
-92,"Maniwaki","Maniwaki","Canada","YMW","CYMW",46.272778,-75.990556,656,-5,"A"
-93,"Montreal Intl Mirabel","Montreal","Canada","YMX","CYMX",45.681944,-74.005278,270,-5,"A"
-94,"Natashquan","Natashquan","Canada","YNA","CYNA",50.19,-61.789167,39,-4,"A"
-95,"Gatineau","Gatineau","Canada","YND","CYND",45.521694,-75.563589,211,-5,"A"
-96,"Matagami","Matagami","Canada","YNM","CYNM",49.761667,-77.802778,918,-5,"A"
-97,"Old Crow","Old Crow","Canada","YOC","CYOC",67.570556,-139.839167,824,-8,"A"
-98,"Cold Lake","Cold Lake","Canada","YOD","CYOD",54.404999,-110.279444,1775,-7,"A"
-99,"High Level","High Level","Canada","YOJ","CYOJ",58.621389,-117.164722,1110,-7,"A"
-100,"Ottawa Macdonald Cartier Intl","Ottawa","Canada","YOW","CYOW",45.3225,-75.669167,374,-5,"A"
-101,"Prince Albert Glass Field","Prince Albert","Canada","YPA","CYPA",53.214167,-105.672778,1405,-6,"A"
-102,"Peace River","Peace River","Canada","YPE","CYPE",56.226944,-117.447222,1873,-7,"A"
-103,"Southport","Portage-la-prairie","Canada","YPG","CYPG",49.903056,-98.273889,885,-6,"A"
-104,"Pitt Meadows","Pitt Meadows","Canada","","CYPK",49.21611,-122.71,11,-8,"A"
-105,"Pickle Lake","Pickle Lake","Canada","YPL","CYPL",51.446388,-90.214167,1267,-6,"A"
-106,"Port Menier","Port Menier","Canada","YPN","CYPN",49.836389,-64.288611,167,-5,"A"
-107,"Peterborough","Peterborough","Canada","YPQ","CYPQ",44.23,-78.363333,628,-5,"A"
-108,"Prince Rupert","Prince Pupert","Canada","YPR","CYPR",54.28611,-130.444722,116,-8,"A"
-109,"Fort Chipewyan","Fort Chipewyan","Canada","YPY","CYPY",58.767223,-111.117222,761,-7,"A"
-110,"Muskoka","Muskoka","Canada","YQA","CYQA",44.974722,-79.303333,925,-5,"A"
-111,"Quebec Jean Lesage Intl","Quebec","Canada","YQB","CYQB",46.791111,-71.393333,244,-5,"A"
-112,"Red Deer Regional","Red Deer Industrial","Canada","YQF","CYQF",52.182222,-113.894444,2968,-7,"A"
-113,"Windsor","Windsor","Canada","YQG","CYQG",42.275556,-82.955556,622,-5,"A"
-114,"Watson Lake","Watson Lake","Canada","YQH","CYQH",60.116389,-128.8225,2255,-8,"A"
-115,"Kenora","Kenora","Canada","YQK","CYQK",49.788334,-94.363056,1332,-6,"A"
-116,"Lethbridge","Lethbridge","Canada","YQL","CYQL",49.630278,-112.799722,3047,-7,"A"
-117,"Greater Moncton Intl","Moncton","Canada","YQM","CYQM",46.112221,-64.678611,232,-4,"A"
-119,"Comox","Comox","Canada","YQQ","CYQQ",49.710833,-124.886667,84,-8,"A"
-120,"Regina Intl","Regina","Canada","YQR","CYQR",50.431944,-104.665833,1894,-6,"A"
-121,"Thunder Bay","Thunder Bay","Canada","YQT","CYQT",48.371944,-89.323889,653,-5,"A"
-122,"Grande Prairie","Grande Prairie","Canada","YQU","CYQU",55.179722,-118.885,2195,-7,"A"
-123,"Yorkton Muni","Yorkton","Canada","YQV","CYQV",51.264721,-102.461667,1635,-6,"A"
-124,"North Battleford","North Battleford","Canada","YQW","CYQW",52.769167,-108.24361,1799,-6,"A"
-125,"Gander Intl","Gander","Canada","YQX","CYQX",48.936944,-54.568056,496,-4,"A"
-126,"Sydney","Sydney","Canada","YQY","CYQY",46.161388,-60.047779,203,-4,"A"
-127,"Quesnel","Quesnel","Canada","YQZ","CYQZ",53.026112,-122.510278,1789,-8,"A"
-128,"Resolute Bay","Resolute","Canada","YRB","CYRB",74.716944,-94.969444,215,-6,"A"
-129,"Riviere Du Loup","Riviere Du Loup","Canada","YRI","CYRI",47.764444,-69.584722,427,-5,"A"
-130,"Roberval","Roberval","Canada","YRJ","CYRJ",48.52,-72.265556,586,-5,"A"
-131,"Rocky Mountain House","Rocky Mountain House","Canada","YRM","CYRM",52.429722,-114.904167,3244,-7,"A"
-132,"Rankin Inlet","Rankin Inlet","Canada","YRT","CYRT",62.81139,-92.115833,94,-6,"A"
-133,"Sudbury","Sudbury","Canada","YSB","CYSB",46.625,-80.798889,1141,-5,"A"
-134,"Sherbrooke","Sherbrooke","Canada","YSC","CYSC",45.438611,-71.691389,792,-5,"A"
-135,"Saint John","St. John","Canada","YSJ","CYSJ",45.316111,-65.890278,357,-4,"A"
-136,"Fort Smith","Fort Smith","Canada","YSM","CYSM",60.020278,-111.961944,671,-7,"A"
-137,"Nanisivik","Nanisivik","Canada","YSR","CYSR",72.982222,-84.613611,2106,-5,"A"
-138,"Summerside","Summerside","Canada","YSU","CYSU",46.440556,-63.833611,56,-4,"A"
-139,"Sachs Harbour","Sachs Harbour","Canada","YSY","CYSY",71.993889,-125.2425,282,-7,"A"
-140,"Cape Dorset","Cape Dorset","Canada","YTE","CYTE",64.23,-76.526667,164,-5,"A"
-141,"Thompson","Thompson","Canada","YTH","CYTH",55.801111,-97.864166,729,-6,"A"
-142,"Trenton","Trenton","Canada","YTR","CYTR",44.118889,-77.528056,283,-5,"A"
-143,"Timmins","Timmins","Canada","YTS","CYTS",48.569721,-81.376667,967,-5,"A"
-144,"City Centre","Toronto","Canada","YTZ","CYTZ",43.627499,-79.396167,251,-5,"A"
-145,"Tuktoyaktuk","Tuktoyaktuk","Canada","YUB","CYUB",69.433334,-133.026389,15,-7,"A"
-146,"Pierre Elliott Trudeau Intl","Montreal","Canada","YUL","CYUL",45.470556,-73.740833,118,-5,"A"
-147,"Repulse Bay","Repulse Bay","Canada","YUT","CYUT",66.521389,-86.224722,80,-6,"A"
-148,"Hall Beach","Hall Beach","Canada","YUX","CYUX",68.776111,-81.243611,27,-5,"A"
-149,"Rouyn Noranda","Rouyn","Canada","YUY","CYUY",48.206111,-78.835556,988,-5,"A"
-150,"La Ronge","La Ronge","Canada","YVC","CYVC",55.15139,-105.261944,1242,-6,"A"
-151,"Vermilion","Vermillion","Canada","YVG","CYVG",53.355833,-110.82389,2025,-7,"A"
-152,"Qikiqtarjuaq","Broughton Island","Canada","YVM","CYVM",67.545833,-64.031389,21,-5,"A"
-153,"Val D Or","Val D'or","Canada","YVO","CYVO",48.053333,-77.782778,1107,-5,"A"
-154,"Kuujjuaq","Quujjuaq","Canada","YVP","CYVP",58.096111,-68.426944,129,-5,"A"
-155,"Norman Wells","Norman Wells","Canada","YVQ","CYVQ",65.281617,-126.798219,238,-7,"A"
-156,"Vancouver Intl","Vancouver","Canada","YVR","CYVR",49.193889,-123.184444,14,-8,"A"
-157,"Buffalo Narrows","Buffalo Narrows","Canada","YVT","CYVT",55.841944,-108.4175,1444,-6,"A"
-158,"Wiarton","Wiarton","Canada","YVV","CYVV",44.745834,-81.107222,729,-5,"A"
-159,"Petawawa","Petawawa","Canada","YWA","CYWA",45.952221,-77.319168,427,-5,"A"
-160,"Winnipeg Intl","Winnipeg","Canada","YWG","CYWG",49.910036,-97.239886,783,-6,"A"
-161,"Wabush","Wabush","Canada","YWK","CYWK",52.921944,-66.864444,1808,-4,"A"
-162,"Williams Lake","Williams Lake","Canada","YWL","CYWL",52.183056,-122.054167,3085,-8,"A"
-163,"Wrigley","Wrigley","Canada","YWY","CYWY",63.209444,-123.436667,489,-7,"A"
-164,"Canadian Rockies Intl","Cranbrook","Canada","YXC","CYXC",49.612222,-115.781944,3084,-7,"A"
-165,"Edmonton City Centre","Edmonton","Canada","YXD","CYXD",53.5725,-113.520556,2200,-7,"A"
-166,"Saskatoon J G Diefenbaker Intl","Saskatoon","Canada","YXE","CYXE",52.170834,-106.699722,1653,-6,"A"
-167,"Medicine Hat","Medicine Hat","Canada","YXH","CYXH",50.01889,-110.720833,2352,-7,"A"
-168,"Fort St John","Fort Saint John","Canada","YXJ","CYXJ",56.238056,-120.740278,2280,-8,"A"
-169,"Sioux Lookout","Sioux Lookout","Canada","YXL","CYXL",50.113889,-91.905278,1258,-6,"A"
-170,"Pangnirtung","Pangnirtung","Canada","YXP","CYXP",66.145,-65.713611,75,-5,"A"
-171,"Timiskaming Rgnl","Earlton","Canada","YXR","CYXR",47.695,-79.848889,798,-5,"A"
-172,"Prince George","Prince George","Canada","YXS","CYXS",53.889444,-122.678889,2267,-8,"A"
-173,"Terrace","Terrace","Canada","YXT","CYXT",54.468508,-128.576219,713,-8,"A"
-174,"London","London","Canada","YXU","CYXU",43.033056,-81.151111,912,-5,"A"
-175,"Abbotsford","Abbotsford","Canada","YXX","CYXX",49.025278,-122.360556,195,-8,"A"
-176,"Whitehorse Intl","Whitehorse","Canada","YXY","CYXY",60.709553,-135.067269,2317,-8,"A"
-177,"North Bay","North Bay","Canada","YYB","CYYB",46.363611,-79.422778,1215,-5,"A"
-178,"Calgary Intl","Calgary","Canada","YYC","CYYC",51.113888,-114.020278,3557,-7,"A"
-179,"Smithers","Smithers","Canada","YYD","CYYD",54.824722,-127.182778,1712,-8,"A"
-180,"Fort Nelson","Fort Nelson","Canada","YYE","CYYE",58.836389,-122.596944,1253,-8,"A"
-181,"Penticton","Penticton","Canada","YYF","CYYF",49.463056,-119.602222,1129,-8,"A"
-182,"Charlottetown","Charlottetown","Canada","YYG","CYYG",46.290001,-63.121111,160,-4,"A"
-183,"Taloyoak","Spence Bay","Canada","YYH","CYYH",69.546667,-93.576667,92,-6,"A"
-184,"Victoria Intl","Victoria","Canada","YYJ","CYYJ",48.646944,-123.425833,63,-8,"A"
-185,"Lynn Lake","Lynn Lake","Canada","YYL","CYYL",56.863888,-101.07611,1170,-6,"A"
-186,"Swift Current","Swift Current","Canada","YYN","CYYN",50.291944,-107.690556,2680,-6,"A"
-187,"Churchill","Churchill","Canada","YYQ","CYYQ",58.739167,-94.065,94,-6,"A"
-188,"Goose Bay","Goose Bay","Canada","YYR","CYYR",53.319168,-60.425833,160,-4,"A"
-189,"St Johns Intl","St. John's","Canada","YYT","CYYT",47.61861,-52.751945,461,-4,"A"
-190,"Kapuskasing","Kapuskasing","Canada","YYU","CYYU",49.413889,-82.4675,743,-5,"A"
-191,"Armstrong","Armstrong","Canada","YYW","CYYW",50.290279,-88.909721,1058,-5,"A"
-192,"Mont Joli","Mont Joli","Canada","YYY","CYYY",48.608612,-68.208056,172,-5,"A"
-193,"Lester B Pearson Intl","Toronto","Canada","YYZ","CYYZ",43.677223,-79.630556,569,-5,"A"
-194,"Downsview","Toronto","Canada","YZD","CYZD",43.7425,-79.465556,652,-5,"A"
-195,"Gore Bay Manitoulin","Gore Bay","Canada","YZE","CYZE",45.885277,-82.567778,635,-5,"A"
-196,"Yellowknife","Yellowknife","Canada","YZF","CYZF",62.462778,-114.440278,675,-7,"A"
-197,"Slave Lake","Slave Lake","Canada","YZH","CYZH",55.293056,-114.777222,1912,-7,"A"
-198,"Sandspit","Sandspit","Canada","YZP","CYZP",53.254333,-131.813833,21,-8,"A"
-199,"Chris Hadfield","Sarnia","Canada","YZR","CYZR",42.999444,-82.308889,594,-5,"A"
-200,"Port Hardy","Port Hardy","Canada","YZT","CYZT",50.680556,-127.366667,71,-8,"A"
-201,"Whitecourt","Whitecourt","Canada","YZU","CYZU",54.14389,-115.786667,2567,-7,"A"
-202,"Sept Iles","Sept-iles","Canada","YZV","CYZV",50.223333,-66.265556,180,-5,"A"
-203,"Teslin","Teslin","Canada","YZW","CYZW",60.172779,-132.742778,2313,-8,"A"
-204,"Greenwood","Greenwood","Canada","YZX","CYZX",44.984444,-64.916944,92,-4,"A"
-205,"Faro","Faro","Canada","ZFA","CZFA",62.2075,-133.375833,2351,-8,"A"
-206,"Fort Mcpherson","Fort Mcpherson","Canada","ZFM","CZFM",67.4075,-134.860556,116,-7,"A"
-207,"Blida","Blida","Algeria","","DAAB",36.503613,2.814167,535,1,"N"
-208,"Bou Saada","Bou Saada","Algeria","","DAAD",35.3325,4.206389,1506,1,"N"
-209,"Soummam","Bejaja","Algeria","BJA","DAAE",36.711997,5.069922,20,1,"N"
-210,"Houari Boumediene","Algier","Algeria","ALG","DAAG",36.691014,3.215408,82,1,"N"
-211,"Tiska","Djanet","Algeria","DJG","DAAJ",24.292767,9.452444,3176,1,"N"
-212,"Boufarik","Boufarik","Algeria","","DAAK",36.545834,2.876111,335,1,"N"
-213,"Reggane","Reggan","Algeria","","DAAN",26.710103,0.285647,955,1,"N"
-214,"Illizi Takhamalt","Illizi","Algeria","VVZ","DAAP",26.723536,8.622653,1778,1,"N"
-215,"Ain Oussera","Ain Oussera","Algeria","","DAAQ",35.525414,2.878714,2132,1,"N"
-216,"Tamanrasset","Tamanrasset","Algeria","TMR","DAAT",22.811461,5.451075,4518,1,"N"
-217,"Jijel","Jijel","Algeria","GJL","DAAV",36.795136,5.873608,36,1,"N"
-218,"Mecheria","Mecheria","Algeria","","DAAY",33.535853,-0.242353,3855,1,"N"
-219,"Relizane","Relizane","Algeria","","DAAZ",35.752239,0.626272,282,1,"N"
-220,"Annaba","Annaba","Algeria","AAE","DABB",36.822225,7.809167,16,1,"N"
-221,"Mohamed Boudiaf Intl","Constantine","Algeria","CZL","DABC",36.276028,6.620386,2265,1,"N"
-222,"Cheikh Larbi Tebessi","Tebessa","Algeria","TEE","DABS",35.431611,8.120717,2661,1,"N"
-224,"Hassi R Mel","Tilrempt","Algeria","HRM","DAFH",32.930431,3.311542,2540,1,"N"
-225,"Bou Chekif","Tiaret","Algeria","TID","DAOB",35.341136,1.463147,3245,1,"N"
-226,"Bou Sfer","Bou Sfer","Algeria","","DAOE",35.735389,-0.805389,187,1,"N"
-227,"Tindouf","Tindouf","Algeria","TIN","DAOF",27.700372,-8.167103,1453,1,"N"
-228,"Ech Cheliff","Ech-cheliff","Algeria","QAS","DAOI",36.212658,1.331775,463,1,"N"
-229,"Tafaraoui","Oran","Algeria","TAF","DAOL",35.542444,-0.532278,367,1,"N"
-230,"Zenata","Tlemcen","Algeria","TLM","DAON",35.016667,-1.45,814,1,"N"
-231,"Es Senia","Oran","Algeria","ORN","DAOO",35.623858,-0.621183,295,1,"N"
-232,"Sidi Bel Abbes","Sidi Bel Abbes","Algeria","","DAOS",35.171775,-0.593275,1614,1,"N"
-233,"Ghriss","Ghriss","Algeria","MUW","DAOV",35.207725,0.147142,1686,1,"N"
-234,"Touat Cheikh Sidi Mohamed Belkebir","Adrar","Algeria","AZR","DAUA",27.837589,-0.186414,919,1,"N"
-235,"Biskra","Biskra","Algeria","BSK","DAUB",34.793289,5.738231,289,1,"N"
-236,"El Golea","El Golea","Algeria","ELG","DAUE",30.571294,2.859586,1306,1,"N"
-237,"Noumerat","Ghardaia","Algeria","GHA","DAUG",32.384106,3.794114,1512,1,"N"
-238,"Oued Irara","Hassi-messaoud","Algeria","HME","DAUH",31.672972,6.140444,463,1,"N"
-239,"In Salah","In Salah","Algeria","INZ","DAUI",27.251022,2.512017,896,1,"N"
-240,"Sidi Mahdi","Touggourt","Algeria","TGR","DAUK",33.067803,6.088672,279,1,"N"
-241,"Laghouat","Laghouat","Algeria","LOO","DAUL",33.764383,2.928344,2510,1,"N"
-242,"Timimoun","Timimoun","Algeria","TMX","DAUT",29.237119,0.276033,1027,1,"N"
-243,"Ouargla","Ouargla","Algeria","OGX","DAUU",31.917223,5.412778,492,1,"N"
-244,"In Amenas","Zarzaitine","Algeria","IAM","DAUZ",28.05155,9.642911,1847,1,"N"
-245,"Cadjehoun","Cotonou","Benin","COO","DBBB",6.357228,2.384353,19,1,"N"
-246,"Ouagadougou","Ouagadougou","Burkina Faso","OUA","DFFD",12.353194,-1.512417,1037,0,"N"
-247,"Bobo Dioulasso","Bobo-dioulasso","Burkina Faso","BOY","DFOO",11.160056,-4.330969,1511,0,"N"
-248,"Kotoka Intl","Accra","Ghana","ACC","DGAA",5.605186,-0.166786,205,0,"N"
-249,"Tamale","Tamale","Ghana","TML","DGLE",9.557192,-0.863214,553,0,"N"
-250,"Wa","Wa","Ghana","","DGLW",10.082664,-2.507694,1060,0,"N"
-251,"Sunyani","Sunyani","Ghana","NYI","DGSN",7.361828,-2.328756,1014,0,"N"
-252,"Takoradi","Takoradi","Ghana","TKD","DGTK",4.896056,-1.774756,21,0,"N"
-253,"Abidjan Felix Houphouet Boigny Intl","Abidjan","Cote d'Ivoire","ABJ","DIAP",5.261386,-3.926294,21,0,"N"
-254,"Bouake","Bouake","Cote d'Ivoire","BYK","DIBK",7.7388,-5.073667,1230,0,"N"
-255,"Daloa","Daloa","Cote d'Ivoire","DJO","DIDL",6.792808,-6.473189,823,0,"N"
-256,"Korhogo","Korhogo","Cote d'Ivoire","HGO","DIKO",9.387183,-5.556664,1214,0,"N"
-257,"Man","Man","Cote d'Ivoire","MJC","DIMN",7.272069,-7.587364,1089,0,"N"
-258,"San Pedro","San Pedro","Cote d'Ivoire","SPY","DISP",4.746717,-6.660817,26,0,"N"
-259,"Yamoussoukro","Yamoussoukro","Cote d'Ivoire","ASK","DIYO",6.903167,-5.365581,699,0,"N"
-260,"Nnamdi Azikiwe Intl","Abuja","Nigeria","ABV","DNAA",9.006792,7.263172,1123,1,"N"
-261,"Akure","Akure","Nigeria","AKR","DNAK",7.246739,5.301008,1100,1,"N"
-262,"Benin","Benin","Nigeria","BNI","DNBE",6.316981,5.599503,258,1,"N"
-263,"Calabar","Calabar","Nigeria","CBQ","DNCA",4.976019,8.347197,210,1,"N"
-264,"Enugu","Enugu","Nigeria","ENU","DNEN",6.474272,7.561961,466,1,"N"
-265,"Gusau","Gusau","Nigeria","QUS","DNGU",12.171667,6.696111,1520,1,"N"
-266,"Ibadan","Ibadan","Nigeria","IBA","DNIB",7.362458,3.978333,725,1,"N"
-267,"Ilorin","Ilorin","Nigeria","ILR","DNIL",8.440211,4.493919,1126,1,"N"
-268,"Yakubu Gowon","Jos","Nigeria","JOS","DNJO",9.639828,8.86905,4232,1,"N"
-269,"Kaduna","Kaduna","Nigeria","KAD","DNKA",10.696025,7.320114,2073,1,"N"
-270,"Mallam Aminu Intl","Kano","Nigeria","KAN","DNKN",12.047589,8.524622,1562,1,"N"
-271,"Maiduguri","Maiduguri","Nigeria","MIU","DNMA",11.855347,13.08095,1099,1,"N"
-272,"Makurdi","Makurdi","Nigeria","MDI","DNMK",7.703883,8.613939,371,1,"N"
-273,"Murtala Muhammed","Lagos","Nigeria","LOS","DNMM",6.577369,3.321156,135,1,"N"
-274,"Minna New","Minna","Nigeria","MXJ","DNMN",9.652172,6.462256,834,1,"N"
-275,"Port Harcourt Intl","Port Hartcourt","Nigeria","PHC","DNPO",5.015494,6.949594,87,1,"N"
-276,"Sadiq Abubakar Iii Intl","Sokoto","Nigeria","SKO","DNSO",12.916322,5.207189,1010,1,"N"
-277,"Yola","Yola","Nigeria","YOL","DNYO",9.257553,12.430422,599,1,"N"
-278,"Zaria","Zaria","Nigeria","ZAR","DNZA",11.130192,7.685806,2170,1,"N"
-279,"Maradi","Maradi","Niger","MFQ","DRRM",13.502531,7.126753,1240,1,"N"
-280,"Diori Hamani","Niamey","Niger","NIM","DRRN",13.481547,2.183614,732,1,"N"
-281,"Tahoua","Tahoua","Niger","THZ","DRRT",14.875658,5.265358,1266,1,"N"
-282,"Manu Dayak","Agadez","Niger","AJY","DRZA",16.965997,8.000114,1657,1,"N"
-283,"Dirkou","Dirkou","Niger","","DRZD",18.968703,12.86865,1273,1,"N"
-284,"Diffa","Diffa","Niger","","DRZF",13.372894,12.626686,994,1,"N"
-285,"Zinder","Zinder","Niger","ZND","DRZR",13.778997,8.983761,1516,1,"N"
-286,"Habib Bourguiba Intl","Monastir","Tunisia","MIR","DTMB",35.758056,10.754722,9,1,"E"
-287,"Carthage","Tunis","Tunisia","TUN","DTTA",36.851033,10.227217,22,1,"E"
-288,"Sidi Ahmed Air Base","Bizerte","Tunisia","","DTTB",37.245447,9.791453,20,1,"E"
-289,"Remada","Remada","Tunisia","","DTTD",32.306156,10.382108,1004,1,"E"
-290,"Gafsa","Gafsa","Tunisia","GAF","DTTF",34.422022,8.822503,1060,1,"E"
-291,"Gabes","Gabes","Tunisia","GAE","DTTG",33.876919,10.103333,26,1,"E"
-292,"Borj El Amri","Bordj El Amri","Tunisia","","DTTI",36.721339,9.943147,108,1,"E"
-293,"Zarzis","Djerba","Tunisia","DJE","DTTJ",33.875031,10.775461,19,1,"E"
-294,"El Borma","El Borma","Tunisia","EBM","DTTR",31.704281,9.254619,827,1,"E"
-295,"Thyna","Sfax","Tunisia","SFA","DTTX",34.717953,10.690972,85,1,"E"
-296,"Nefta","Tozeur","Tunisia","TOE","DTTZ",33.939722,8.110556,287,1,"E"
-297,"Niamtougou International","Niatougou","Togo","LRL","DXNG",9.767333,1.09125,1515,1,"N"
-298,"Gnassingbe Eyadema Intl","Lome","Togo","LFW","DXXX",6.165611,1.254511,72,1,"N"
-299,"Deurne","Antwerp","Belgium","ANR","EBAW",51.189444,4.460278,39,1,"E"
-300,"Beauvechain","Beauvechain","Belgium","","EBBE",50.75861,4.768333,370,1,"E"
-301,"Kleine Brogel","Kleine Brogel","Belgium","","EBBL",51.168333,5.47,200,1,"E"
-302,"Brussels Natl","Brussels","Belgium","BRU","EBBR",50.901389,4.484444,184,1,"E"
-303,"Bertrix","Bertrix","Belgium","","EBBX",49.891667,5.223889,1514,1,"E"
-304,"Brussels South","Charleroi","Belgium","CRL","EBCI",50.459197,4.453817,614,1,"E"
-305,"Chievres Ab","Chievres","Belgium","","EBCV",50.575833,3.831,193,1,"E"
-306,"Koksijde","Koksijde","Belgium","","EBFN",51.090278,2.652778,20,1,"E"
-307,"Florennes","Florennes","Belgium","","EBFS",50.243333,4.645833,935,1,"E"
-308,"Wevelgem","Kortrijk-vevelgem","Belgium","QKT","EBKT",50.817222,3.204722,64,1,"E"
-309,"Liege","Liege","Belgium","LGG","EBLG",50.637417,5.443222,659,1,"E"
-310,"Oostende","Ostend","Belgium","OST","EBOS",51.198889,2.862222,13,1,"E"
-311,"Zutendaal","Zutendaal","Belgium","","EBSL",50.9475,5.590556,312,1,"E"
-312,"Sint Truiden","Sint-truiden","Belgium","","EBST",50.791944,5.201667,246,1,"E"
-313,"Saint Hubert Mil","St.-hubert","Belgium","","EBSU",50.035833,5.404167,1930,1,"E"
-314,"Ursel","Ursel","Belgium","","EBUL",51.144133,3.474361,95,1,"E"
-315,"Weelde","Weelde","Belgium","","EBWE",51.394783,4.960194,105,1,"E"
-316,"Zoersel","Zoersel","Belgium","","EBZR",51.264722,4.753333,53,1,"E"
-317,"Bautzen","Bautzen","Germany","BBJ","EDAB",51.193531,14.519747,568,1,"E"
-318,"Altenburg Nobitz","Altenburg","Germany","AOC","EDAC",50.981817,12.506361,640,1,"E"
-319,"Dessau","Dessau","Germany","","EDAD",51.831828,12.184033,187,1,"E"
-320,"Eisenhuttenstadt","Eisenhuettenstadt","Germany","","EDAE",52.197333,14.585667,149,1,"E"
-6891,"Putnam County Airport","Greencastle","United States","4I7",\N,39.6335556,-86.8138056,842,-5,"U"
-322,"Grossenhain","Suhl","Germany","","EDAK",51.308111,13.554973,417,1,"E"
-323,"Merseburg","Muehlhausen","Germany","","EDAM",51.363,11.940833,340,1,"E"
-324,"Halle Oppin","Halle","Germany","","EDAQ",51.552,12.052667,347,1,"E"
-325,"Riesa Gohlis","Riesa","Germany","","EDAU",51.2935,13.356,322,1,"E"
-326,"Rechlin Larz","Rechlin-laerz","Germany","","EDAX",53.306417,12.753139,220,1,"E"
-327,"Strausberg","Strausberg","Germany","","EDAY",52.579978,13.915683,263,1,"E"
-328,"Schonhagen","Schoenhagen","Germany","","EDAZ",52.203258,13.158408,131,1,"E"
-329,"Barth","Barth","Germany","","EDBH",54.33754,12.699705,23,1,"E"
-330,"Jena Schongleina","Jena","Germany","","EDBJ",50.915161,11.714519,1228,1,"E"
-331,"Kyritz","Kyritz","Germany","","EDBK",52.918833,12.425333,130,1,"E"
-332,"Magdeburg","Magdeburg","Germany","","EDBM",52.073658,11.626467,268,1,"E"
-333,"Rothenburg Gorlitz","Rothenburg/ol","Germany","","EDBR",51.363167,14.95,517,1,"E"
-334,"Anklam","Anklam","Germany","","EDCA",53.8327,13.669131,18,1,"E"
-335,"Cottbus Drewitz","Cottbus","Germany","","EDCD",51.889475,14.531986,274,1,"E"
-336,"Kamenz","Kamenz","Germany","","EDCM",51.29625,14.129,495,1,"E"
-337,"Schonefeld","Berlin","Germany","SXF","EDDB",52.380001,13.5225,157,1,"E"
-338,"Dresden","Dresden","Germany","DRS","EDDC",51.132767,13.767161,755,1,"E"
-339,"Erfurt","Erfurt","Germany","ERF","EDDE",50.979811,10.958106,1036,1,"E"
-340,"Frankfurt Main","Frankfurt","Germany","FRA","EDDF",50.026421,8.543125,364,1,"E"
-341,"Munster Osnabruck","Muenster/osnabrueck","Germany","FMO","EDDG",52.134642,7.684831,160,1,"E"
-342,"Hamburg","Hamburg","Germany","HAM","EDDH",53.630389,9.988228,53,1,"E"
-343,"Tempelhof","Berlin","Germany","THF","EDDI",52.473025,13.403944,167,1,"E"
-344,"Koln Bonn","Cologne","Germany","CGN","EDDK",50.865917,7.142744,302,1,"E"
-345,"Dusseldorf","Duesseldorf","Germany","DUS","EDDL",51.289453,6.766775,147,1,"E"
-346,"Franz Josef Strauss","Munich","Germany","MUC","EDDM",48.353783,11.786086,1487,1,"E"
-347,"Nurnberg","Nuernberg","Germany","NUE","EDDN",49.4987,11.066897,1046,1,"E"
-348,"Leipzig Halle","Leipzig","Germany","LEJ","EDDP",51.432447,12.241633,465,1,"E"
-349,"Saarbrucken","Saarbruecken","Germany","SCN","EDDR",49.214553,7.109508,1058,1,"E"
-350,"Stuttgart","Stuttgart","Germany","STR","EDDS",48.689878,9.221964,1276,1,"E"
-351,"Tegel","Berlin","Germany","TXL","EDDT",52.559686,13.287711,122,1,"E"
-352,"Hannover","Hannover","Germany","HAJ","EDDV",52.461056,9.685078,183,1,"E"
-353,"Neuenland","Bremen","Germany","BRE","EDDW",53.0475,8.786667,14,1,"E"
-354,"Egelsbach","Egelsbach","Germany","","EDFE",49.960833,8.6415,385,1,"E"
-355,"Frankfurt Hahn","Hahn","Germany","HHN","EDFH",49.948672,7.263892,1649,1,"E"
-356,"Mannheim City","Mannheim","Germany","MHG","EDFM",49.472706,8.514264,309,1,"E"
-357,"Allendorf Eder","Allendorf","Germany","","EDFQ",51.034878,8.680839,1164,1,"E"
-358,"Worms","Worms","Germany","","EDFV",49.606511,8.3684,295,1,"E"
-359,"Mainz Finthen","Mainz","Germany","","EDFZ",49.968931,8.148336,760,1,"E"
-360,"Eisenach Kindel","Eisenach","Germany","","EDGE",50.992797,10.472711,1101,1,"E"
-361,"Siegerland","Siegerland","Germany","","EDGS",50.707658,8.082969,1966,1,"E"
-362,"Hamburg Finkenwerder","Hamburg","Germany","XFW","EDHI",53.535886,9.837025,22,1,"E"
-363,"Kiel Holtenau","Kiel","Germany","KEL","EDHK",54.3795,10.145167,101,1,"E"
-364,"Lubeck Blankensee","Luebeck","Germany","LBC","EDHL",53.805367,10.719222,53,1,"E"
-365,"Dahlemer Binz","Dahlemer Binz","Germany","","EDKV",50.405888,6.528083,1896,1,"E"
-366,"Meinerzhagen","Meinerzhagen","Germany","","EDKZ",51.099445,7.601944,1548,1,"E"
-367,"Arnsberg Menden","Arnsberg","Germany","ZCA","EDLA",51.483333,7.899333,794,1,"E"
-368,"Essen Mulheim","Essen","Germany","ESS","EDLE",51.402333,6.937333,424,1,"E"
-369,"Bielefeld","Bielefeld","Germany","","EDLI",51.964833,8.544833,454,1,"E"
-370,"Monchengladbach","Moenchengladbach","Germany","MGL","EDLN",51.230356,6.504494,125,1,"E"
-371,"Paderborn Lippstadt","Paderborn","Germany","PAD","EDLP",51.614089,8.616317,699,1,"E"
-372,"Stadtlohn Vreden","Stadtlohn","Germany","","EDLS",51.995844,6.840667,157,1,"E"
-373,"Dortmund","Dortmund","Germany","DTM","EDLW",51.518314,7.612242,425,1,"E"
-374,"Augsburg","Augsburg","Germany","AGB","EDMA",48.425158,10.931764,1515,1,"E"
-375,"Biberach An Der Riss","Biberach","Germany","","EDMB",48.111,9.762833,1903,1,"E"
-376,"Eggenfelden","Eggenfelden","Germany","","EDME",48.396167,12.723667,1342,1,"E"
-377,"Mindelheim Mattsies","Mindelheim","Germany","","EDMN",48.108833,10.524333,1857,1,"E"
-378,"Oberpfaffenhofen","Oberpfaffenhofen","Germany","OBF","EDMO",48.081364,11.283067,1947,1,"E"
-379,"Straubing","Straubing","Germany","","EDMS",48.90095,12.518186,1054,1,"E"
-380,"Vilshofen","Vilshofen","Germany","","EDMV",48.635167,13.195667,991,1,"E"
-381,"Leutkirch Unterzeil","Leutkirch","Germany","","EDNL",47.859117,10.014572,2099,1,"E"
-382,"Friedrichshafen","Friedrichshafen","Germany","FDH","EDNY",47.671317,9.511486,1367,1,"E"
-383,"Schwerin Parchim","Parchim","Germany","SZW","EDOP",53.426997,11.783436,166,1,"E"
-384,"Stendal Borstel","Stendal","Germany","","EDOV",52.628833,11.82,184,1,"E"
-385,"Aalen Heidenheim Elchingen","Aalen-heidenheim","Germany","","EDPA",48.777833,10.264667,1916,1,"E"
-386,"Bayreuth","Bayreuth","Germany","BYU","EDQD",49.984428,11.638569,1601,1,"E"
-387,"Burg Feuerstein","Burg Feuerstein","Germany","","EDQE",49.793833,11.133167,1674,1,"E"
-388,"Hof Plauen","Hof","Germany","HOQ","EDQM",50.288836,11.854919,1960,1,"E"
-389,"Hassfurt Schweinfurt","Hassfurt","Germany","","EDQT",50.018,10.5295,718,1,"E"
-390,"Koblenz Winningen","Koblenz","Germany","ZNV","EDRK",50.3255,7.528667,640,1,"E"
-391,"Trier Fohren","Trier","Germany","ZQF","EDRT",49.8635,6.788167,665,1,"E"
-392,"Speyer","Speyer","Germany","ZQC","EDRY",49.302776,8.451195,312,1,"E"
-393,"Zweibrucken","Zweibruecken","Germany","","EDRZ",49.209525,7.400647,1133,1,"E"
-394,"Donaueschingen Villingen","Donaueschingen","Germany","ZQL","EDTD",47.973331,8.522223,2231,1,"E"
-395,"Freiburg","Freiburg","Germany","","EDTF",48.022653,7.832583,799,1,"E"
-396,"Mengen Hohentengen","Mengen","Germany","","EDTM",48.053833,9.372833,1820,1,"E"
-397,"Schwabisch Hall","Schwaebisch Hall","Germany","","EDTY",49.118317,9.783956,1311,1,"E"
-398,"Finsterwalde Schacksdorf","Soest","Germany","","EDUS",51.6075,13.738,399,1,"E"
-399,"Braunschweig Wolfsburg","Braunschweig","Germany","BWE","EDVE",52.319167,10.556111,295,1,"E"
-400,"Kassel Calden","Kassel","Germany","KSF","EDVK",51.408394,9.377631,908,1,"E"
-401,"Hildesheim","Hildesheim","Germany","","EDVM",52.179833,9.945667,293,1,"E"
-402,"Bremerhaven","Bremerhaven","Germany","BRV","EDWB",53.507081,8.572878,11,1,"E"
-403,"Emden","Emden","Germany","EME","EDWE",53.391186,7.227408,2,1,"E"
-404,"Leer Papenburg","Leer","Germany","","EDWF",53.271592,7.442344,3,1,"E"
-405,"Wilhelmshaven Mariensiel","Wilhelmshaven","Germany","WVN","EDWI",53.504833,8.053333,16,1,"E"
-406,"Borkum","Borkum","Germany","BMK","EDWR",53.5955,6.709167,3,1,"E"
-407,"Norderney","Norderney","Germany","NRD","EDWY",53.706822,7.230247,6,1,"E"
-408,"Flensburg Schaferhaus","Flensburg","Germany","FLF","EDXF",54.771772,9.378214,130,1,"E"
-409,"Rendsburg Schachtholm","Rendsburg","Germany","","EDXR",54.220928,9.600803,23,1,"E"
-410,"Westerland Sylt","Westerland","Germany","GWT","EDXW",54.91325,8.340472,51,1,"E"
-411,"Amari","Armari Air Force Base","Estonia","KDL","EEEI",59.260286,24.208467,65,2,"E"
-412,"Kardla","Kardla","Estonia","","EEKA",58.990756,22.830733,18,2,"E"
-413,"Kuressaare","Kuressaare","Estonia","URE","EEKE",58.229883,22.509494,14,2,"E"
-414,"Parnu","Parnu","Estonia","EPU","EEPU",58.419044,24.472819,47,2,"E"
-415,"Tallinn","Tallinn-ulemiste International","Estonia","TLL","EETN",59.413317,24.832844,131,2,"E"
-416,"Tartu","Tartu-ulenurme","Estonia","TAY","EETU",58.307461,26.690428,219,2,"E"
-417,"Enontekio","Enontekio","Finland","ENF","EFET",68.362586,23.424322,1005,2,"E"
-418,"Eura","Eura","Finland","","EFEU",61.116112,22.201389,259,2,"E"
-419,"Halli","Halli","Finland","KEV","EFHA",61.85605,24.7866,479,2,"E"
-420,"Helsinki Malmi","Helsinki","Finland","HEM","EFHF",60.254558,25.042828,57,2,"E"
-421,"Helsinki Vantaa","Helsinki","Finland","HEL","EFHK",60.317222,24.963333,179,2,"E"
-422,"Hameenkyro","Hameenkyro","Finland","","EFHM",61.689656,23.073744,449,2,"E"
-423,"Hanko","Hanko","Finland","","EFHN",59.848864,23.083583,20,2,"E"
-424,"Hyvinkaa","Hyvinkaa","Finland","","EFHV",60.654444,24.881111,430,2,"E"
-425,"Kiikala","Kikala","Finland","","EFIK",60.462502,23.6525,381,2,"E"
-426,"Immola","Immola","Finland","","EFIM",61.249172,28.903711,338,3,"E"
-427,"Kitee","Kitee","Finland","","EFIT",62.166111,30.073611,364,3,"E"
-428,"Ivalo","Ivalo","Finland","IVL","EFIV",68.607269,27.405328,481,2,"E"
-429,"Joensuu","Joensuu","Finland","JOE","EFJO",62.662906,29.60755,398,2,"E"
-430,"Jyvaskyla","Jyvaskyla","Finland","JYV","EFJY",62.399453,25.678253,459,2,"E"
-431,"Kauhava","Kauhava","Finland","KAU","EFKA",63.127078,23.051442,151,2,"E"
-432,"Kemi Tornio","Kemi","Finland","KEM","EFKE",65.781889,24.5991,61,2,"E"
-433,"Kajaani","Kajaani","Finland","KAJ","EFKI",64.285472,27.692414,483,2,"E"
-434,"Kauhajoki","Kauhajoki","Finland","","EFKJ",62.462502,22.393055,407,2,"E"
-435,"Kruunupyy","Kruunupyy","Finland","KOK","EFKK",63.721172,23.143131,84,2,"E"
-436,"Kemijarvi","Kemijarvi","Finland","","EFKM",66.712883,27.156786,692,2,"E"
-437,"Kuusamo","Kuusamo","Finland","KAO","EFKS",65.987575,29.239381,866,2,"E"
-438,"Kittila","Kittila","Finland","KTT","EFKT",67.701022,24.84685,644,2,"E"
-439,"Kuopio","Kuopio","Finland","KUO","EFKU",63.00715,27.797756,323,2,"E"
-440,"Lahti Vesivehmaa","Vesivehmaa","Finland","","EFLA",61.144158,25.693508,502,2,"E"
-441,"Lappeenranta","Lappeenranta","Finland","LPP","EFLP",61.044553,28.144397,349,2,"E"
-442,"Mariehamn","Mariehamn","Finland","MHQ","EFMA",60.122203,19.898156,17,1,"E"
-443,"Menkijarvi","Menkijarvi","Finland","","EFME",62.946667,23.518889,331,2,"E"
-444,"Mikkeli","Mikkeli","Finland","MIK","EFMI",61.6866,27.201794,329,2,"E"
-445,"Nummela","Nummela","Finland","","EFNU",60.333889,24.296389,367,2,"E"
-446,"Oulu","Oulu","Finland","OUL","EFOU",64.930061,25.354564,47,2,"E"
-447,"Piikajarvi","Piikajarvi","Finland","","EFPI",61.245558,22.193356,148,2,"E"
-448,"Pori","Pori","Finland","POR","EFPO",61.461686,21.799983,44,2,"E"
-449,"Pudasjarvi","Pudasjarvi","Finland","","EFPU",65.402222,26.946944,397,2,"E"
-450,"Pyhasalmi","Pyhasalmi","Finland","","EFPY",63.731917,25.926306,528,2,"E"
-451,"Raahe Pattijoki","Pattijoki","Finland","","EFRH",64.688056,24.695833,118,2,"E"
-452,"Rantasalmi","Rantasalmi","Finland","","EFRN",62.065481,28.356494,292,2,"E"
-453,"Rovaniemi","Rovaniemi","Finland","RVN","EFRO",66.564822,25.830411,642,2,"E"
-454,"Rayskala","Rayskala","Finland","","EFRY",60.744722,24.107778,407,2,"E"
-455,"Savonlinna","Savonlinna","Finland","SVL","EFSA",61.943064,28.945136,311,2,"E"
-456,"Selanpaa","Selanpaa","Finland","","EFSE",61.062389,26.798861,417,2,"E"
-457,"Sodankyla","Sodankyla","Finland","SOT","EFSO",67.395033,26.619133,602,2,"E"
-458,"Tampere Pirkkala","Tampere","Finland","TMP","EFTP",61.414147,23.604392,390,2,"E"
-459,"Teisko","Teisko","Finland","","EFTS",61.77335,24.027006,515,2,"E"
-460,"Turku","Turku","Finland","TKU","EFTU",60.514142,22.262808,161,2,"E"
-461,"Utti","Utti","Finland","QVY","EFUT",60.896394,26.938353,339,2,"E"
-462,"Vaasa","Vaasa","Finland","VAA","EFVA",63.05065,21.762175,19,2,"E"
-463,"Varkaus","Varkaus","Finland","VRK","EFVR",62.171111,27.868611,286,2,"E"
-464,"Ylivieska","Ylivieska-raudaskyla","Finland","","EFYL",64.060547,24.715953,252,2,"E"
-465,"Aldergrove","Belfast","United Kingdom","BFS","EGAA",54.6575,-6.215833,268,0,"E"
-466,"St Angelo","Enniskillen","United Kingdom","ENK","EGAB",54.398889,-7.651667,155,0,"E"
-467,"City","Belfast","United Kingdom","BHD","EGAC",54.618056,-5.8725,15,0,"E"
-468,"Londonderry Eglinton","Londonderry","United Kingdom","LDY","EGAE",55.042778,-7.161111,22,0,"E"
-469,"Birmingham","Birmingham","United Kingdom","BHX","EGBB",52.453856,-1.748028,327,0,"E"
-470,"Coventry","Coventry","United Kingdom","CVT","EGBE",52.369722,-1.479722,267,0,"E"
-471,"Leicester","Leicester","United Kingdom","","EGBG",52.607778,-1.031944,469,0,"E"
-472,"Gloucestershire","Golouchestershire","United Kingdom","GLO","EGBJ",51.894167,-2.167222,101,0,"E"
-474,"Wolverhampton","Halfpenny Green","United Kingdom","","EGBO",52.5175,-2.259444,283,0,"E"
-475,"Kemble","Pailton","United Kingdom","","EGBP",51.668056,-2.056944,433,0,"E"
-476,"Turweston","Turweston","United Kingdom","","EGBT",52.040833,-1.095556,448,0,"E"
-477,"Wellesbourne Mountford","Wellesbourne","United Kingdom","","EGBW",52.192222,-1.614444,159,0,"E"
-478,"Manchester","Manchester","United Kingdom","MAN","EGCC",53.353744,-2.27495,257,0,"E"
-479,"Manchester Woodford","Woodfort","United Kingdom","","EGCD",53.338056,-2.148889,295,0,"E"
-480,"Chivenor","Chivenor","United Kingdom","","EGDC",51.087167,-4.150339,27,0,"E"
-481,"St Mawgan","Newquai","United Kingdom","NQY","EGDG",50.440558,-4.995408,390,0,"E"
-482,"Lyneham","Lyneham","United Kingdom","LYE","EGDL",51.505144,-1.993428,513,0,"E"
-483,"Boscombe Down","Boscombe Down","United Kingdom","","EGDM",51.152189,-1.747414,407,0,"E"
-484,"Culdrose","Culdrose","United Kingdom","","EGDR",50.086092,-5.255711,267,0,"E"
-485,"St Athan","St. Athan","United Kingdom","","EGDX",51.404811,-3.43575,163,0,"E"
-486,"Yeovilton","Yeovilton","United Kingdom","YEO","EGDY",51.009358,-2.638819,75,0,"E"
-487,"Haverfordwest","Haverfordwest","United Kingdom","","EGFE",51.833056,-4.961111,159,0,"E"
-488,"Cardiff","Cardiff","United Kingdom","CWL","EGFF",51.396667,-3.343333,220,0,"E"
-489,"Swansea","Swansea","United Kingdom","SWS","EGFH",51.605333,-4.067833,299,0,"E"
-490,"Bristol","Bristol","United Kingdom","BRS","EGGD",51.382669,-2.719089,622,0,"E"
-491,"Liverpool","Liverpool","United Kingdom","LPL","EGGP",53.333611,-2.849722,80,0,"E"
-492,"Luton","London","United Kingdom","LTN","EGGW",51.874722,-0.368333,526,0,"E"
-493,"Plymouth","Plymouth","United Kingdom","PLH","EGHD",50.422778,-4.105833,476,0,"E"
-494,"Bournemouth","Bournemouth","United Kingdom","BOH","EGHH",50.78,-1.8425,38,0,"E"
-495,"Southampton","Southampton","United Kingdom","SOU","EGHI",50.950261,-1.356803,44,0,"E"
-496,"Lasham","Lasham","United Kingdom","QLA","EGHL",51.187167,-1.0335,618,0,"E"
-497,"Alderney","Alderney","Guernsey","ACI","EGJA",49.706111,-2.214722,290,0,"E"
-498,"Guernsey","Guernsey","Guernsey","GCI","EGJB",49.434956,-2.601969,336,0,"E"
-499,"Jersey","Jersey","Jersey","JER","EGJJ",49.207947,-2.195508,277,0,"E"
-500,"Shoreham","Shoreham By Sea","United Kingdom","ESH","EGKA",50.835556,-0.297222,7,0,"E"
-501,"Biggin Hill","Biggin Hill","United Kingdom","BQH","EGKB",51.330833,0.0325,598,0,"E"
-502,"Gatwick","London","United Kingdom","LGW","EGKK",51.148056,-0.190278,202,0,"E"
-503,"City","London","United Kingdom","LCY","EGLC",51.505278,0.055278,19,0,"E"
-504,"Farnborough","Farnborough","United Kingdom","FAB","EGLF",51.275833,-0.776333,238,0,"E"
-505,"Chalgrove","Chalsgrove","United Kingdom","","EGLJ",51.676111,-1.080833,240,0,"E"
-506,"Blackbushe","Blackbushe","United Kingdom","BBS","EGLK",51.323889,-0.8475,325,0,"E"
-507,"Heathrow","London","United Kingdom","LHR","EGLL",51.4775,-0.461389,83,0,"E"
-508,"Southend","Southend","United Kingdom","SEN","EGMC",51.571389,0.695556,49,0,"E"
-509,"Lydd","Lydd","United Kingdom","LYX","EGMD",50.956111,0.939167,13,0,"E"
-510,"Manston","Manston","United Kingdom","MSE","EGMH",51.342222,1.346111,178,0,"E"
-511,"Brough","Brough","United Kingdom","","EGNB",53.719667,-0.566333,12,0,"E"
-512,"Carlisle","Carlisle","United Kingdom","CAX","EGNC",54.9375,-2.809167,190,0,"E"
-513,"Gamston","Repton","United Kingdom","","EGNE",53.280556,-0.951389,91,0,"E"
-514,"Blackpool","Blackpool","United Kingdom","BLK","EGNH",53.771667,-3.028611,34,0,"E"
-515,"Humberside","Humberside","United Kingdom","HUY","EGNJ",53.574444,-0.350833,121,0,"E"
-516,"Walney Island","Barrow Island","United Kingdom","BWF","EGNL",54.131167,-3.263667,173,0,"E"
-517,"Leeds Bradford","Leeds","United Kingdom","LBA","EGNM",53.865897,-1.660569,681,0,"E"
-518,"Warton","Warton","United Kingdom","","EGNO",53.745097,-2.883061,55,0,"E"
-519,"Hawarden","Hawarden","United Kingdom","CEG","EGNR",53.178056,-2.977778,45,0,"E"
-520,"Isle Of Man","Isle Of Man","Isle of Man","IOM","EGNS",54.083333,-4.623889,52,0,"E"
-521,"Newcastle","Newcastle","United Kingdom","NCL","EGNT",55.0375,-1.691667,266,0,"E"
-522,"Durham Tees Valley Airport","Teesside","United Kingdom","MME","EGNV",54.509189,-1.429406,120,0,"E"
-523,"Nottingham East Midlands","East Midlands","United Kingdom","EMA","EGNX",52.831111,-1.328056,306,0,"E"
-524,"Llanbedr","Llanbedr","United Kingdom","","EGOD",52.811744,-4.123575,30,0,"E"
-525,"Ternhill","Ternhill","United Kingdom","","EGOE",52.871164,-2.533561,272,0,"E"
-526,"Shawbury","Shawbury","United Kingdom","","EGOS",52.798169,-2.668042,249,0,"E"
-528,"Woodvale","Woodvale","United Kingdom","","EGOW",53.581575,-3.055522,37,0,"E"
-529,"Kirkwall","Kirkwall","United Kingdom","KOI","EGPA",58.957778,-2.905,50,0,"E"
-530,"Sumburgh","Sumburgh","United Kingdom","LSI","EGPB",59.878889,-1.295556,20,0,"E"
-531,"Wick","Wick","United Kingdom","WIC","EGPC",58.458889,-3.093056,126,0,"E"
-532,"Dyce","Aberdeen","United Kingdom","ABZ","EGPD",57.201944,-2.197778,215,0,"E"
-533,"Inverness","Inverness","United Kingdom","INV","EGPE",57.5425,-4.0475,31,0,"E"
-534,"Glasgow","Glasgow","United Kingdom","GLA","EGPF",55.871944,-4.433056,26,0,"E"
-535,"Edinburgh","Edinburgh","United Kingdom","EDI","EGPH",55.95,-3.3725,135,0,"E"
-536,"Islay","Islay","United Kingdom","ILY","EGPI",55.681944,-6.256667,56,0,"E"
-537,"Prestwick","Prestwick","United Kingdom","PIK","EGPK",55.509444,-4.586667,65,0,"E"
-538,"Benbecula","Benbecula","United Kingdom","BEB","EGPL",57.481111,-7.362778,19,0,"E"
-539,"Scatsta","Scatsta","United Kingdom","SDZ","EGPM",60.432778,-1.296111,81,0,"E"
-540,"Dundee","Dundee","United Kingdom","DND","EGPN",56.452499,-3.025833,17,0,"E"
-541,"Stornoway","Stornoway","United Kingdom","SYY","EGPO",58.215556,-6.331111,26,0,"E"
-542,"Tiree","Tiree","United Kingdom","TRE","EGPU",56.499167,-6.869167,38,0,"E"
-543,"Leuchars","Leuchars","United Kingdom","ADX","EGQL",56.372889,-2.868444,38,0,"E"
-544,"Lossiemouth","Lossiemouth","United Kingdom","LMO","EGQS",57.705214,-3.339169,42,0,"E"
-545,"Cambridge","Cambridge","United Kingdom","CBG","EGSC",52.205,0.175,47,0,"E"
-546,"Conington","Peterborough","United Kingdom","","EGSF",52.468056,-0.251111,26,0,"E"
-547,"Norwich","Norwich","United Kingdom","NWI","EGSH",52.675833,1.282778,117,0,"E"
-548,"Stansted","London","United Kingdom","STN","EGSS",51.885,0.235,348,0,"E"
-549,"North Weald","North Weald","United Kingdom","","EGSX",51.721667,0.154167,321,0,"E"
-550,"Sheffield City","Fowlmere","United Kingdom","","EGSY",53.394256,-1.388486,231,0,"E"
-551,"Cranfield","Cranfield","United Kingdom","","EGTC",52.072222,-0.616667,358,0,"E"
-552,"Exeter","Exeter","United Kingdom","EXT","EGTE",50.734444,-3.413889,102,0,"E"
-553,"Bristol Filton","Bristol","United Kingdom","FZO","EGTG",51.519444,-2.590833,226,0,"E"
-554,"Kidlington","Oxford","United Kingdom","OXF","EGTK",51.836944,-1.32,270,0,"E"
-555,"Benson","Benson","United Kingdom","","EGUB",51.616389,-1.095833,226,0,"E"
-556,"Lakenheath","Lakenheath","United Kingdom","","EGUL",52.409333,0.561,32,0,"E"
-557,"Mildenhall","Mildenhall","United Kingdom","MHZ","EGUN",52.361933,0.486406,33,0,"E"
-558,"Wattisham","Wattisham","United Kingdom","","EGUW",52.127283,0.956264,284,0,"E"
-559,"Wyton","Wyton","United Kingdom","","EGUY",52.357167,-0.107833,135,0,"E"
-560,"Fairford","Fairford","United Kingdom","FFD","EGVA",51.682167,-1.790028,286,0,"E"
-561,"Brize Norton","Brize Norton","United Kingdom","BZZ","EGVN",51.749964,-1.583617,288,0,"E"
-562,"Odiham","Odiham","United Kingdom","ODH","EGVO",51.234139,-0.942825,405,0,"E"
-563,"Cosford","Cosford","United Kingdom","","EGWC",52.640028,-2.305578,272,0,"E"
-564,"Northolt","Northolt","United Kingdom","NHT","EGWU",51.553,-0.418167,124,0,"E"
-565,"Coningsby","Coningsby","United Kingdom","QCY","EGXC",53.093014,-0.166014,25,0,"E"
-566,"Dishforth","Dishforth","United Kingdom","","EGXD",54.137186,-1.420253,117,0,"E"
-567,"Leeming","Leeming","United Kingdom","","EGXE",54.292383,-1.5354,132,0,"E"
-568,"Church Fenton","Church Fenton","United Kingdom","","EGXG",53.834333,-1.1955,29,0,"E"
-569,"Honington","Honington","United Kingdom","BEQ","EGXH",52.342611,0.772939,174,0,"E"
-570,"Cottesmore","Cottesmore","United Kingdom","","EGXJ",52.735711,-0.648769,461,0,"E"
-571,"Scampton","Scampton","United Kingdom","","EGXP",53.307778,-0.550833,202,0,"E"
-572,"Wittering","Wittering","United Kingdom","","EGXT",52.612558,-0.476453,273,0,"E"
-573,"Linton On Ouse","Linton-on-ouse","United Kingdom","","EGXU",54.048911,-1.252747,53,0,"E"
-574,"Waddington","Waddington","United Kingdom","WTN","EGXW",53.166167,-0.523811,231,0,"E"
-575,"Topcliffe","Topcliffe","United Kingdom","","EGXZ",54.205522,-1.382094,92,0,"E"
-576,"Cranwell","Cranwell","United Kingdom","","EGYD",53.03035,-0.483242,218,0,"E"
-577,"Barkston Heath","Barkston Heath","United Kingdom","","EGYE",52.962225,-0.561625,367,0,"E"
-578,"Marham","Marham","United Kingdom","KNF","EGYM",52.648353,0.550692,75,0,"E"
-579,"Mount Pleasant","Mount Pleasant","Falkland Islands","MPN","EGYP",-51.822777,-58.447222,244,-4,"U"
-580,"Schiphol","Amsterdam","Netherlands","AMS","EHAM",52.308613,4.763889,-11,1,"E"
-581,"Budel","Weert","Netherlands","","EHBD",51.25528,5.601389,114,1,"E"
-582,"Maastricht","Maastricht","Netherlands","MST","EHBK",50.911658,5.770144,375,1,"E"
-583,"Deelen","Deelen","Netherlands","","EHDL",52.060556,5.873056,158,1,"E"
-584,"Drachten","Drachten","Netherlands","","EHDR",53.119167,6.129722,14,1,"E"
-585,"Eindhoven","Eindhoven","Netherlands","EIN","EHEH",51.450139,5.374528,74,1,"E"
-586,"Eelde","Groningen","Netherlands","GRQ","EHGG",53.11972,6.579444,17,1,"E"
-587,"Gilze Rijen","Gilze-rijen","Netherlands","","EHGR",51.567389,4.931833,49,1,"E"
-588,"De Kooy","De Kooy","Netherlands","DHR","EHKD",52.923353,4.780625,3,1,"E"
-589,"Lelystad","Lelystad","Netherlands","","EHLE",52.460278,5.527222,-13,1,"E"
-590,"Leeuwarden","Leeuwarden","Netherlands","LWR","EHLW",53.228611,5.760556,3,1,"E"
-591,"Rotterdam","Rotterdam","Netherlands","RTM","EHRD",51.956944,4.437222,-15,1,"E"
-592,"Soesterberg","Soesterberg","Netherlands","UTC","EHSB",52.1273,5.27619,66,1,"E"
-593,"Twenthe","Enschede","Netherlands","ENS","EHTW",52.27,6.874167,114,1,"E"
-594,"Valkenburg","Valkenburg","Netherlands","LID","EHVB",52.166139,4.417944,0,1,"E"
-595,"Woensdrecht","Woensdrecht","Netherlands","WOE","EHWO",51.449092,4.342031,63,1,"E"
-596,"Cork","Cork","Ireland","ORK","EICK",51.841269,-8.491111,502,0,"E"
-597,"Galway","Galway","Ireland","GWY","EICM",53.300175,-8.941592,81,0,"E"
-599,"Dublin","Dublin","Ireland","DUB","EIDW",53.421333,-6.270075,242,0,"E"
-600,"Connaught","Connaught","Ireland","NOC","EIKN",53.910297,-8.818492,665,0,"E"
-601,"Kerry","Kerry","Ireland","KIR","EIKY",52.180878,-9.523783,112,0,"E"
-602,"Casement","Casement","Ireland","","EIME",53.301667,-6.451333,319,0,"E"
-603,"Shannon","Shannon","Ireland","SNN","EINN",52.701978,-8.924817,46,0,"E"
-604,"Sligo","Sligo","Ireland","SXL","EISG",54.280214,-8.599206,11,0,"E"
-605,"Waterford","Waterford","Ireland","WAT","EIWF",52.1872,-7.086964,119,0,"E"
-607,"Aarhus","Aarhus","Denmark","AAR","EKAH",56.300017,10.619008,82,1,"E"
-608,"Billund","Billund","Denmark","BLL","EKBI",55.740322,9.151778,247,1,"E"
-609,"Kastrup","Copenhagen","Denmark","CPH","EKCH",55.617917,12.655972,17,1,"E"
-610,"Esbjerg","Esbjerg","Denmark","EBJ","EKEB",55.525942,8.553403,97,1,"E"
-611,"Gronholt Hillerod","Gronholt","Denmark","","EKGH",55.941387,12.382222,97,1,"E"
-612,"Karup","Karup","Denmark","KRP","EKKA",56.297458,9.124628,170,1,"E"
-613,"Laeso","Laeso","Denmark","","EKLS",57.277228,11.000083,25,1,"E"
-614,"Lolland Falster Maribo","Maribo","Denmark","","EKMB",54.699344,11.440117,16,1,"E"
-615,"Odense","Odense","Denmark","ODE","EKOD",55.476664,10.330933,56,1,"E"
-616,"Krusa Padborg","Krusa-padborg","Denmark","","EKPB",54.870306,9.279014,88,1,"E"
-617,"Roskilde","Copenhagen","Denmark","RKE","EKRK",55.585567,12.131428,146,1,"E"
-618,"Bornholm Ronne","Ronne","Denmark","RNN","EKRN",55.063267,14.759558,52,1,"E"
-619,"Sonderborg","Soenderborg","Denmark","SGD","EKSB",54.964367,9.791731,24,1,"E"
-621,"Skrydstrup","Skrydstrup","Denmark","SKS","EKSP",55.225553,9.263931,141,1,"E"
-622,"Skive","Skive","Denmark","","EKSV",56.550208,9.172983,74,1,"E"
-623,"Thisted","Thisted","Denmark","TED","EKTS",57.0688,8.705225,23,1,"E"
-624,"Kolding Vamdrup","Kolding","Denmark","","EKVD",55.436283,9.330925,143,1,"E"
-625,"Vagar","Vagar","Faroe Islands","FAE","EKVG",62.063628,-7.277219,280,0,"E"
-626,"Aars","Vesthimmerland","Denmark","","EKVH",56.846944,9.458611,119,1,"E"
-627,"Stauning","Stauning","Denmark","STA","EKVJ",55.990122,8.353906,17,1,"E"
-628,"Aalborg","Aalborg","Denmark","AAL","EKYT",57.092789,9.849164,10,1,"E"
-629,"Luxembourg","Luxemburg","Luxembourg","LUX","ELLX",49.626575,6.211517,1234,1,"E"
-630,"Vigra","Alesund","Norway","AES","ENAL",62.560372,6.110164,69,1,"E"
-631,"Andenes","Andoya","Norway","ANX","ENAN",69.2925,16.144167,43,1,"E"
-632,"Alta","Alta","Norway","ALF","ENAT",69.976111,23.371667,9,1,"E"
-633,"Bomoen","Voss","Norway","","ENBM",60.63885,6.501497,300,1,"E"
-634,"Bronnoy","Bronnoysund","Norway","BNN","ENBN",65.461111,12.2175,25,1,"E"
-635,"Bodo","Bodo","Norway","BOO","ENBO",67.269167,14.365278,42,1,"E"
-636,"Flesland","Bergen","Norway","BGO","ENBR",60.293386,5.218142,170,1,"E"
-637,"Batsfjord","Batsfjord","Norway","BJF","ENBS",70.600278,29.6925,490,1,"E"
-638,"Kjevik","Kristiansand","Norway","KRS","ENCN",58.204214,8.085369,57,1,"E"
-639,"Dagali","Geilo","Norway","","ENDI",60.416667,8.512778,2618,1,"E"
-640,"Bardufoss","Bardufoss","Norway","BDU","ENDU",69.055758,18.540356,252,1,"E"
-641,"Evenes","Harstad/Narvik","Norway","EVE","ENEV",68.4913,16.678108,84,1,"E"
-642,"Leirin","Fagernes","Norway","VDB","ENFG",61.015556,9.288056,2697,1,"E"
-643,"Floro","Floro","Norway","FRO","ENFL",61.583611,5.024722,37,1,"E"
-644,"Gardermoen","Oslo","Norway","OSL","ENGM",60.193917,11.100361,681,1,"E"
-645,"Karmoy","Haugesund","Norway","HAU","ENHD",59.345267,5.208364,86,1,"E"
-646,"Hasvik","Hasvik","Norway","HAA","ENHK",70.486675,22.139744,21,1,"E"
-647,"Kvernberget","Kristiansund","Norway","KSU","ENKB",63.111781,7.824522,204,1,"E"
-648,"Kjeller","Kjeller","Norway","","ENKJ",59.969336,11.036089,354,1,"E"
-649,"Hoybuktmoen","Kirkenes","Norway","KKN","ENKR",69.725781,29.891295,283,1,"E"
-650,"Lista","Farsund","Norway","FAN","ENLI",58.099486,6.62605,29,1,"E"
-651,"Aro","Molde","Norway","MOL","ENML",62.744722,7.2625,10,1,"E"
-652,"Kjaerstad","Mosjoen","Norway","MJF","ENMS",65.783997,13.214914,237,1,"E"
-653,"Banak","Lakselv","Norway","LKL","ENNA",70.068814,24.973489,25,1,"E"
-654,"Notodden","Notodden","Norway","","ENNO",59.565683,9.212222,63,1,"E"
-655,"Orland","Orland","Norway","OLA","ENOL",63.698908,9.604003,28,1,"E"
-656,"Roros","Roros","Norway","RRS","ENRO",62.578411,11.342347,2054,1,"E"
-657,"Moss","Rygge","Norway","RYG","ENRY",59.378933,10.785389,174,1,"E"
-658,"Longyear","Svalbard","Norway","LYR","ENSB",78.246111,15.465556,88,1,"E"
-659,"Geiteryggen","Skien","Norway","SKE","ENSN",59.185,9.566944,463,1,"E"
-660,"Sorstokken","Stord","Norway","SRP","ENSO",59.791925,5.34085,160,1,"E"
-662,"Stokka","Sandnessjoen","Norway","SSJ","ENST",65.956828,12.468944,56,1,"E"
-663,"Langnes","Tromso","Norway","TOS","ENTC",69.683333,18.918919,31,1,"E"
-664,"Torp","Sandefjord","Norway","TRF","ENTO",59.186703,10.258628,286,1,"E"
-665,"Vaernes","Trondheim","Norway","TRD","ENVA",63.457556,10.92425,56,1,"E"
-666,"Sola","Stavanger","Norway","SVG","ENZV",58.876778,5.637856,29,1,"E"
-667,"Babice","Warsaw","Poland","","EPBC",52.268494,20.911047,352,1,"E"
-668,"Lech Walesa","Gdansk","Poland","GDN","EPGD",54.377569,18.466222,489,1,"E"
-669,"Balice","Krakow","Poland","KRK","EPKK",50.077731,19.784836,791,1,"E"
-670,"Muchowiec","Katowice","Poland","","EPKM",50.238147,19.034181,909,1,"E"
-671,"Pyrzowice","Katowice","Poland","KTW","EPKT",50.474253,19.080019,995,1,"E"
-673,"Mielec","Mielec","Poland","","EPML",50.322275,21.462131,548,1,"E"
-674,"Lawica","Poznan","Poland","POZ","EPPO",52.421031,16.826325,308,1,"E"
-675,"Jasionka","Rzeszow","Poland","RZE","EPRZ",50.109958,22.019,675,1,"E"
-676,"Goleniow","Szczechin","Poland","SZZ","EPSC",53.584731,14.902206,154,1,"E"
-677,"Redzikowo","Slupsk","Poland","OSP","EPSK",54.478889,17.1075,217,1,"E"
-678,"Swidwin","Shapaja","Poland","","EPSN",53.790639,15.82625,385,1,"E"
-679,"Okecie","Warsaw","Poland","WAW","EPWA",52.16575,20.967122,362,1,"E"
-680,"Strachowice","Wroclaw","Poland","WRO","EPWR",51.102683,16.885836,404,1,"E"
-681,"Babimost","Zielona Gora","Poland","IEG","EPZG",52.138517,15.798556,194,1,"E"
-682,"Malmen","Linkoeping","Sweden","","ESCF",58.402278,15.525683,308,1,"E"
-683,"Bravalla","Norrkoeping","Sweden","","ESCK",58.610867,16.103592,90,1,"E"
-684,"Uppsala","Uppsala","Sweden","","ESCM",59.897328,17.588581,68,1,"E"
-685,"Ronneby","Ronneby","Sweden","RNB","ESDF",56.266667,15.265,191,1,"E"
-686,"Rada","Rada","Sweden","","ESFR",58.498136,13.053231,230,1,"E"
-687,"Landvetter","Gothenborg","Sweden","GOT","ESGG",57.662836,12.279819,506,1,"E"
-688,"Jonkoping","Joenkoeping","Sweden","JKG","ESGJ",57.757594,14.068731,741,1,"E"
-689,"Falkoping","Falkoping","Sweden","","ESGK",58.169794,13.587847,785,1,"E"
-690,"Lidkoping","Lidkoping","Sweden","LDK","ESGL",58.465522,13.174414,200,1,"E"
-691,"Save","Gothenborg","Sweden","GSE","ESGP",57.774722,11.870372,59,1,"E"
-692,"Skovde","Skovde","Sweden","KVB","ESGR",58.4564,13.972672,324,1,"E"
-693,"Trollhattan Vanersborg","Trollhattan","Sweden","THN","ESGT",58.318056,12.345,137,1,"E"
-694,"Karlsborg","Karlsborg","Sweden","","ESIA",58.513842,14.507119,308,1,"E"
-695,"Satenas","Satenas","Sweden","","ESIB",58.426445,12.714389,181,1,"E"
-696,"Barkarby","Stockholm","Sweden","","ESKB",59.418694,17.890694,50,1,"E"
-697,"Karlskoga","Karlskoga","Sweden","KSK","ESKK",59.345867,14.495922,400,1,"E"
-698,"Mora","Mora","Sweden","MXX","ESKM",60.957908,14.511383,634,1,"E"
-699,"Skavsta","Stockholm","Sweden","NYO","ESKN",58.788636,16.912189,140,1,"E"
-700,"Arvika","Arvika","Sweden","","ESKV",59.675856,12.639442,237,1,"E"
-701,"Emmaboda","Emmaboda","Sweden","","ESMA",56.610761,15.604761,442,1,"E"
-702,"Feringe","Ljungby","Sweden","","ESMG",56.950278,13.921667,538,1,"E"
-703,"Kristianstad","Kristianstad","Sweden","KID","ESMK",55.921686,14.085536,76,1,"E"
-704,"Landskrona","Landskrona","Sweden","JLD","ESML",55.944444,12.869444,194,1,"E"
-705,"Oskarshamn","Oskarshamn","Sweden","OSK","ESMO",57.350453,16.497972,96,1,"E"
-706,"Anderstorp","Anderstorp","Sweden","","ESMP",57.264167,13.599439,507,1,"E"
-707,"Kalmar","Kalkmar","Sweden","KLR","ESMQ",56.685531,16.287578,17,1,"E"
-708,"Sturup","Malmoe","Sweden","MMX","ESMS",55.530193,13.371639,236,1,"E"
-709,"Halmstad","Halmstad","Sweden","HAD","ESMT",56.691128,12.820211,101,1,"E"
-710,"Hagshult","Hagshult","Sweden","","ESMV",57.292222,14.137222,556,1,"E"
-711,"Kronoberg","Vaxjo","Sweden","VXO","ESMX",56.929144,14.727994,610,1,"E"
-712,"Hallviken","Hallviken","Sweden","","ESNA",63.738333,15.458333,1119,1,"E"
-713,"Hedlanda","Hede","Sweden","","ESNC",62.408889,13.747222,1460,1,"E"
-714,"Sveg","Sveg","Sweden","EVG","ESND",62.047811,14.42295,1178,1,"E"
-715,"Gallivare","Gallivare","Sweden","GEV","ESNG",67.132408,20.814636,1027,1,"E"
-716,"Hudiksvall","Hudiksvall","Sweden","HUV","ESNH",61.768092,17.080719,95,1,"E"
-717,"Jokkmokk","Jokkmokk","Sweden","","ESNJ",66.496236,20.147181,904,1,"E"
-718,"Kramfors Solleftea","Kramfors","Sweden","KRF","ESNK",63.048597,17.768856,34,1,"E"
-719,"Lycksele","Lycksele","Sweden","LYC","ESNL",64.548322,18.716219,705,1,"E"
-720,"Optand","Optand","Sweden","","ESNM",63.128611,14.802778,1236,1,"E"
-721,"Sundsvall Harnosand","Sundsvall","Sweden","SDL","ESNN",62.528125,17.443928,16,1,"E"
-722,"Ornskoldsvik","Ornskoldsvik","Sweden","OER","ESNO",63.408339,18.990039,354,1,"E"
-723,"Pitea","Pitea","Sweden","","ESNP",65.398333,21.260833,43,1,"E"
-724,"Kiruna","Kiruna","Sweden","KRN","ESNQ",67.821986,20.336764,1508,1,"E"
-725,"Orsa","Orsa","Sweden","","ESNR",61.190033,14.712567,683,1,"E"
-726,"Skelleftea","Skelleftea","Sweden","SFT","ESNS",64.624772,21.076892,157,1,"E"
-727,"Sattna","Sattna","Sweden","","ESNT",62.481369,17.002917,886,1,"E"
-728,"Umea","Umea","Sweden","UME","ESNU",63.791828,20.282758,24,1,"E"
-729,"Vilhelmina","Vilhelmina","Sweden","VHM","ESNV",64.579083,16.833575,1140,1,"E"
-730,"Arvidsjaur","Arvidsjaur","Sweden","AJR","ESNX",65.590278,19.281944,1245,1,"E"
-731,"Orebro","Orebro","Sweden","ORB","ESOE",59.223733,15.037956,188,1,"E"
-733,"Vasteras","Vasteras","Sweden","VST","ESOW",59.589444,16.633611,21,1,"E"
-734,"Kallax","Lulea","Sweden","LLA","ESPA",65.543758,22.121989,65,1,"E"
-735,"Vidsel","Vidsel","Sweden","","ESPE",65.875325,20.149917,597,1,"E"
-736,"Arboga","Arboga","Sweden","","ESQO",59.386585,15.924055,33,1,"E"
-737,"Arlanda","Stockholm","Sweden","ARN","ESSA",59.651944,17.918611,137,1,"E"
-738,"Bromma","Stockholm","Sweden","BMA","ESSB",59.354372,17.94165,47,1,"E"
-739,"Borlange","Borlange","Sweden","BLE","ESSD",60.422017,15.515211,503,1,"E"
-740,"Hultsfred","Hultsfred","Sweden","HLF","ESSF",57.525833,15.823333,366,1,"E"
-741,"Gavle","Gavle","Sweden","GVX","ESSK",60.593333,16.951389,224,1,"E"
-742,"Saab","Linkoeping","Sweden","LPI","ESSL",58.40615,15.680508,172,1,"E"
-743,"Kungsangen","Norrkoeping","Sweden","NRK","ESSP",58.586253,16.250622,32,1,"E"
-745,"Eskilstuna","Eskilstuna","Sweden","","ESSU",59.351078,16.7084,139,1,"E"
-746,"Visby","Visby","Sweden","VBY","ESSV",57.662797,18.346211,164,1,"E"
-748,"Kalixfors","Kalixfors","Sweden","","ESUK",67.764789,20.257228,1549,1,"E"
-750,"Spangdahlem Ab","Spangdahlem","Germany","SPM","ETAD",49.972667,6.6925,1197,1,"E"
-751,"Ramstein Ab","Ramstein","Germany","RMS","ETAR",49.436911,7.600283,776,1,"E"
-752,"Bamberg Aaf","Bamberg","Germany","","ETEJ",49.920433,10.914233,823,1,"E"
-753,"Giebelstadt Aaf","Giebelstadt","Germany","GHF","ETEU",49.648131,9.966494,980,1,"E"
-754,"Buckeburg","Brueckeburg","Germany","","ETHB",52.2785,9.082167,230,1,"E"
-755,"Celle","Celle","Germany","ZCN","ETHC",52.5912,10.022133,129,1,"E"
-756,"Rheine Bentlage","Rheine-brentlange","Germany","","ETHE",52.291167,7.387,129,1,"E"
-757,"Fritzlar","Fritzlar","Germany","","ETHF",51.1145,9.285833,566,1,"E"
-758,"Laupheim","Laupheim","Germany","","ETHL",48.220297,9.910019,1766,1,"E"
-759,"Mendig","Mendig","Germany","","ETHM",50.366,7.315333,597,1,"E"
-760,"Niederstetten","Niederstetten","Germany","","ETHN",49.391833,9.958167,1536,1,"E"
-761,"Roth","Roth","Germany","","ETHR",49.2175,11.100167,1268,1,"E"
-762,"Fassberg","Fassberg","Germany","","ETHS",52.919406,10.197528,245,1,"E"
-763,"Grafenwohr Aaf","Grafenwoehr","Germany","","ETIC",49.698686,11.940175,1363,1,"E"
-764,"Hanau Aaf","Hanau","Germany","ZNF","ETID",50.169189,8.961586,368,1,"E"
-765,"Hohenfels Aaf","Hohenfels","Germany","","ETIH",49.218056,11.836111,1455,1,"E"
-766,"Kitzingen Aaf","Kitzingen","Germany","","ETIN",49.743057,10.200556,689,1,"E"
-767,"Nordholz","Nordholz","Germany","","ETMN",53.767667,8.6585,74,1,"E"
-768,"Diepholz","Diepholz","Germany","","ETND",52.585514,8.341014,127,1,"E"
-769,"Geilenkirchen","Geilenkirchen","Germany","GKE","ETNG",50.960817,6.042422,296,1,"E"
-770,"Hohn","Hohn","Germany","","ETNH",54.312167,9.538167,39,1,"E"
-771,"Jever","Jever","Germany","","ETNJ",53.5335,7.888667,24,1,"E"
-772,"Laage","Laage","Germany","RLG","ETNL",53.918167,12.278333,138,1,"E"
-773,"Norvenich","Noervenich","Germany","","ETNN",50.831167,6.658167,386,1,"E"
-774,"Schleswig","Schleswig","Germany","","ETNS",54.459333,9.516333,70,1,"E"
-775,"Wittmundhafen","Wittmundhafen","Germany","","ETNT",53.547833,7.667333,26,1,"E"
-776,"Neubrandenburg","Neubrandenburg","Germany","","ETNU",53.602167,13.306,228,1,"E"
-777,"Wunstorf","Wunstorf","Germany","","ETNW",52.457333,9.427167,187,1,"E"
-778,"Vilseck Aaf","Vilseck","Germany","","ETOI",49.63361,11.767222,1353,1,"E"
-779,"Coleman Aaf","Coleman","Germany","","ETOR",49.563569,8.463392,309,1,"E"
-780,"Wiesbaden Aaf","Wiesbaden","Germany","","ETOU",50.049819,8.325397,461,1,"E"
-781,"Landsberg Lech","Landsberg","Germany","","ETSA",48.0705,10.906,2044,1,"E"
-782,"Buchel","Buechel","Germany","","ETSB",50.173833,7.063333,1568,1,"E"
-783,"Erding","Erding","Germany","","ETSE",48.322333,11.948667,1515,1,"E"
-784,"Furstenfeldbruck","Fuerstenfeldbruck","Germany","FEL","ETSF",48.205667,11.267,1703,1,"E"
-785,"Holzdorf","Holzdorf","Germany","","ETSH",51.767833,13.167667,265,1,"E"
-786,"Ingolstadt Manching","Ingolstadt","Germany","","ETSI",48.715667,11.534,1202,1,"E"
-787,"Lechfeld","Lechfeld","Germany","","ETSL",48.1855,10.861167,1822,1,"E"
-788,"Neuburg","Neuburg","Germany","","ETSN",48.711,11.2115,1249,1,"E"
-789,"Gutersloh","Guetersloh","Germany","GUT","ETUO",51.922833,8.306333,236,1,"E"
-790,"Alexander Bay","Alexander Bay","South Africa","ALJ","FAAB",-28.575001,16.533333,98,2,"U"
-791,"Aggeneys","Aggeneys","South Africa","AGZ","FAAG",-29.281767,18.813869,2648,2,"U"
-792,"Brakpan","Brakpan","South Africa","","FABB",-26.23865,28.301769,5300,2,"U"
-793,"Bhisho","Bisho","South Africa","VIY","FABE",-32.89715,27.279111,1950,2,"U"
-794,"Bloemfontein Intl","Bloemfontein","South Africa","BFN","FABL",-29.092722,26.302444,4458,2,"U"
-795,"Bethlehem","Bethlehem","South Africa","","FABM",-28.248392,28.336125,5561,2,"U"
-796,"Bothaville","Bothaville","South Africa","","FABO",-27.366769,26.629194,4236,2,"U"
-797,"Cape Town Intl","Cape Town","South Africa","CPT","FACT",-33.964806,18.601667,151,2,"U"
-798,"Calvinia","Calvinia","South Africa","","FACV",-31.500278,19.725897,3250,2,"U"
-799,"Durban Intl","Durban","South Africa","DUR","FADN",-29.970089,30.950519,33,2,"U"
-800,"East London","East London","South Africa","ELS","FAEL",-33.035569,27.825939,435,2,"U"
-801,"Ermelo","Ermelo","South Africa","","FAEO",-26.495644,29.979764,5700,2,"U"
-802,"Ficksburg Sentraoes","Ficksburg","South Africa","","FAFB",-28.823119,27.9089,5315,2,"U"
-803,"Grand Central","Johannesburg","South Africa","GCJ","FAGC",-25.986267,28.140061,5325,2,"U"
-804,"George","George","South Africa","GRJ","FAGG",-34.005553,22.378889,648,2,"U"
-806,"Graaff Reinet","Graaff Reinet","South Africa","","FAGR",-32.193611,24.541389,2604,2,"U"
-807,"Grahamstown","Grahamstown","South Africa","","FAGT",-33.284721,26.498083,2135,2,"U"
-808,"Greytown","Greytown","South Africa","","FAGY",-29.122011,30.586706,3531,2,"U"
-809,"Harmony","Harmony","South Africa","","FAHA",-28.078694,26.861178,4399,2,"U"
-810,"Harrismith","Harrismith","South Africa","","FAHR",-28.235072,29.106206,5585,2,"U"
-811,"Hoedspruit Afb","Hoedspruit","South Africa","HDS","FAHS",-24.368642,31.048744,1743,2,"U"
-812,"Gariep Dam","Hendrik Verwoerddam","South Africa","","FAHV",-30.562164,25.528286,4176,2,"U"
-813,"Johannesburg Intl","Johannesburg","South Africa","JNB","FAJS",-26.139166,28.246,5558,2,"U"
-814,"P C Pelser","Klerksdorp","South Africa","","FAKD",-26.871064,26.718003,4444,2,"U"
-815,"Kimberley","Kimberley","South Africa","KIM","FAKM",-28.802834,24.765167,3950,2,"U"
-816,"Krugersdorp","Krugersdorp","South Africa","","FAKR",-26.080978,27.725667,5499,2,"U"
-817,"Kroonstad","Kroonstad","South Africa","","FAKS",-27.660617,27.315761,4700,2,"U"
-818,"Johan Pienaar","Kuruman","South Africa","","FAKU",-27.456667,23.411388,4382,2,"U"
-819,"Kleinsee","Kleinsee","South Africa","KLZ","FAKZ",-29.688403,17.094006,270,2,"U"
-820,"Lanseria","Johannesburg","South Africa","HLA","FALA",-25.938514,27.926133,4517,2,"U"
-821,"Lichtenburg","Lichtenburg","South Africa","","FALI",-26.175672,26.184575,4875,2,"U"
-822,"Makhado Afb","Lambertsbaai","South Africa","","FALM",-23.159911,29.696544,3069,2,"U"
-823,"Langebaanweg","Langebaanweg","South Africa","","FALW",-32.968889,18.160278,108,2,"U"
-824,"Ladysmith","Ladysmith","South Africa","LAY","FALY",-28.581667,29.749722,3548,2,"U"
-825,"Middelburg","Middelburg","South Africa","","FAMB",-25.684775,29.440158,4886,2,"U"
-827,"Margate","Margate","South Africa","MGH","FAMG",-30.857408,30.343019,495,2,"U"
-828,"Marble Hall","Marble Hall","South Africa","","FAMI",-24.989114,29.283122,2980,2,"U"
-829,"Majuba Power Station","Majuba Power Station","South Africa","","FAMJ",-27.079253,29.778528,5600,2,"U"
-6813,"Susse","Kangia","Greenland","",\N,69.2225,-49.9383,100,-3,"U"
-831,"Malelane","Malalane","South Africa","","FAMN",-25.473603,31.565828,1153,2,"U"
-832,"Morningside Farm","Messina","South Africa","MEZ","FAMS",-25.704458,26.908978,4251,2,"U"
-833,"Mkuzi","Mkuze","South Africa","","FAMU",-27.626086,32.044275,400,2,"U"
-834,"Newcastle","Newcastle","South Africa","NCS","FANC",-27.770586,29.976894,4074,2,"U"
-835,"Nylstroom","Nylstroom","South Africa","","FANY",-24.686056,28.434944,3900,2,"U"
-836,"Overberg","Overberg","South Africa","","FAOB",-34.554861,20.250681,52,2,"U"
-837,"Oudtshoorn","Oudtshoorn","South Africa","DUH","FAOH",-33.606967,22.188978,1063,2,"U"
-838,"Port Elizabeth Intl","Port Elizabeth","South Africa","PLZ","FAPE",-33.984919,25.617275,226,2,"U"
-839,"Plettenberg Bay","Plettenberg Bay","South Africa","","FAPG",-34.090279,23.327778,465,2,"U"
-840,"Phalaborwa","Phalaborwa","South Africa","PHW","FAPH",-23.937166,31.15539,1432,2,"U"
-841,"Pietersburg","Pietersburg","South Africa","PTG","FAPI",-23.926089,29.484422,4354,2,"U"
-842,"Port St Johns","Port Saint Johns","South Africa","","FAPJ",-31.605886,29.519786,1227,2,"U"
-843,"Pietermaritzburg","Pietermaritzburg","South Africa","PZB","FAPM",-29.648975,30.398667,2423,2,"U"
-844,"Pilanesberg Intl","Pilanesberg","South Africa","NTY","FAPN",-25.333822,27.173358,3412,2,"U"
-845,"Polokwane Intl","Potgietersrus","South Africa","","FAPP",-23.845306,29.458611,4076,2,"U"
-846,"Potchefstroom","Potchefstroom","South Africa","","FAPS",-26.670994,27.0819,4520,2,"U"
-847,"Parys","Parys","South Africa","","FAPY",-26.889344,27.503417,4740,2,"U"
-848,"Queenstown","Queenstown","South Africa","UTW","FAQT",-31.920197,26.882206,3637,2,"U"
-849,"Richards Bay","Richard's Bay","South Africa","RCB","FARB",-28.741039,32.092111,109,2,"U"
-850,"Rustenburg","Rustenburg","South Africa","","FARG",-25.6443,27.271119,3700,2,"U"
-851,"Robertson","Robertson","South Africa","","FARS",-33.812181,19.902828,640,2,"U"
-852,"Springbok","Springbok","South Africa","SBU","FASB",-29.689333,17.939611,2690,2,"U"
-853,"Secunda","Secunda","South Africa","","FASC",-26.524083,29.170144,5250,2,"U"
-854,"Saldanha Vredenburg","Saldanha","South Africa","","FASD",-32.964067,17.969331,50,2,"U"
-855,"Springs","Springs","South Africa","","FASI",-26.248411,28.397508,5340,2,"U"
-856,"Swartkop","Swartkop","South Africa","","FASK",-25.809717,28.164631,4780,2,"U"
-857,"Sishen","Sishen","South Africa","SIS","FASS",-27.648606,22.999278,3848,2,"U"
-858,"Hendrik Swellengrebel","Swellendam","South Africa","","FASX",-34.048222,20.474611,407,2,"U"
-859,"Skukuza","Skukuza","South Africa","SZK","FASZ",-24.960944,31.588731,1020,2,"U"
-860,"Tommys Fld","Tommy's Field","South Africa","","FATF",-28.260028,22.993178,4360,2,"U"
-861,"New Tempe","Bloemfontein","South Africa","","FATP",-29.032928,26.157564,4547,2,"U"
-862,"Tutuka Power Station","Tutuka","South Africa","","FATT",-26.776556,29.338778,5313,2,"U"
-863,"Tzaneen","Tzaneen","South Africa","LTA","FATZ",-23.824417,30.329306,1914,2,"U"
-864,"Prince Mangosuthu Buthelezi","Ulundi","South Africa","ULD","FAUL",-28.320586,31.416519,1720,2,"U"
-865,"Upington","Upington","South Africa","UTN","FAUP",-28.399097,21.260239,2782,2,"U"
-866,"Mthatha","Umtata","South Africa","UTT","FAUT",-31.547903,28.674289,2400,2,"U"
-867,"Vryburg","Vryburg","South Africa","VRU","FAVB",-26.982408,24.728756,3920,2,"U"
-868,"Virginia","Durban","South Africa","VIR","FAVG",-29.770606,31.058406,20,2,"U"
-869,"Vredendal","Vredendal","South Africa","","FAVR",-31.640961,18.544789,330,2,"U"
-870,"Vereeniging","Vereeniging","South Africa","","FAVV",-26.566372,27.960756,4846,2,"U"
-871,"Wonderboom","Pretoria","South Africa","PRY","FAWB",-25.653858,28.224231,4095,2,"U"
-872,"Witbank","Witbank","South Africa","","FAWI",-25.832294,29.192019,5078,2,"U"
-873,"Waterkloof Afb","Waterkloof","South Africa","","FAWK",-25.83,28.2225,4940,2,"U"
-874,"Welkom","Welkom","South Africa","WEL","FAWM",-27.998,26.669586,4399,2,"U"
-875,"Ysterplaat","Ysterplaat","South Africa","","FAYP",-33.900244,18.498297,52,2,"U"
-876,"Zeerust","Zeerust","South Africa","","FAZR",-25.598972,26.042333,4258,2,"U"
-877,"Francistown","Francistown","Botswana","FRW","FBFT",-21.159597,27.474525,3283,2,"U"
-878,"Jwaneng","Jwaneng","Botswana","JWA","FBJW",-24.602333,24.690971,3900,2,"U"
-879,"Kasane","Kasane","Botswana","BBK","FBKE",-17.832875,25.1624,3289,2,"U"
-880,"Maun","Maun","Botswana","MUB","FBMN",-19.972564,23.431086,3093,2,"U"
-881,"Sir Seretse Khama Intl","Gaberone","Botswana","GBE","FBSK",-24.555225,25.918208,3299,2,"U"
-882,"Selebi Phikwe","Selebi-phikwe","Botswana","PKW","FBSP",-22.05835,27.828767,2925,2,"U"
-883,"Maya Maya","Brazzaville","Congo (Kinshasa)","BZV","FCBB",-4.2517,15.253031,1048,1,"N"
-884,"Owando","Owando","Congo (Kinshasa)","FTX","FCOO",-0.53135,15.950094,1214,1,"N"
-885,"Ouesso","Ouesso","Congo (Kinshasa)","OUE","FCOU",1.615994,16.037917,1158,1,"N"
-886,"Pointe Noire","Pointe-noire","Congo (Brazzaville)","PNR","FCPP",-4.816028,11.886597,55,1,"N"
-887,"Matsapha","Manzini","Swaziland","MTS","FDMS",-26.529022,31.307519,2075,2,"U"
-888,"Bangui M Poko","Bangui","Central African Republic","BGF","FEFF",4.398475,18.518786,1208,1,"N"
-889,"Berberati","Berberati","Central African Republic","BBT","FEFT",4.221583,15.786369,1929,1,"N"
-890,"Bata","Bata","Equatorial Guinea","BSG","FGBT",1.905469,9.805681,13,1,"N"
-891,"Malabo","Malabo","Equatorial Guinea","SSG","FGSL",3.755267,8.708717,76,1,"N"
-892,"Ascension Aux Af","Wide Awake","Saint Helena","","FHAW",-7.969597,-14.393664,278,0,"N"
-893,"Sir Seewoosagur Ramgoolam Intl","Plaisance","Mauritius","MRU","FIMP",-20.430235,57.6836,186,5,"S"
-894,"Plaine Corail","Rodriguez Island","Mauritius","RRG","FIMR",-19.757658,63.360983,95,4,"S"
-895,"Diego Garcia Nsf","Diego Garcia Island","British Indian Ocean Territory","","FJDG",-7.313267,72.411089,9,6,"U"
-896,"Tiko","Tiko","Cameroon","TKC","FKKC",4.089192,9.360528,151,1,"N"
-897,"Douala","Douala","Cameroon","DLA","FKKD",4.006081,9.719481,33,1,"N"
-898,"Salak","Maroua","Cameroon","MVR","FKKL",10.451392,14.257361,1390,1,"N"
-899,"Foumban Nkounja","Foumban","Cameroon","FOM","FKKM",5.636919,10.750817,3963,1,"N"
-900,"Ngaoundere","N'gaoundere","Cameroon","NGE","FKKN",7.357011,13.559242,3655,1,"N"
-901,"Garoua","Garoua","Cameroon","GOU","FKKR",9.335892,13.370103,794,1,"N"
-902,"Bafoussam","Bafoussam","Cameroon","BFX","FKKU",5.536919,10.354583,4347,1,"N"
-903,"Bamenda","Bamenda","Cameroon","BPC","FKKV",6.039239,10.122639,4065,1,"N"
-904,"Yaounde Ville","Yaounde","Cameroon","YAO","FKKY",3.836039,11.523461,2464,1,"N"
-905,"Kasompe","Kasompe","Zambia","","FLKE",-12.572778,27.89395,4636,2,"U"
-906,"Livingstone","Livingstone","Zambia","LVI","FLLI",-17.821756,25.822692,3302,2,"U"
-907,"Lusaka Intl","Lusaka","Zambia","LUN","FLLS",-15.330817,28.452628,3779,2,"U"
-908,"Mfuwe","Mfuwe","Zambia","MFU","FLMF",-13.258878,31.936581,1853,2,"U"
-909,"Mongu","Mongu","Zambia","","FLMG",-15.254542,23.162306,3488,2,"U"
-910,"Ndola","Ndola","Zambia","NLA","FLND",-12.998139,28.664944,4167,2,"U"
-911,"Southdowns","Southdowns","Zambia","KIW","FLSO",-12.900469,28.149858,4145,2,"U"
-912,"Prince Said Ibrahim","Moroni","Comoros","HAH","FMCH",-11.533661,43.27185,93,3,"U"
-913,"Bandaressalam","Moheli","Comoros","NWA","FMCI",-12.298108,43.7664,46,3,"U"
-914,"Ouani","Anjouan","Comoros","AJN","FMCV",-12.131667,44.430279,62,3,"U"
-915,"Dzaoudzi Pamandzi","Dzaoudzi","Mayotte","DZA","FMCZ",-12.804722,45.281113,23,3,"U"
-916,"St Denis Gillot","St.-denis","Reunion","RUN","FMEE",-20.8871,55.510308,66,5,"U"
-917,"St Pierre Pierrefonds","St.-pierre","Reunion","ZSE","FMEP",-21.320039,55.423581,56,5,"U"
-918,"Ivato","Antananarivo","Madagascar","TNR","FMMI",-18.79695,47.478806,4198,3,"U"
-919,"Miandrivazo","Miandrivazo","Madagascar","ZVA","FMMN",-19.562778,45.450832,203,3,"U"
-920,"Sainte Marie","Sainte Marie","Madagascar","SMS","FMMS",-17.093889,49.815834,7,3,"U"
-921,"Toamasina","Toamasina","Madagascar","TMM","FMMT",-18.109517,49.392536,22,3,"U"
-922,"Morondava","Morondava","Madagascar","MOQ","FMMV",-20.28475,44.317614,30,3,"U"
-923,"Arrachart","Antsiranana","Madagascar","DIE","FMNA",-12.3494,49.291747,374,3,"U"
-924,"Avaratra","Mananara","Madagascar","WMR","FMNC",-16.1639,49.773753,9,3,"U"
-925,"Andapa","Andapa","Madagascar","ZWA","FMND",-14.651667,49.620556,1552,3,"U"
-926,"Ambilobe","Ambilobe","Madagascar","AMB","FMNE",-13.188431,48.987978,72,3,"U"
-927,"Antsirabato","Antalaha","Madagascar","ANM","FMNH",-14.999411,50.320233,20,3,"U"
-928,"Analalava","Analalava","Madagascar","HVA","FMNL",-14.629694,47.763783,345,3,"U"
-929,"Philibert Tsiranana","Mahajanga","Madagascar","MJN","FMNM",-15.667144,46.351828,87,3,"U"
-930,"Fascene","Nosy-be","Madagascar","NOS","FMNN",-13.312067,48.314822,36,3,"U"
-931,"Besalampy","Besalampy","Madagascar","BPY","FMNQ",-16.741945,44.481388,125,3,"U"
-932,"Maroantsetra","Maroantsetra","Madagascar","WMN","FMNR",-15.436666,49.688332,13,3,"U"
-933,"Sambava","Sambava","Madagascar","SVB","FMNS",-14.278611,50.174721,20,3,"U"
-934,"Vohimarina","Vohemar","Madagascar","VOH","FMNV",-13.375834,50.002777,19,3,"U"
-935,"Ambalabe","Antsohihy","Madagascar","WAI","FMNW",-14.89875,47.993894,92,3,"U"
-936,"Ampampamena","Ampampamena","Madagascar","","FMNZ",-13.484814,48.632739,49,3,"U"
-937,"Tolagnaro","Tolagnaro","Madagascar","FTU","FMSD",-25.038056,46.956111,29,3,"U"
-938,"Fianarantsoa","Fianarantsoa","Madagascar","WFI","FMSF",-21.441558,47.111736,3658,3,"U"
-939,"Farafangana","Farafangana","Madagascar","RVA","FMSG",-22.805286,47.820614,26,3,"U"
-940,"Manakara","Manakara","Madagascar","WVK","FMSK",-22.119722,48.021667,33,3,"U"
-941,"Mananjary","Mananjary","Madagascar","MNJ","FMSM",-21.201772,48.358317,20,3,"U"
-942,"Morombe","Morombe","Madagascar","MXM","FMSR",-21.753867,43.375533,16,3,"U"
-943,"Toliara","Toliara","Madagascar","TLE","FMST",-23.383369,43.728453,29,3,"U"
-944,"Mbanza Congo","M'banza-congo","Angola","SSY","FNBC",-6.269897,14.247025,1860,1,"N"
-945,"Benguela","Benguela","Angola","BUG","FNBG",-12.609025,13.403711,118,1,"N"
-946,"Cabinda","Cabinda","Angola","CAB","FNCA",-5.596992,12.188353,66,1,"N"
-6814,"Culebra Airport","Culebra Island","Puerto Rico","CPX","TJCP",18.3127,-65.3034,12,-4,"U"
-948,"Huambo","Huambo","Angola","NOV","FNHU",-12.808878,15.760547,5587,1,"N"
-949,"Kuito","Kuito","Angola","SVP","FNKU",-12.404633,16.947414,5618,1,"N"
-950,"Lobito","Lobito","Angola","","FNLB",-12.371233,13.536625,10,1,"N"
-951,"Luanda 4 De Fevereiro","Luanda","Angola","LAD","FNLU",-8.858375,13.231178,243,1,"N"
-952,"Malanje","Malanje","Angola","MEG","FNMA",-9.525086,16.312406,3868,1,"N"
-953,"Menongue","Menongue","Angola","SPP","FNME",-14.657583,17.719833,4469,1,"N"
-955,"Negage","Negage","Angola","GXG","FNNG",-7.754506,15.287728,4105,1,"N"
-956,"Porto Amboim","Porto Amboim","Angola","PBN","FNPA",-10.721956,13.765528,16,1,"N"
-957,"Saurimo","Saurimo","Angola","VHC","FNSA",-9.689067,20.431875,3584,1,"N"
-958,"Soyo","Soyo","Angola","SZA","FNSO",-6.141086,12.371764,15,1,"N"
-959,"Lubango","Lubango","Angola","SDD","FNUB",-14.924733,13.575022,5778,1,"N"
-960,"Luena","Luena","Angola","LUO","FNUE",-11.768086,19.897672,4360,1,"N"
-961,"Uige","Uige","Angola","UGO","FNUG",-7.603067,15.027822,2720,1,"N"
-962,"Xangongo","Xangongo","Angola","XGN","FNXA",-16.755417,14.965344,3635,1,"N"
-963,"Oyem","Oyem","Gabon","OYE","FOGO",1.543108,11.581361,2158,1,"N"
-964,"Okondja","Okondja","Gabon","OKN","FOGQ",-0.665214,13.673133,1325,1,"N"
-965,"Lambarene","Lambarene","Gabon","LBQ","FOGR",-0.704389,10.245722,82,1,"N"
-966,"Bitam","Bitam","Gabon","BMM","FOOB",2.075639,11.493195,1969,1,"N"
-967,"Port Gentil","Port Gentil","Gabon","POG","FOOG",-0.711739,8.754383,13,1,"N"
-968,"Omboue Hopital","Omboue Hospial","Gabon","OMB","FOOH",-1.574733,9.262694,33,1,"N"
-969,"Makokou","Makokou","Gabon","MKU","FOOK",0.579211,12.890908,1726,1,"N"
-970,"Leon M Ba","Libreville","Gabon","LBV","FOOL",0.4586,9.412283,39,1,"N"
-971,"Mvengue","Franceville","Gabon","MVB","FOON",-1.656156,13.438036,1450,1,"N"
-972,"Principe","Principe","Sao Tome and Principe","PCP","FPPR",1.662936,7.411742,591,0,"N"
-973,"Sao Tome Intl","Sao Tome","Sao Tome and Principe","TMS","FPST",0.378175,6.712153,33,0,"N"
-974,"Beira","Beira","Mozambique","BEW","FQBR",-19.796419,34.907556,33,2,"U"
-976,"Inhambane","Inhambane","Mozambique","INH","FQIN",-23.876431,35.408544,30,2,"U"
-977,"Lichinga","Lichinga","Mozambique","VXC","FQLC",-13.273986,35.266262,4505,2,"U"
-978,"Lumbo","Lumbo","Mozambique","","FQLU",-15.033058,40.671728,33,2,"U"
-979,"Maputo","Maputo","Mozambique","MPM","FQMA",-25.920836,32.572606,145,2,"U"
-980,"Mueda","Mueda","Mozambique","","FQMD",-11.672922,39.563142,2789,2,"U"
-981,"Mocimboa Da Praia","Mocimboa Da Praia","Mozambique","MZB","FQMP",-11.361789,40.354875,89,2,"U"
-982,"Marrupa","Marrupa","Mozambique","","FQMR",-13.225053,37.552067,2480,2,"U"
-983,"Nacala","Nacala","Mozambique","MNC","FQNC",-14.488233,40.71225,410,2,"U"
-984,"Nampula","Nampula","Mozambique","APL","FQNP",-15.105611,39.2818,1444,2,"U"
-985,"Pemba","Pemba","Mozambique","POL","FQPB",-12.986753,40.522492,331,2,"U"
-986,"Quelimane","Quelimane","Mozambique","UEL","FQQL",-17.8555,36.869106,36,2,"U"
-987,"Songo","Songo","Mozambique","","FQSG",-15.602694,32.773189,2904,2,"U"
-988,"Tete Chingodzi","Tete","Mozambique","TET","FQTT",-16.104817,33.640181,525,2,"U"
-989,"Ulongwe","Ulongwe","Mozambique","","FQUG",-14.704617,34.352369,4265,2,"U"
-990,"Vilankulo","Vilankulu","Mozambique","VNX","FQVL",-22.018431,35.313297,46,2,"U"
-991,"Alphonse","Alphonse","Seychelles","","FSAL",-7.004783,52.726247,10,4,"U"
-992,"Desroches","Desroches","Seychelles","DES","FSDR",-5.696697,53.655844,10,4,"U"
-993,"Farquhar","Farquhar","Seychelles","","FSFA",-10.109611,51.176119,10,4,"U"
-994,"Seychelles Intl","Mahe","Seychelles","SEZ","FSIA",-4.674342,55.521839,10,4,"U"
-995,"Praslin","Praslin","Seychelles","PRI","FSPP",-4.319292,55.691417,10,4,"U"
-996,"Coetivy","Coetivy","Seychelles","","FSSC",-7.134567,56.278239,10,4,"U"
-997,"Abeche","Abeche","Chad","AEH","FTTC",13.847,20.844333,1788,1,"N"
-998,"Moundou","Moundou","Chad","MQQ","FTTD",8.624406,16.071419,1407,1,"N"
-999,"Ndjamena Hassan Djamous","N'djamena","Chad","NDJ","FTTJ",12.133689,15.034019,968,1,"N"
-1000,"Faya Largeau","Faya-largeau","Chad","FYT","FTTY",17.917053,19.111078,771,1,"N"
-1001,"J M Nkomo Intl","Bulawayo","Zimbabwe","BUQ","FVBU",-20.017431,28.617869,4359,2,"U"
-1002,"Charles Prince","Harare","Zimbabwe","","FVCP",-17.751561,30.924706,4845,2,"U"
-1003,"Buffalo Range","Chiredzi","Zimbabwe","BFO","FVCZ",-21.008083,31.57855,1421,2,"U"
-1004,"Victoria Falls Intl","Victoria Falls","Zimbabwe","VFA","FVFA",-18.095881,25.839006,3490,2,"U"
-1005,"Harare Intl","Harare","Zimbabwe","HRE","FVHA",-17.931806,31.092847,4887,2,"U"
-1006,"Kariba Intl","Kariba","Zimbabwe","KAB","FVKB",-16.519761,28.884981,1706,2,"U"
-1007,"Mutoko","Mutoko","Zimbabwe","","FVMT",-17.431917,32.184502,3950,2,"U"
-1008,"Mutare","Mutare","Zimbabwe","","FVMU",-18.997499,32.627224,3410,2,"U"
-1009,"Masvingo Intl","Masvingo","Zimbabwe","MVZ","FVMV",-20.055333,30.859111,3595,2,"U"
-1010,"Zvishavane","Zvishavane","Zimbabwe","","FVSH",-20.289497,30.088228,3012,2,"U"
-1011,"Gweru Thornhill","Gwert","Zimbabwe","GWE","FVTL",-19.436394,29.861911,4680,2,"U"
-1012,"Hwange National Park","Hwange National Park","Zimbabwe","WKM","FVWN",-18.629872,27.021042,3543,2,"U"
-1013,"Chileka Intl","Blantyre","Malawi","BLZ","FWCL",-15.679053,34.974014,2555,2,"U"
-1014,"Karonga","Karonga","Malawi","KGJ","FWKA",-9.953569,33.893022,1765,2,"U"
-1015,"Kasungu","Kasungu","Malawi","","FWKG",-13.014631,33.468597,3470,2,"U"
-1016,"Kamuzu Intl","Lilongwe","Malawi","LLW","FWKI",-13.789378,33.781,4035,2,"U"
-1017,"Mzuzu","Mzuzu","Malawi","ZZU","FWUU",-11.44475,34.011776,4115,2,"U"
-1018,"Moshoeshoe I Intl","Maseru","Lesotho","MSU","FXMM",-29.462256,27.552503,5348,2,"U"
-1019,"Mejametalana","Maseru","Lesotho","","FXMU",-29.304053,27.503458,5105,2,"U"
-1020,"Ndjili Intl","Kinshasa","Congo (Kinshasa)","FIH","FZAA",-4.38575,15.444569,1027,1,"N"
-1021,"Ndolo","Kinshasa","Congo (Kinshasa)","NLO","FZAB",-4.326689,15.327342,915,1,"N"
-1022,"Muanda","Muanda","Congo (Kinshasa)","MNB","FZAG",-5.930858,12.351789,89,1,"N"
-1023,"Kitona Base","Kitona Base","Congo (Kinshasa)","","FZAI",-5.918056,12.447694,394,1,"N"
-1024,"Bandundu","Bandoundu","Congo (Kinshasa)","FDU","FZBO",-3.311319,17.381683,1053,1,"N"
-1025,"Kikwit","Kikwit","Congo (Kinshasa)","KKW","FZCA",-5.035767,18.785631,1572,1,"N"
-1026,"Mbandaka","Mbandaka","Congo (Kinshasa)","MDK","FZEA",0.0226,18.288744,1040,1,"N"
-1027,"Gbadolite","Gbadolite","Congo (Kinshasa)","BDT","FZFD",4.253206,20.975283,1509,1,"N"
-1028,"Gemena","Gemena","Congo (Kinshasa)","GMA","FZFK",3.235369,19.771258,1378,1,"N"
-1029,"Kotakoli","Kotakoli","Congo (Kinshasa)","","FZFP",4.157639,21.650917,1801,1,"N"
-1030,"Lisala","Lisala","Congo (Kinshasa)","LIQ","FZGA",2.170658,21.496906,1509,1,"N"
-1031,"Kisangani Simisini","Kisangani","Congo (Kinshasa)","FKI","FZIA",0.5175,25.155014,1289,2,"U"
-1032,"Matari","Isiro","Congo (Kinshasa)","IRP","FZJH",2.827606,27.588253,2438,2,"U"
-1033,"Bunia","Bunia","Congo (Kinshasa)","BUX","FZKA",1.565719,30.220833,4045,2,"U"
-1034,"Buta Zega","Buta Zega","Congo (Kinshasa)","","FZKJ",2.818347,24.793706,1378,2,"U"
-1035,"Bukavu Kavumu","Bukavu/kavumu","Congo (Kinshasa)","BKY","FZMA",-2.308978,28.808803,5643,2,"U"
-1036,"Goma","Goma","Congo (Kinshasa)","GOM","FZNA",-1.670814,29.238464,5089,2,"U"
-1037,"Kindu","Kindu","Congo (Kinshasa)","KND","FZOA",-2.919178,25.915361,1630,2,"U"
-1038,"Lubumbashi Intl","Lubumashi","Congo (Kinshasa)","FBM","FZQA",-11.591333,27.530889,4295,2,"U"
-1039,"Kolwezi","Kolwezi","Congo (Kinshasa)","KWZ","FZQM",-10.765886,25.505714,5007,2,"U"
-1040,"Kalemie","Kalemie","Congo (Kinshasa)","FMI","FZRF",-5.875556,29.25,2569,2,"U"
-1041,"Kamina Base","Kamina Base","Congo (Kinshasa)","KMN","FZSA",-8.642025,25.252897,3543,2,"U"
-1042,"Kananga","Kananga","Congo (Kinshasa)","KGA","FZUA",-5.900055,22.469166,2139,2,"U"
-1043,"Mbuji Mayi","Mbuji-mayi","Congo (Kinshasa)","MJM","FZWA",-6.121236,23.569008,2221,2,"U"
-1044,"Senou","Bamako","Mali","BKO","GABS",12.533544,-7.949944,1247,0,"N"
-1045,"Gao","Gao","Mali","GAQ","GAGO",16.248433,-0.005456,870,0,"N"
-1046,"Kayes Dag Dag","Kayes","Mali","KYS","GAKY",14.481233,-11.404397,164,0,"N"
-1047,"Ambodedjo","Mopti","Mali","MZI","GAMB",14.512803,-4.079561,906,0,"N"
-1048,"Tombouctou","Tombouctou","Mali","TOM","GATB",16.730458,-3.007583,863,0,"N"
-1049,"Tessalit","Tessalit","Mali","","GATS",20.242983,0.977308,1621,0,"N"
-1050,"Banjul Intl","Banjul","Gambia","BJL","GBYD",13.337961,-16.652206,95,0,"N"
-1051,"Fuerteventura","Fuerteventura","Spain","FUE","GCFV",28.452717,-13.863761,83,0,"E"
-1052,"Hierro","Hierro","Spain","VDE","GCHI",27.814847,-17.887056,103,0,"E"
-1053,"La Palma","Santa Cruz De La Palma","Spain","SPC","GCLA",28.626478,-17.755611,107,0,"E"
-1054,"Gran Canaria","Gran Canaria","Spain","LPA","GCLP",27.931886,-15.386586,78,0,"E"
-1055,"Lanzarote","Lanzerote","Spain","ACE","GCRR",28.945464,-13.605225,47,0,"E"
-1056,"Tenerife Sur","Tenerife","Spain","TFS","GCTS",28.044475,-16.572489,209,0,"E"
-1057,"Tenerife Norte","Tenerife","Spain","TFN","GCXO",28.482653,-16.341536,2073,0,"E"
-1058,"Melilla","Melilla","Spain","MLN","GEML",35.279817,-2.956256,156,0,"E"
-1059,"Freetown Lungi","Freetown","Sierra Leone","FNA","GFLL",8.616444,-13.195489,84,0,"N"
-1060,"Cufar","Cufar","Guinea-Bissau","","GGCF",11.287917,-15.1805,65,0,"N"
-1062,"Monrovia Spriggs Payne","Monrovia","Liberia","MLW","GLMR",6.289061,-10.758722,25,0,"N"
-1063,"Monrovia Roberts Intl","Monrovia","Liberia","ROB","GLRB",6.233789,-10.362311,31,0,"N"
-1064,"Inezgane","Agadir","Morocco","AGA","GMAA",30.381353,-9.546311,89,0,"N"
-1065,"Plage Blanche","Tan Tan","Morocco","TTA","GMAT",28.448194,-11.161347,653,0,"N"
-1066,"Saiss","Fez","Morocco","FEZ","GMFF",33.927261,-4.977958,1900,0,"N"
-1067,"Ifrane","Ifrane","Morocco","","GMFI",33.505319,-5.152903,5459,0,"N"
-1068,"Moulay Ali Cherif","Er-rachidia","Morocco","ERH","GMFK",31.9475,-4.398333,3428,0,"N"
-1069,"Bassatine","Meknes","Morocco","MEK","GMFM",33.879067,-5.515125,1890,0,"N"
-1070,"Angads","Oujda","Morocco","OUD","GMFO",34.78715,-1.923986,1535,1,"N"
-1071,"Ben Slimane","Ben Slimane","Morocco","","GMMB",33.655422,-7.22145,627,0,"N"
-1072,"Sale","Rabat","Morocco","RBA","GMME",34.051467,-6.751519,276,0,"N"
-1074,"Mohammed V Intl","Casablanca","Morocco","CMN","GMMN",33.367467,-7.589967,656,0,"N"
-1075,"Menara","Marrakech","Morocco","RAK","GMMX",31.606886,-8.0363,1545,0,"N"
-1076,"Kenitra","Kentira","Morocco","NNA","GMMY",34.298864,-6.595878,16,0,"N"
-1077,"Ouarzazate","Ouarzazate","Morocco","OZZ","GMMZ",30.939053,-6.909431,3782,0,"N"
-1078,"Cherif El Idrissi","Al Hociema","Morocco","AHU","GMTA",35.177103,-3.839525,95,0,"N"
-1079,"Saniat Rmel","Tetouan","Morocco","TTU","GMTN",35.594333,-5.320019,10,0,"N"
-1080,"Ibn Batouta","Tanger","Morocco","TNG","GMTT",35.726917,-5.916889,62,0,"N"
-1081,"Ziguinchor","Ziguinchor","Senegal","ZIG","GOGG",12.555617,-16.281783,75,0,"N"
-1082,"Cap Skiring","Cap Skiring","Senegal","CSK","GOGS",12.4102,-16.746125,52,0,"N"
-1083,"Kaolack","Kaolack","Senegal","KLC","GOOK",14.146881,-16.051297,26,0,"N"
-1084,"Leopold Sedar Senghor Intl","Dakar","Senegal","DKR","GOOY",14.739708,-17.490225,85,0,"N"
-1085,"Saint Louis","St. Louis","Senegal","XLS","GOSS",16.050761,-16.463172,9,0,"N"
-1086,"Bakel","Bakel","Senegal","BXE","GOTB",14.847256,-12.468264,98,0,"N"
-1087,"Kedougou","Kedougou","Senegal","KGG","GOTK",12.572292,-12.220333,584,0,"N"
-1088,"Tambacounda","Tambacounda","Senegal","TUD","GOTT",13.736817,-13.653122,161,0,"N"
-1089,"Aioun El Atrouss","Aioun El Atrouss","Mauritania","IEO","GQNA",16.711294,-9.637883,951,0,"N"
-1090,"Tidjikja","Tidjikja","Mauritania","TIY","GQND",18.570103,-11.423547,1316,0,"N"
-1091,"Kiffa","Kiffa","Mauritania","KFA","GQNF",16.589983,-11.406208,423,0,"N"
-1092,"Nema","Nema","Mauritania","EMN","GQNI",16.622,-7.316567,758,0,"N"
-1093,"Kaedi","Kaedi","Mauritania","KED","GQNK",16.159547,-13.507617,75,0,"N"
-1094,"Nouakchott","Nouakschott","Mauritania","NKC","GQNN",18.097856,-15.947956,7,0,"N"
-1095,"Selibady","Selibabi","Mauritania","SEY","GQNS",15.179692,-12.207272,262,0,"N"
-1096,"Atar","Atar","Mauritania","ATR","GQPA",20.506828,-13.043194,758,0,"N"
-1097,"Nouadhibou","Nouadhibou","Mauritania","NDB","GQPP",20.933067,-17.029956,16,0,"N"
-1098,"Bir Moghrein","Bir Moghrein","Mauritania","","GQPT",25.236697,-11.588697,1194,0,"N"
-1099,"Fria","Fira","Guinea","FIG","GUFA",10.350556,-13.569167,499,0,"N"
-1100,"Faranah","Faranah","Guinea","FAA","GUFH",10.035467,-10.769825,1476,0,"N"
-1101,"Labe","Labe","Guinea","LEK","GULB",11.326058,-12.28685,3396,0,"N"
-1102,"Amilcar Cabral Intl","Amilcar Cabral","Cape Verde","SID","GVAC",16.741389,-22.949444,177,-1,"U"
-1103,"Rabil","Boa Vista","Cape Verde","BVC","GVBA",16.136531,-22.888897,69,-1,"U"
-1104,"Maio","Maio","Cape Verde","MMO","GVMA",15.155928,-23.213703,36,-1,"U"
-1105,"Preguica","Sao Nocolau Island","Cape Verde","SNE","GVSN",16.588356,-24.284656,669,-1,"U"
-1106,"Sao Pedro","Sao Vicente Island","Cape Verde","VXE","GVSV",16.833689,-25.054661,66,-1,"U"
-1107,"Bole Intl","Addis Ababa","Ethiopia","ADD","HAAB",8.977889,38.799319,7656,3,"U"
-1108,"Lideta","Addis Ababa","Ethiopia","","HAAL",9.003681,38.726019,7749,3,"U"
-1109,"Arba Minch","Arba Minch","Ethiopia","AMH","HAAM",6.039389,37.590453,3895,3,"U"
-1110,"Axum","Axum","Ethiopia","AXU","HAAX",14.14675,38.772833,6915,3,"U"
-1111,"Bahir Dar","Bahar Dar","Ethiopia","BJR","HABD",11.608075,37.321644,5976,3,"U"
-1112,"Dire Dawa Intl","Dire Dawa","Ethiopia","DIR","HADR",9.6247,41.854203,3829,3,"U"
-1113,"Gambella","Gambella","Ethiopia","GMB","HAGM",8.128764,34.563131,1771,3,"U"
-1114,"Gondar","Gondar","Ethiopia","GDQ","HAGN",12.5199,37.434047,6541,3,"U"
-6811,"South Ari Atoll","Paradies Island","Maldives","","ARIA",3.4833,72.8369,0,3,"U"
-1116,"Jimma","Jimma","Ethiopia","JIM","HAJM",7.666094,36.816639,5587,3,"U"
-1117,"Lalibella","Lalibella","Ethiopia","LLI","HALL",11.975014,38.979969,6423,3,"U"
-1118,"Makale","Makale","Ethiopia","MQX","HAMK",13.467367,39.533464,7406,3,"U"
-1119,"Asosa","Asosa","Ethiopia","ASO","HASO",10.01855,34.586253,5120,3,"U"
-1120,"Bujumbura Intl","Bujumbura","Burundi","BJM","HBBA",-3.324019,29.318519,2582,2,"U"
-1121,"Egal Intl","Hargeisa","Somalia","HGA","HCMH",9.518167,44.088758,4423,3,"U"
-1122,"Berbera","Berbera","Somalia","BBO","HCMI",10.389167,44.941106,30,3,"U"
-1123,"Kisimayu","Kismayu","Somalia","KMU","HCMK",-0.377353,42.459233,49,3,"U"
-6890,"Dowagiac Municipal Airport","Dowagiac","United States","C91",\N,41.9929342,-86.1280125,748,-5,"U"
-1126,"Alexandria Intl","Alexandria","Egypt","ALY","HEAX",31.183903,29.948889,-6,2,"U"
-1127,"Abu Simbel","Abu Simbel","Egypt","ABS","HEBL",22.375953,31.611722,616,2,"U"
-1128,"Cairo Intl","Cairo","Egypt","CAI","HECA",30.121944,31.405556,382,2,"U"
-1129,"Cairo West","Cairo","Egypt","","HECW",30.116362,30.915445,550,2,"U"
-1130,"Hurghada Intl","Hurghada","Egypt","HRG","HEGN",27.178317,33.799436,52,2,"U"
-1131,"El Gora","El-gora","Egypt","","HEGR",31.068975,34.129194,324,2,"U"
-1132,"Luxor Intl","Luxor","Egypt","LXR","HELX",25.671028,32.706583,294,2,"U"
-1133,"Mersa Matruh","Mersa-matruh","Egypt","MUH","HEMM",31.325356,27.221689,94,2,"U"
-1134,"Port Said","Port Said","Egypt","PSD","HEPS",31.279444,32.24,8,2,"U"
-1135,"St Catherine Intl","St. Catherine","Egypt","SKV","HESC",28.685278,34.0625,4368,2,"U"
-1136,"Aswan Intl","Aswan","Egypt","ASW","HESN",23.964356,32.819975,662,2,"U"
-1137,"El Tor","El-tor","Egypt","ELT","HETR",28.209028,33.645517,115,2,"U"
-1138,"Eldoret Intl","Eldoret","Kenya","EDL","HKEL",0.404458,35.238928,6941,3,"U"
-1139,"Kakamega","Kakamega","Kenya","","HKKG",0.271342,34.787297,5020,3,"U"
-1140,"Kisumu","Kisumu","Kenya","KIS","HKKI",-0.086139,34.728892,3796,3,"U"
-1141,"Kitale","Kitale","Kenya","KTL","HKKT",0.971989,34.958556,6070,3,"U"
-6889,"Cambridge Municipal Airport","Cambridge","United States","CDI",\N,39.9750278,-81.5775833,799,-5,"U"
-1143,"Lodwar","Lodwar","Kenya","LOK","HKLO",3.121967,35.608692,1715,3,"U"
-1144,"Lamu Manda","Lamu","Kenya","LAU","HKLU",-2.252417,40.913097,20,3,"U"
-1145,"Mombasa Moi Intl","Mombasa","Kenya","MBA","HKMO",-4.034833,39.59425,200,3,"U"
-1146,"Naivasha","Naivasha","Kenya","","HKNV",-0.787953,36.433528,6380,3,"U"
-1147,"Nairobi Wilson","Nairobi","Kenya","WIL","HKNW",-1.321719,36.814833,5546,3,"U"
-1148,"Eastleigh","Nairobi","Kenya","","HKRE",-1.277267,36.862339,5380,3,"U"
-1149,"Wajir","Wajir","Kenya","WJR","HKWJ",1.733239,40.091606,770,3,"U"
-1150,"Bu Attifel","Buattifel","Libya","","HLFL",28.795372,22.080939,161,1,"N"
-1151,"Warehouse 59e","Giallo","Libya","","HLGL",28.638458,21.438042,325,1,"N"
-1152,"Ghat","Ghat","Libya","GHT","HLGT",25.145564,10.142647,2296,1,"N"
-1153,"Kufra","Kufra","Libya","AKF","HLKF",24.178728,23.313958,1367,1,"N"
-1154,"Benina","Benghazi","Libya","BEN","HLLB",32.096786,20.269472,433,1,"N"
-1156,"Sebha","Sebha","Libya","SEB","HLLS",26.986964,14.472525,1427,1,"N"
-1157,"Tripoli Intl","Tripoli","Libya","TIP","HLLT",32.663544,13.159011,263,1,"N"
-1158,"Marsa Brega","Marsa Brega","Libya","","HLMB",30.378139,19.576444,50,1,"N"
-1159,"Ras Lanuf Oil","Ras Lanouf V 40","Libya","","HLNF",30.500013,18.527161,42,1,"N"
-1160,"Hon","Hon","Libya","","HLON",29.110106,15.965567,919,1,"N"
-1161,"Dahra","Dahra","Libya","","HLRA",29.472567,17.934936,1050,1,"N"
-1162,"Ghadames East","Ghadames","Libya","LTD","HLTD",30.151695,9.715305,1122,1,"N"
-1163,"Zella 74","Zella 74","Libya","","HLZA",28.589878,17.293858,1085,1,"N"
-1164,"Gisenyi","Gisenyi","Rwanda","GYI","HRYG",-1.677203,29.258875,5082,2,"U"
-1165,"Kigali Intl","Kigali","Rwanda","KGL","HRYR",-1.968628,30.13945,4859,2,"U"
-1166,"Kamembe","Kamembe","Rwanda","KME","HRZA",-2.462242,28.90795,5192,2,"U"
-1167,"Dongola","Dongola","Sudan","DOG","HSDN",19.153867,30.430094,773,2,"U"
-1168,"Damazin","Damazin","Sudan","","HSDZ",11.785889,34.336656,1582,2,"U"
-1169,"El Fashir","El Fasher","Sudan","ELF","HSFS",13.614892,25.32465,2393,2,"U"
-1170,"Kassala","Kassala","Sudan","KSL","HSKA",15.387494,36.328842,1671,2,"U"
-1171,"Kadugli","Kadugli","Sudan","","HSLI",11.138028,29.701122,1848,2,"U"
-1172,"El Obeid","El Obeid","Sudan","EBD","HSOB",13.153219,30.232675,1927,2,"U"
-1173,"Juba","Juba","Sudan","JUB","HSSJ",4.872006,31.601117,1513,2,"U"
-1174,"Malakal","Malakal","Sudan","MAK","HSSM",9.558969,31.652242,1291,2,"U"
-1175,"Khartoum","Khartoum","Sudan","KRT","HSSS",15.589497,32.553161,1265,2,"U"
-1176,"Arusha","Arusha","Tanzania","ARK","HTAR",-3.367794,36.633333,4550,3,"U"
-1177,"Mwalimu Julius K Nyerere Intl","Dar Es Salaam","Tanzania","DAR","HTDA",-6.878111,39.202625,182,3,"U"
-1178,"Dodoma","Dodoma","Tanzania","DOD","HTDO",-6.170436,35.752578,3637,3,"U"
-1179,"Iringa","Iringa","Tanzania","IRI","HTIR",-7.668633,35.752114,4678,3,"U"
-1180,"Kilimanjaro Intl","Kilimanjaro","Tanzania","JRO","HTKJ",-3.429406,37.074461,2932,3,"U"
-1181,"Lake Manyara","Lake Manyara","Tanzania","LKY","HTLM",-3.376306,35.818278,4150,3,"N"
-1182,"Mtwara","Mtwara","Tanzania","MYW","HTMT",-10.339058,40.181781,371,2,"U"
-1183,"Mwanza","Mwanza","Tanzania","MWZ","HTMW",-2.444486,32.932667,3763,3,"U"
-1184,"Pemba","Pemba","Tanzania","PMA","HTPE",-5.257264,39.811417,80,3,"U"
-1185,"Tanga","Tanga","Tanzania","TGT","HTTG",-5.092358,39.071158,129,3,"U"
-1186,"Zanzibar","Zanzibar","Tanzania","ZNZ","HTZA",-6.222025,39.224886,54,3,"U"
-1187,"Entebbe Intl","Entebbe","Uganda","EBB","HUEN",0.042386,32.443503,3782,3,"U"
-6888,"Dusseldorf Hauptbahnhof","Dusseldorf","Germany","QDU",\N,51.220278,6.792778,125,1,"E"
-1189,"Soroti","Soroti","Uganda","SRT","HUSO",1.727578,33.622861,3641,3,"U"
-1190,"Tirana Rinas","Tirana","Albania","TIA","LATI",41.414742,19.720561,126,1,"E"
-1191,"Burgas","Bourgas","Bulgaria","BOJ","LBBG",42.569583,27.515236,135,2,"E"
-1192,"Gorna Oryahovitsa","Gorna Orechovica","Bulgaria","GOZ","LBGO",43.151444,25.712889,285,2,"E"
-1193,"Plovdiv","Plovdiv","Bulgaria","PDV","LBPD",42.067806,24.850833,597,2,"E"
-1194,"Sofia","Sofia","Bulgaria","SOF","LBSF",42.695194,23.406167,1742,2,"E"
-1195,"Stara Zagora","Stara Zagora","Bulgaria","","LBSZ",42.376667,25.655195,558,2,"E"
-1196,"Varna","Varna","Bulgaria","VAR","LBWN",43.232072,27.825106,230,2,"E"
-1197,"Larnaca","Larnaca","Cyprus","LCA","LCLK",34.875117,33.62485,8,2,"U"
-1198,"Pafos Intl","Paphos","Cyprus","PFO","LCPH",34.718039,32.485731,41,2,"U"
-1199,"Akrotiri","Akrotiri","Cyprus","AKT","LCRA",34.590416,32.987861,76,2,"U"
-1200,"Dubrovnik","Dubrovnik","Croatia","DBV","LDDU",42.561353,18.268244,527,1,"E"
-1201,"Cepin","Cepin","Croatia","","LDOC",45.542169,18.636233,299,1,"E"
-1202,"Osijek","Osijek","Croatia","OSI","LDOS",45.462667,18.810156,290,1,"E"
-1203,"Pula","Pula","Croatia","PUY","LDPL",44.893533,13.922192,274,1,"E"
-1204,"Grobnicko Polje","Grobnik","Croatia","","LDRG",45.379483,14.503756,951,1,"E"
-1205,"Rijeka","Rijeka","Croatia","RJK","LDRI",45.216889,14.570267,278,1,"E"
-1206,"Split","Split","Croatia","SPU","LDSP",43.538944,16.297964,79,1,"E"
-1207,"Varazdin","Varazdin","Croatia","","LDVA",46.294724,16.38125,548,1,"E"
-1208,"Zagreb","Zagreb","Croatia","ZAG","LDZA",45.742931,16.068778,353,1,"E"
-1209,"Zadar","Zadar","Croatia","ZAD","LDZD",44.108269,15.346697,289,1,"E"
-1210,"Udbina","Udbina","Croatia","","LDZU",44.55761,15.774361,2462,1,"E"
-1211,"Albacete","Albacete","Spain","","LEAB",38.948528,-1.863517,2302,1,"E"
-1212,"Alicante","Alicante","Spain","ALC","LEAL",38.282169,-0.558156,142,1,"E"
-1213,"Almeria","Almeria","Spain","LEI","LEAM",36.843936,-2.370097,70,1,"E"
-1214,"Asturias","Aviles","Spain","OVD","LEAS",43.563567,-6.034622,416,1,"E"
-1215,"Cordoba","Cordoba","Spain","ODB","LEBA",37.842006,-4.848878,297,1,"E"
-1216,"Bilbao","Bilbao","Spain","BIO","LEBB",43.301097,-2.910608,138,1,"E"
-1218,"Barcelona","Barcelona","Spain","BCN","LEBL",41.297078,2.078464,12,1,"E"
-1219,"Talavera La Real","Badajoz","Spain","BJZ","LEBZ",38.89125,-6.821333,609,1,"E"
-1220,"A Coruna","La Coruna","Spain","LCG","LECO",43.302061,-8.377256,326,1,"E"
-1221,"Armilla","Granada","Spain","","LEGA",37.133222,-3.635694,2297,1,"E"
-1222,"Girona","Gerona","Spain","GRO","LEGE",41.900969,2.760547,468,1,"E"
-1223,"Granada","Granada","Spain","GRX","LEGR",37.188731,-3.777356,1860,1,"E"
-1224,"Getafe","Madrid","Spain","","LEGT",40.294139,-3.723833,2029,1,"E"
-1225,"Ibiza","Ibiza","Spain","IBZ","LEIB",38.872858,1.373117,20,1,"E"
-1226,"Jerez","Jerez","Spain","XRY","LEJR",36.744622,-6.060111,93,1,"E"
-1227,"Murcia San Javier","Murcia","Spain","MJV","LELC",37.774972,-0.812389,11,1,"E"
-6887,"Alexion","Porto Heli","Greece","PKH","LGHL",37.298792,23.148986,2224,2,"E"
-1229,"Barajas","Madrid","Spain","MAD","LEMD",40.493556,-3.566764,2000,1,"E"
-1230,"Malaga","Malaga","Spain","AGP","LEMG",36.6749,-4.499106,52,1,"E"
-1231,"Menorca","Menorca","Spain","MAH","LEMH",39.862597,4.218647,298,1,"E"
-1232,"Moron Ab","Sevilla","Spain","OZP","LEMO",37.174917,-5.615944,285,1,"E"
-1233,"Ocana","Ocana","Spain","","LEOC",39.9375,-3.503333,2405,1,"E"
-1234,"Pamplona","Pamplona","Spain","PNA","LEPP",42.770039,-1.646331,1504,1,"E"
-1235,"Alcantarilla","Murcia","Spain","","LERI",37.951111,-1.230319,250,1,"E"
-1236,"Reus","Reus","Spain","REU","LERS",41.147392,1.167172,234,1,"E"
-1237,"Rota Ns","Rota","Spain","","LERT",36.645211,-6.349458,86,1,"E"
-1238,"Salamanca","Salamanca","Spain","SLM","LESA",40.952117,-5.501986,2595,1,"E"
-1239,"Son Bonet","Son Bonet","Spain","","LESB",39.598889,2.702778,135,1,"E"
-1240,"Palma De Mallorca","Palma De Mallorca","Spain","","LESJ",39.551675,2.738808,27,1,"E"
-1241,"San Luis","San Luis","Spain","","LESL",39.862222,4.258333,197,1,"E"
-1242,"San Sebastian","San Sebastian","Spain","EAS","LESO",43.356519,-1.790611,15,1,"E"
-1243,"Santiago","Santiago","Spain","SCQ","LEST",42.896333,-8.415144,1213,1,"E"
-1244,"Seo De Urgel","Seo De Urgel","Spain","LEU","LESU",42.338611,1.409167,2625,1,"E"
-1245,"Torrejon","Madrid","Spain","TOJ","LETO",40.496747,-3.445872,2026,1,"E"
-1246,"Valencia","Valencia","Spain","VLC","LEVC",39.489314,-0.481625,225,1,"E"
-1247,"Valladolid","Valladolid","Spain","VLL","LEVD",41.706111,-4.851944,2775,1,"E"
-1248,"Cuatro Vientos","Madrid","Spain","","LEVS",40.370678,-3.785144,2267,1,"E"
-1249,"Vitoria","Vitoria","Spain","VIT","LEVT",42.882836,-2.724469,1682,1,"E"
-1250,"Vigo","Vigo","Spain","VGO","LEVX",42.2318,-8.626775,855,1,"E"
-1251,"Santander","Santander","Spain","SDR","LEXJ",43.427064,-3.820006,16,1,"E"
-1252,"Zaragoza Ab","Zaragoza","Spain","ZAZ","LEZG",41.666242,-1.041553,863,1,"E"
-1253,"Sevilla","Sevilla","Spain","SVQ","LEZL",37.418,-5.893106,111,1,"E"
-1254,"Calais Dunkerque","Calais","France","CQF","LFAC",50.962097,1.954764,12,1,"E"
-1255,"Peronne St Quentin","Peronne","France","","LFAG",49.868547,3.029578,295,1,"E"
-1256,"Les Loges","Nangis","France","","LFAI",48.596219,3.006786,428,1,"E"
-1257,"Couterne","Bagnole-de-l'orne","France","","LFAO",48.545836,-0.387444,718,1,"E"
-1258,"Bray","Albert","France","","LFAQ",49.971531,2.697661,364,1,"E"
-1259,"Le Touquet Paris Plage","Le Tourquet","France","LTQ","LFAT",50.517385,1.620587,36,1,"E"
-1260,"Denain","Valenciennes","France","","LFAV",50.325808,3.461264,177,1,"E"
-1261,"Glisy","Amiens","France","","LFAY",49.873019,2.387075,208,1,"E"
-1262,"La Garenne","Agen","France","AGF","LFBA",44.174721,0.590556,204,1,"E"
-1263,"Cazaux","Cazaux","France","","LFBC",44.533333,-1.125,84,1,"E"
-1264,"Merignac","Bordeaux","France","BOD","LFBD",44.828335,-0.715556,162,1,"E"
-1265,"Roumaniere","Bergerac","France","EGC","LFBE",44.825279,0.518611,171,1,"E"
-1266,"Francazal","Toulouse","France","","LFBF",43.545555,1.3675,535,1,"E"
-1267,"Chateaubernard","Cognac","France","CNG","LFBG",45.658333,-0.3175,102,1,"E"
-1268,"Biard","Poitiers","France","PIS","LFBI",46.587745,0.306666,423,1,"E"
-1269,"Montlucon Gueret","Montlucon-gueret","France","","LFBK",46.222644,2.363964,1497,1,"E"
-1270,"Bellegarde","Limoges","France","LIG","LFBL",45.862778,1.179444,1300,1,"E"
-1271,"Mont De Marsan","Mont-de-marsan","France","","LFBM",43.911667,-0.5075,203,1,"E"
-1272,"Souche","Niort","France","NIT","LFBN",46.311303,-0.401503,203,1,"E"
-1273,"Blagnac","Toulouse","France","TLS","LFBO",43.629075,1.363819,499,1,"E"
-1274,"Pau Pyrenees","Pau","France","PUF","LFBP",43.38,-0.418611,616,1,"E"
-1275,"Lherm","La Rochelle","France","","LFBR",43.448891,1.263333,622,1,"E"
-1276,"Lourdes","Tarbes","France","LDE","LFBT",43.178675,-0.006439,1260,1,"E"
-1277,"Brie Champniers","Angouleme","France","ANG","LFBU",45.729247,0.221456,436,1,"E"
-1278,"La Roche","Brive","France","BVE","LFBV",45.150833,1.469167,379,1,"E"
-1279,"Bassillac","Perigueux","France","PGX","LFBX",45.198055,0.815556,328,1,"E"
-1280,"Anglet","Biarritz-bayonne","France","BIQ","LFBZ",43.468419,-1.523325,245,1,"E"
-1281,"Lalbenque","Cahors","France","","LFCC",44.351387,1.475278,912,1,"E"
-1282,"Antichan","St.-girons","France","","LFCG",43.007764,1.10315,1368,1,"E"
-1283,"La Teste De Buch","Arcachon","France","XAC","LFCH",44.59639,-1.110833,49,1,"E"
-1284,"Le Sequestre","Albi","France","LBI","LFCI",43.913887,2.113056,564,1,"E"
-1285,"Mazamet","Castres","France","DCM","LFCK",43.55625,2.289183,788,1,"E"
-1286,"Lasbordes","Toulouse","France","","LFCL",43.586113,1.499167,459,1,"E"
-1287,"Larzac","Millau","France","","LFCM",43.989342,3.183,2606,1,"E"
-1288,"Montdragon","Graulhet","France","","LFCQ",43.771111,2.010833,581,1,"E"
-1289,"Marcillac","Rodez","France","RDZ","LFCR",44.407869,2.482672,1910,1,"E"
-1290,"Thalamy","Ussel","France","","LFCU",45.534721,2.423889,2428,1,"E"
-1291,"Villeneuve Sur Lot","Villeneuve-sur-lot","France","","LFCW",44.396946,0.758889,190,1,"E"
-1292,"Medis","Royan","France","RYN","LFCY",45.628056,-0.9725,72,1,"E"
-1293,"Mimizan","Mimizan","France","","LFCZ",44.146111,-1.174444,164,1,"E"
-1294,"Aire Sur L Adour","Aire-sur-l'adour","France","","LFDA",43.709444,-0.245278,259,1,"E"
-1295,"Montauban","Montauban","France","","LFDB",44.025694,1.378042,351,1,"E"
-1296,"Lamothe","Auch","France","","LFDH",43.687778,0.601667,411,1,"E"
-1297,"Artigues De Lussac","Libourne","France","","LFDI",44.982498,-0.134722,157,1,"E"
-1298,"Les Pujols","Pamiers","France","","LFDJ",43.090556,1.695833,1115,1,"E"
-1299,"Virazeil","Marmande","France","","LFDM",44.498919,0.200514,105,1,"E"
-1300,"St Agnant","Rochefort","France","RCO","LFDN",45.887779,-0.983056,60,1,"E"
-1301,"Pontivy","Pontivy","France","","LFED",48.056789,-2.921244,407,1,"E"
-1302,"Aubigny Sur Nere","Aubigny-sur-nere","France","","LFEH",47.474167,2.393055,630,1,"E"
-1303,"Scaer","Guiscriff-scaer","France","","LFES",48.052508,-3.664717,574,1,"E"
-1305,"Ancenis","Ancenis","France","","LFFI",47.408056,-1.1775,111,1,"E"
-1306,"Brienne Le Chateau","Brienne-le Chateau","France","","LFFN",48.429764,4.482222,381,1,"E"
-1307,"Houssen","Colmar","France","CMR","LFGA",48.109853,7.359011,628,1,"E"
-1308,"Challanges","Beaune","France","","LFGF",47.005886,4.893425,656,1,"E"
-1309,"Tavaux","Dole","France","DLE","LFGJ",47.039014,5.42725,645,1,"E"
-1310,"Joigny","Joigny","France","","LFGK",47.992222,3.392222,732,1,"E"
-1311,"Le Rozelier","Verdun","France","","LFGW",49.122383,5.469047,1230,1,"E"
-1312,"Ardeche Meridionale","Aubenas-vals-lanas","France","OBS","LFHO",44.544236,4.372192,923,1,"E"
-1313,"Loudes","Le Puy","France","LPY","LFHP",45.080689,3.762889,2731,1,"E"
-1314,"Coltines","St.-flour","France","","LFHQ",45.076389,2.993611,3218,1,"E"
-1315,"Ceyzeriat","Bourg","France","XBK","LFHS",46.20089,5.292028,857,1,"E"
-1316,"Tarare","Vilefrance","France","XVF","LFHV",45.901947,4.634906,1076,1,"E"
-1317,"Montbeugny","Moulins","France","XMU","LFHY",46.534581,3.423725,915,1,"E"
-1318,"Belmont","St.-afrique-belmont","France","","LFIF",43.823334,2.745278,1686,1,"E"
-1319,"Cassagnes Begonhes","Cassagnes-beghones","France","","LFIG",44.177776,2.515,2024,1,"E"
-1320,"Metz Nancy Lorraine","Metz","France","ETZ","LFJL",48.982142,6.251319,870,1,"E"
-1321,"Poretta","Bastia","France","BIA","LFKB",42.552664,9.483731,26,1,"E"
-1322,"Saint Catherine","Calvi","France","CLY","LFKC",42.530753,8.793189,209,1,"E"
-1323,"Sud Corse","Figari","France","FSC","LFKF",41.500557,9.097777,87,1,"E"
-1324,"Campo Dell Oro","Ajaccio","France","AJA","LFKJ",41.923637,8.802917,18,1,"E"
-1325,"Propriano","Propriano","France","","LFKO",41.660558,8.889747,13,1,"E"
-1326,"Solenzara","Solenzara","France","SOZ","LFKS",41.924416,9.406,28,1,"E"
-1327,"Corte","Corte","France","","LFKT",42.29361,9.193055,1132,1,"E"
-1328,"Branches","Auxerre","France","AUF","LFLA",47.850193,3.497111,523,1,"E"
-1329,"Aix Les Bains","Chambery","France","CMF","LFLB",45.63805,5.880225,779,1,"E"
-1330,"Auvergne","Clermont Ferrand","France","CFE","LFLC",45.786661,3.169169,1090,1,"E"
-1331,"Bourges","Bourges","France","BOU","LFLD",47.058056,2.370278,529,1,"E"
-1332,"Challes Les Eaux","Chambery","France","","LFLE",45.56105,5.975761,973,1,"E"
-1333,"Champforgeuil","Chalon","France","XCD","LFLH",46.826108,4.817633,623,1,"E"
-1334,"Annemasse","Annemasse","France","QNJ","LFLI",46.191972,6.268386,1620,1,"E"
-1335,"Saint Exupery","Lyon","France","LYS","LFLL",45.726387,5.090833,821,1,"E"
-1336,"Charnay","Macon","France","QNX","LFLM",46.295103,4.795767,728,1,"E"
-1337,"Saint Yan","St.-yan","France","","LFLN",46.412536,4.013264,796,1,"E"
-1338,"Renaison","Roanne","France","RNE","LFLO",46.058334,4.001389,1106,1,"E"
-1339,"Meythet","Annecy","France","NCY","LFLP",45.929233,6.098764,1521,1,"E"
-1340,"Saint Geoirs","Grenoble","France","GNB","LFLS",45.362944,5.329375,1302,1,"E"
-1341,"Domerat","Montlucon","France","MCU","LFLT",46.352525,2.570486,771,1,"E"
-1342,"Chabeuil","Valence","France","VAF","LFLU",44.921594,4.9699,525,1,"E"
-1343,"Charmeil","Vichy","France","VHY","LFLV",46.169689,3.403736,817,1,"E"
-1344,"Aurillac","Aurillac","France","AUR","LFLW",44.891388,2.421944,2096,1,"E"
-1345,"Deols","Chateauroux","France","CHR","LFLX",46.862194,1.730667,529,1,"E"
-1346,"Bron","Lyon","France","LYN","LFLY",45.727172,4.944275,659,1,"E"
-1347,"Aix Les Milles","Aix-les-milles","France","QXB","LFMA",43.505554,5.367778,367,1,"E"
-1348,"Le Cannet","Le Luc","France","","LFMC",43.384672,6.387139,265,1,"E"
-1349,"Mandelieu","Cannes","France","CEQ","LFMD",43.54205,6.953478,13,1,"E"
-1350,"Boutheon","St.-etienne","France","EBU","LFMH",45.540554,4.296389,1325,1,"E"
-1351,"Le Tube","Istres","France","","LFMI",43.522736,4.923844,82,1,"E"
-1352,"Salvaza","Carcassonne","France","CCF","LFMK",43.215978,2.306317,433,1,"E"
-1353,"Provence","Marseille","France","MRS","LFML",43.435555,5.213611,74,1,"E"
-1354,"Cote D Azur","Nice","France","NCE","LFMN",43.658411,7.215872,12,1,"E"
-1355,"Caritat","Orange","France","","LFMO",44.140481,4.866717,197,1,"E"
-1356,"Rivesaltes","Perpignan","France","PGF","LFMP",42.740442,2.870667,144,1,"E"
-1357,"Le Castellet","Le Castellet","France","CTT","LFMQ",43.252506,5.785189,1391,1,"E"
-1358,"Deaux","Ales","France","","LFMS",44.069656,4.142122,668,1,"E"
-1359,"Mediterranee","Montpellier","France","MPL","LFMT",43.576194,3.963014,17,1,"E"
-1360,"Vias","Beziers","France","BZR","LFMU",43.323522,3.353903,56,1,"E"
-1361,"Caumont","Avignon","France","AVN","LFMV",43.9073,4.901831,124,1,"E"
-1362,"Salon","Salon","France","","LFMY",43.606415,5.10925,195,1,"E"
-1363,"Lezignan Corbieres","Lezignan-corbieres","France","","LFMZ",43.175835,2.734167,207,1,"E"
-1364,"Brenoux","Mende","France","MEN","LFNB",44.502108,3.532819,3362,1,"E"
-1365,"Carpentras","Carpentras","France","","LFNH",44.029847,5.078058,394,1,"E"
-1366,"Avord","Avord","France","","LFOA",47.053333,2.6325,580,1,"E"
-1367,"Tille","Beauvais","France","BVA","LFOB",49.454444,2.112778,359,1,"E"
-1368,"Chateaudun","Chateaudun","France","","LFOC",48.058142,1.376625,433,1,"E"
-1369,"St Florent","Saumur","France","","LFOD",47.256839,-0.115142,269,1,"E"
-1370,"Fauville","Evreux","France","","LFOE",49.028669,1.219864,464,1,"E"
-1371,"Octeville","Le Havre","France","LEH","LFOH",49.533889,0.088056,312,1,"E"
-1372,"Abbeville","Abbeville","France","","LFOI",50.143492,1.831892,220,1,"E"
-1373,"Bricy","Orleans","France","ORE","LFOJ",47.987778,1.760556,412,1,"E"
-1374,"Vatry","Chalons","France","","LFOK",48.776072,4.184492,587,1,"E"
-1375,"Vallee De Seine","Rouen","France","URO","LFOP",49.384172,1.1748,512,1,"E"
-1376,"Val De Loire","Tours","France","TUF","LFOT",47.432222,0.727606,357,1,"E"
-1377,"Le Pontreau","Cholet","France","CET","LFOU",47.082136,-0.877064,443,1,"E"
-1378,"Entrammes","Laval","France","LVA","LFOV",48.031361,-0.742986,330,1,"E"
-1379,"St Denis De L Hotel","Orleans","France","","LFOZ",47.896946,2.163333,396,1,"E"
-1380,"Le Bourget","Paris","France","LBG","LFPB",48.969444,2.441389,218,1,"E"
-1381,"Creil","Creil","France","CSF","LFPC",49.253547,2.519139,291,1,"E"
-1382,"Charles De Gaulle","Paris","France","CDG","LFPG",49.012779,2.55,392,1,"E"
-1383,"Voisins","Coulommiers","France","","LFPK",48.837653,3.016117,470,1,"E"
-1384,"Villaroche","Melun","France","","LFPM",48.604725,2.671119,302,1,"E"
-1385,"Toussus Le Noble","Toussous-le-noble","France","TNF","LFPN",48.751922,2.106189,538,1,"E"
-1386,"Orly","Paris","France","ORY","LFPO",48.725278,2.359444,291,1,"E"
-1387,"Cormeilles En Vexin","Pontoise","France","POX","LFPT",49.096647,2.040833,325,1,"E"
-1388,"Velizy","Villacoublay","France","","LFPV",48.774406,2.201536,584,1,"E"
-1389,"Prunay","Reims","France","","LFQA",49.208689,4.156581,313,1,"E"
-1390,"Barberey","Troyes","France","QYR","LFQB",48.322136,4.016703,388,1,"E"
-1391,"Croismare","Luneville","France","","LFQC",48.593275,6.543456,790,1,"E"
-1392,"Rouvres","Etain","France","","LFQE",49.226917,5.672219,770,1,"E"
-1393,"Bellevue","Autun","France","","LFQF",46.967283,4.260572,997,1,"E"
-1394,"Fourchambault","Nevers","France","NVS","LFQG",47.002625,3.113333,602,1,"E"
-1395,"Epinoy","Cambrai","France","","LFQI",50.221814,3.154236,257,1,"E"
-1396,"Elesmes","Maubeuge","France","","LFQJ",50.310467,4.033119,452,1,"E"
-1397,"La Veze","Besancon-la-veze","France","","LFQM",47.206567,6.083681,1271,1,"E"
-1398,"Bourscheid","Phalsbourg","France","","LFQP",48.76625,7.200519,1017,1,"E"
-1399,"Lesquin","Lille","France","LIL","LFQQ",50.561942,3.089444,157,1,"E"
-1400,"Calonne","Merville","France","","LFQT",50.618394,2.642242,61,1,"E"
-1401,"Charleville Mezieres","Charleville","France","","LFQV",49.783942,4.647078,492,1,"E"
-1402,"Frotey","Vesoul-frotey","France","","LFQW",47.637611,6.203922,1249,1,"E"
-1403,"Guipavas","Brest","France","BES","LFRB",48.447911,-4.418539,325,1,"E"
-1404,"Maupertus","Cherbourg","France","CER","LFRC",49.650106,-1.470281,459,1,"E"
-1405,"Pleurtuit","Dinard","France","DNR","LFRD",48.587683,-2.079958,219,1,"E"
-1406,"Escoublac","La Baule","France","","LFRE",47.289444,-2.346389,105,1,"E"
-1407,"Granville","Granville","France","","LFRF",48.883057,-1.564167,45,1,"E"
-1408,"St Gatien","Deauville","France","DOL","LFRG",49.365339,0.154306,479,1,"E"
-1409,"Lann Bihoue","Lorient","France","LRT","LFRH",47.760555,-3.44,160,1,"E"
-1410,"Les Ajoncs","La Roche-sur-yon","France","EDM","LFRI",46.701944,-1.378625,299,1,"E"
-1411,"Landivisiau","Landivisiau","France","","LFRJ",48.530258,-4.151642,348,1,"E"
-1412,"Carpiquet","Caen","France","CFR","LFRK",49.173333,-0.45,256,1,"E"
-1413,"Poulmic","Lanvedoc","France","","LFRL",48.281703,-4.445017,287,1,"E"
-1414,"Arnage","Le Mans","France","LME","LFRM",47.948611,0.201667,194,1,"E"
-1415,"St Jacques","Rennes","France","RNS","LFRN",48.069508,-1.734794,124,1,"E"
-1416,"Lannion","Lannion","France","LAI","LFRO",48.754378,-3.471656,290,1,"E"
-1417,"Pluguffan","Quimper","France","UIP","LFRQ",47.974981,-4.167786,297,1,"E"
-1418,"Nantes Atlantique","Nantes","France","NTE","LFRS",47.153189,-1.610725,90,1,"E"
-1419,"Armor","St.-brieuc Armor","France","SBK","LFRT",48.537777,-2.854445,453,1,"E"
-1420,"Ploujean","Morlaix","France","MXN","LFRU",48.603222,-3.815783,272,1,"E"
-1421,"Meucon","Vannes","France","VNE","LFRV",47.723303,-2.718561,440,1,"E"
-1422,"Montoir","St.-nazaire","France","SNR","LFRZ",47.312189,-2.149181,13,1,"E"
-1423,"Bale Mulhouse","Mulhouse","France","MLH","LFSB",47.589583,7.529914,885,1,"E"
-1424,"Meyenheim","Colmar","France","","LFSC",47.921978,7.399669,693,1,"E"
-1425,"Longvic","Dijon","France","DIJ","LFSD",47.26889,5.09,726,1,"E"
-1426,"Frescaty","Metz","France","MZM","LFSF",49.071667,6.131667,629,1,"E"
-1427,"Mirecourt","Epinal","France","EPL","LFSG",48.324961,6.069983,1084,1,"E"
-1428,"Haguenau","Haguenau","France","","LFSH",48.794331,7.817613,491,1,"E"
-1429,"Robinson","St.-dizier","France","","LFSI",48.636008,4.899417,458,1,"E"
-1430,"Courcelles","Montbeliard","France","","LFSM",47.487,6.790536,1041,1,"E"
-1431,"Essey","Nancy","France","ENC","LFSN",48.692069,6.230458,751,1,"E"
-1432,"Ochey","Nancy","France","","LFSO",48.583056,5.955,1106,1,"E"
-1433,"Pontarlier","Pontarlier","France","","LFSP",46.903958,6.327367,2683,1,"E"
-1434,"Champagne","Reims","France","RHE","LFSR",49.31,4.05,312,1,"E"
-1435,"Entzheim","Strasbourg","France","SXB","LFST",48.538319,7.628233,505,1,"E"
-1436,"Saint Sauveur","Luxeuil","France","","LFSX",47.783131,6.364056,913,1,"E"
-1437,"Pierrefeu","Cuers","France","","LFTF",43.247803,6.126697,266,1,"E"
-1438,"Le Palyvestre","Hyeres","France","TLN","LFTH",43.0973,6.14603,7,1,"E"
-1439,"Garons","Nimes","France","FNI","LFTW",43.757444,4.416347,309,1,"E"
-1440,"Miquelon","Miquelon","Saint Pierre and Miquelon","","LFVM",47.095472,-56.380278,10,-4,"U"
-1441,"St Pierre","St.-pierre","Saint Pierre and Miquelon","FSP","LFVP",46.762904,-56.173088,27,-4,"U"
-1442,"Amberieu","Amberieu","France","","LFXA",45.987335,5.328445,823,1,"E"
-1443,"Damblain","Damblain","France","","LFYD",48.086325,5.664058,1280,1,"E"
-1444,"Andravida","Andravida","Greece","PYR","LGAD",37.920708,21.292583,55,2,"E"
-1445,"Agrinion","Agrinion","Greece","AGQ","LGAG",38.602022,21.351208,154,2,"E"
-1446,"Dimokritos","Alexandroupolis","Greece","AXD","LGAL",40.855869,25.956264,24,2,"E"
-1447,"Alexandria","Alexandria","Greece","","LGAX",40.651128,22.488739,27,2,"E"
-1448,"Nea Anchialos","Nea Anghialos","Greece","VOL","LGBL",39.219619,22.794339,83,2,"E"
-1449,"Elefsis","Elefsis","Greece","","LGEL",38.063831,23.556011,143,2,"E"
-1450,"Chios","Chios","Greece","JKH","LGHI",38.343175,26.140572,15,2,"E"
-1451,"Ioannina","Ioannina","Greece","IOA","LGIO",39.696388,20.8225,1558,2,"E"
-1452,"Nikos Kazantzakis","Heraklion","Greece","HER","LGIR",35.339719,25.180297,115,2,"E"
-1453,"Aristotelis","Kastoria","Greece","KSO","LGKA",40.446294,21.282186,2167,2,"E"
-1454,"Kithira","Kithira","Greece","KIT","LGKC",36.274258,23.016978,1045,2,"E"
-1455,"Kefallinia","Keffallinia","Greece","EFL","LGKF",38.120069,20.500481,59,2,"E"
-1456,"Kalamata","Kalamata","Greece","KLX","LGKL",37.068319,22.025525,26,2,"E"
-1457,"Amigdhaleon","Kavala","Greece","","LGKM",40.972775,24.341417,203,2,"E"
-1458,"Kos","Kos","Greece","KGS","LGKO",36.793335,27.091667,412,2,"E"
-1459,"Karpathos","Karpathos","Greece","AOK","LGKP",35.421408,27.146008,66,2,"E"
-1460,"Ioannis Kapodistrias Intl","Kerkyra/corfu","Greece","CFU","LGKR",39.601944,19.911667,6,2,"E"
-1461,"Kasos","Kasos","Greece","KSJ","LGKS",35.421358,26.910047,35,2,"E"
-1462,"Megas Alexandros Intl","Kavala","Greece","KVA","LGKV",40.913306,24.619223,18,2,"E"
-1463,"Filippos","Kozani","Greece","KZI","LGKZ",40.28611,21.840834,2059,2,"E"
-1464,"Leros","Leros","Greece","LRS","LGLE",37.184903,26.800289,39,2,"E"
-1465,"Limnos","Limnos","Greece","LXS","LGLM",39.917072,25.236308,14,2,"E"
-1466,"Larisa","Larissa","Greece","LRA","LGLR",39.650253,22.4655,241,2,"E"
-1467,"Megara","Megara","Greece","","LGMG",37.981114,23.365422,12,2,"E"
-1468,"Mikonos","Mykonos","Greece","JMK","LGMK",37.435128,25.348103,405,2,"E"
-1469,"Mitilini","Mytilini","Greece","MJT","LGMT",39.056667,26.598333,60,2,"E"
-1470,"Aktio","Preveza","Greece","PVK","LGPZ",38.925467,20.765311,11,2,"E"
-1471,"Maritsa","Rhodos","Greece","","LGRD",36.383056,28.108889,204,2,"E"
-1472,"Rhodes Diagoras","Rhodos","Greece","RHO","LGRP",36.405419,28.086192,17,2,"E"
-1473,"Araxos","Patras","Greece","GPA","LGRX",38.151111,21.425556,46,2,"E"
-1474,"Souda","Chania","Greece","CHQ","LGSA",35.531747,24.149678,490,2,"E"
-1475,"Alexandros Papadiamantis","Skiathos","Greece","JSI","LGSK",39.1771,23.503675,54,2,"E"
-1476,"Samos","Samos","Greece","SMI","LGSM",37.689999,26.911667,19,2,"E"
-6886,"Ashford","Lympne","United Kingdom","LYM","EGMK",51.083333,1.016667,351,0,"E"
-1478,"Sparti","Sparti","Greece","","LGSP",36.973892,22.526292,500,2,"E"
-1479,"Santorini","Santorini","Greece","JTR","LGSR",36.399169,25.479333,127,2,"E"
-1480,"Sitia","Sitia","Greece","JSH","LGST",35.216108,26.101325,376,2,"E"
-1481,"Stefanovikion","Stefanovikion","Greece","","LGSV",39.48,22.767222,146,2,"E"
-1482,"Skiros","Skiros","Greece","SKU","LGSY",38.967553,24.487228,44,2,"E"
-1483,"Tanagra","Tanagra","Greece","","LGTG",38.339847,23.564958,485,2,"E"
-1484,"Kasteli","Kasteli","Greece","","LGTL",35.192019,25.327,1180,2,"E"
-1485,"Tripolis","Tripolis","Greece","","LGTP",37.530567,22.403633,2113,2,"E"
-1486,"Makedonia","Thessaloniki","Greece","SKG","LGTS",40.519725,22.97095,22,2,"E"
-1487,"Tatoi","Dekelia","Greece","","LGTT",38.108928,23.783836,785,2,"E"
-1488,"Dionysios Solomos","Zakynthos","Greece","ZTH","LGZA",37.750853,20.88425,15,2,"E"
-1489,"Ferihegy","Budapest","Hungary","BUD","LHBP",47.436933,19.255592,495,1,"E"
-1490,"Debrecen","Debrecen","Hungary","DEB","LHDC",47.488917,21.615333,359,1,"E"
-1491,"Kecskemet","Kecskemet","Hungary","","LHKE",46.9175,19.749222,376,1,"E"
-1492,"Nyiregyhaza","Nyirregyhaza","Hungary","","LHNY",47.983892,21.692317,338,1,"E"
-1493,"Ocseny","Ocseny","Hungary","","LHOY",46.303889,18.769167,295,1,"E"
-6885,"Door County Cherryland Airport","Sturgeon Bay","United States","SUE",\N,44.8436667,-87.4215556,725,-6,"U"
-1496,"Szentkiralyszabadja","Azentkilyszabadja","Hungary","","LHSA",47.077861,17.968444,919,1,"E"
-1498,"Szolnok","Szolnok","Hungary","","LHSN",47.122861,20.2355,322,1,"E"
-1499,"Amendola","Amendola","Italy","","LIBA",41.541392,15.718083,183,1,"E"
-1500,"Crotone","Crotone","Italy","CRV","LIBC",38.997225,17.080169,521,1,"E"
-1501,"Bari","Bari","Italy","BRI","LIBD",41.138856,16.760594,177,1,"E"
-1502,"Gino Lisa","Foggia","Italy","FOG","LIBF",41.432917,15.535028,266,1,"E"
-1503,"Grottaglie","Grottaglie","Italy","TAR","LIBG",40.517514,17.403212,215,1,"E"
-1504,"Lecce","Lecce","Italy","LCC","LIBN",40.239228,18.133325,156,1,"E"
-1505,"Pescara","Pescara","Italy","PSR","LIBP",42.431656,14.181067,48,1,"E"
-1506,"Casale","Brindisi","Italy","BDS","LIBR",40.657633,17.947033,47,1,"E"
-1507,"Gioia Del Colle","Gioia Del Colle","Italy","","LIBV",40.767833,16.933333,1187,1,"E"
-1508,"Lamezia Terme","Lamezia","Italy","SUF","LICA",38.905394,16.242269,39,1,"E"
-1509,"Catania Fontanarossa","Catania","Italy","CTA","LICC",37.466781,15.0664,39,1,"E"
-1510,"Lampedusa","Lampedusa","Italy","LMP","LICD",35.497914,12.618083,70,1,"E"
-1511,"Pantelleria","Pantelleria","Italy","PNL","LICG",36.816519,11.968864,635,1,"E"
-1512,"Palermo","Palermo","Italy","PMO","LICJ",38.175958,13.091019,65,1,"E"
-1513,"Boccadifalco","Palermo","Italy","","LICP",38.110833,13.313333,345,1,"E"
-1514,"Reggio Calabria","Reggio Calabria","Italy","REG","LICR",38.071206,15.651556,96,1,"E"
-1515,"Trapani Birgi","Trapani","Italy","TPS","LICT",37.911403,12.487961,24,1,"E"
-1516,"Sigonella","Sigonella","Italy","NSY","LICZ",37.401664,14.922358,79,1,"E"
-1517,"Alghero","Alghero","Italy","AHO","LIEA",40.632133,8.290772,87,1,"E"
-1518,"Decimomannu","Decimomannu","Italy","DCI","LIED",39.354222,8.972481,100,1,"E"
-1519,"Elmas","Cagliari","Italy","CAG","LIEE",39.251469,9.054283,13,1,"E"
-1520,"Olbia Costa Smeralda","Olbia","Italy","OLB","LIEO",40.898661,9.517628,37,1,"E"
-1521,"Tortoli","Tortoli","Italy","TTB","LIET",39.918761,9.682981,23,1,"E"
-1522,"Aeritalia","Turin","Italy","","LIMA",45.086353,7.603375,943,1,"E"
-1523,"Bresso","Milano","Italy","","LIMB",45.542222,9.203333,484,1,"E"
-1524,"Malpensa","Milano","Italy","MXP","LIMC",45.630606,8.728111,767,1,"E"
-1525,"Bergamo Orio Al Serio","Bergamo","Italy","BGY","LIME",45.673889,9.704166,782,1,"E"
-1526,"Torino","Torino","Italy","TRN","LIMF",45.200761,7.649631,989,1,"E"
-1527,"Albenga","Albenga","Italy","ALL","LIMG",44.050608,8.127428,148,1,"E"
-1528,"Genova Sestri","Genoa","Italy","GOA","LIMJ",44.413333,8.8375,13,1,"E"
-1529,"Linate","Milan","Italy","LIN","LIML",45.445103,9.276739,353,1,"E"
-1530,"Cameri","Cameri","Italy","","LIMN",45.529592,8.669225,586,1,"E"
-1531,"Parma","Parma","Italy","PMF","LIMP",44.824483,10.296367,161,1,"E"
-1532,"Piacenza","Piacenza","Italy","QPZ","LIMS",44.913055,9.723333,456,1,"E"
-6884,"Shoestring Aviation Airfield","Stewartstown","United States","0P2",\N,39.7948244,-76.6471914,1000,-5,"U"
-1534,"Levaldigi","Levaldigi","Italy","CUF","LIMZ",44.547019,7.623217,1267,1,"E"
-1535,"Aviano Ab","Aviano","Italy","AVB","LIPA",46.031889,12.596472,410,1,"E"
-1536,"Bolzano","Bolzano","Italy","BZO","LIPB",46.460194,11.326383,789,1,"E"
-1537,"Cervia","Cervia","Italy","","LIPC",44.224175,12.307203,18,1,"E"
-1538,"Bologna","Bologna","Italy","BLQ","LIPE",44.535444,11.288667,123,1,"E"
-1539,"Treviso","Treviso","Italy","TSF","LIPH",45.6484,12.194422,59,1,"E"
-1540,"Rivolto","Rivolto","Italy","","LIPI",45.97875,13.049331,179,1,"E"
-1541,"Forli","Forli","Italy","FRL","LIPK",44.194753,12.070094,97,1,"E"
-1542,"Ghedi","Ghedi","Italy","","LIPL",45.432167,10.267667,333,1,"E"
-1543,"Verona Boscomantico","Verona","Italy","","LIPN",45.472017,10.927919,286,1,"E"
-1544,"Montichiari","Montichiari","Italy","VBS","LIPO",45.428889,10.330556,356,1,"E"
-1545,"Ronchi Dei Legionari","Ronchi De Legionari","Italy","TRS","LIPQ",45.8275,13.472222,37,1,"E"
-1546,"Rimini","Rimini","Italy","RMI","LIPR",44.020292,12.611747,41,1,"E"
-1547,"Istrana","Treviso","Italy","","LIPS",45.684867,12.082881,137,1,"E"
-1548,"Vicenza","Vicenza","Italy","VIC","LIPT",45.573411,11.52955,128,1,"E"
-1549,"Padova","Padova","Italy","QPA","LIPU",45.395767,11.847903,44,1,"E"
-1550,"Villafranca","Villafranca","Italy","VRN","LIPX",45.395706,10.888533,239,1,"E"
-1551,"Venezia Tessera","Venice","Italy","VCE","LIPZ",45.505278,12.351944,7,1,"E"
-1552,"Ampugnano","Siena","Italy","SAY","LIQS",43.256286,11.255036,634,1,"E"
-1553,"Ciampino","Rome","Italy","CIA","LIRA",41.799361,12.594936,427,1,"E"
-1554,"Pratica Di Mare","Pratica Di Mare","Italy","","LIRE",41.654522,12.445183,41,1,"E"
-1555,"Fiumicino","Rome","Italy","FCO","LIRF",41.804475,12.250797,15,1,"E"
-1556,"Guidonia","Guidonia","Italy","","LIRG",41.990278,12.740833,289,1,"E"
-1558,"Marina Di Campo","Marina Di Campo","Italy","EBA","LIRJ",42.760277,10.239445,31,1,"E"
-1559,"Latina","Latina","Italy","QLT","LIRL",41.542436,12.909019,93,1,"E"
-1560,"Grazzanise","Grazzanise","Italy","","LIRM",41.060833,14.081944,29,1,"E"
-1561,"Capodichino","Naples","Italy","NAP","LIRN",40.886033,14.290781,294,1,"E"
-1562,"Pisa","Pisa","Italy","PSA","LIRP",43.683917,10.39275,6,1,"E"
-1563,"Firenze","Firenze","Italy","FLR","LIRQ",43.809953,11.2051,142,1,"E"
-1564,"Grosseto","Grosseto","Italy","GRS","LIRS",42.759747,11.071897,15,1,"E"
-1565,"Urbe","Rome","Italy","","LIRU",41.951946,12.498889,55,1,"E"
-1566,"Viterbo","Viterbo","Italy","","LIRV",42.430183,12.064156,990,1,"E"
-1567,"Perugia","Perugia","Italy","PEG","LIRZ",43.095906,12.513222,693,1,"E"
-1568,"Cerklje","Cerklje","Slovenia","","LJCE",45.899971,15.530194,510,1,"E"
-1569,"Ljubljana","Ljubliana","Slovenia","LJU","LJLJ",46.223686,14.457611,1273,1,"E"
-1570,"Maribor","Maribor","Slovenia","MBX","LJMB",46.479861,15.686131,876,1,"E"
-1571,"Portoroz","Portoroz","Slovenia","POW","LJPZ",45.473353,13.614978,7,1,"E"
-1572,"Slovenj Gradec","Slovenj Gradec","Slovenia","","LJSG",46.471975,15.116997,1645,1,"E"
-1573,"Ceske Budejovice","Ceske Budejovice","Czech Republic","","LKCS",48.946381,14.427464,1417,1,"E"
-1574,"Caslav","Caslav","Czech Republic","","LKCV",49.939653,15.381808,794,1,"E"
-1575,"Hradec Kralove","Hradec Kralove","Czech Republic","","LKHK",50.2532,15.845228,791,1,"E"
-1576,"Horovice","Horovice","Czech Republic","","LKHV",49.848111,13.893506,1214,1,"E"
-1577,"Kbely","Praha","Czech Republic","","LKKB",50.121367,14.543642,939,1,"E"
-1578,"Kunovice","Kunovice","Czech Republic","","LKKU",49.029444,17.439722,581,1,"E"
-1579,"Karlovy Vary","Karlovy Vary","Czech Republic","KLV","LKKV",50.202978,12.914983,1989,1,"E"
-1580,"Plzen Line","Line","Czech Republic","","LKLN",49.675172,13.274617,1188,1,"E"
-1581,"Mnichovo Hradiste","Mnichovo Hradiste","Czech Republic","","LKMH",50.540211,15.006592,800,1,"E"
-1582,"Mosnov","Ostrava","Czech Republic","OSR","LKMT",49.696292,18.111053,844,1,"E"
-1583,"Namest","Namest","Czech Republic","","LKNA",49.165833,16.124925,1548,1,"E"
-1584,"Pardubice","Pardubice","Czech Republic","PED","LKPD",50.013419,15.738647,741,1,"E"
-1585,"Pribram","Pribram","Czech Republic","","LKPM",49.720078,14.100567,1529,1,"E"
-1586,"Prerov","Prerov","Czech Republic","PRV","LKPO",49.425833,17.404722,676,1,"E"
-1587,"Ruzyne","Prague","Czech Republic","PRG","LKPR",50.100833,14.26,1247,1,"E"
-1588,"Turany","Turany","Czech Republic","BRQ","LKTB",49.151269,16.694433,778,1,"E"
-1589,"Vodochody","Vodochody","Czech Republic","","LKVO",50.216581,14.395806,919,1,"E"
-1590,"Ben Gurion","Tel-aviv","Israel","TLV","LLBG",32.011389,34.886667,135,2,"U"
-1591,"Teyman","Beer-sheba","Israel","BEV","LLBS",31.287003,34.722953,656,2,"U"
-1592,"Tel Nov","Tel-nof","Israel","","LLEK",31.839472,34.821844,193,2,"U"
-1593,"Eyn Shemer","Eyn-shemer","Israel","","LLES",32.440814,35.007661,95,2,"U"
-1594,"Eilat","Elat","Israel","ETH","LLET",29.561281,34.960081,42,2,"U"
-1595,"En Yahav","Eyn-yahav","Israel","","LLEY",30.621656,35.203325,-164,2,"U"
-1596,"Haifa","Haifa","Israel","HFA","LLHA",32.809444,35.043056,28,2,"U"
-1597,"Hatzor","Haztor","Israel","","LLHS",31.7625,34.727222,148,2,"U"
-1598,"Mahanaim I Ben Yaakov","Rosh Pina","Israel","RPN","LLIB",32.981047,35.571908,922,2,"U"
-1599,"Megiddo","Megido Airstrip","Israel","","LLMG",32.597139,35.228803,200,2,"U"
-1600,"I Bar Yehuda","Metzada","Israel","","LLMZ",31.328169,35.388608,-1266,2,"U"
-1601,"Nevatim Ab","Nevatim","Israel","","LLNV",31.208347,35.0123,1330,2,"U"
-1602,"Ovda","Ovda","Israel","VDA","LLOV",29.94025,34.93585,1492,2,"U"
-1603,"Ramat David","Ramat David","Israel","","LLRD",32.665142,35.179458,185,2,"U"
-1604,"Ramon","Ramon","Israel","","LLRM",30.776061,34.666769,2126,2,"U"
-1605,"Sde Dov","Tel-aviv","Israel","SDV","LLSD",32.114661,34.782239,43,2,"U"
-1606,"Luqa","Malta","Malta","MLA","LMML",35.857497,14.4775,300,1,"E"
-1607,"Wiener Neustadt East","Wiener Neustadt Ost","Austria","","LOAN",47.843333,16.260139,896,1,"E"
-1608,"Wels","Wels","Austria","","LOLW",48.183304,14.040861,1043,1,"E"
-1609,"Graz","Graz","Austria","GRZ","LOWG",46.991067,15.439628,1115,1,"E"
-1610,"Innsbruck","Innsbruck","Austria","INN","LOWI",47.260219,11.343964,1906,1,"E"
-1611,"Linz","Linz","Austria","LNZ","LOWL",48.233219,14.187511,978,1,"E"
-1612,"Salzburg","Salzburg","Austria","SZG","LOWS",47.793304,13.004333,1411,1,"E"
-1613,"Schwechat","Vienna","Austria","VIE","LOWW",48.110278,16.569722,600,1,"E"
-1614,"Klagenfurt","Klagenfurt","Austria","","LOXK",46.642514,14.337739,1470,1,"E"
-1615,"Zeltweg","Zeltweg","Austria","","LOXZ",47.202751,14.744223,2220,1,"E"
-1616,"Alverca","Alverca","Portugal","","LPAR",38.883278,-9.030097,11,0,"E"
-1617,"Santa Maria","Santa Maria (island)","Portugal","SMA","LPAZ",36.97139,-25.170639,308,-1,"E"
-1618,"Braganca","Braganca","Portugal","BGC","LPBG",41.8578,-6.707125,2241,0,"E"
-1619,"Beja","Beja (madeira)","Portugal","","LPBJ",38.078903,-7.932397,636,0,"E"
-1620,"Braga","Braga","Portugal","","LPBR",41.587058,-8.445139,247,0,"E"
-1621,"Coimbra","Coimba","Portugal","","LPCO",40.157223,-8.47,587,0,"E"
-1622,"Cascais","Cascais","Portugal","","LPCS",38.725025,-9.355231,326,0,"E"
-1623,"Covilha","Covilha","Portugal","","LPCV",40.264772,-7.479958,1572,0,"E"
-1624,"Evora","Evora","Portugal","","LPEV",38.533472,-7.889639,807,0,"E"
-1625,"Flores","Flores (flores Isl.)","Portugal","FLW","LPFL",39.455272,-31.131361,112,-1,"E"
-1626,"Faro","Faro","Portugal","FAO","LPFR",37.014425,-7.965911,24,0,"E"
-1627,"Graciosa","Graciosa Island","Portugal","GRW","LPGR",39.092169,-28.029847,86,-1,"E"
-1628,"Horta","Horta","Portugal","HOR","LPHR",38.519894,-28.715872,118,-1,"E"
-1629,"Lajes","Lajes (terceira Island)","Portugal","TER","LPLA",38.761842,-27.090797,180,-1,"E"
-1630,"Monte Real","Monte Real","Portugal","","LPMR",39.831244,-8.887261,187,0,"E"
-1631,"Montijo","Montijo","Portugal","","LPMT",38.703861,-9.035916,46,0,"E"
-1632,"Ovar","Ovar","Portugal","","LPOV",40.915867,-8.645919,56,0,"E"
-1633,"Ponta Delgada","Ponta Delgada","Portugal","PDL","LPPD",37.741184,-25.69787,259,-1,"E"
-1634,"Pico","Pico","Portugal","PIX","LPPI",38.554333,-28.441333,109,-1,"E"
-1635,"Portimao","Portimao","Portugal","","LPPM",37.149331,-8.583961,5,0,"E"
-1636,"Porto","Porto","Portugal","OPO","LPPR",41.248055,-8.681389,228,0,"E"
-1637,"Porto Santo","Porto Santo","Portugal","PXO","LPPS",33.073386,-16.349975,341,0,"E"
-1638,"Lisboa","Lisbon","Portugal","LIS","LPPT",38.781311,-9.135919,374,0,"E"
-1639,"Sao Jorge","Sao Jorge Island","Portugal","SJZ","LPSJ",38.6655,-28.175817,311,-1,"E"
-1640,"Sintra","Sintra","Portugal","","LPST",38.831053,-9.339553,440,0,"E"
-1641,"Tancos","Tancos","Portugal","","LPTN",39.47514,-8.364583,266,0,"E"
-1642,"Vila Real","Vila Real","Portugal","VRL","LPVR",41.274334,-7.720472,1805,0,"E"
-1643,"Viseu","Viseu","Portugal","","LPVZ",40.725539,-7.888992,2060,0,"E"
-6883,"Eastern Oregon Regional Airport","Pendleton","United States","PDT","KPDT",45.695,-118.841389,1497,-7,"A"
-1645,"Mostar","Mostar","Bosnia and Herzegovina","OMO","LQMO",43.2829,17.845878,156,1,"E"
-1646,"Sarajevo","Sarajevo","Bosnia and Herzegovina","SJJ","LQSA",43.824583,18.331467,1708,1,"E"
-1647,"Arad","Arad","Romania","ARW","LRAR",46.17655,21.262022,352,2,"E"
-1648,"Bacau","Bacau","Romania","BCM","LRBC",46.521946,26.910278,607,2,"E"
-1649,"Tautii Magheraus","Baia Mare","Romania","BAY","LRBM",47.658389,23.470022,605,2,"E"
-1650,"Aurel Vlaicu","Bucharest","Romania","BBU","LRBS",44.503194,26.102111,297,2,"E"
-1651,"Mihail Kogalniceanu","Constanta","Romania","CND","LRCK",44.362222,28.488333,353,2,"E"
-1652,"Cluj Napoca","Cluj-napoca","Romania","CLJ","LRCL",46.785167,23.686167,1036,2,"E"
-1653,"Caransebes","Caransebes","Romania","CSB","LRCS",45.42,22.253333,866,2,"E"
-1654,"Craiova","Craiova","Romania","CRA","LRCV",44.318139,23.888611,626,2,"E"
-1655,"Iasi","Iasi","Romania","IAS","LRIA",47.178492,27.620631,397,2,"E"
-1656,"Oradea","Oradea","Romania","OMR","LROD",47.025278,21.9025,465,2,"E"
-1657,"Henri Coanda","Bucharest","Romania","OTP","LROP",44.572161,26.102178,314,2,"E"
-1658,"Sibiu","Sibiu","Romania","SBZ","LRSB",45.785597,24.091342,1496,2,"E"
-1659,"Satu Mare","Satu Mare","Romania","SUJ","LRSM",47.703275,22.8857,405,2,"E"
-1660,"Stefan Cel Mare","Suceava","Romania","SCV","LRSV",47.6875,26.354056,1375,2,"E"
-1661,"Cataloi","Tulcea","Romania","TCE","LRTC",45.062486,28.714311,200,2,"E"
-1662,"Transilvania Targu Mures","Tirgu Mures","Romania","TGM","LRTM",46.467714,24.412525,963,2,"E"
-1663,"Traian Vuia","Timisoara","Romania","TSR","LRTR",45.809861,21.337861,348,2,"E"
-1664,"Les Eplatures","Les Eplatures","Switzerland","","LSGC",47.08385,6.792836,3368,1,"E"
-1665,"Geneva Cointrin","Geneva","Switzerland","GVA","LSGG",46.238064,6.10895,1411,1,"E"
-1666,"Saanen","Saanen","Switzerland","","LSGK",46.487499,7.250834,3307,1,"E"
-1667,"Sion","Sion","Switzerland","SIR","LSGS",46.219592,7.326764,1585,1,"E"
-1668,"Alpnach","Alpnach","Switzerland","","LSMA",46.943889,8.284167,1460,1,"E"
-1669,"Dubendorf","Dubendorf","Switzerland","","LSMD",47.398644,8.648231,1470,1,"E"
-1670,"Emmen","Emmen","Switzerland","","LSME",47.092369,8.305117,1400,1,"E"
-1671,"Mollis","Mollis","Switzerland","","LSMF",47.078872,9.064831,1485,1,"E"
-1672,"Meiringen","Meiringen","Switzerland","","LSMM",46.743333,8.11,1895,1,"E"
-1673,"Payerne","Payerne","Switzerland","","LSMP",46.843208,6.915058,1465,1,"E"
-1674,"Buochs","Buochs","Switzerland","","LSMU",46.974914,8.39915,1475,1,"E"
-1675,"Lugano","Lugano","Switzerland","LUG","LSZA",46.004275,8.910578,915,1,"E"
-1676,"Bern Belp","Bern","Switzerland","BRN","LSZB",46.9141,7.497153,1674,1,"E"
-1677,"Grenchen","Grenchen","Switzerland","","LSZG",47.181628,7.417189,1411,1,"E"
-1678,"Zurich","Zurich","Switzerland","ZRH","LSZH",47.464722,8.549167,1416,1,"E"
-1679,"St Gallen Altenrhein","Altenrhein","Switzerland","ACH","LSZR",47.485033,9.560775,1306,1,"E"
-1680,"Samedan","Samedan","Switzerland","SMV","LSZS",46.534075,9.884106,5600,1,"E"
-1681,"Guvercinlik","Ankara","Turkey","","LTAB",39.93495,32.740775,2694,2,"E"
-1682,"Esenboga","Ankara","Turkey","ESB","LTAC",40.128082,32.995083,3125,2,"E"
-1683,"Etimesgut","Ankara","Turkey","ANK","LTAD",39.949831,32.688622,2653,2,"E"
-1684,"Akinci","Ankara","Turkey","","LTAE",40.078919,32.565625,2767,2,"E"
-1685,"Adana","Adana","Turkey","ADA","LTAF",36.982166,35.280388,65,2,"E"
-1686,"Incirlik Ab","Adana","Turkey","","LTAG",37.0021,35.425894,238,2,"E"
-1687,"Afyon","Afyon","Turkey","AFY","LTAH",38.726425,30.601114,3310,2,"E"
-1688,"Antalya","Antalya","Turkey","AYT","LTAI",36.898731,30.800461,177,2,"E"
-1689,"Oguzeli","Gaziantep","Turkey","GZT","LTAJ",36.947183,37.478683,2315,2,"E"
-1690,"Iskenderun","Iskenderun","Turkey","","LTAK",36.573472,36.154,25,2,"E"
-1691,"Konya","Konya","Turkey","KYA","LTAN",37.979,32.561861,3381,2,"E"
-1692,"Tulga","Malatya","Turkey","","LTAO",38.35375,38.253944,3016,2,"E"
-1693,"Merzifon","Merzifon","Turkey","MZH","LTAP",40.829375,35.521992,1758,2,"E"
-1694,"Sivas","Sivas","Turkey","VAS","LTAR",39.813828,36.903497,5236,2,"E"
-1695,"Erhac","Malatya","Turkey","MLX","LTAT",38.435347,38.091006,2828,2,"E"
-1696,"Erkilet","Kayseri","Turkey","ASR","LTAU",38.770386,35.495428,3463,2,"E"
-1697,"Sivrihisar","Sivrihisar","Turkey","","LTAV",39.451469,31.365308,3185,2,"E"
-1698,"Tokat","Tokat","Turkey","","LTAW",40.306281,36.371089,1831,2,"E"
-1699,"Cardak","Denizli","Turkey","DNZ","LTAY",37.785567,29.701297,2795,2,"E"
-1701,"Ataturk","Istanbul","Turkey","IST","LTBA",40.976922,28.814606,163,2,"E"
-1702,"Balikesir","Balikesir","Turkey","BZI","LTBF",39.619258,27.925958,340,2,"E"
-1703,"Bandirma","Bandirma","Turkey","BDM","LTBG",40.317972,27.977694,170,2,"E"
-6882,"Tyonek Airport","Tyonek","United States","TYE",\N,61.076667,-151.138056,110,-8,"A"
-1705,"Eskisehir","Eskisehir","Turkey","ESK","LTBI",39.784138,30.582111,2581,2,"E"
-1706,"Adnan Menderes","Izmir","Turkey","ADB","LTBJ",38.292392,27.156953,412,2,"E"
-1707,"Gaziemir","Izmir","Turkey","","LTBK",38.319106,27.159353,433,2,"E"
-1708,"Cigli","Izmir","Turkey","IGL","LTBL",38.513022,27.010053,16,2,"E"
-1709,"Isparta","Isparta","Turkey","","LTBM",37.785369,30.581817,3250,2,"E"
-1710,"Kutahya","Kutahya","Turkey","","LTBN",39.426708,30.016872,3026,2,"E"
-1712,"Yalova","Yalova","Turkey","","LTBP",40.684353,29.375728,6,2,"E"
-1713,"Topel","Topel","Turkey","","LTBQ",40.735028,30.083336,182,2,"E"
-1715,"Dalaman","Dalaman","Turkey","DLM","LTBS",36.713056,28.7925,20,2,"E"
-1716,"Akhisar","Akhisar","Turkey","","LTBT",38.808887,27.83386,263,2,"E"
-6881,"Riverton Regional","Riverton WY","United States","RIW","KRIW",43.064167,-108.459722,5525,-7,"A"
-1718,"Imsik","Bodrum","Turkey","BXN","LTBV",37.140144,27.669717,202,2,"E"
-1719,"Samandira","Istanbul","Turkey","","LTBX",40.992975,29.216539,400,2,"E"
-1721,"Elazig","Elazig","Turkey","EZS","LTCA",38.606925,39.291417,2927,2,"E"
-1722,"Diyarbakir","Diyabakir","Turkey","DIY","LTCC",37.893897,40.201019,2251,2,"E"
-1723,"Erzincan","Erzincan","Turkey","ERC","LTCD",39.710203,39.527003,3783,2,"E"
-1724,"Erzurum","Erzurum","Turkey","ERZ","LTCE",39.956501,41.170166,5763,2,"E"
-1726,"Trabzon","Trabzon","Turkey","TZX","LTCG",40.995108,39.789728,104,2,"E"
-6880,"Montrose Regional Airport","Montrose CO","United States","MTJ","KMTJ",38.509794,-107.894242,5759,-7,"A"
-1728,"Van","Van","Turkey","VAN","LTCI",38.468219,43.3323,5480,2,"E"
-1729,"Batman","Batman","Turkey","BAL","LTCJ",37.928969,41.116583,1822,2,"E"
-1731,"Siirt","Siirt","Turkey","","LTCL",37.978886,41.840436,2001,2,"E"
-1732,"Kaklic","Izmir","Turkey","","LTFA",38.517608,26.977406,13,2,"E"
-1733,"Efes","Izmir","Turkey","","LTFB",37.950747,27.329014,10,2,"E"
-1734,"Balti Intl","Saltsy","Moldova","","LUBL",47.838114,27.781475,758,2,"E"
-1735,"Chisinau Intl","Kichinau Fir/acc/com","Moldova","KIV","LUKK",46.927744,28.930978,399,2,"E"
-1736,"Ohrid","Ohrid","Macedonia","OHD","LWOH",41.179956,20.742325,2313,1,"E"
-1737,"Skopje","Skopje","Macedonia","SKP","LWSK",41.961622,21.621381,781,1,"E"
-1738,"Gibraltar","Gibraltar","Gibraltar","GIB","LXGB",36.151219,-5.349664,15,1,"N"
-1739,"Beograd","Beograd","Serbia","BEG","LYBE",44.818444,20.309139,335,1,"E"
-1740,"Nis","Nis","Serbia","INI","LYNI",43.337289,21.853722,648,1,"E"
-1741,"Podgorica","Podgorica","Montenegro","TGD","LYPG",42.359392,19.251894,141,1,"E"
-1742,"Pristina","Pristina","Serbia","PRN","LYPR",42.572778,21.035833,1789,1,"E"
-1743,"Tivat","Tivat","Montenegro","TIV","LYTV",42.404664,18.723286,20,1,"E"
-1744,"Vrsac","Vrsac","Serbia","","LYVR",45.146889,21.309889,276,1,"E"
-1745,"M R Stefanik","Bratislava","Slovakia","BTS","LZIB",48.170167,17.212667,436,1,"E"
-1746,"Kosice","Kosice","Slovakia","KSC","LZKZ",48.663055,21.241112,755,1,"E"
-1747,"Malacky","Malacky","Slovakia","","LZMC",48.402028,17.118389,679,1,"E"
-1748,"Piestany","Piestany","Slovakia","PZY","LZPP",48.625247,17.828444,545,1,"E"
-1749,"Sliac","Sliac","Slovakia","SLD","LZSL",48.637839,19.134108,1043,1,"E"
-1750,"Trencin","Trencin","Slovakia","","LZTN",48.865003,17.99225,676,1,"E"
-1751,"Tatry","Poprad","Slovakia","TAT","LZTT",49.073594,20.241142,2356,1,"E"
-6879,"Clow International Airport","Bolingbrook","United States","1CS",\N,41.6959744,-88.1292306,670,-6,"U"
-1753,"North Caicos","North Caicos","Turks and Caicos Islands","NCA","MBNC",21.917475,-71.939561,10,-5,"U"
-1754,"Providenciales","Providenciales","Turks and Caicos Islands","PLS","MBPV",21.773625,-72.265886,15,-5,"U"
-1755,"South Caicos","South Caicos","Turks and Caicos Islands","XSC","MBSC",21.515739,-71.528528,6,-5,"U"
-1756,"Arroyo Barril Intl","Samana","Dominican Republic","EPS","MDAB",19.198586,-69.429772,57,-4,"U"
-1757,"Maria Montez Intl","Barahona","Dominican Republic","BRX","MDBH",18.251464,-71.1204,10,-4,"U"
-1758,"Cabo Rojo","Cabo Rojo","Dominican Republic","","MDCR",17.928981,-71.644769,262,-4,"U"
-1759,"Casa De Campo Intl","La Romana","Dominican Republic","LRM","MDLR",18.450711,-68.911833,240,-4,"U"
-1760,"Punta Cana Intl","Punta Cana","Dominican Republic","PUJ","MDPC",18.567367,-68.363431,47,-4,"U"
-1761,"Gregorio Luperon Intl","Puerto Plata","Dominican Republic","POP","MDPP",19.7579,-70.570033,15,-4,"U"
-1762,"Las Americas Intl","Santo Domingo","Dominican Republic","SDQ","MDSD",18.429664,-69.668925,59,-4,"U"
-1763,"San Isidro Ab","San Isidoro","Dominican Republic","","MDSI",18.503706,-69.761706,111,-4,"U"
-1764,"Cibao Intl","Santiago","Dominican Republic","STI","MDST",19.406092,-70.604689,565,-4,"U"
-1765,"Bananera","Bananera","Guatemala","","MGBN",15.473528,-88.837222,130,-6,"U"
-1766,"Coban","Coban","Guatemala","CBV","MGCB",15.468958,-90.406742,4339,-6,"U"
-1767,"La Aurora","Guatemala City","Guatemala","GUA","MGGT",14.583272,-90.527475,4952,-6,"U"
-1769,"Retalhuleu","Retalhuleu","Guatemala","","MGRT",14.521017,-91.697256,656,-6,"U"
-1770,"San Jose","San Jose","Guatemala","","MGSJ",13.936192,-90.835833,29,-6,"U"
-1771,"Goloson Intl","La Ceiba","Honduras","LCE","MHLC",15.742481,-86.853036,49,-6,"U"
-1772,"La Mesa Intl","San Pedro Sula","Honduras","SAP","MHLM",15.452639,-87.923556,91,-6,"U"
-1773,"Guanaja","Guanaja","Honduras","GJA","MHNJ",16.445367,-85.906611,49,-6,"U"
-1774,"Juan Manuel Galvez Intl","Roatan","Honduras","RTB","MHRO",16.316814,-86.522961,18,-6,"U"
-1775,"Tela","Tela","Honduras","TEA","MHTE",15.775864,-87.475847,7,-6,"U"
-1776,"Toncontin Intl","Tegucigalpa","Honduras","TGU","MHTG",14.060883,-87.217197,3294,-6,"U"
-1777,"Trujillo","Trujillo","Honduras","","MHTJ",15.926847,-85.93825,3,-6,"U"
-1778,"Boscobel","Ocho Rios","Jamaica","OCJ","MKBS",18.404247,-76.969017,90,-5,"U"
-1779,"Norman Manley Intl","Kingston","Jamaica","KIN","MKJP",17.935667,-76.7875,10,-5,"U"
-1780,"Sangster Intl","Montego Bay","Jamaica","MBJ","MKJS",18.503717,-77.913358,4,-5,"U"
-1781,"Ken Jones","Port Antonio","Jamaica","POT","MKKJ",18.198806,-76.534528,20,-5,"U"
-1782,"Tinson Pen","Kingston","Jamaica","KTP","MKTP",17.988558,-76.823761,16,-5,"U"
-1783,"General Juan N Alvarez Intl","Acapulco","Mexico","ACA","MMAA",16.757061,-99.753953,16,-6,"S"
-1784,"Del Norte Intl","Monterrey","Mexico","NTR","MMAN",25.865572,-100.237239,1476,-6,"S"
-1785,"Jesus Teran Intl","Aguascalientes","Mexico","AGU","MMAS",21.705558,-102.317858,6112,-6,"S"
-1786,"Bahias De Huatulco Intl","Bahias Dehuatulco","Mexico","HUX","MMBT",15.775317,-96.262572,464,-6,"S"
-1787,"General Mariano Matamoros","Cuernavaca","Mexico","CVJ","MMCB",18.834764,-99.2613,4277,-6,"S"
-1788,"Ciudad Acuna Intl New","Ciudad Acuna","Mexico","","MMCC",29.333917,-101.100892,1410,-6,"S"
-1789,"Ciudad Del Carmen Intl","Ciudad Del Carmen","Mexico","CME","MMCE",18.653739,-91.799017,10,-6,"S"
-1790,"Nuevo Casas Grandes","Nuevo Casas Grandes","Mexico","","MMCG",30.397439,-107.874969,4850,-6,"S"
-1791,"Chilpancingo","Chilpancingo","Mexico","","MMCH",17.573767,-99.514339,4199,-6,"S"
-1792,"Culiacan Intl","Culiacan","Mexico","CUL","MMCL",24.764547,-107.474717,108,-7,"S"
-1793,"Chetumal Intl","Chetumal","Mexico","CTM","MMCM",18.504667,-88.326847,39,-6,"S"
-1794,"Ciudad Obregon Intl","Ciudad Obregon","Mexico","CEN","MMCN",27.392639,-109.833111,205,-7,"S"
-1795,"Ingeniero Alberto Acuna Ongay Intl","Campeche","Mexico","CPE","MMCP",19.816794,-90.500314,34,-6,"S"
-1796,"Abraham Gonzalez Intl","Ciudad Juarez","Mexico","CJS","MMCS",31.636133,-106.428667,3904,-6,"S"
-1797,"General R Fierro Villalobos Intl","Chihuahua","Mexico","CUU","MMCU",28.702875,-105.964567,4462,-6,"S"
-1798,"General Pedro Jose Mendez Intl","Ciudad Victoria","Mexico","CVM","MMCV",23.703336,-98.956486,761,-6,"S"
-6878,"Kenosha Regional Airport","Kenosha","United States","ENW",\N,42.5956944,-87.9278056,742,-6,"U"
-1800,"Cozumel Intl","Cozumel","Mexico","CZM","MMCZ",20.522403,-86.925644,15,-6,"S"
-1801,"Durango Intl","Durango","Mexico","DGO","MMDO",24.124194,-104.528014,6104,-6,"S"
-1802,"Tepic","Tepic","Mexico","TPQ","MMEP",21.419453,-104.842581,3020,-6,"S"
-1803,"Ensenada","Ensenada","Mexico","ESE","MMES",31.795281,-116.602772,66,-8,"S"
-1804,"Don Miguel Hidalgo Y Costilla Intl","Guadalajara","Mexico","GDL","MMGL",20.5218,-103.311167,5016,-6,"S"
-1805,"General Jose Maria Yanez Intl","Guaymas","Mexico","GYM","MMGM",27.968983,-110.925169,59,-7,"S"
-1806,"Tehuacan","Tehuacan","Mexico","TCN","MMHC",18.497189,-97.419942,5509,-6,"S"
-1807,"General Ignacio P Garcia Intl","Hermosillo","Mexico","HMO","MMHO",29.095858,-111.047858,627,-7,"S"
-1808,"Colima","Colima","Mexico","CLQ","MMIA",19.277011,-103.577397,2467,-6,"S"
-1809,"Isla Mujeres","Isla Mujeres","Mexico","ISJ","MMIM",21.245033,-86.739967,7,-6,"S"
-1810,"Plan De Guadalupe Intl","Saltillo","Mexico","SLW","MMIO",25.549497,-100.928669,4778,-6,"S"
-1811,"Ixtepec","Iztepec","Mexico","","MMIT",16.449336,-95.093697,164,-6,"S"
-1813,"Lazaro Cardenas","Lazard Cardenas","Mexico","LZC","MMLC",18.001731,-102.220525,39,-6,"S"
-1814,"Valle Del Fuerte Intl","Los Mochis","Mexico","LMM","MMLM",25.685194,-109.080806,16,-7,"S"
-1815,"Guanajuato Intl","Del Bajio","Mexico","BJX","MMLO",20.993464,-101.480847,5956,-6,"S"
-1816,"General Manuel Marquez De Leon Intl","La Paz","Mexico","LAP","MMLP",24.072694,-110.362475,69,-7,"S"
-1817,"Loreto Intl","Loreto","Mexico","LTO","MMLT",25.989194,-111.348361,34,-7,"S"
-1818,"General Servando Canales Intl","Matamoros","Mexico","MAM","MMMA",25.769894,-97.525311,25,-6,"S"
-1819,"Licenciado Manuel Crescencio Rejon Int","Merida","Mexico","MID","MMMD",20.936981,-89.657672,38,-6,"S"
-1820,"General Rodolfo Sanchez Taboada Intl","Mexicali","Mexico","MXL","MMML",32.630634,-115.241637,74,-8,"S"
-1821,"General Francisco J Mujica Intl","Morelia","Mexico","MLM","MMMM",19.849944,-101.0255,6033,-6,"S"
-1822,"Minatitlan","Minatitlan","Mexico","MTT","MMMT",18.103419,-94.580681,36,-6,"S"
-1823,"Monclova Intl","Monclova","Mexico","LOV","MMMV",26.955733,-101.470136,1864,-6,"S"
-1824,"Licenciado Benito Juarez Intl","Mexico City","Mexico","MEX","MMMX",19.436303,-99.072097,7316,-6,"S"
-1825,"General Mariano Escobedo Intl","Monterrey","Mexico","MTY","MMMY",25.778489,-100.106878,1278,-6,"S"
-1826,"General Rafael Buelna Intl","Mazatlan","Mexico","MZT","MMMZ",23.161356,-106.266072,38,-7,"S"
-1827,"Nogales Intl","Nogales","Mexico","NOG","MMNG",31.226083,-110.975831,3990,-7,"S"
-1828,"Quetzalcoatl Intl","Nuevo Laredo","Mexico","NLD","MMNL",27.443918,-99.57046,484,-6,"S"
-1829,"Xoxocotlan Intl","Oaxaca","Mexico","OAX","MMOX",16.999906,-96.726639,4989,-6,"S"
-1830,"Tajin","Poza Rico","Mexico","PAZ","MMPA",20.602671,-97.460839,497,-6,"S"
-1831,"Hermanos Serdan Intl","Puebla","Mexico","PBC","MMPB",19.158144,-98.371447,7361,-6,"S"
-1832,"Ingeniero Juan Guillermo Villasana","Pachuca","Mexico","PCA","MMPC",20.0772,-98.782814,7600,-6,"S"
-1833,"Puerto Penasco","Punta Penasco","Mexico","PPE","MMPE",31.351878,-113.525728,30,-7,"S"
-1834,"Piedras Negras Intl","Piedras Negras","Mexico","PDS","MMPG",28.627394,-100.535211,901,-6,"S"
-1835,"Licenciado Y Gen Ignacio Lopez Rayon","Uruapan","Mexico","UPN","MMPN",19.396692,-102.039056,5258,-6,"S"
-1836,"Licenciado Gustavo Diaz Ordaz Intl","Puerto Vallarta","Mexico","PVR","MMPR",20.680083,-105.254167,23,-6,"S"
-1837,"Puerto Escondido Intl","Puerto Escondido","Mexico","PXM","MMPS",15.876861,-97.089117,294,-6,"S"
-1838,"Queretaro Intercontinental","Queretaro","Mexico","QRO","MMQT",20.617289,-100.185658,6296,-6,"S"
-1839,"General Lucio Blanco Intl","Reynosa","Mexico","REX","MMRX",26.008908,-98.228513,139,-6,"S"
-1840,"Los Cabos Intl","San Jose Del Cabo","Mexico","SJD","MMSD",23.15185,-109.721044,374,-7,"S"
-1841,"San Felipe Intl","San Filipe","Mexico","","MMSF",30.930222,-114.808639,148,-8,"S"
-1842,"Ponciano Arriaga Intl","San Luis Potosi","Mexico","SLP","MMSP",22.254303,-100.930806,6035,-6,"S"
-1843,"Tlaxcala","Tlaxcala","Mexico","TXA","MMTA",19.537964,-98.173467,8229,-6,"S"
-1844,"General Div P A Angel H Corzo Molina","Tuxtla Gutierrez","Mexico","","MMTB",16.739919,-93.173297,1909,-6,"S"
-1845,"Torreon Intl","Torreon","Mexico","TRC","MMTC",25.568278,-103.410583,3688,-6,"S"
-1846,"Angel Albino Corzo","Tuxtla Gutierrez","Mexico","TGZ","MMTG",16.561822,-93.026081,1491,-6,"S"
-1847,"General Abelardo L Rodriguez Intl","Tijuana","Mexico","TIJ","MMTJ",32.541064,-116.970158,489,-8,"S"
-1848,"General Francisco Javier Mina Intl","Tampico","Mexico","TAM","MMTM",22.29645,-97.865931,80,-6,"S"
-1849,"Tamuin","Tamuin","Mexico","TSL","MMTN",22.038292,-98.806503,164,-6,"S"
-1850,"Licenciado Adolfo Lopez Mateos Intl","Toluca","Mexico","TLC","MMTO",19.337072,-99.566008,8466,-6,"S"
-1851,"Tapachula Intl","Tapachula","Mexico","TAP","MMTP",14.794339,-92.370025,97,-6,"S"
-1852,"Cancun Intl","Cancun","Mexico","CUN","MMUN",21.036528,-86.877083,20,-6,"S"
-1853,"C P A Carlos Rovirosa Intl","Villahermosa","Mexico","VSA","MMVA",17.997,-92.817361,46,-6,"S"
-1854,"General Heriberto Jara Intl","Vera Cruz","Mexico","VER","MMVR",19.145931,-96.187267,90,-6,"S"
-1855,"General Leobardo C Ruiz Intl","Zacatecas","Mexico","ZCL","MMZC",22.897112,-102.68689,7141,-6,"S"
-1856,"Ixtapa Zihuatanejo Intl","Zihuatanejo","Mexico","ZIH","MMZH",17.601569,-101.460536,26,-6,"S"
-1857,"Zamora","Zamora","Mexico","ZMM","MMZM",20.045036,-102.275955,5141,-6,"S"
-1858,"Playa De Oro Intl","Manzanillo","Mexico","ZLO","MMZO",19.144778,-104.558631,30,-6,"S"
-1859,"Zapopan","Zapopan","Mexico","","MMZP",20.755833,-103.465278,5333,-6,"S"
-1860,"Bluefields","Bluefields","Nicaragua","BEF","MNBL",11.990961,-83.774086,41,-6,"U"
-1861,"Los Brasiles","Los Brasiles","Nicaragua","","MNBR",12.190044,-86.353872,262,-6,"U"
-1862,"Leon","Leon","Nicaragua","","MNLN",12.428028,-86.902361,328,-6,"U"
-1863,"Managua Intl","Managua","Nicaragua","MGA","MNMG",12.141494,-86.168178,194,-6,"U"
-1864,"Puerto Cabezas","Puerto Cabezas","Nicaragua","PUZ","MNPC",14.047194,-83.386722,69,-6,"U"
-1865,"Bocas Del Toro Intl","Bocas Del Toro","Panama","BOC","MPBO",9.340853,-82.250842,10,-5,"U"
-1866,"Cap Manuel Nino Intl","Changuinola","Panama","CHX","MPCH",9.458636,-82.516806,19,-5,"U"
-1867,"Enrique Malek Intl","David","Panama","DAV","MPDA",8.391003,-82.434992,89,-5,"U"
-1868,"Howard","Howard","Panama","HOW","MPHO",8.914794,-79.599633,52,-5,"U"
-1869,"Marcos A Gelabert Intl","Panama","Panama","PAC","MPMG",8.973339,-79.555583,31,-5,"U"
-1870,"Ruben Cantu","Santiago","Panama","","MPSA",8.085597,-80.945253,272,-5,"U"
-1871,"Tocumen Intl","Panama City","Panama","PTY","MPTO",9.071364,-79.383453,135,-5,"U"
-1872,"Buenos Aires","Buenos Aires","Costa Rica","","MRBA",9.163606,-83.329872,1214,-6,"U"
-6877,"North Las Vegas Airport","Las Vegas","United States","VGT",\N,36.2106944,-115.1944444,2205,-7,"U"
-1874,"Coto 47","Coto 47","Costa Rica","OTR","MRCC",8.601556,-82.968614,26,-5,"U"
-1875,"Chacarita","Chacarita","Costa Rica","","MRCH",9.981408,-84.772736,7,-6,"U"
-6876,"Brown County Airport","Georgetown","United States","","KGEO",38.8819456,-83.8827367,958,-5,"U"
-1877,"El Carmen De Siquirres","El Carmen","Costa Rica","","MREC",10.202033,-83.472167,56,-6,"U"
-1878,"Nuevo Palmar Sur","Finca 10","Costa Rica","","MRFI",8.916347,-83.507267,49,-6,"U"
-1879,"Golfito","Golfito","Costa Rica","GLF","MRGF",8.653775,-83.180544,49,-6,"U"
-1880,"Guapiles","Guapiles","Costa Rica","","MRGP",10.217194,-83.797003,883,-6,"U"
-1881,"Daniel Oduber Quiros Intl","Liberia","Costa Rica","LIR","MRLB",10.593289,-85.544408,270,-6,"U"
-1882,"Los Chiles","Los Chiles","Costa Rica","","MRLC",11.035277,-84.706108,131,-6,"U"
-1883,"Limon Intl","Limon","Costa Rica","LIO","MRLM",9.957961,-83.022006,7,-6,"U"
-1884,"Nosara","Nosara Beach","Costa Rica","NOB","MRNS",9.97649,-85.653,33,-6,"U"
-1885,"Juan Santamaria Intl","San Jose","Costa Rica","SJO","MROC",9.993861,-84.208806,3021,-6,"U"
-1886,"Pandora","Pandora","Costa Rica","","MRPD",9.732169,-82.983214,98,-6,"U"
-1887,"Palmar Sur","Palmar Sur","Costa Rica","PMZ","MRPM",8.951025,-83.468583,49,-6,"U"
-1889,"La Managua","Quepos","Costa Rica","XQP","MRQP",9.443164,-84.129772,85,-6,"U"
-1890,"Santa Clara De Guapiles","Santa Clara","Costa Rica","","MRSG",10.288278,-83.713519,262,-6,"U"
-1891,"San Vito De Java","San Vito De Jaba","Costa Rica","","MRSV",8.826111,-82.958885,3228,-5,"U"
-1892,"El Salvador Intl","San Salvador","El Salvador","SAL","MSLP",13.440947,-89.055728,101,-6,"U"
-1893,"Ilopango Intl","San Salvador","El Salvador","","MSSS",13.699492,-89.119861,2021,-6,"U"
-1894,"Cayes","Cayes","Haiti","","MTCA",18.271103,-73.788289,203,-5,"U"
-1895,"Cap Haitien Intl","Cap Haitien","Haiti","CAP","MTCH",19.732989,-72.194739,10,-5,"U"
-1896,"Jacmel","Jacmel","Haiti","","MTJA",18.241083,-72.5185,167,-5,"U"
-1897,"Toussaint Louverture Intl","Port-au-prince","Haiti","PAP","MTPP",18.58005,-72.292542,122,-5,"U"
-1898,"Gustavo Rizo","Baracoa Playa","Cuba","BCA","MUBA",20.365317,-74.506206,26,-5,"U"
-1899,"Carlos Manuel De Cespedes","Bayamo","Cuba","BYM","MUBY",20.396331,-76.621494,203,-5,"U"
-1900,"Maximo Gomez","Ciego De Avila","Cuba","AVI","MUCA",22.027053,-78.789617,335,-5,"U"
-1901,"Jardines Del Rey","Cunagua","Cuba","","MUCC",22.460986,-78.328422,13,-5,"U"
-1902,"Jaime Gonzalez","Cienfuegos","Cuba","CFG","MUCF",22.15,-80.414167,102,-5,"U"
-1903,"Vilo Acuna Intl","Cayo","Cuba","CYO","MUCL",21.616453,-81.545989,10,-5,"U"
-1904,"Ignacio Agramonte Intl","Camaguey","Cuba","CMW","MUCM",21.420428,-77.847433,413,-5,"U"
-1905,"Antonio Maceo Intl","Santiago De Cuba","Cuba","SCU","MUCU",19.969769,-75.835414,249,-5,"U"
-1906,"Florida","Florida","Cuba","","MUFL",21.499722,-78.202778,197,-5,"U"
-1907,"Guantanamo Bay Ns","Guantanamo","Cuba","","MUGM",19.906458,-75.207056,56,-5,"U"
-1908,"Mariana Grajales","Guantanamo","Cuba","GAO","MUGT",20.085419,-75.158328,56,-5,"U"
-1909,"Jose Marti Intl","Havana","Cuba","HAV","MUHA",22.989153,-82.409086,210,-5,"U"
-1910,"Frank Pais Intl","Holguin","Cuba","HOG","MUHG",20.785589,-76.315108,361,-5,"U"
-1911,"La Coloma","La Coloma","Cuba","LCL","MULM",22.336261,-83.642111,131,-5,"U"
-1912,"Orestes Acosta","Moa","Cuba","MOA","MUMO",20.654114,-74.922114,16,-5,"U"
-1913,"Sierra Maestra","Manzanillo","Cuba","MZO","MUMZ",20.288172,-77.0893,112,-5,"U"
-1914,"Rafael Cabrera","Nueva Gerona","Cuba","GER","MUNG",21.834689,-82.783819,79,-5,"U"
-1915,"Playa Baracoa","Baracoa Playa","Cuba","","MUPB",23.032778,-82.579444,102,-5,"U"
-1916,"Pinar Del Rio","Pinar Del Rio Norte","Cuba","","MUPR",22.421356,-83.678428,131,-5,"U"
-1917,"San Antonio De Los Banos","San Antonio De Banos","Cuba","","MUSA",22.871529,-82.509308,164,-5,"U"
-1918,"Abel Santamaria","Santa Clara","Cuba","SNU","MUSC",22.492192,-79.943611,338,-5,"U"
-1919,"Santa Lucia","Santa Lucia","Cuba","","MUSL",21.509453,-77.020375,13,-5,"U"
-1920,"Siguanea","Siguanea","Cuba","","MUSN",21.642525,-82.955114,39,-5,"U"
-1921,"Sancti Spiritus","Sancti Spiritus","Cuba","","MUSS",21.969969,-79.442692,295,-5,"U"
-6875,"Grand Geneva Resort Airport","Lake Geneva","United States","C02",\N,42.6149167,-88.3895833,835,-6,"U"
-1923,"Juan Gualberto Gomez Intl","Varadero","Cuba","VRA","MUVR",23.034445,-81.435278,210,-5,"U"
-1924,"Hermanos Ameijeiras","Las Tunas","Cuba","VTU","MUVT",20.987642,-76.9358,328,-5,"U"
-1925,"Gerrard Smith Intl","Cayman Barac","Cayman Islands","CYB","MWCB",19.686981,-79.882789,8,-5,"U"
-1926,"Owen Roberts Intl","Georgetown","Cayman Islands","GCM","MWCR",19.292778,-81.35775,8,-5,"U"
-1927,"Clarence A Bain","Clarence Bain","Bahamas","","MYAB",24.287664,-77.684614,19,-5,"U"
-1928,"Fresh Creek","Andros Town","Bahamas","ASD","MYAF",24.698283,-77.795611,5,-5,"U"
-1930,"Marsh Harbour","Marsh Harbor","Bahamas","MHH","MYAM",26.511406,-77.083472,6,-5,"U"
-1931,"San Andros","San Andros","Bahamas","SAQ","MYAN",25.053814,-78.048997,5,-5,"U"
-1932,"Spring Point","Spring Point","Bahamas","AXP","MYAP",22.441828,-73.970858,11,-5,"U"
-1933,"Sandy Point","Sandy Point","Bahamas","","MYAS",26.004639,-77.395483,8,-5,"U"
-1934,"Treasure Cay","Treasure Cay","Bahamas","TCB","MYAT",26.745336,-77.391269,8,-5,"U"
-1935,"Chub Cay","Chub Cay","Bahamas","CCZ","MYBC",25.417108,-77.88085,5,-5,"U"
-1936,"Great Harbour Cay","Bullocks Harbour","Bahamas","","MYBG",25.738331,-77.840114,18,-5,"U"
-1937,"South Bimini","Alice Town","Bahamas","BIM","MYBS",25.699881,-79.264656,10,-5,"U"
-6874,"De Kalb Taylor Municipal Airport","De Kalb","United States","DKB",\N,41.9338342,-88.7056864,914,-6,"U"
-1941,"Exuma Intl","Great Exuma","Bahamas","GGT","MYEF",23.562631,-75.877958,9,-5,"U"
-1942,"George Town","George Town","Bahamas","","MYEG",23.466667,-75.78167,5,-5,"U"
-1943,"North Eleuthera","North Eleuthera","Bahamas","ELH","MYEH",25.474861,-76.683489,13,-5,"U"
-1944,"Governors Harbour","Governor's Harbor","Bahamas","GHB","MYEM",25.284706,-76.331011,26,-5,"U"
-1945,"Normans Cay","Norman's Cay","Bahamas","","MYEN",24.594258,-76.820214,8,-5,"U"
-1946,"Rock Sound","Rock Sound","Bahamas","RSD","MYER",24.8917,-76.177739,10,-5,"U"
-1947,"Staniel Cay","Staniel Cay","Bahamas","","MYES",24.169083,-76.439056,5,-5,"U"
-1948,"Grand Bahama Intl","Freeport","Bahamas","FPO","MYGF",26.558686,-78.695553,7,-5,"U"
-1949,"Matthew Town","Matthew Town","Bahamas","IGA","MYIG",20.975,-73.666862,8,-5,"U"
-1950,"Deadmans Cay","Dead Man's Cay","Bahamas","LGI","MYLD",23.179014,-75.093597,9,-5,"U"
-1951,"Stella Maris","Stella Maris","Bahamas","SML","MYLS",23.581444,-75.270475,10,-5,"U"
-1952,"Mayaguana","Mayaguana","Bahamas","MYG","MYMM",22.379528,-73.0135,11,-5,"U"
-1953,"Lynden Pindling Intl","Nassau","Bahamas","NAS","MYNN",25.038958,-77.466231,16,-5,"U"
-1954,"Duncan Town","Duncan Town","Bahamas","","MYRD",22.181803,-75.729456,6,-5,"U"
-1955,"New Port Nelson","Port Nelson","Bahamas","","MYRP",23.684378,-74.836186,15,-5,"U"
-1956,"San Salvador","Cockburn Town","Bahamas","ZSA","MYSM",24.063275,-74.523967,24,-5,"U"
-1957,"Philip S W Goldson Intl","Belize City","Belize","BZE","MZBZ",17.539144,-88.308203,15,-6,"U"
-1958,"Aitutaki","Aitutaki","Cook Islands","AIT","NCAI",-18.830922,-159.764233,14,-10,"U"
-1959,"Rarotonga Intl","Avarua","Cook Islands","RAR","NCRG",-21.202739,-159.805556,19,-10,"U"
-1960,"Nadi Intl","Nandi","Fiji","NAN","NFFN",-17.755392,177.443378,59,12,"U"
-1961,"Nausori Intl","Nausori","Fiji","SUV","NFNA",-18.043267,178.559228,17,12,"U"
-1963,"Fua Amotu Intl","Tongatapu","Tonga","TBU","NFTF",-21.241214,-175.149644,126,13,"U"
-1964,"Vavau Intl","Vava'u","Tonga","VAV","NFTV",-18.585336,-173.961717,236,13,"U"
-1965,"Bonriki Intl","Tarawa","Kiribati","TRW","NGTA",1.381636,173.147036,9,12,"U"
-1966,"Tabiteuea North","Tabiteuea North","Kiribati","TBF","NGTE",-1.224469,174.775614,7,12,"U"
-6809,"Maitland Airport","Maitland","Australia","MTL","YMND",-32.7033,151.488,75,10,"O"
-1968,"Wallis","Wallis","Wallis and Futuna","WLS","NLWW",-13.238281,-176.199228,79,12,"U"
-1969,"Faleolo Intl","Faleolo","Samoa","APW","NSFA",-13.829969,-172.008336,58,-11,"U"
-1970,"Pago Pago Intl","Pago Pago","American Samoa","PPG","NSTU",-14.331,-170.7105,32,-11,"U"
-1971,"Rurutu","Rurutu","French Polynesia","RUR","NTAR",-22.434069,-151.360614,18,-10,"U"
-1972,"Tubuai","Tubuai","French Polynesia","TUB","NTAT",-23.365353,-149.524072,7,-10,"U"
-1973,"Anaa","Anaa","French Polynesia","AAA","NTGA",-17.352606,-145.509956,10,-10,"U"
-1974,"Fangatau","Fangatau","French Polynesia","","NTGB",-15.819928,-140.88715,9,-10,"U"
-1975,"Tikehau","Tikehau","French Polynesia","TIH","NTGC",-15.119617,-148.230697,6,-10,"U"
-1976,"Reao","Reao","French Polynesia","REA","NTGE",-18.465861,-136.439706,12,-10,"U"
-1977,"Fakarava","Fakarava","French Polynesia","FAV","NTGF",-16.05415,-145.656994,13,-10,"U"
-1978,"Manihi","Manihi","French Polynesia","XMH","NTGI",-14.436764,-146.070056,14,-10,"U"
-1979,"Totegegie","Totegegie","French Polynesia","GMR","NTGJ",-23.079861,-134.890333,7,-9,"U"
-1980,"Kaukura","Kaukura Atoll","French Polynesia","KKR","NTGK",-15.663333,-146.884769,11,-10,"U"
-1981,"Makemo","Makemo","French Polynesia","MKP","NTGM",-16.583919,-143.658369,3,-10,"U"
-1982,"Puka Puka","Puka Puka","French Polynesia","PKP","NTGP",-14.809458,-138.812811,5,-10,"U"
-1983,"Takapoto","Takapoto","French Polynesia","TKP","NTGT",-14.709544,-145.245814,12,-10,"U"
-1984,"Arutua","Arutua","French Polynesia","AXR","NTGU",-15.248289,-146.616708,9,-10,"U"
-1985,"Mataiva","Mataiva","French Polynesia","MVT","NTGV",-14.868055,-148.717225,11,-10,"U"
-1986,"Takaroa","Takaroa","French Polynesia","TKX","NTKR",-14.455781,-145.024542,13,-10,"U"
-1987,"Nuku Hiva","Nuku Hiva","French Polynesia","NHV","NTMD",-8.795603,-140.228789,220,-10,"U"
-6873,"Purude University Airport","Lafayette","United States","LAF",\N,40.4123056,-86.9368889,606,-5,"U"
-1989,"Bora Bora","Bora Bora","French Polynesia","BOB","NTTB",-16.444378,-151.751286,10,-10,"U"
-1990,"Rangiroa","Rangiroa","French Polynesia","RGI","NTTG",-14.954283,-147.6608,10,-10,"U"
-1991,"Huahine","Huahine Island","French Polynesia","HUH","NTTH",-16.687242,-151.021667,7,-10,"U"
-1992,"Moorea","Moorea","French Polynesia","MOZ","NTTM",-17.489972,-149.761869,9,-10,"U"
-1993,"Hao","Hao Island","French Polynesia","HOI","NTTO",-18.074814,-140.945886,10,-10,"U"
-1994,"Maupiti","Maupiti","French Polynesia","MAU","NTTP",-16.426486,-152.243669,15,-10,"U"
-1995,"Raiatea","Raiatea Island","French Polynesia","RFP","NTTR",-16.722861,-151.465856,3,-10,"U"
-1997,"Port Vila Bauerfield","Port-vila","Vanuatu","VLI","NVVV",-17.699325,168.319794,70,11,"U"
-1998,"Kone","Kone","New Caledonia","KNQ","NWWD",-21.053428,164.837806,23,11,"U"
-1999,"Koumac","Koumac","New Caledonia","KOC","NWWK",-20.546314,164.255625,42,11,"U"
-2000,"Lifou","Lifou","New Caledonia","LIF","NWWL",-20.7748,167.239864,92,11,"U"
-2001,"Magenta","Noumea","New Caledonia","GEA","NWWM",-22.258278,166.472806,10,11,"U"
-2002,"Mare","Mare","New Caledonia","MEE","NWWR",-21.481678,168.037508,141,11,"U"
-2003,"Touho","Touho","New Caledonia","TOU","NWWU",-20.790028,165.259486,10,11,"U"
-2004,"Ouvea","Ouvea","New Caledonia","UVE","NWWV",-20.640556,166.572778,23,11,"U"
-2005,"La Tontouta","Noumea","New Caledonia","NOU","NWWW",-22.014553,166.212972,52,11,"U"
-2006,"Auckland Intl","Auckland","New Zealand","AKL","NZAA",-37.008056,174.791667,23,12,"Z"
-2007,"Taupo","Taupo","New Zealand","TUO","NZAP",-38.739723,176.084444,1335,12,"Z"
-2008,"Ardmore","Ardmore","New Zealand","","NZAR",-37.029722,174.973333,111,12,"Z"
-2009,"Christchurch Intl","Christchurch","New Zealand","CHC","NZCH",-43.489358,172.532225,123,12,"Z"
-2010,"Chatham Islands","Chatham Island","New Zealand","CHT","NZCI",-43.81,-176.457222,43,13,"Z"
-2011,"Dunedin","Dunedin","New Zealand","DUD","NZDN",-45.928055,170.198333,4,12,"Z"
-2012,"Gisborne","Gisborne","New Zealand","GIS","NZGS",-38.663333,177.978333,15,12,"Z"
-2013,"Glentanner","Glentanner","New Zealand","MON","NZGT",-43.906666,170.128333,1824,12,"Z"
-2014,"Hokitika","Hokitika","New Zealand","HKK","NZHK",-42.713611,170.985278,146,12,"Z"
-2015,"Hamilton","Hamilton","New Zealand","HLZ","NZHN",-37.866661,175.332056,172,12,"Z"
-2016,"Hastings","Hastings","New Zealand","","NZHS",-39.646667,176.766944,72,12,"Z"
-2017,"Kerikeri","Kerikeri","New Zealand","KKE","NZKK",-35.262779,173.911944,492,12,"Z"
-2018,"Kaitaia","Kaitaia","New Zealand","KAT","NZKT",-35.07,173.285278,270,12,"Z"
-2019,"Alexandra","Alexandra","New Zealand","ALR","NZLX",-45.211666,169.373333,752,12,"Z"
-2020,"Mount Cook","Mount Cook","New Zealand","GTN","NZMC",-43.764999,170.133333,2153,12,"Z"
-2021,"Manapouri","Manapouri","New Zealand","TEU","NZMO",-45.533056,167.65,687,12,"Z"
-2022,"Masterton","Masterton","New Zealand","MRO","NZMS",-40.973333,175.633611,364,12,"Z"
-2023,"New Plymouth","New Plymouth","New Zealand","NPL","NZNP",-39.008611,174.179167,97,12,"Z"
-2024,"Nelson","Nelson","New Zealand","NSN","NZNS",-41.298333,173.221111,17,12,"Z"
-2025,"Invercargill","Invercargill","New Zealand","IVC","NZNV",-46.412408,168.312992,5,12,"Z"
-2026,"Ohakea","Ohakea","New Zealand","","NZOH",-40.206039,175.387808,164,12,"Z"
-2027,"Oamaru","Oamaru","New Zealand","OAM","NZOU",-44.97,171.081667,99,12,"Z"
-2028,"Palmerston North","Palmerston North","New Zealand","PMR","NZPM",-40.320556,175.616944,151,12,"Z"
-2029,"Paraparaumu","Paraparaumu","New Zealand","PPQ","NZPP",-40.904722,174.989167,22,12,"Z"
-2030,"Queenstown","Queenstown International","New Zealand","ZQN","NZQN",-45.021111,168.739167,1171,12,"Z"
-2031,"Rotorua","Rotorua","New Zealand","ROT","NZRO",-38.109167,176.317222,935,12,"Z"
-2032,"Waiouru","Waiouru","New Zealand","","NZRU",-39.446389,175.658333,2686,12,"Z"
-2033,"South Pole Station","Stephen's Island","Antarctica","","NZSP",-89.999997,0,9300,127,"U"
-2034,"Tauranga","Tauranga","New Zealand","TRG","NZTG",-37.671944,176.19611,13,12,"Z"
-2035,"Timaru","Timaru","New Zealand","TIU","NZTU",-44.302778,171.225278,89,12,"Z"
-2036,"Pukaki","Pukaki","New Zealand","","NZUK",-44.235,170.118333,1575,12,"Z"
-2037,"Woodbourne","Woodbourne","New Zealand","BHE","NZWB",-41.518333,173.870278,109,12,"Z"
-2038,"Mcmurdo Station","Weydon","Antarctica","","NZWD",-77.867358,167.056572,68,0,"N"
-2039,"Wanaka","Wanaka","New Zealand","WKA","NZWF",-44.722222,169.245556,1142,12,"Z"
-2040,"Wigram","Wigram","New Zealand","","NZWG",-43.551111,172.552778,74,12,"Z"
-2041,"Whakatane","Whakatane","New Zealand","WHK","NZWK",-37.920556,176.914167,20,12,"Z"
-2042,"Wellington Intl","Wellington","New Zealand","WLG","NZWN",-41.327221,174.805278,41,12,"Z"
-2043,"Wairoa","Wairoa","New Zealand","","NZWO",-39.006944,177.406667,42,12,"Z"
-2044,"Whenuapai","Whenuapai","New Zealand","","NZWP",-36.787777,174.630278,100,12,"Z"
-2045,"Whangarei","Whangarei","New Zealand","WRE","NZWR",-35.768333,174.365,133,12,"Z"
-2046,"Westport","Westport","New Zealand","WSZ","NZWS",-41.738056,171.580833,13,12,"Z"
-2047,"Wanganui","Wanganui","New Zealand","WAG","NZWU",-39.962222,175.025278,27,12,"Z"
-2048,"Herat","Herat","Afghanistan","HEA","OAHR",34.210017,62.2283,3206,5,"U"
-2049,"Jalalabad","Jalalabad","Afghanistan","JAA","OAJL",34.399842,70.498625,1814,5,"U"
-2050,"Kabul Intl","Kabul","Afghanistan","KBL","OAKB",34.565853,69.212328,5877,5,"U"
-2051,"Kandahar","Kandahar","Afghanistan","KDH","OAKN",31.505756,65.847822,3337,5,"U"
-2052,"Maimana","Maimama","Afghanistan","MMZ","OAMN",35.930789,64.760917,2743,5,"U"
-2053,"Mazar I Sharif","Mazar-i-sharif","Afghanistan","MZR","OAMS",36.706914,67.209678,1284,5,"U"
-2054,"Shindand","Shindand","Afghanistan","","OASD",33.391331,62.260975,3773,5,"U"
-2055,"Sheberghan","Sheberghan","Afghanistan","","OASG",36.750783,65.913164,1053,5,"U"
-2056,"Konduz","Kunduz","Afghanistan","UND","OAUZ",36.665111,68.910833,1457,5,"U"
-2057,"Bahrain Intl","Bahrain","Bahrain","BAH","OBBI",26.270834,50.63361,6,3,"U"
-2058,"Shaikh Isa","Bahrain","Bahrain","","OBBS",25.918362,50.590557,136,3,"U"
-2059,"Abha","Abha","Saudi Arabia","AHB","OEAB",18.240367,42.656625,6858,3,"U"
-2060,"Al Ahsa","Al-ahsa","Saudi Arabia","HOF","OEAH",25.285306,49.485189,588,3,"U"
-2061,"Al Baha","El-baha","Saudi Arabia","ABT","OEBA",20.296139,41.634277,5486,3,"U"
-2062,"Bisha","Bisha","Saudi Arabia","BHH","OEBH",19.98435,42.620881,3887,3,"U"
-2063,"Abqaiq","Abqaiq","Saudi Arabia","","OEBQ",25.911281,49.591231,229,3,"U"
-2064,"King Fahd Intl","Dammam","Saudi Arabia","DMM","OEDF",26.471161,49.79789,72,3,"U"
-2065,"King Abdulaziz Ab","Dhahran","Saudi Arabia","DHA","OEDR",26.265417,50.152027,84,3,"U"
-2066,"King Abdullah Bin Abdulaziz","Gizan","Saudi Arabia","GIZ","OEGN",16.901111,42.585833,20,3,"U"
-2067,"Gassim","Gassim","Saudi Arabia","ELQ","OEGS",26.302822,43.773911,2126,3,"U"
-2068,"Guriat","Guriat","Saudi Arabia","URY","OEGT",31.411942,37.279469,1672,3,"U"
-2069,"Hail","Hail","Saudi Arabia","HAS","OEHL",27.437917,41.686292,3331,3,"U"
-2070,"Jubail","Jubail","Saudi Arabia","","OEJB",27.039028,49.405083,26,3,"U"
-2071,"King Faisal Naval Base","Jeddah","Saudi Arabia","","OEJF",21.3481,39.173033,7,3,"U"
-2072,"King Abdulaziz Intl","Jeddah","Saudi Arabia","JED","OEJN",21.679564,39.156536,48,3,"U"
-2073,"King Khaled Military City","King Khalid Mil.city","Saudi Arabia","HBT","OEKK",27.900917,45.528194,1352,3,"U"
-2074,"Prince Mohammad Bin Abdulaziz","Madinah","Saudi Arabia","MED","OEMA",24.553422,39.705061,2151,3,"U"
-2075,"Nejran","Nejran","Saudi Arabia","EAM","OENG",17.611436,44.419169,3982,3,"U"
-2076,"Qaisumah","Hafr Al-batin","Saudi Arabia","AQI","OEPA",28.335192,46.125069,1174,3,"U"
-2077,"Pump Station 3","Petroline 3","Saudi Arabia","","OEPC",25.174547,47.488431,1740,3,"U"
-2078,"Pump Station 6","Petroline 6","Saudi Arabia","","OEPF",24.710333,44.964527,2530,3,"U"
-2079,"Pump Station 10","Petroline 10","Saudi Arabia","","OEPJ",24.107339,41.036047,2840,3,"U"
-2080,"Rabigh","Rabigh","Saudi Arabia","","OERB",22.702608,39.069842,22,3,"U"
-2081,"Rafha","Rafha","Saudi Arabia","RAH","OERF",29.626419,43.490614,1474,3,"U"
-2082,"King Khaled Intl","Riyadh","Saudi Arabia","RUH","OERK",24.95764,46.698776,2049,3,"U"
-2083,"Ras Mishab","Rash Mishab","Saudi Arabia","","OERM",28.079584,48.610973,13,3,"U"
-2084,"Arar","Arar","Saudi Arabia","RAE","OERR",30.906589,41.138217,1813,3,"U"
-2085,"Ras Tanura","Ras Tanura","Saudi Arabia","","OERT",26.723108,50.030814,6,3,"U"
-2086,"Sharurah","Sharurah","Saudi Arabia","SHW","OESH",17.466875,47.121431,2363,3,"U"
-6808,"Mudgee Airport","Mudgee","Australia","DGE","YMDG",-32.5625,149.611,1545,10,"O"
-2088,"Sulayel","Sulayel","Saudi Arabia","SLF","OESL",20.464744,45.619644,2021,3,"U"
-2089,"Tabuk","Tabuk","Saudi Arabia","TUU","OETB",28.365417,36.618889,2551,3,"U"
-2090,"Taif","Taif","Saudi Arabia","TIF","OETF",21.483418,40.544334,4848,3,"U"
-2091,"Thumamah","Thumamah","Saudi Arabia","","OETH",25.212986,46.640978,1870,3,"U"
-2092,"Ras Tanajib","Ras Tanajib","Saudi Arabia","","OETN",27.867844,48.76915,30,3,"U"
-2093,"Turaif","Turaif","Saudi Arabia","TUI","OETR",31.692683,38.7312,2803,3,"U"
-6872,"Miami University Airport","Oxford","United States","OXD",\N,39.5022607,-84.7843814,1040,-5,"U"
-2095,"Wejh","Wejh","Saudi Arabia","EJH","OEWJ",26.198553,36.476381,66,3,"U"
-2096,"Yenbo","Yenbo","Saudi Arabia","YNB","OEYN",24.144244,38.06335,26,3,"U"
-2097,"Abadan","Abadan","Iran","ABD","OIAA",30.371111,48.228333,19,4,"E"
-2098,"Dezful","Dezful","Iran","","OIAD",32.434444,48.39764,474,4,"E"
-2099,"Aghajari","Aghajari","Iran","","OIAG",30.74445,49.677183,88,4,"E"
-2100,"Gachsaran","Gachsaran","Iran","","OIAH",30.337567,50.827964,2414,4,"E"
-2101,"Shahid Asyaee","Masjed Soleiman","Iran","QMJ","OIAI",32.002372,49.270364,1206,4,"E"
-2102,"Omidiyeh","Omidyeh","Iran","","OIAJ",30.835167,49.534916,85,4,"E"
-2103,"Mahshahr","Bandar Mahshahr","Iran","MRX","OIAM",30.556192,49.151879,8,4,"E"
-2104,"Ahwaz","Ahwaz","Iran","AWZ","OIAW",31.337431,48.76195,66,4,"E"
-2105,"Abumusa Island","Abumusa I.","Iran","","OIBA",25.875742,55.032994,23,4,"E"
-2106,"Bushehr","Bushehr","Iran","BUZ","OIBB",28.944811,50.834637,68,4,"E"
-2107,"Bastak","Bastak","Iran","","OIBH",27.212678,54.318592,1350,4,"E"
-2108,"Asaloyeh","Golbandi","Iran","","OIBI",27.481425,52.615483,15,4,"E"
-2109,"Kish Island","Kish Island","Iran","KIH","OIBK",26.526156,53.980211,101,4,"E"
-2110,"Bandar Lengeh","Bandar Lengeh","Iran","BDH","OIBL",26.532,54.824847,67,4,"E"
-2111,"Khark Island","Khark Island","Iran","","OIBQ",29.260278,50.323889,17,4,"E"
-2112,"Sirri Island","Siri Island","Iran","","OIBS",25.908869,54.5394,43,4,"E"
-2113,"Lavan Island","Lavan Island","Iran","","OIBV",26.8103,53.356289,76,4,"E"
-2114,"Shahid Ashrafi Esfahani","Bakhtaran","Iran","KSH","OICC",34.345853,47.158128,4301,4,"E"
-2117,"Sanandaj","Sanandaj","Iran","SDG","OICS",35.245856,47.009247,4522,4,"E"
-2118,"Hesa","Daran","Iran","","OIFE",32.928889,51.561111,5256,4,"E"
-2119,"Shahid Vatan Pour Air Base","Esfahan","Iran","","OIFH",32.567039,51.691594,5310,4,"E"
-2120,"Kashan","Kashan","Iran","","OIFK",33.895333,51.577044,3465,4,"E"
-2121,"Esfahan Shahid Beheshti Intl","Esfahan","Iran","","OIFM",32.750836,51.861267,5059,4,"E"
-2122,"Badr Air Base","Sepah","Iran","","OIFP",32.621108,51.697017,5242,4,"E"
-2123,"Rasht","Rasht","Iran","RAS","OIGG",37.325314,49.605817,-40,4,"E"
-6871,"Delaware County Airport","Muncie","United States","MIE",\N,40.2424722,-85.39575,937,-5,"U"
-2125,"Arak","Arak","Iran","","OIHR",34.138147,49.847292,5440,4,"E"
-2126,"Ghazvin Azadi","Abe-ali","Iran","","OIIA",35.952097,50.450778,3769,4,"E"
-2127,"Kushke Nosrat","Kushke Nosrat","Iran","","OIIC",34.98395,50.806219,3008,4,"E"
-2128,"Doshan Tappeh","Teheran","Iran","","OIID",35.702983,51.475131,4046,4,"E"
-2129,"Imam Khomeini Intl","Abyek","Iran","","OIIE",35.416111,51.152222,3305,4,"E"
-2130,"Ghale Morghi","Teheran","Iran","","OIIG",35.644806,51.380695,3627,4,"E"
-2131,"Mehrabad Intl","Teheran","Iran","THR","OIII",35.689167,51.313416,3962,4,"E"
-2132,"Ghazvin","Ghazvin","Iran","","OIIK",36.240061,50.047153,4184,4,"E"
-2133,"Naja","Khoram Dareh","Iran","","OIIM",35.776286,50.881014,4040,4,"E"
-2134,"Bandar Abbass Intl","Bandar Abbas","Iran","BND","OIKB",27.218317,56.37785,22,4,"E"
-2135,"Jiroft","Jiroft","Iran","","OIKJ",28.726925,57.670269,2663,4,"E"
-2136,"Kerman","Kerman","Iran","KER","OIKK",30.274444,56.951111,5741,4,"E"
-2138,"Havadarya","Bandar Abbas","Iran","","OIKP",27.158251,56.172461,19,4,"E"
-2139,"Dayrestan","Gheshm I.","Iran","","OIKQ",26.754639,55.902353,45,4,"E"
-2141,"Sirjan","Sirjan","Iran","","OIKY",29.550933,55.672708,5846,4,"E"
-2142,"Birjand","Birjand","Iran","XBJ","OIMB",32.898056,59.266111,4952,4,"E"
-2143,"Sarakhs","Sarakhs","Iran","","OIMC",36.501178,61.064903,945,5,"E"
-2144,"Shahroud","Emam Shahr","Iran","","OIMJ",36.425094,55.104833,4197,4,"E"
-6870,"Whitsunday Airstrip","Airlie Beach","Australia","WSY","YWHI",-20.276,148.755,60,10,"O"
-2147,"Tabas","Tabas","Iran","","OIMT",33.66775,56.892675,2312,4,"E"
-2148,"Kalaleh","Kalaleh","Iran","","OINE",37.383272,55.452008,425,4,"E"
-2151,"Ramsar","Ramsar","Iran","RZR","OINR",36.909908,50.679589,-70,4,"E"
-6869,"Aeropuerto de Rafaela","Rafaela","Argentina","RAF",\N,-31.282072,-61.501594,100,-3,"S"
-2153,"Fasa","Fasa","Iran","","OISF",28.891756,53.723339,4261,4,"E"
-2154,"Jahrom","Jahrom","Iran","","OISJ",28.586675,53.579144,3358,4,"E"
-2156,"Lamerd","Lamerd","Iran","","OISR",27.372744,53.188794,1337,4,"E"
-2157,"Shiraz Shahid Dastghaib Intl","Shiraz","Iran","SYZ","OISS",29.539242,52.589786,4920,4,"E"
-2158,"Khoy","Khoy","Iran","","OITK",38.427453,44.973575,3981,4,"E"
-6868,"Sabadell Airport","Sabadell","Spain","QSA","LELL",41.5209,2.10508,0,1,"E"
-2162,"Tabriz Intl","Tabriz","Iran","TBZ","OITT",38.133889,46.235,4459,4,"E"
-2163,"Zanjan","Zanjan","Iran","","OITZ",36.77365,48.359422,5382,4,"E"
-2164,"Yazd Shahid Sadooghi","Yazd","Iran","AZD","OIYY",31.904908,54.276503,4054,4,"E"
-2165,"Zabol","Zabol","Iran","","OIZB",31.098333,61.543889,1628,4,"E"
-2166,"Chah Bahar","Chah Bahar","Iran","ZBR","OIZC",25.44335,60.382114,43,4,"E"
-2167,"Zahedan Intl","Zahedan","Iran","ZAH","OIZH",29.475686,60.906189,4564,4,"E"
-2168,"Iran Shahr","Iran Shahr","Iran","","OIZI",27.236117,60.720039,2040,4,"E"
-2169,"Saravan","Saravan","Iran","","OIZS",27.419261,62.315789,3930,4,"E"
-2170,"Queen Alia Intl","Amman","Jordan","AMM","OJAI",31.722556,35.993214,2395,2,"E"
-2171,"Marka Intl","Amman","Jordan","ADJ","OJAM",31.972703,35.991569,2555,2,"E"
-2172,"Aqaba King Hussein Intl","Aqaba","Jordan","AQJ","OJAQ",29.611619,35.018067,175,2,"E"
-2173,"Prince Hasan","Hotel Four","Jordan","","OJHF",32.160747,37.149383,2220,2,"E"
-2174,"Jerusalem","Jerusalem","West Bank","","OJJR",31.864722,35.219167,2485,2,"U"
-2175,"King Hussein","Mafraq","Jordan","OMF","OJMF",32.356353,36.259181,2240,2,"E"
-2176,"Kuwait Intl","Kuwait","Kuwait","KWI","OKBK",29.226567,47.968928,206,3,"U"
-2177,"Rafic Hariri Intl","Beirut","Lebanon","BEY","OLBA",33.820931,35.488389,87,2,"E"
-2178,"Rene Mouawad","Kleiat","Lebanon","","OLKA",34.589333,36.011322,75,2,"E"
-2179,"Abu Dhabi Intl","Abu Dhabi","United Arab Emirates","AUH","OMAA",24.432972,54.651138,88,4,"U"
-2180,"Bateen","Abu Dhabi","United Arab Emirates","AZI","OMAD",24.428333,54.458084,16,4,"U"
-2181,"Al Hamra Aux","Al Hamra","United Arab Emirates","","OMAH",24.073981,52.463644,50,4,"U"
-2182,"Jebel Dhana","Jebel Dhana","United Arab Emirates","","OMAJ",24.187428,52.614,43,4,"U"
-6867,"Reykjahlid Airport","Myvatn","Iceland","MVA","BIRL",65.6558,-16.9181,1030,0,"N"
-2184,"Al Dhafra","Abu Dhabi","United Arab Emirates","","OMAM",24.248249,54.547722,77,4,"U"
-2185,"Arzanah","Arzana","United Arab Emirates","","OMAR",24.780528,52.559944,15,4,"U"
-2186,"Das Island","Das Island","United Arab Emirates","","OMAS",25.146219,52.873711,12,4,"U"
-2187,"Zirku","Zirku","United Arab Emirates","","OMAZ",24.861542,53.077833,14,4,"U"
-2188,"Dubai Intl","Dubai","United Arab Emirates","DXB","OMDB",25.252778,55.364444,62,4,"U"
-2189,"Fujairah Intl","Fujeirah","United Arab Emirates","FJR","OMFJ",25.112225,56.323964,152,4,"U"
-2190,"Ras Al Khaimah Intl","Ras Al Khaimah","United Arab Emirates","RKT","OMRK",25.613483,55.938817,102,4,"U"
-2191,"Sharjah Intl","Sharjah","United Arab Emirates","SHJ","OMSJ",25.328575,55.51715,111,4,"U"
-2192,"Khasab","Khasab","Oman","KHS","OOKB",26.170986,56.240569,100,4,"U"
-2193,"Masirah","Masirah","Oman","MSH","OOMA",20.675434,58.890467,64,4,"U"
-2194,"Seeb Intl","Muscat","Oman","MCT","OOMS",23.593278,58.284444,48,4,"U"
-2195,"Salalah","Salalah","Oman","SLL","OOSA",17.038719,54.091297,73,4,"U"
-2196,"Thumrait","Thumrait","Oman","TTH","OOTH",17.666,54.024612,1570,4,"U"
-2197,"Bhagatanwala","Bhagtanwala","Pakistan","","OPBG",32.056108,72.9484,600,5,"U"
-6866,"Spray View Airport","Spray View","Zimbabwe","","FVSV",-17.917,25.817,3210,0,"U"
-6865,"Lyon Part-Dieu Railway","Lyon","France","XYD",\N,46,5,821,1,"U"
-2202,"Faisalabad Intl","Faisalabad","Pakistan","LYP","OPFA",31.365014,72.994842,591,5,"U"
-2203,"Gwadar","Gwadar","Pakistan","GWD","OPGD",25.233308,62.329494,36,5,"U"
-2204,"Gilgit","Gilgit","Pakistan","GIL","OPGT",35.918786,74.333644,4796,5,"U"
-2205,"Shahbaz Ab","Jacobsbad","Pakistan","","OPJA",28.284167,68.449711,185,5,"U"
-2206,"Jinnah Intl","Karachi","Pakistan","KHI","OPKC",24.906547,67.160797,100,5,"U"
-2207,"Allama Iqbal Intl","Lahore","Pakistan","LHE","OPLA",31.521564,74.403594,712,5,"U"
-2208,"Walton","Lahore","Pakistan","","OPLH",31.494794,74.346239,679,5,"U"
-2209,"Mangla","Mangla","Pakistan","","OPMA",33.050086,73.638381,902,5,"U"
-2210,"Muzaffarabad","Muzaffarabad","Pakistan","MFG","OPMF",34.339022,73.508639,2691,5,"U"
-2211,"Mianwali","Mianwali","Pakistan","","OPMI",32.563089,71.570681,690,5,"U"
-2212,"Moenjodaro","Moenjodaro","Pakistan","MJD","OPMJ",27.335156,68.143053,154,5,"U"
-2213,"Masroor","Karachi","Pakistan","","OPMR",24.893564,66.938753,35,5,"U"
-2214,"Multan Intl","Multan","Pakistan","MUX","OPMT",30.203222,71.419111,403,5,"U"
-2215,"Nawabshah","Nawabshah","Pakistan","WNS","OPNH",26.219442,68.390053,95,5,"U"
-2216,"Okara","Okara","Pakistan","","OPOK",30.741025,73.357736,568,5,"U"
-2217,"Panjgur","Panjgur","Pakistan","PJG","OPPG",26.954547,64.132517,3289,5,"U"
-2218,"Pasni","Pasni","Pakistan","PSI","OPPI",25.290487,63.345083,33,5,"U"
-2219,"Peshawar Intl","Peshawar","Pakistan","PEW","OPPS",33.993911,71.514581,1158,5,"U"
-2220,"Qasim","Qasim","Pakistan","","OPQS",33.560153,73.033217,1581,5,"U"
-2221,"Quetta","Quetta","Pakistan","UET","OPQT",30.251369,66.937764,5267,5,"U"
-2222,"Sheikh Zayed","Rahim Yar Khan","Pakistan","RYK","OPRK",28.3839,70.279572,271,5,"U"
-2223,"Chaklala","Islamabad","Pakistan","ISB","OPRN",33.616653,73.099233,1668,5,"U"
-2224,"Risalpur","Risalpur","Pakistan","","OPRS",34.081112,71.972583,1050,5,"U"
-2225,"Rawalakot","Rawala Kot","Pakistan","RAZ","OPRT",33.849658,73.798147,5479,5,"U"
-6864,"Point Roberts Airpark","Point Roberts","United States","1RL","K1RL",48.9797222,-123.0788889,10,-7,"A"
-2227,"Sukkur","Sukkur","Pakistan","SKZ","OPSK",27.721989,68.791683,196,5,"U"
-2228,"Saidu Sharif","Saidu Sharif","Pakistan","SDT","OPSS",34.813556,72.352814,3183,5,"U"
-2229,"Sui","Sui","Pakistan","SUL","OPSU",28.645142,69.176917,763,5,"U"
-2230,"Talhar","Talhar","Pakistan","BDN","OPTH",24.841519,68.838408,28,5,"U"
-2232,"Wana","Wana","Pakistan","","OPWN",32.304664,69.570433,4550,5,"U"
-2233,"Zhob","Zhob","Pakistan","PZH","OPZB",31.358381,69.463606,4728,5,"U"
-2234,"Basrah Intl","Basrah","Iraq","BSR","ORMM",30.549069,47.662142,11,3,"U"
-2235,"Aleppo Intl","Aleppo","Syria","ALP","OSAP",36.180675,37.224358,1276,2,"E"
-2236,"Damascus Intl","Damascus","Syria","DAM","OSDI",33.410636,36.514267,2020,2,"E"
-2237,"Deir Zzor","Deire Zor","Syria","DEZ","OSDZ",35.285374,40.175961,700,2,"E"
-2239,"Bassel Al Assad Intl","Latakia","Syria","LTK","OSLK",35.401094,35.948681,157,2,"E"
-2240,"Palmyra","Palmyra","Syria","PMS","OSPR",34.557361,38.316889,1322,2,"E"
-2241,"Doha Intl","Doha","Qatar","DOH","OTBD",25.261125,51.565056,35,4,"U"
-2242,"Canton","Canton Island","Kiribati","CIS","PCIS",-2.768122,-171.710394,9,-11,"U"
-2243,"Rota Intl","Rota","Northern Mariana Islands","ROP","PGRO",14.174308,145.242536,607,10,"U"
-2244,"Francisco C Ada Saipan Intl","Saipan","Northern Mariana Islands","SPN","PGSN",15.119003,145.729356,215,10,"U"
-2245,"Andersen Afb","Andersen","Guam","UAM","PGUA",13.583953,144.930025,627,10,"U"
-2246,"Guam Intl","Agana","Guam","GUM","PGUM",13.48345,144.795983,298,10,"U"
-2247,"Tinian Intl","West Tinian","Northern Mariana Islands","TIQ","PGWT",14.999203,145.61935,271,10,"U"
-6807,"Scone Airport","Scone","Australia","NSO","YSCO",-32.0372,150.832,745,10,"O"
-2249,"Marshall Islands Intl","Majuro","Marshall Islands","MAJ","PKMJ",7.064758,171.272022,6,12,"U"
-2250,"Dyess Aaf","Kwajalein","Marshall Islands","","PKRO",9.396886,167.470869,9,12,"U"
-2251,"Bucholz Aaf","Kwajalein","Marshall Islands","KWA","PKWA",8.720122,167.731661,9,12,"U"
-2252,"Christmas Island","Kiritimati","Kiribati","CXI","PLCH",1.986161,-157.349778,5,-12,"U"
-2253,"Midway Atoll","Midway","Midway Islands","MDY","PMDY",28.201725,-177.380636,13,-11,"U"
-2254,"Chuuk Intl","Chuuk","Micronesia","TKK","PTKK",7.461869,151.843006,11,10,"U"
-2255,"Pohnpei Intl","Pohnpei","Micronesia","PNI","PTPN",6.9851,158.208989,10,11,"U"
-2256,"Babelthuap","Babelthuap","Palau","ROR","PTRO",7.367303,134.544278,176,9,"U"
-2257,"Kosrae","Kosrae","Micronesia","KSA","PTSA",5.356975,162.958386,11,12,"U"
-2258,"Yap Intl","Yap","Micronesia","YAP","PTYA",9.498911,138.082497,91,10,"U"
-2259,"Shang Yi","Kinmen","Taiwan","KNH","RCBS",24.427892,118.359197,93,8,"U"
-2260,"Pingtung South","Pingtung","Taiwan","PIF","RCDC",22.672367,120.461728,78,8,"U"
-2261,"Longtan","Longtang","Taiwan","","RCDI",24.855136,121.237636,790,8,"U"
-2262,"Fengnin","Fengnin","Taiwan","TTT","RCFN",22.754986,121.101681,143,8,"U"
-2263,"Lyudao","Green Island","Taiwan","GNI","RCGI",22.673853,121.466481,28,8,"U"
-2264,"Kaohsiung Intl","Kaohsiung","Taiwan","KHH","RCKH",22.577094,120.350006,31,8,"U"
-2265,"Chiayi","Chiayi","Taiwan","CYI","RCKU",23.461779,120.39283,85,8,"U"
-2267,"Lanyu","Lanyu","Taiwan","KYD","RCLY",22.028842,121.533642,44,8,"U"
-2268,"Ching Chuan Kang Ab","Chingchuakang","Taiwan","","RCMQ",24.264668,120.62058,663,8,"U"
-6806,"Cessnock Airport","Cessnock","Australia","CES","YCNK",-32.7875,151.342,211,10,"O"
-2270,"Tainan","Tainan","Taiwan","TNN","RCNN",22.950361,120.205778,63,8,"U"
-2271,"Hsinchu","Hsinchu","Taiwan","","RCPO",24.818033,120.939394,26,8,"U"
-2272,"Magong","Makung","Taiwan","MZG","RCQC",23.568669,119.628311,103,8,"U"
-2273,"Jhihhang","Taitung","Taiwan","","RCQS",22.793117,121.181975,128,8,"U"
-2274,"Pingtung North","Pingtung","Taiwan","","RCSQ",22.700239,120.482,97,8,"U"
-2275,"Sungshan","Taipei","Taiwan","TSA","RCSS",25.069722,121.5525,18,8,"U"
-2276,"Taoyuan Intl","Taipei","Taiwan","TPE","RCTP",25.077731,121.232822,106,8,"U"
-2277,"Wang An","Wang An","Taiwan","WOT","RCWA",23.370833,119.494444,115,8,"U"
-2278,"Hualien","Hualien","Taiwan","HUN","RCYU",24.023725,121.616906,52,8,"U"
-2279,"Narita Intl","Tokyo","Japan","NRT","RJAA",35.764722,140.386389,141,9,"U"
-2280,"Matsumoto","Matsumoto","Japan","MMJ","RJAF",36.166758,137.922669,2182,9,"U"
-2281,"Hyakuri","Ibaraki","Japan","IBR","RJAH",36.181083,140.415444,105,9,"U"
-2282,"Minami Torishima","Minami Tori Shima","Japan","","RJAM",24.289697,153.979119,22,10,"U"
-2283,"Iwo Jima","Iwojima","Japan","IWO","RJAW",24.784,141.322722,384,10,"U"
-2284,"Nanki Shirahama","Nanki-shirahama","Japan","SHM","RJBD",33.662222,135.364444,298,9,"U"
-2285,"Kohnan","Kohnan","Japan","","RJBK",34.590836,133.933225,3,9,"U"
-2286,"Obihiro","Obihiro","Japan","OBO","RJCB",42.733333,143.217222,505,9,"U"
-2287,"New Chitose","Sapporo","Japan","CTS","RJCC",42.7752,141.692283,82,9,"U"
-2288,"Hakodate","Hakodate","Japan","HKD","RJCH",41.77,140.821944,151,9,"U"
-2289,"Chitose","Chitose","Japan","SPK","RJCJ",42.794475,141.666447,87,9,"U"
-2290,"Memanbetsu","Memanbetsu","Japan","MMB","RJCM",43.880606,144.164053,135,9,"U"
-2291,"Nakashibetsu","Nakashibetsu","Japan","SHB","RJCN",43.5775,144.96,234,9,"U"
-2293,"Tokachi","Tokachi","Japan","","RJCT",42.890544,143.158475,281,9,"U"
-2294,"Wakkanai","Wakkanai","Japan","WKJ","RJCW",45.404167,141.800833,30,9,"U"
-2295,"Iki","Iki","Japan","IKI","RJDB",33.749027,129.785417,41,9,"U"
-2296,"Yamaguchi Ube","Yamaguchi","Japan","UBJ","RJDC",33.93,131.278611,23,9,"U"
-2297,"Tsushima","Tsushima","Japan","TSJ","RJDT",34.284889,129.33055,213,9,"U"
-2298,"Monbetsu","Monbetsu","Japan","MBE","RJEB",44.303914,143.404028,80,9,"U"
-2299,"Asahikawa","Asahikawa","Japan","AKJ","RJEC",43.670833,142.4475,721,9,"U"
-2300,"Okushiri","Okushiri","Japan","OIR","RJEO",42.071667,139.432911,161,9,"U"
-2301,"Rishiri","Rishiri Island","Japan","RIS","RJER",45.242006,141.186431,112,9,"U"
-2302,"Ashiya","Ashiya","Japan","","RJFA",33.883083,130.653,98,9,"U"
-2303,"Yakushima","Yakushima","Japan","KUM","RJFC",30.385569,130.659017,124,9,"U"
-2304,"Fukue","Fukue","Japan","FUJ","RJFE",32.666269,128.832808,273,9,"U"
-2305,"Fukuoka","Fukuoka","Japan","FUK","RJFF",33.585942,130.450686,32,9,"U"
-2306,"New Tanegashima","Tanegashima","Japan","TNE","RJFG",30.605067,130.991231,768,9,"U"
-2307,"Kagoshima","Kagoshima","Japan","KOJ","RJFK",31.803397,130.719408,906,9,"U"
-2308,"Miyazaki","Miyazaki","Japan","KMI","RJFM",31.877222,131.448611,20,9,"U"
-2309,"Nyutabaru","Nyutabaru","Japan","","RJFN",32.083611,131.451389,259,9,"U"
-2310,"Oita","Oita","Japan","OIT","RJFO",33.479444,131.737222,19,9,"U"
-2311,"New Kitakyushu","Kitakyushu","Japan","KKJ","RJFR",33.845942,131.034689,21,9,"U"
-2312,"Kumamoto","Kumamoto","Japan","KMJ","RJFT",32.837319,130.85505,642,9,"U"
-2313,"Nagasaki","Nagasaki","Japan","NGS","RJFU",32.916944,129.913611,15,9,"U"
-2314,"Kanoya","Kanoya","Japan","","RJFY",31.367608,130.845456,214,9,"U"
-2315,"Tsuiki","Tsuiki","Japan","","RJFZ",33.685,131.040278,55,9,"U"
-2316,"Amami","Amami","Japan","ASJ","RJKA",28.430633,129.712542,27,9,"U"
-2317,"Okierabu","Okierabu","Japan","","RJKB",27.425522,128.700903,101,9,"U"
-2318,"Tokunoshima","Tokunoshima","Japan","TKN","RJKN",27.836381,128.881253,17,9,"U"
-2319,"Fukui","Fukui","Japan","","RJNF",36.142847,136.223922,19,9,"U"
-2320,"Gifu","Gifu","Japan","","RJNG",35.394078,136.869667,128,9,"U"
-2321,"Hamamatsu","Hamamatsu","Japan","","RJNH",34.750239,137.703083,150,9,"U"
-2322,"Komatsu","Kanazawa","Japan","KMQ","RJNK",36.394611,136.406544,36,9,"U"
-2323,"Oki","Oki Island","Japan","OKI","RJNO",36.181125,133.324844,311,9,"U"
-2324,"Toyama","Toyama","Japan","TOY","RJNT",36.648333,137.1875,95,9,"U"
-2325,"Shizuhama","Yaizu","Japan","","RJNY",34.812778,138.298056,23,9,"U"
-2326,"Hiroshima","Hiroshima","Japan","HIJ","RJOA",34.436111,132.919444,1088,9,"U"
-2327,"Okayama","Okayama","Japan","OKJ","RJOB",34.756944,133.855278,806,9,"U"
-2328,"Izumo","Izumo","Japan","IZO","RJOC",35.413611,132.89,15,9,"U"
-2329,"Hofu","Hofu","Japan","","RJOF",34.034667,131.549194,7,9,"U"
-2330,"Miho","Miho","Japan","YGJ","RJOH",35.492222,133.236389,20,9,"U"
-2331,"Iwakuni Mcas","Iwakuni","Japan","","RJOI",34.14386,132.23575,7,9,"U"
-2332,"Kochi","Kochi","Japan","KCZ","RJOK",33.546111,133.669444,42,9,"U"
-2333,"Matsuyama","Matsuyama","Japan","MYJ","RJOM",33.827222,132.699722,25,9,"U"
-2334,"Osaka Intl","Osaka","Japan","ITM","RJOO",34.785528,135.438222,50,9,"U"
-2335,"Tottori","Tottori","Japan","TTJ","RJOR",35.530069,134.166553,65,9,"U"
-2336,"Tokushima","Tokushima","Japan","TKS","RJOS",34.132808,134.606639,26,9,"U"
-2337,"Takamatsu","Takamatsu","Japan","TAK","RJOT",34.214167,134.015556,607,9,"U"
-2338,"Yao","Osaka","Japan","","RJOY",34.596311,135.602944,39,9,"U"
-2339,"Ozuki","Ozuki","Japan","","RJOZ",34.045322,131.052144,13,9,"U"
-2340,"Aomori","Aomori","Japan","AOJ","RJSA",40.734722,140.690833,664,9,"U"
-2341,"Yamagata","Yamagata","Japan","GAJ","RJSC",38.411894,140.371331,353,9,"U"
-2342,"Sado","Sado","Japan","","RJSD",38.060181,138.413928,88,9,"U"
-2343,"Hachinohe","Hachinoe","Japan","","RJSH",40.556447,141.466325,152,9,"U"
-2344,"Hanamaki","Hanamaki","Japan","HNA","RJSI",39.428611,141.135278,297,9,"U"
-2345,"Akita","Akita","Japan","AXT","RJSK",39.615556,140.218611,313,9,"U"
-2346,"Misawa Ab","Misawa","Japan","MSJ","RJSM",40.703222,141.368364,119,9,"U"
-2347,"Sendai","Sendai","Japan","SDJ","RJSS",38.139722,140.916944,15,9,"U"
-2348,"Matsushima","Matsushima","Japan","","RJST",38.404919,141.219572,7,9,"U"
-6862,"Sazena","Sazena","Czech Republic","LKS","LKSZ",50.1929,14.1532,233,1,"E"
-2350,"Atsugi Naf","Atsugi","Japan","","RJTA",35.454611,139.450167,205,9,"U"
-2351,"Tateyama","Tateyama","Japan","","RJTE",34.987053,139.829208,10,9,"U"
-2352,"Hachijojima","Hachijojima","Japan","HAC","RJTH",33.115,139.785833,303,9,"U"
-2353,"Iruma","Iruma","Japan","","RJTJ",35.841944,139.410556,295,9,"U"
-2354,"Kisarazu","Kisarazu","Japan","","RJTK",35.398272,139.909936,10,9,"U"
-2355,"Shimofusa","Shimofusa","Japan","","RJTL",35.798944,140.011111,98,9,"U"
-2356,"Oshima","Oshima","Japan","OIM","RJTO",34.782033,139.360306,130,9,"U"
-2358,"Kastner Aaf","Zama","Japan","","RJTR",35.513769,139.393675,360,9,"U"
-2359,"Tokyo Intl","Tokyo","Japan","HND","RJTT",35.552258,139.779694,35,9,"U"
-2360,"Yokota Ab","Yokota","Japan","OKO","RJTY",35.748492,139.348483,463,9,"U"
-2361,"Gwangju","Kwangju","South Korea","KWJ","RKJJ",35.126389,126.808889,39,9,"U"
-2364,"Jeon Ju","Jhunju","South Korea","","RKJU",35.878436,127.11955,96,9,"U"
-2365,"Yeosu","Yeosu","South Korea","RSU","RKJY",34.842328,127.61685,53,9,"U"
-2366,"Sokcho","Sokch'o","South Korea","SHO","RKND",38.142614,128.598556,92,9,"U"
-2367,"Gangneung","Kangnung","South Korea","KAG","RKNN",37.753561,128.943625,35,9,"U"
-6861,"Macomb Municipal Airport","Macomb","United States","MQB",\N,40.5200833,-90.6523889,707,-6,"U"
-2370,"Jeju Intl","Cheju","South Korea","CJU","RKPC",33.511306,126.493028,118,9,"U"
-2371,"Jinhae","Chinhae","South Korea","","RKPE",35.141175,128.695792,8,9,"U"
-2372,"Gimhae Intl","Kimhae","South Korea","PUS","RKPK",35.179528,128.938222,6,9,"U"
-6860,"Bungle Bungle Airport","Bungle Bungle","Australia","","YBUU",-17.5453,128.307,0,9.5,"U"
-2374,"Ulsan","Ulsan","South Korea","USN","RKPU",35.593494,129.351722,45,9,"U"
-2375,"A 511","Pyongtaek","South Korea","","RKSG",36.962214,127.031072,51,9,"U"
-2376,"Seoul Ab","Seoul East","South Korea","SSN","RKSM",37.445833,127.113889,92,9,"U"
-2377,"Osan Ab","Osan","South Korea","OSN","RKSO",37.090617,127.029594,40,9,"U"
-2378,"Gimpo","Seoul","South Korea","GMP","RKSS",37.558311,126.790586,58,9,"U"
-2379,"Suwon","Suwon","South Korea","","RKSW",37.239406,127.007053,88,9,"U"
-2380,"Pohang","Pohang","South Korea","KPO","RKTH",35.987858,129.420486,70,9,"U"
-2381,"Daegu Ab","Taegu","South Korea","TAE","RKTN",35.894108,128.658856,116,9,"U"
-2383,"Yecheon","Yechon","South Korea","YEC","RKTY",36.631933,128.35485,354,9,"U"
-2384,"Naha","Okinawa","Japan","OKA","ROAH",26.195814,127.645869,12,9,"N"
-2385,"Ie Shima Aux Ab","Iejima","Japan","","RODE",26.728775,127.761775,184,9,"U"
-2386,"Kadena Ab","Kadena","Japan","DNA","RODN",26.355612,127.767633,143,9,"U"
-2387,"Ishigaki","Ishigaki","Japan","ISG","ROIG",24.344525,124.186983,93,9,"U"
-2388,"Kumejima","Kumejima","Japan","UEO","ROKJ",26.363506,126.713806,23,9,"U"
-2389,"Minami Daito","Minami Daito","Japan","MMD","ROMD",25.846533,131.263494,167,9,"U"
-2390,"Miyako","Miyako","Japan","MMY","ROMY",24.782833,125.295111,150,9,"U"
-2391,"Kitadaito","Kitadaito","Japan","KTD","RORK",25.944722,131.326944,80,9,"U"
-2392,"Shimojishima","Shimojishima","Japan","SHI","RORS",24.826667,125.144722,54,9,"U"
-2393,"Tarama","Tarama","Japan","","RORT",24.653889,124.675278,36,9,"U"
-2394,"Yoron","Yoron","Japan","RNJ","RORY",27.043964,128.401517,52,9,"U"
-2395,"Futenma Mcas","Futema","Japan","","ROTM",26.274275,127.756494,247,9,"U"
-2396,"Yonaguni","Yonaguni Jima","Japan","OGN","ROYN",24.466944,122.977778,70,9,"U"
-2397,"Ninoy Aquino Intl","Manila","Philippines","MNL","RPLL",14.508647,121.019581,75,8,"U"
-6859,"Mary Airport","Mary","Turkmenistan","MYP","UTAM",37.6194,61.8967,728,5,"U"
-2399,"Cotabato","Cotabato","Philippines","CBO","RPMC",7.165242,124.209619,189,8,"U"
-2400,"Cagayan De Oro","Ladag","Philippines","CGY","RPML",8.415619,124.611219,601,8,"U"
-2401,"Pagadian","","Philippines","PAG","RPMP",7.827197,123.458294,5,8,"U"
-2402,"Tambler","Romblon","Philippines","","RPMR",6.058003,125.096033,505,8,"U"
-6858,"Crocodile Camp","Tsavo East","Kenya","",\N,-3.070875,39.2194305555556,400,3,"U"
-2404,"Zamboanga Intl","Zamboanga","Philippines","ZAM","RPMZ",6.922419,122.059633,33,8,"U"
-2405,"Baguio","Baguio","Philippines","BAG","RPUB",16.375103,120.619636,4251,8,"U"
-2406,"Daet","Daet","Philippines","","RPUD",14.129167,122.980181,10,8,"U"
-2407,"Basa Ab","Floridablanca","Philippines","","RPUF",14.986527,120.4925,151,8,"U"
-2408,"Lingayen","Lingayen","Philippines","","RPUG",16.034786,120.241106,7,8,"U"
-2409,"San Jose","San Jose","Philippines","","RPUH",12.361517,121.046639,14,8,"U"
-2410,"Fernando Ab","Lipa","Philippines","","RPUL",13.955017,121.124925,1220,8,"U"
-2411,"Mamburao","Mamburao","Philippines","","RPUM",13.208092,120.60535,13,8,"U"
-2414,"Vigan","Vigan","Philippines","","RPUQ",17.555331,120.355797,16,8,"U"
-2415,"Baler","Baler","Philippines","","RPUR",15.729836,121.500133,108,8,"U"
-6857,"Kimana","Kimana","Kenya","",\N,-2.8,37.5333333333333,3900,3,"U"
-6856,"Solio Ranch Airport","Solio","Kenya","",\N,-0.245167,36.8849,6300,3,"U"
-6855,"Kalundborg Flyveplads","Kalundborg","Denmark","","EKKL",55.7001,11.2549,13,-2,"E"
-2421,"Bagabag","Bagabag","Philippines","","RPUZ",16.619194,121.252319,820,8,"U"
-2422,"Daniel Z Romualdez","Tacloban","Philippines","TAC","RPVA",11.227628,125.027758,10,8,"U"
-2423,"Bacolod","Bacolod","Philippines","BCD","RPVB",10.642511,122.929617,25,8,"U"
-6854,"Gardermoen Airport","Oslo","Norway","GEN",\N,60.1939,11.1004,681,1,"E"
-2425,"Dumaguete","Dumaguete","Philippines","DGT","RPVD",9.333714,123.300472,15,8,"U"
-2426,"Caticlan","Caticlan","Philippines","","RPVE",11.924503,121.95405,7,8,"U"
-2428,"Guiuan","Guiuan","Philippines","","RPVG",11.035544,125.741594,7,8,"U"
-2429,"Iloilo","Iloilo","Philippines","ILO","RPVI",10.713044,122.545297,27,8,"U"
-2430,"Kalibo","Kalibo","Philippines","KLO","RPVK",11.679431,122.376294,14,8,"U"
-2431,"Mactan Cebu Intl","Masbate","Philippines","","RPVM",10.307542,123.979439,31,8,"U"
-6853,"Wausau Downtown Airport","Wausau","United States","AUW",\N,44.9262845,-89.6270018,1201,-6,"U"
-2433,"Puerto Princesa","Puerto Princesa","Philippines","PPS","RPVP",9.742119,118.758731,71,8,"U"
-2435,"Antique","San Jose","Philippines","SJI","RPVS",10.766044,121.933439,23,8,"U"
-2436,"Comodoro Pierrestegui","Concordia","Argentina","COC","SAAC",-31.296944,-57.996631,112,-3,"S"
-2437,"Gualeguaychu","Gualeguaychu","Argentina","GHU","SAAG",-33.010278,-58.613056,75,-3,"S"
-2438,"Junin","Junin","Argentina","","SAAJ",-34.545889,-60.930556,262,-3,"S"
-2439,"General Urquiza","Parana","Argentina","PRA","SAAP",-31.794778,-60.480361,243,-3,"S"
-2440,"Rosario","Rosario","Argentina","ROS","SAAR",-32.903611,-60.785,85,-3,"S"
-2441,"Sauce Viejo","Santa Fe","Argentina","SFN","SAAV",-31.711666,-60.811668,56,-3,"S"
-2442,"Aeroparque Jorge Newbery","Buenos Aires","Argentina","AEP","SABE",-34.559175,-58.415606,18,-3,"S"
-2443,"Ambrosio L V Taravella","Cordoba","Argentina","COR","SACO",-31.323619,-64.207953,1604,-3,"S"
-2444,"Chamical","Gobernador Gordillo","Argentina","","SACT",-30.345278,-66.29361,1503,-3,"S"
-2445,"San Fernando","San Fernando","Argentina","","SADF",-34.453189,-58.589644,10,-3,"S"
-2446,"Mariano Moreno","Jose C. Paz","Argentina","","SADJ",-34.56065,-58.789564,105,-3,"S"
-2447,"La Plata","La Plata","Argentina","LPG","SADL",-34.972222,-57.894694,72,-3,"S"
-2448,"Moron","Moron","Argentina","","SADM",-34.676317,-58.642756,95,-3,"S"
-2449,"El Palomar","El Palomar","Argentina","","SADP",-34.609939,-58.612592,59,-3,"S"
-2450,"Chos Malal","Chosmadal","Argentina","","SAHC",-37.444692,-70.222469,2788,-3,"S"
-2451,"General Roca","Fuerte Gral Roca","Argentina","","SAHR",-39.000672,-67.620514,853,-3,"S"
-2452,"El Plumerillo","Mendoza","Argentina","MDZ","SAME",-32.831717,-68.792856,2310,-3,"S"
-2453,"Malargue","Malargue","Argentina","LGS","SAMM",-35.493597,-69.574267,4683,-3,"S"
-2454,"San Rafael","San Rafael","Argentina","AFA","SAMR",-34.588314,-68.403854,2470,-3,"S"
-2455,"Catamarca","Catamarca","Argentina","CTC","SANC",-28.593214,-65.750925,1522,-3,"S"
-2456,"Santiago Del Estero","Santiago Del Estero","Argentina","SDE","SANE",-27.765617,-64.310122,656,-3,"S"
-2457,"Tinogasta","Tinogasta","Argentina","","SANI",-28.03775,-67.580314,3968,-3,"S"
-2458,"La Rioja","La Rioja","Argentina","IRJ","SANL",-29.381636,-66.795839,1436,-3,"S"
-2459,"Chilecito","Chilecito","Argentina","","SANO",-29.223888,-67.438889,3099,-3,"S"
-2460,"Teniente Benjamin Matienzo","Tucuman","Argentina","TUC","SANT",-26.840861,-65.104944,1495,-3,"S"
-2461,"San Juan","San Julian","Argentina","UAQ","SANU",-31.571472,-68.418194,1959,-3,"S"
-2462,"Rio Cuarto Area De Material","Rio Cuarto","Argentina","RCU","SAOC",-33.085128,-64.261314,1381,-3,"S"
-2463,"Villa Dolores","Villa Dolores","Argentina","VDR","SAOD",-31.945183,-65.146283,1915,-3,"S"
-2464,"Laboulaye","Laboulaye","Argentina","","SAOL",-34.135444,-63.36225,449,-3,"S"
-2465,"Marcos Juarez","Marcos Juarez","Argentina","","SAOM",-32.683639,-62.157792,361,-3,"S"
-2466,"Villa Reynolds","Villa Reynolds","Argentina","","SAOR",-33.725144,-65.378086,1591,-3,"S"
-2467,"San Luis","San Luis","Argentina","LUQ","SAOU",-33.273192,-66.356422,2329,-3,"S"
-2468,"Corrientes","Corrientes","Argentina","CNQ","SARC",-27.445503,-58.761864,203,-3,"S"
-2469,"Resistencia","Resistencia","Argentina","RES","SARE",-27.449986,-59.056125,173,-3,"S"
-2470,"Formosa","Formosa","Argentina","FMA","SARF",-26.212722,-58.228111,194,-3,"S"
-2471,"Cataratas Del Iguazu","Iguazu Falls","Argentina","IGR","SARI",-25.737281,-54.473444,916,-3,"S"
-2472,"Paso De Los Libres","Paso De Los Libres","Argentina","AOL","SARL",-29.689425,-57.152078,230,-3,"S"
-2473,"Monte Caseros","Monte Caseros","Argentina","","SARM",-30.271922,-57.640231,174,-3,"S"
-2474,"Posadas","Posadas","Argentina","PSS","SARP",-27.385839,-55.970728,430,-3,"S"
-2475,"Termal","Presidencia R.s.pena","Argentina","","SARS",-26.756519,-60.493103,307,-3,"S"
-2476,"Salta","Salta","Argentina","SLA","SASA",-24.855978,-65.486169,4088,-3,"S"
-2477,"Jujuy","Jujuy","Argentina","JUJ","SASJ",-24.392778,-65.097778,3019,-3,"S"
-2478,"Oran","Oran","Argentina","ORA","SASO",-23.152779,-64.32917,1168,-3,"S"
-2479,"La Quiaca","La Quiaca","Argentina","","SASQ",-22.150556,-65.5775,11414,-3,"S"
-6852,"Portage Municipal Airport","Portage","United States","C47",\N,43.5603136,-89.4828607,825,-6,"U"
-2481,"Eldorado","El Dorado","Argentina","","SATD",-26.397499,-54.574722,685,-3,"S"
-2482,"Goya","Goya","Argentina","","SATG",-29.099472,-59.250583,125,-3,"S"
-2483,"Obera","Obera","Argentina","","SATO",-27.518156,-55.124156,1125,-3,"S"
-2484,"Reconquista","Reconquista","Argentina","","SATR",-29.210278,-59.68,161,-3,"S"
-2485,"Curuzu Cuatia","Curuzu Cuatia","Argentina","","SATU",-29.770555,-57.978889,229,-3,"S"
-2486,"El Bolson","El Bolson","Argentina","EHL","SAVB",-41.943189,-71.532289,1131,-3,"S"
-2487,"Comodoro Rivadavia","Comodoro Rivadavia","Argentina","CRD","SAVC",-45.785347,-67.465508,190,-3,"S"
-2488,"Esquel","Esquel","Argentina","EQS","SAVE",-42.90795,-71.139472,2621,-3,"S"
-2490,"Almirante Zar","Trelew","Argentina","REL","SAVT",-43.2105,-65.270319,141,-3,"S"
-2491,"Gobernador Castello","Viedma","Argentina","VDM","SAVV",-40.869222,-63.000389,20,-3,"S"
-2492,"El Tehuelche","Puerto Madryn","Argentina","PMY","SAVY",-42.759161,-65.102725,426,-3,"S"
-2493,"Base Marambio","Marambio Base","Antarctica","","SAWB",-64.238335,-56.630833,760,-4,"U"
-2494,"Puerto Deseado","Puerto Deseado","Argentina","PUD","SAWD",-47.735292,-65.904097,266,-3,"S"
-2495,"Rio Grande","Rio Grande","Argentina","RGA","SAWE",-53.777667,-67.749389,65,-3,"S"
-2496,"Rio Gallegos","Rio Gallegos","Argentina","RGL","SAWG",-51.608875,-69.312636,61,-3,"S"
-2497,"Ushuaia Malvinas Argentinas","Ushuaia","Argentina","USH","SAWH",-54.843278,-68.29575,71,-3,"S"
-2498,"San Julian","San Julian","Argentina","ULA","SAWJ",-49.306775,-67.802589,190,-3,"S"
-2499,"Perito Moreno","Perito Moreno","Argentina","PMQ","SAWP",-46.537911,-70.978689,1410,-3,"S"
-2500,"Santa Cruz","Santa Cruz","Argentina","RZA","SAWU",-50.01655,-68.579197,364,-3,"S"
-2501,"Comandante Espora","Bahia Blanca","Argentina","BHI","SAZB",-38.724967,-62.169317,246,-3,"S"
-2502,"Coronel Suarez","Colonel Suarez","Argentina","","SAZC",-37.446111,-61.889297,768,-3,"S"
-2503,"Olavarria","Olavarria","Argentina","","SAZF",-36.890039,-60.216619,551,-3,"S"
-2504,"General Pico","General Pico","Argentina","","SAZG",-35.696183,-63.758286,459,-3,"S"
-2505,"Tres Arroyos","Tres Arroyos","Argentina","","SAZH",-38.386911,-60.329711,400,-3,"S"
-2506,"Bolivar","Bolivar","Argentina","","SAZI",-36.186594,-61.076367,308,-3,"S"
-6851,"Gogebic Iron County Airport","Ironwood","United States","IWD",\N,46.5274747,-90.1313967,1230,-6,"U"
-2508,"Mar Del Plata","Mar Del Plata","Argentina","MDQ","SAZM",-37.934167,-57.573333,71,-3,"S"
-2509,"Presidente Peron","Neuquen","Argentina","NQN","SAZN",-38.949,-68.155711,895,-3,"S"
-6850,"Mackinac Island Airport","Mackinac Island","United States","MCD",\N,45.8649344,-84.637344,740,-5,"U"
-2511,"Comodoro P Zanni","Pehuajo","Argentina","","SAZP",-35.844592,-61.857553,278,-3,"S"
-2512,"Santa Rosa","Santa Rosa","Argentina","RSA","SAZR",-36.588322,-64.275694,630,-3,"S"
-2513,"San Carlos De Bariloche","San Carlos De Bariloch","Argentina","BRC","SAZS",-41.151172,-71.157542,2776,-3,"S"
-2514,"Tandil","Tandil","Argentina","TDL","SAZT",-37.237392,-59.227922,574,-3,"S"
-2515,"Villa Gesell","Villa Gesell","Argentina","VLG","SAZV",-37.235408,-57.029239,32,-3,"S"
-2516,"Cutralco","Cutralco","Argentina","","SAZW",-38.939683,-69.264642,2133,-3,"S"
-2517,"Aviador C Campos","San Martin Des Andes","Argentina","CPC","SAZY",-40.075383,-71.137294,2569,-3,"S"
-2518,"Conceicao Do Araguaia","Conceicao Do Araguaia","Brazil","CDJ","SBAA",-8.348347,-49.301528,653,-3,"U"
-2519,"Campo Delio Jardim De Mattos","Rio De Janeiro","Brazil","","SBAF",-22.875083,-43.384708,110,-3,"U"
-2520,"Amapa","Amapa","Brazil","","SBAM",2.077511,-50.858236,45,-3,"U"
-2521,"Araraquara","Araracuara","Brazil","AQA","SBAQ",-21.812,-48.133028,2334,-3,"U"
-2522,"Santa Maria","Aracaju","Brazil","AJU","SBAR",-10.984,-37.070333,23,-3,"U"
-2523,"Assis","Assis","Brazil","","SBAS",-22.638564,-50.455914,1850,-3,"U"
-2524,"Alta Floresta","Alta Floresta","Brazil","AFL","SBAT",-9.866092,-56.106206,947,-4,"U"
-2525,"Aracatuba","Aracatuba","Brazil","ARU","SBAU",-21.141342,-50.424722,1361,-3,"U"
-2526,"Val De Cans Intl","Belem","Brazil","BEL","SBBE",-1.37925,-48.476292,54,-3,"U"
-2527,"Comandante Gustavo Kraemer","Bage","Brazil","BGX","SBBG",-31.390528,-54.112244,600,-3,"U"
-2528,"Pampulha Carlos Drummond De Andrade","Belo Horizonte","Brazil","PLU","SBBH",-19.851181,-43.950628,2589,-3,"U"
-2529,"Bacacheri","Curitiba","Brazil","BFH","SBBI",-25.405078,-49.232036,3057,-3,"U"
-2530,"Major Brigadeiro Doorgal Borges","Barbacena","Brazil","","SBBQ",-21.267167,-43.761056,3657,-3,"U"
-2531,"Presidente Juscelino Kubitschek","Brasilia","Brazil","BSB","SBBR",-15.8711,-47.918625,3479,-3,"U"
-2532,"Bauru","Bauru","Brazil","BAU","SBBU",-22.345042,-49.0538,2025,-3,"U"
-2533,"Boa Vista","Boa Vista","Brazil","BVB","SBBV",2.846311,-60.690069,276,-4,"U"
-2534,"Barra Do Garcas","Barra Do Garcas","Brazil","","SBBW",-15.861344,-52.388894,1147,-3,"U"
-2535,"Cascavel","Cascavel","Brazil","CAC","SBCA",-25.000339,-53.500764,2473,-3,"U"
-2536,"Cachimbo","Itaituba","Brazil","","SBCC",-9.333936,-54.965422,1762,-4,"U"
-2537,"Tancredo Neves Intl","Belo Horizonte","Brazil","CNF","SBCF",-19.63375,-43.968856,2715,-3,"U"
-2538,"Campo Grande","Campo Grande","Brazil","CGR","SBCG",-20.468667,-54.6725,1833,-4,"U"
-2539,"Chapeco","Chapeco","Brazil","XAP","SBCH",-27.134219,-52.656553,2146,-3,"U"
-2540,"Carolina","Carolina","Brazil","CLN","SBCI",-7.320444,-47.458667,565,-3,"U"
-2541,"Forquilhinha","Criciuma","Brazil","","SBCM",-28.725817,-49.424739,93,-3,"U"
-2542,"Canoas","Porto Alegre","Brazil","","SBCO",-29.945944,-51.144367,26,-3,"U"
-2543,"Bartolomeu Lisandro","Campos","Brazil","CAW","SBCP",-21.698333,-41.301669,57,-3,"U"
-2544,"Corumba Intl","Corumba","Brazil","CMG","SBCR",-19.011931,-57.673053,461,-4,"U"
-2545,"Afonso Pena","Curitiba","Brazil","CWB","SBCT",-25.528475,-49.175775,2988,-3,"U"
-2546,"Caravelas","Caravelas","Brazil","CRQ","SBCV",-17.652283,-39.253069,36,-3,"U"
-2547,"Campo Dos Bugres","Caxias Do Sul","Brazil","CXJ","SBCX",-29.197064,-51.187536,2472,-3,"U"
-2548,"Marechal Rondon","Cuiaba","Brazil","CGB","SBCY",-15.652931,-56.116719,617,-4,"U"
-2549,"Cruzeiro Do Sul","Cruiziro Do Sul","Brazil","CZS","SBCZ",-7.599906,-72.769489,637,-5,"U"
-2550,"Presidente Prudente","President Prudente","Brazil","PPB","SBDN",-22.175056,-51.424639,1477,-3,"U"
-2551,"Eduardo Gomes Intl","Manaus","Brazil","MAO","SBEG",-3.038611,-60.049721,264,-4,"U"
-2552,"Jacareacanga","Jacare-acanga","Brazil","","SBEK",-6.233156,-57.776869,324,-4,"U"
-2553,"Sao Pedro Da Aldeia","Sao Pedro Da Aldeia","Brazil","","SBES",-22.812872,-42.092633,61,-3,"U"
-2554,"Cataratas Intl","Foz Do Iguacu","Brazil","IGU","SBFI",-25.59615,-54.487206,787,-3,"U"
-2555,"Hercilio Luz","Florianopolis","Brazil","FLN","SBFL",-27.670489,-48.547181,20,-3,"U"
-2556,"Fernando De Noronha","Fernando Do Noronha","Brazil","FEN","SBFN",-3.854928,-32.423336,193,-2,"U"
-2557,"Fronteira","Fronteira","Brazil","","SBFT",-20.278483,-49.187472,1599,-3,"U"
-2558,"Furnas","Alpinopolis","Brazil","","SBFU",-20.702817,-46.335264,2413,-3,"U"
-2559,"Pinto Martins Intl","Fortaleza","Brazil","FOR","SBFZ",-3.776283,-38.532556,82,-3,"U"
-2560,"Galeao Antonio Carlos Jobim","Rio De Janeiro","Brazil","GIG","SBGL",-22.808903,-43.243647,28,-3,"U"
-2561,"Guajara Mirim","Guajara-mirim","Brazil","","SBGM",-10.786375,-65.284792,478,-4,"U"
-2562,"Santa Genoveva","Goiania","Brazil","GYN","SBGO",-16.632033,-49.220686,2450,-3,"U"
-2563,"Embraer Unidade Gaviao Peixoto","Macae","Brazil","","SBGP",-21.773683,-48.405078,1998,-3,"U"
-2564,"Guarulhos Gov Andre Franco Montouro","Sao Paulo","Brazil","GRU","SBGR",-23.432075,-46.469511,2459,-3,"U"
-2565,"Guaratingueta","Guaratingueta","Brazil","","SBGW",-22.791608,-45.204778,1761,-3,"U"
-2566,"Altamira","Altamira","Brazil","ATM","SBHT",-3.253906,-52.253978,368,-3,"U"
-2567,"Itacoatiara","Itaituba","Brazil","","SBIC",-3.127256,-58.481186,142,-4,"U"
-2568,"Itaituba","Itaituba","Brazil","","SBIH",-4.242342,-56.000669,110,-4,"U"
-2569,"Ilheus","Ilheus","Brazil","IOS","SBIL",-14.815964,-39.033197,15,-3,"U"
-2570,"Usiminas","Ipatinga","Brazil","IPN","SBIP",-19.470722,-42.487583,784,-3,"U"
-2571,"Hidroeletrica","Itumbiara","Brazil","","SBIT",-18.444661,-49.213361,1630,-3,"U"
-2572,"Prefeito Renato Moreira","Imperatriz","Brazil","IMP","SBIZ",-5.531292,-47.46005,431,-3,"U"
-2573,"Julio Cesar","Belem","Brazil","","SBJC",-1.414158,-48.460739,52,-3,"U"
-2574,"Francisco De Assis","Juiz De Fora","Brazil","JDF","SBJF",-21.7915,-43.386778,2989,-3,"U"
-2575,"Presidente Castro Pinto","Joao Pessoa","Brazil","JPA","SBJP",-7.148381,-34.950681,215,-3,"U"
-2576,"Lauro Carneiro De Loyola","Joinville","Brazil","JOI","SBJV",-26.224453,-48.797364,15,-3,"U"
-2577,"Presidente Joao Suassuna","Campina Grande","Brazil","CPV","SBKG",-7.269917,-35.896364,1646,-3,"U"
-2578,"Viracopos","Campinas","Brazil","VCP","SBKP",-23.0074,-47.1345,2170,-3,"U"
-2579,"Lages","Lajes","Brazil","","SBLJ",-27.782142,-50.281486,3065,-3,"U"
-2580,"Lins","Lins","Brazil","LIP","SBLN",-21.664039,-49.730519,1575,-3,"U"
-2581,"Londrina","Londrina","Brazil","LDB","SBLO",-23.333625,-51.130072,1867,-3,"U"
-2582,"Bom Jesus Da Lapa","Bom Jesus Da Lapa","Brazil","LAZ","SBLP",-13.262086,-43.408114,1454,-3,"U"
-2583,"Lagoa Santa","Lagoa Santa","Brazil","","SBLS",-19.661611,-43.896403,2795,-3,"U"
-2584,"Maraba","Maraba","Brazil","MAB","SBMA",-5.368589,-49.138025,357,-3,"U"
-2585,"Monte Dourado","Almeirim","Brazil","","SBMD",-0.889839,-52.60225,677,-3,"U"
-2586,"Regional De Maringa Silvio Name Junior","Maringa","Brazil","MGF","SBMG",-23.476392,-52.016406,1788,-3,"U"
-2587,"Mario Ribeiro","Montes Claros","Brazil","MOC","SBMK",-16.706925,-43.8189,2191,-3,"U"
-6849,"Grand Marais Cook County Airport","Grand Marais","United States","GRM","KCKC",47.8383333,-90.3829444,1799,-6,"U"
-2589,"Ponta Pelada","Manaus","Brazil","","SBMN",-3.146042,-59.9863,267,-4,"U"
-2590,"Zumbi Dos Palmares","Maceio","Brazil","MCZ","SBMO",-9.510808,-35.791678,387,-3,"U"
-2591,"Macapa","Macapa","Brazil","MCP","SBMQ",0.050664,-51.072178,56,-3,"U"
-2592,"Dix Sept Rosado","Mocord","Brazil","","SBMS",-5.201919,-37.364347,77,-3,"U"
-2593,"Marte","Sao Paulo","Brazil","","SBMT",-23.509119,-46.637753,2368,-3,"U"
-2594,"Manicore","Manicore","Brazil","MNX","SBMY",-5.811381,-61.278319,174,-4,"U"
-2595,"Ministro Victor Konder Intl","Navegantes","Brazil","NVT","SBNF",-26.879999,-48.65139,18,-3,"U"
-2596,"Santo Angelo","Santo Angelo","Brazil","GEL","SBNM",-28.281683,-54.169139,1056,-3,"U"
-2597,"Augusto Severo","Natal","Brazil","NAT","SBNT",-5.911417,-35.247717,169,-3,"U"
-2598,"Oiapoque","Oioiapoque","Brazil","","SBOI",3.855486,-51.796867,63,-3,"U"
-2599,"Salgado Filho","Porto Alegre","Brazil","POA","SBPA",-29.994428,-51.171428,11,-3,"U"
-2600,"Prefeito Doutor Joao Silva Filho","Parnaiba","Brazil","","SBPB",-2.893747,-41.731961,16,-3,"U"
-2601,"Pocos De Caldas","Pocos De Caldas","Brazil","POO","SBPC",-21.843014,-46.567917,4135,-3,"U"
-2602,"Lauro Kurtz","Passo Fundo","Brazil","PFB","SBPF",-28.243989,-52.326558,2376,-3,"U"
-2603,"Pelotas","Pelotas","Brazil","PET","SBPK",-31.718353,-52.327689,59,-3,"U"
-2604,"Senador Nilo Coelho","Petrolina","Brazil","PNZ","SBPL",-9.362411,-40.569097,1263,-3,"U"
-2605,"Porto Nacional","Porto Nacional","Brazil","PNB","SBPN",-10.719417,-48.399736,870,-3,"U"
-2606,"Ponta Pora","Ponta Pora","Brazil","PMG","SBPP",-22.549639,-55.702614,2156,-4,"U"
-2607,"Governador Jorge Teixeira De Oliveira","Porto Velho","Brazil","PVH","SBPV",-8.709294,-63.902281,294,-4,"U"
-6848,"Porter County Municipal Airport","Valparaiso","United States","NPZ",\N,41.4539722,-87.0070833,770,-5,"U"
-2609,"Presidente Medici","Rio Branco","Brazil","RBR","SBRB",-9.869158,-67.894072,633,-5,"U"
-2610,"Guararapes Gilberto Freyre Intl","Recife","Brazil","REC","SBRF",-8.126794,-34.923039,33,-3,"U"
-2611,"Rio Grande","Rio Grande","Brazil","RIG","SBRG",-32.082617,-52.166542,27,-3,"U"
-2612,"Santos Dumont","Rio De Janeiro","Brazil","SDU","SBRJ",-22.910461,-43.163133,11,-3,"U"
-2613,"Leite Lopes","Ribeirao Preto","Brazil","RAO","SBRP",-21.134167,-47.774189,1802,-3,"U"
-2614,"Santa Cruz","Rio De Janeiro","Brazil","STU","SBSC",-22.93235,-43.719092,10,-3,"U"
-2615,"Professor Urbano Ernesto Stumpf","Sao Jose Dos Campos","Brazil","SJK","SBSJ",-23.228172,-45.862739,2120,-3,"U"
-2616,"Marechal Cunha Machado Intl","Sao Luis","Brazil","SLZ","SBSL",-2.585361,-44.234139,178,-3,"U"
-2618,"Congonhas","Sao Paulo","Brazil","CGH","SBSP",-23.626692,-46.655375,2631,-3,"U"
-2619,"Sao Jose Do Rio Preto","Sao Jose Do Rio Preto","Brazil","SJP","SBSR",-20.816567,-49.406511,1784,-3,"U"
-2620,"Base Aerea De Santos","Santos","Brazil","SSZ","SBST",-23.925206,-46.2875,10,-3,"U"
-2621,"Deputado Luis Eduardo Magalhaes","Salvador","Brazil","SSA","SBSV",-12.910994,-38.331044,64,-3,"U"
-2622,"Trombetas","Oriximina","Brazil","","SBTB",-1.4896,-56.396803,287,-4,"U"
-2623,"Senador Petronio Portella","Teresina","Brazil","THE","SBTE",-5.059942,-42.823478,219,-3,"U"
-2624,"Tefe","Tefe","Brazil","TFF","SBTF",-3.382944,-64.724056,184,-4,"U"
-2625,"Tarauaca","Tarauaca","Brazil","","SBTK",-8.155256,-70.783269,646,-5,"U"
-2626,"Telemaco Borba","Telemaco Borba","Brazil","","SBTL",-24.317775,-50.651592,2610,-3,"U"
-2627,"Tirios","Obidos Tirios","Brazil","","SBTS",2.223472,-55.946056,1127,-4,"U"
-2628,"Tabatinga","Tabatinga","Brazil","TBT","SBTT",-4.255669,-69.935828,279,-4,"U"
-2629,"Tucurui","Tucurui","Brazil","TUR","SBTU",-3.786008,-49.720267,830,-3,"U"
-2630,"Sao Gabriel Da Cachoeira","Sao Gabriel","Brazil","","SBUA",-0.148419,-66.985589,249,-4,"U"
-2631,"Paulo Afonso","Paulo Alfonso","Brazil","PAV","SBUF",-9.400878,-38.250575,883,-3,"U"
-2632,"Rubem Berta","Uruguaiana","Brazil","URG","SBUG",-29.782178,-57.038189,256,-3,"U"
-2633,"Ten Cel Av Cesar Bombonato","Uberlandia","Brazil","UDI","SBUL",-18.882844,-48.225594,3094,-3,"U"
-2634,"Urubupunga","Castilho","Brazil","","SBUP",-20.777067,-51.564761,1169,-3,"U"
-2635,"Uberaba","Uberaba","Brazil","UBA","SBUR",-19.765,-47.964778,2655,-3,"U"
-2636,"Major Brigadeiro Trompowsky","Varginha","Brazil","VAG","SBVG",-21.590067,-45.473342,3028,-3,"U"
-2637,"Vilhena","Vilhena","Brazil","BVH","SBVH",-12.694375,-60.098269,2018,-4,"U"
-2638,"Goiabeiras","Vitoria","Brazil","VIX","SBVT",-20.258056,-40.286389,11,-3,"U"
-2639,"Iauarete","Iauarete","Brazil","","SBYA",0.6075,-69.185837,345,-4,"U"
-2640,"Campo Fontenelle","Piracununga","Brazil","QPS","SBYS",-21.984561,-47.334764,1968,-3,"U"
-2641,"Chacalluta","Arica","Chile","ARI","SCAR",-18.348531,-70.338742,167,-4,"S"
-2642,"Balmaceda","Balmaceda","Chile","BBA","SCBA",-45.916058,-71.689475,1722,-3,"S"
-2643,"El Bosque","Santiago","Chile","","SCBQ",-33.5618,-70.6884,1844,-4,"S"
-2644,"Chile Chico","Chile Chico","Chile","CCH","SCCC",-46.583341,-71.687405,1070,-3,"S"
-2645,"El Loa","Calama","Chile","CJC","SCCF",-22.498175,-68.903575,7543,-4,"S"
-2646,"General Bernardo O Higgins","Chillan","Chile","","SCCH",-36.582497,-72.031367,495,-4,"S"
-2647,"Carlos Ibanez Del Campo Intl","Punta Arenas","Chile","PUQ","SCCI",-53.002642,-70.854586,139,-4,"S"
-2648,"Teniente Vidal","Coyhaique","Chile","GXQ","SCCY",-45.594211,-72.106133,1020,-4,"S"
-2649,"Diego Aracena Intl","Iquique","Chile","IQQ","SCDA",-20.535222,-70.181275,155,-4,"S"
-2650,"Arturo Merino Benitez Intl","Santiago","Chile","SCL","SCEL",-33.392975,-70.785803,1555,-4,"S"
-2651,"Cerro Moreno Intl","Antofagasta","Chile","ANF","SCFA",-23.444478,-70.4451,455,-4,"S"
-2652,"Capitan Fuentes Martinez","Porvenir","Chile","","SCFM",-53.2537,-70.319228,104,-4,"S"
-2653,"Futaleufu","Futaleufu","Chile","","SCFT",-43.189167,-71.851112,1148,-3,"S"
-2654,"Maria Dolores","Los Angeles","Chile","LSQ","SCGE",-37.401731,-72.425444,374,-4,"S"
-2655,"Guardiamarina Zanartu","Puerto Williams","Chile","","SCGZ",-54.931072,-67.626261,88,-3,"S"
-2656,"Carriel Sur Intl","Concepcion","Chile","CCP","SCIE",-36.77265,-73.063106,26,-4,"S"
-2657,"Mataveri Intl","Easter Island","Chile","IPC","SCIP",-27.164792,-109.421831,227,-6,"S"
-2658,"Canal Bajo Carlos Hott Siebert","Osorno","Chile","ZOS","SCJO",-40.611208,-73.061042,187,-4,"S"
-2659,"Vallenar","Vallenar","Chile","","SCLL",-28.596403,-70.755997,1725,-4,"S"
-2660,"De La Independencia","Rancagua","Chile","","SCRG",-34.173694,-70.775694,1446,-4,"S"
-2661,"Teniente Rodolfo Marsh Martin","Isla Rey Jorge","Antarctica","","SCRM",-62.190833,-58.986667,147,-4,"U"
-2662,"La Florida","La Serena","Chile","LSC","SCSE",-29.916233,-71.199522,481,-4,"S"
-2663,"Eulogio Sanchez","Santiago","Chile","","SCTB",-33.456278,-70.546667,2129,-4,"S"
-2664,"Maquehue","Temuco","Chile","ZCO","SCTC",-38.766819,-72.637097,304,-4,"S"
-2665,"El Tepual Intl","Puerto Montt","Chile","PMC","SCTE",-41.438886,-73.093953,294,-4,"S"
-2666,"Chaiten","Chaiten","Chile","WCH","SCTN",-42.932808,-72.699114,13,-4,"S"
-2667,"Pichoy","Valdivia","Chile","ZAL","SCVD",-39.649956,-73.086111,59,-4,"S"
-2668,"Chachoan","Ambato","Ecuador","ATF","SEAM",-1.212067,-78.574636,8502,-5,"U"
-2669,"Hacienda Clementina","Clementia","Ecuador","","SECM",-1.706275,-79.378936,328,-5,"U"
-2670,"Francisco De Orellana","Coca","Ecuador","OCC","SECO",-0.462886,-76.986842,834,-5,"U"
-2671,"Mariscal Lamar","Cuenca","Ecuador","CUE","SECU",-2.889467,-78.984397,8306,-5,"U"
-2672,"Seymour","Galapagos","Ecuador","GPS","SEGS",-0.453758,-90.265914,207,-6,"U"
-2673,"Jose Joaquin De Olmedo Intl","Guayaquil","Ecuador","GYE","SEGU",-2.157419,-79.883558,19,-5,"U"
-2674,"Gualaquiza","Gualaquiza","Ecuador","","SEGZ",-3.423214,-78.566994,2640,-5,"U"
-2675,"Atahualpa","Ibarra","Ecuador","","SEIB",0.338419,-78.136422,7304,-5,"U"
-2676,"Km 192","Km-192","Ecuador","","SEKK",0.184203,-79.391956,1247,-5,"U"
-2677,"Hacienda La Julia","La Julia","Ecuador","","SELJ",-1.704381,-79.552261,50,-5,"U"
-2678,"Cotopaxi Intl","Latacunga","Ecuador","","SELT",-0.906833,-78.615756,9205,-5,"U"
-2679,"Jose Maria Velasco Ibarra","Macara","Ecuador","","SEMA",-4.378231,-79.941022,1508,-5,"U"
-2680,"Coronel E Carvajal","Macas","Ecuador","XMS","SEMC",-2.299167,-78.12075,3452,-5,"U"
-2681,"General Manuel Serrano","Machala","Ecuador","MCH","SEMH",-3.268903,-79.961572,11,-5,"U"
-2682,"Montalvo","Montalvo","Ecuador","","SEMO",-2.067014,-76.975742,960,-5,"U"
-2683,"Eloy Alfaro Intl","Manta","Ecuador","MEC","SEMT",-0.946078,-80.678808,48,-5,"U"
-2684,"Maragrosa","Maragrosa","Ecuador","","SEMX",-2.851097,-79.803619,18,-5,"U"
-2685,"Amable Calle Gutierrez","Pasaje","Ecuador","","SEPS",-3.319667,-79.769165,22,-5,"U"
-2686,"Reales Tamarindos","Portoviejo","Ecuador","PVO","SEPV",-1.041647,-80.472206,130,-5,"U"
-2687,"Quevedo","Quevedo","Ecuador","","SEQE",-0.9894,-79.465114,350,-5,"U"
-2688,"Mariscal Sucre Intl","Quito","Ecuador","UIO","SEQU",-0.141144,-78.488214,9228,-5,"U"
-2689,"Chimborazo","Riobamba","Ecuador","","SERB",-1.653433,-78.656142,9151,-5,"U"
-2690,"Coronel Artilleria Victor Larrea","Santa Rosa","Ecuador","","SERO",-3.435161,-79.977817,170,-5,"U"
-2691,"General Ulpiano Paez","Salinas","Ecuador","SNC","SESA",-2.204994,-80.988878,18,-5,"U"
-2692,"Santo Domingo Los Colorados","Santo Domingo","Ecuador","","SESD",-0.248222,-79.214447,1714,-5,"U"
-2694,"Taura","Taura","Ecuador","","SETA",-2.261036,-79.680169,56,-5,"U"
-2695,"Mayor Galo Torres","Tena","Ecuador","","SETE",-0.986767,-77.819447,1708,-5,"U"
-2696,"Tarapoa","Tarapoa","Ecuador","TPC","SETR",-0.122956,-76.33775,814,-5,"U"
-2697,"Teniente Coronel Luis A Mantilla","Tulcan","Ecuador","TUA","SETU",0.809506,-77.708056,9649,-5,"U"
-6847,"Silverton","Silverton","United States","",\N,37.812545,-107.662994,9308,-7,"U"
-2699,"Silvio Pettirossi Intl","Asuncion","Paraguay","ASU","SGAS",-25.23985,-57.519133,292,-4,"S"
-2700,"Juan De Ayolas","Ayolas","Paraguay","","SGAY",-27.37065,-56.853944,223,-3,"S"
-2701,"Teniente Col Carmelo Peralta","Conception","Paraguay","","SGCO",-23.44175,-57.427122,253,-4,"S"
-2702,"Itaipu","Itaipu","Paraguay","","SGIB",-25.407853,-54.619417,762,-4,"S"
-2703,"Dr Luis Maria Argana Intl","Mariscal Estigarribia","Paraguay","","SGME",-22.044986,-60.621694,553,-4,"S"
-2704,"Carlos Miguel Gimenez","Pilar","Paraguay","","SGPI",-26.881467,-58.318036,249,-4,"S"
-2705,"El Eden","Armenia","Colombia","AXM","SKAR",4.452775,-75.766447,3990,-5,"U"
-2706,"Tres De Mayo","Puerto Asis","Colombia","PUU","SKAS",0.505228,-76.500836,815,-5,"U"
-2707,"Las Flores","El Banco","Colombia","","SKBC",9.045542,-73.974931,111,-5,"U"
-2708,"Palonegro","Bucaramanga","Colombia","BGA","SKBG",7.1265,-73.184778,3897,-5,"U"
-2709,"Eldorado Intl","Bogota","Colombia","BOG","SKBO",4.701594,-74.146947,8361,-5,"U"
-2710,"Ernesto Cortissoz","Barranquilla","Colombia","BAQ","SKBQ",10.889589,-74.780819,98,-5,"U"
-2711,"Jose Celestino Mutis","Bahia Solano","Colombia","BSC","SKBS",6.202917,-77.394675,80,-5,"U"
-2712,"Gerardo Tobar Lopez","Buenaventura","Colombia","BUN","SKBU",3.819628,-76.989767,48,-5,"U"
-2713,"Camilo Daza","Cucuta","Colombia","CUC","SKCC",7.927567,-72.511547,1096,-4,"U"
-2714,"Rafael Nunez","Cartagena","Colombia","CTG","SKCG",10.442381,-75.512961,4,-5,"U"
-2715,"Alfonso Bonilla Aragon Intl","Cali","Colombia","CLO","SKCL",3.543222,-76.381583,3162,-5,"U"
-2716,"La Florida","Tumaco","Colombia","TCO","SKCO",1.814417,-78.749228,8,-5,"U"
-2717,"Las Brujas","Corozal","Colombia","CZU","SKCZ",9.332742,-75.285594,528,-5,"U"
-2718,"Yariguies","Barrancabermeja","Colombia","EJA","SKEJ",7.024331,-73.8068,412,-5,"U"
-2719,"Gustavo Artunduaga Paredes","Florencia","Colombia","FLA","SKFL",1.589189,-75.564372,803,-5,"U"
-2720,"Santiago Vila","Girardot","Colombia","","SKGI",4.276242,-74.796692,900,-5,"U"
-6846,"McCarthy Airport","McCarthy","United States","MXY",\N,61.4370608,-142.90307372,1531,-8,"U"
-2722,"Juan Casiano","Guapi","Colombia","GPI","SKGP",2.570133,-77.8986,164,-5,"U"
-2723,"Guaymaral","Guaymaral","Colombia","","SKGY",4.812333,-74.064919,8390,-5,"U"
-2724,"Perales","Ibague","Colombia","IBE","SKIB",4.421608,-75.1333,2999,-5,"U"
-2725,"San Luis","Ipiales","Colombia","IPI","SKIP",0.861925,-77.671764,9765,-5,"U"
-2726,"Antonio Roldan Betancourt","Carepa","Colombia","","SKLC",7.811956,-76.716428,46,-5,"U"
-2727,"La Mina","La Mina","Colombia","","SKLM",11.232528,-72.490139,276,-4,"U"
-2728,"Alfredo Vasquez Cobo","Leticia","Colombia","LET","SKLT",-4.193549,-69.943163,277,-4,"U"
-2729,"Olaya Herrera","Medellin","Colombia","EOH","SKMD",6.219958,-75.590519,4940,-5,"U"
-2730,"Baracoa","Magangue","Colombia","MGN","SKMG",9.284739,-74.846092,178,-5,"U"
-2731,"Los Garzones","Monteria","Colombia","MTR","SKMR",8.823744,-75.825831,36,-5,"U"
-2732,"Fabio Alberto Leon Bentley","Mitu","Colombia","MVP","SKMU",1.253664,-70.233878,680,-5,"U"
-2733,"La Nubia","Manizales","Colombia","MZL","SKMZ",5.029597,-75.464708,6871,-5,"U"
-2734,"Benito Salas","Neiva","Colombia","NVA","SKNV",2.95015,-75.294,1464,-5,"U"
-2735,"Aguas Claras","Ocana","Colombia","OCV","SKOC",8.315061,-73.358331,3850,-5,"U"
-2736,"Otu","Otu","Colombia","OTU","SKOT",7.010369,-74.715497,2060,-5,"U"
-2737,"Puerto Bolivar","Puerto Bolivar","Colombia","","SKPB",12.221483,-71.984817,90,-5,"U"
-2738,"Puerto Carreno","Puerto Carreno","Colombia","PCR","SKPC",6.184717,-67.493164,177,-4,"U"
-2739,"Matecana","Pereira","Colombia","PEI","SKPE",4.812675,-75.739519,4416,-5,"U"
-2740,"Pitalito","Pitalito","Colombia","","SKPI",1.857769,-76.085719,4212,-5,"U"
-2741,"Guillermo Leon Valencia","Popayan","Colombia","PPN","SKPP",2.4544,-76.609319,5687,-5,"U"
-2742,"Antonio Narino","Pasto","Colombia","PSO","SKPS",1.396247,-77.291478,5951,-5,"U"
-2743,"El Embrujo","Providencia","Colombia","PVA","SKPV",13.356944,-81.35833,10,-5,"U"
-2744,"Mariquita","Mariquita","Colombia","","SKQU",5.212556,-74.883647,1531,-5,"U"
-2745,"Jose Maria Cordova","Rio Negro","Colombia","MDE","SKRG",6.164536,-75.423119,6955,-5,"U"
-2746,"Almirante Padilla","Rio Hacha","Colombia","RCH","SKRH",11.526222,-72.925958,43,-5,"U"
-2747,"Jorge E Gonzalez Torres","San Jose Del Guaviare","Colombia","SJE","SKSJ",2.579694,-72.639358,605,-5,"U"
-2748,"Simon Bolivar","Santa Marta","Colombia","SMR","SKSM",11.11965,-74.230647,22,-5,"U"
-2749,"Gustavo Rojas Pinilla","San Andres Island","Colombia","ADZ","SKSP",12.583594,-81.711192,19,-5,"U"
-2750,"Eduardo Falla Solano","San Vincente De Caguan","Colombia","SVI","SKSV",2.152175,-74.76635,920,-5,"U"
-2751,"Tame","Tame","Colombia","TME","SKTM",6.451081,-71.760261,1050,-5,"U"
-2752,"Santiago Perez","Arauca","Colombia","AUC","SKUC",7.068881,-70.736925,420,-4,"U"
-2753,"El Carano","Quibdo","Colombia","UIB","SKUI",5.690758,-76.641181,204,-5,"U"
-2754,"Farfan","Tulua","Colombia","ULQ","SKUL",4.088358,-76.235133,3132,-5,"U"
-2755,"Alfonso Lopez Pumarejo","Valledupar","Colombia","VUP","SKVP",10.435042,-73.249506,456,-5,"U"
-2756,"Vanguardia","Villavicencio","Colombia","VVC","SKVV",4.167875,-73.613761,1394,-5,"U"
-2758,"Bermejo","Bermejo","Bolivia","BJO","SLBJ",-22.773336,-64.312881,1250,-3,"U"
-2759,"Jorge Wilsterman","Cochabamba","Bolivia","CBB","SLCB",-17.421058,-66.177114,8360,-4,"U"
-2760,"Chimore","Chapacura","Bolivia","","SLCH",-16.990019,-65.141533,1000,-4,"U"
-2761,"Heroes Del Acre","Cobija","Bolivia","CIJ","SLCO",-11.040436,-68.782972,892,-4,"U"
-2762,"El Alto Intl","La Paz","Bolivia","LPB","SLLP",-16.513339,-68.192256,13325,-4,"U"
-2763,"Juan Mendoza","Oruro","Bolivia","","SLOR",-17.962589,-67.076236,12146,-4,"U"
-2764,"Capitan Nicolas Rojas","Potosi","Bolivia","POI","SLPO",-19.543069,-65.723706,12913,-4,"U"
-2765,"Tte De Av Salvador Ogaya G","Puerto Suarez","Bolivia","PSZ","SLPS",-18.975281,-57.820586,439,-4,"U"
-2766,"Santa Ana Del Yacuma","Santa Ana","Bolivia","","SLSA",-13.762208,-65.435158,472,-4,"U"
-2767,"Juana Azurduy De Padilla","Sucre","Bolivia","SRE","SLSU",-19.007083,-65.288747,9527,-4,"U"
-2768,"Capitan Oriel Lea Plaza","Tarija","Bolivia","TJA","SLTJ",-21.555736,-64.701325,6084,-4,"U"
-2769,"Tte Av Jorge Henrich Arauz","Trinidad","Bolivia","TDD","SLTR",-14.818739,-64.918019,509,-4,"U"
-2770,"Tcnl Rafael Pabon","Villa Montes","Bolivia","","SLVM",-21.255231,-63.405611,1306,-4,"U"
-2771,"Viru Viru Intl","Santa Cruz","Bolivia","VVI","SLVR",-17.644756,-63.135364,1225,-4,"U"
-2772,"Yacuiba","Yacuiba","Bolivia","BYC","SLYA",-21.960925,-63.651669,2116,-3,"U"
-2773,"Johan A Pengel Intl","Zandery","Suriname","PBM","SMJP",5.452831,-55.187783,59,-3,"U"
-2774,"Rochambeau","Cayenne","French Guiana","CAY","SOCA",4.819808,-52.360447,26,-3,"U"
-2775,"St Georges De L Oyapock","St.-georges Oyapock","French Guiana","","SOOG",3.8976,-51.804083,46,-3,"U"
-2776,"Huancabamba","Huancabamba","Peru","","SPAB",-5.256767,-79.442856,6312,-5,"U"
-2777,"Alferez Vladimir Sara Bauer","Andoas","Peru","","SPAS",-2.796128,-76.466617,728,-5,"U"
-2778,"Atalaya","Atalaya","Peru","","SPAY",-10.729117,-73.766503,751,-5,"U"
-6845,"Seward Airport","Seward","United States","SWD",\N,60.1269383,-149.4188122,22,-8,"U"
-2780,"Iberia","Iberia","Peru","","SPBR",-11.411578,-69.488711,750,-5,"U"
-2781,"Cap Fap David Abenzur Rengifo Intl","Pucallpa","Peru","PCL","SPCL",-8.377939,-74.574297,513,-5,"U"
-2782,"Teniente Jaime A De Montreuil Morales","Chimbote","Peru","CHM","SPEO",-9.149614,-78.52385,69,-5,"U"
-2783,"Puerto Esperanza","Puerto Esperanza","Peru","","SPEP",-9.768131,-70.706456,725,-5,"U"
-2784,"Cesar Torke Podesta","Moquegua","Peru","","SPEQ",-17.178961,-70.930803,4480,-5,"U"
-2785,"Capt Jose A Quinones Gonzales Intl","Chiclayo","Peru","CIX","SPHI",-6.787475,-79.828097,97,-5,"U"
-2786,"Coronel Fap Alfredo Mendivil Duarte","Ayacucho","Peru","AYP","SPHO",-13.154819,-74.204417,8917,-5,"U"
-2787,"Andahuaylas","Andahuaylas","Peru","ANS","SPHY",-13.706408,-73.350378,11300,-5,"U"
-2788,"Comandante Fap German Arias Graziani","Anta","Peru","ATA","SPHZ",-9.347444,-77.598392,9097,-5,"U"
-2789,"Jorge Chavez Intl","Lima","Peru","LIM","SPIM",-12.021889,-77.114319,113,-5,"U"
-2790,"Juanjui","Juanjui","Peru","JJI","SPJI",-7.1691,-76.728561,1148,-5,"U"
-2791,"Francisco Carle","Jauja","Peru","","SPJJ",-11.783144,-75.473394,11034,-5,"U"
-2792,"Juliaca","Juliaca","Peru","JUL","SPJL",-15.467103,-70.158169,12552,-5,"U"
-6844,"Michigan City Municipal Airport","Michigan City","United States","MGC","KMGC",41.7033,-86.8211,500,-5,"U"
-2794,"Ilo","Ilo","Peru","","SPLO",-17.695036,-71.343964,72,-5,"U"
-2795,"Las Palmas","Las Palmas","Peru","","SPLP",-12.160708,-76.998942,250,-5,"U"
-2796,"Pedro Canga","Tumbes","Peru","TBP","SPME",-3.552528,-80.381356,115,-5,"U"
-2797,"Moises Benzaquen Rengifo","Yurimaguas","Peru","YMS","SPMS",-5.893772,-76.118211,587,-5,"U"
-2799,"Collique","Collique","Peru","","SPOL",-11.9287,-77.061139,410,-5,"U"
-2800,"Chachapoyas","Chachapoyas","Peru","CHH","SPPY",-6.201806,-77.856064,8333,-5,"U"
-2801,"Coronel Francisco Secada Vignetta Intl","Iquitos","Peru","IQT","SPQT",-3.784739,-73.308806,306,-5,"U"
-2802,"Rodriguez Ballon","Arequipa","Peru","AQP","SPQU",-16.341072,-71.583083,8405,-5,"U"
-2803,"San Ramon","San Ramon","Peru","","SPRM",-11.128639,-75.3505,2600,-5,"U"
-2804,"Capitan Carlos Martinez De Pinillos","Trujillo","Peru","TRU","SPRU",-8.081411,-79.108761,106,-5,"U"
-2805,"Pisco Intl","Pisco","Peru","PIO","SPSO",-13.744864,-76.220284,39,-5,"U"
-2806,"Cadete Guillermo Del Castillo Paredes","Tarapoto","Peru","TPP","SPST",-6.508742,-76.373247,869,-5,"U"
-2807,"Coronel Carlos Ciriani Santa Rosa Intl","Tacna","Peru","TCQ","SPTN",-18.053333,-70.275833,1538,-5,"U"
-2808,"Padre Aldamiz","Puerto Maldonado","Peru","PEM","SPTU",-12.613611,-69.228611,659,-5,"U"
-2809,"Capitan Fap Guillermo Concha Iberico","Piura","Peru","PIU","SPUR",-5.20575,-80.616444,120,-5,"U"
-2810,"Capitan Montes","Talara","Peru","TYL","SPYL",-4.576639,-81.254139,282,-5,"U"
-6843,"Niijima Airport","Niijima","Japan","","RJAN",34.366944,139.268611,133,9,"N"
-2812,"Teniente Alejandro Velasco Astete Intl","Cuzco","Peru","CUZ","SPZO",-13.535722,-71.938781,10860,-5,"U"
-2813,"Angel S Adami","Montevideo","Uruguay","","SUAA",-34.789208,-56.264703,174,-3,"S"
-2814,"Santa Bernardina Intl","Durazno","Uruguay","","SUDU",-33.358867,-56.499172,305,-3,"S"
-6842,"East Glacier Park Amtrak Station","East Glacier","United States","",\N,48.443965,-113.218556,5171,-7,"A"
-2816,"Carrasco Intl","Montevideo","Uruguay","MVD","SUMU",-34.838417,-56.030806,105,-3,"S"
-2817,"Nueva Hesperides Intl","Salto","Uruguay","STY","SUSO",-31.438481,-57.985294,187,-3,"S"
-2818,"Oswaldo Guevara Mujica","Acarigua","Venezuela","AGV","SVAC",9.553422,-69.237536,741,-4,"U"
-2819,"Anaco","Anaco","Venezuela","AAO","SVAN",9.430225,-64.470725,721,-4,"U"
-2820,"San Fernando De Atabapo","San Fernando Deatabapo","Venezuela","","SVAT",4.051819,-67.701072,298,-4,"U"
-2821,"General Jose Antonio Anzoategui Intl","Barcelona","Venezuela","BLA","SVBC",10.107139,-64.689161,26,-4,"U"
-2822,"Barinas","Barinas","Venezuela","BNS","SVBI",8.619575,-70.220825,666,-4,"U"
-2823,"El Libertador Ab","Maracaibo","Venezuela","","SVBL",10.183375,-67.557319,1450,-4,"U"
-2824,"Barquisimeto Intl","Barquisimeto","Venezuela","BRM","SVBM",10.042747,-69.358619,2042,-4,"U"
-2826,"Ciudad Bolivar","Ciudad Bolivar","Venezuela","CBL","SVCB",8.121898,-63.537353,197,-4,"U"
-2827,"Caicara Del Orinoco","Caicara De Orinoco","Venezuela","","SVCD",7.626078,-66.164917,141,-4,"U"
-2828,"San Carlos","San Carlos","Venezuela","","SVCJ",9.647722,-68.574656,512,-4,"U"
-2829,"Calabozo","Calabozo","Venezuela","","SVCL",8.924656,-67.417094,328,-4,"U"
-2830,"Canaima","Canaima","Venezuela","CAJ","SVCN",6.231989,-62.854433,1450,-4,"U"
-2831,"Carora","Carora","Venezuela","","SVCO",10.175603,-70.065214,1437,-4,"U"
-2832,"General Jose Francisco Bermudez","Carupano","Venezuela","CUP","SVCP",10.660014,-63.261681,33,-4,"U"
-2833,"Jose Leonardo Chirinos","Coro","Venezuela","CZE","SVCR",11.414867,-69.681656,52,-4,"U"
-2834,"Oscar Machado Zuloaga","Caracas","Venezuela","","SVCS",10.286589,-66.816219,2145,-4,"U"
-2835,"Antonio Jose De Sucre","Cumana","Venezuela","CUM","SVCU",10.450333,-64.130472,25,-4,"U"
-2836,"Capitan Manuel Rios Guarico Airbase","Carrizal","Venezuela","","SVCZ",9.372167,-66.922989,525,-4,"U"
-2837,"El Dorado","El Dorado","Venezuela","","SVED",6.715438,-61.639219,318,-4,"U"
-2838,"Elorza","Elorza","Venezuela","","SVEZ",7.059722,-69.496694,295,-4,"U"
-2839,"Guasdualito","Guasdualito","Venezuela","","SVGD",7.211081,-70.75645,426,-4,"U"
-2840,"Guiria","Guiria","Venezuela","GUI","SVGI",10.574078,-62.312667,42,-4,"U"
-2841,"Guanare","Guanare","Venezuela","GUQ","SVGU",9.026944,-69.75515,606,-4,"U"
-2842,"Higuerote","Higuerote","Venezuela","","SVHG",10.462453,-66.092758,10,-4,"U"
-2843,"Andres Miguel Salazar Marcano","Isla De Coche","Venezuela","","SVIE",10.794406,-63.981589,10,-4,"U"
-2844,"Josefa Camejo","Paraguana","Venezuela","LSP","SVJC",11.780775,-70.151497,75,-4,"U"
-2845,"San Juan De Los Morros","San Juan De Los Morros","Venezuela","","SVJM",9.906953,-67.379639,1404,-4,"U"
-2846,"La Fria","La Fria","Venezuela","LFR","SVLF",8.239167,-72.271028,323,-4,"U"
-2847,"La Orchila","La Orchila","Venezuela","","SVLO",11.808822,-66.179214,5,-4,"U"
-2848,"La Chinita Intl","Maracaibo","Venezuela","MAR","SVMC",10.558208,-71.727856,235,-4,"U"
-2849,"Alberto Carnevalli","Merida","Venezuela","MRD","SVMD",8.582294,-71.161186,5007,-4,"U"
-2850,"Del Caribe Intl Gen Santiago Marino","Porlamar","Venezuela","PMV","SVMG",10.912926,-63.967581,74,-4,"U"
-2851,"Simon Bolivar Intl","Caracas","Venezuela","CCS","SVMI",10.603117,-66.990583,235,-4,"U"
-2852,"Maturin","Maturin","Venezuela","MUN","SVMT",9.749067,-63.1534,224,-4,"U"
-2853,"Casique Aramare","Puerto Ayacucho","Venezuela","PYH","SVPA",5.619992,-67.606103,245,-4,"U"
-2854,"General Bartolome Salom Intl","Puerto Cabello","Venezuela","PBL","SVPC",10.4805,-68.073025,32,-4,"U"
-2855,"Paramillo","San Cristobal","Venezuela","","SVPM",7.801317,-72.202847,3314,-4,"U"
-2856,"General Manuel Carlos Piar","Guayana","Venezuela","PZO","SVPR",8.288528,-62.760361,472,-4,"U"
-2857,"Palmarito","Palmarito","Venezuela","","SVPT",7.575706,-70.174328,347,-4,"U"
-2858,"San Antonio Del Tachira","San Antonio","Venezuela","SVZ","SVSA",7.840831,-72.439742,1312,-4,"U"
-2859,"Santa Barbara De Barinas","Santa Barbara","Venezuela","","SVSB",7.803514,-71.165717,590,-4,"U"
-2860,"Santa Elena De Uairen","Santa Ana De Uairen","Venezuela","","SVSE",4.554722,-61.144922,2939,-4,"U"
-2861,"Mayor Buenaventura Vivas","Santo Domingo","Venezuela","STD","SVSO",7.565111,-72.035125,1083,-4,"U"
-2862,"Sub Teniente Nestor Arias","San Felipe","Venezuela","SFH","SVSP",10.278728,-68.755211,761,-4,"U"
-2863,"San Fernando De Apure","San Fernando De Apure","Venezuela","SFD","SVSR",7.883317,-67.444025,154,-4,"U"
-2864,"San Tome","San Tome","Venezuela","SOM","SVST",8.945147,-64.151083,837,-4,"U"
-2865,"Santa Barbara Del Zulia","Santa Barbara","Venezuela","STB","SVSZ",8.974425,-71.943014,32,-4,"U"
-2866,"Tucupita","Tucupita","Venezuela","TUV","SVTC",9.088994,-62.094175,105,-4,"U"
-2867,"Tumeremo","Tumeremo","Venezuela","","SVTM",7.249381,-61.528933,344,-4,"U"
-2868,"Arturo Michelena Intl","Valencia","Venezuela","VLN","SVVA",10.149733,-67.9284,1417,-4,"U"
-6841,"Flugplatz Hoexter Holzminden","Hoexter Holzminden","Germany","","EDVI",51.4838,9.2259,855,1,"E"
-2870,"Dr Antonio Nicolas Briceno","Valera","Venezuela","VLV","SVVL",9.340797,-70.584089,1893,-4,"U"
-2871,"Valle De La Pascua","Valle De La Pascua","Venezuela","VDP","SVVP",9.222028,-65.993583,410,-4,"U"
-2872,"Linden","Linden","Guyana","","SYLD",5.965922,-58.270336,180,-4,"U"
-2873,"Lethem","Lethem","Guyana","LTM","SYLT",3.372761,-59.789439,351,-4,"U"
-2874,"V C Bird Intl","Antigua","Antigua and Barbuda","ANU","TAPA",17.136749,-61.792667,62,-4,"U"
-2875,"Grantley Adams Intl","Bridgetown","Barbados","BGI","TBPB",13.074603,-59.492456,169,-4,"U"
-2876,"Canefield","Canefield","Dominica","DCF","TDCF",15.336719,-61.392211,13,-4,"U"
-2877,"Melville Hall","Dominica","Dominica","DOM","TDPD",15.547028,-61.3,73,-4,"U"
-2878,"Le Lamentin","Fort-de-france","Martinique","FDF","TFFF",14.591033,-61.003175,16,-4,"U"
-2879,"Grand Case","St. Martin","Guadeloupe","SFG","TFFG",18.099914,-63.047197,7,-4,"U"
-2881,"Le Raizet","Pointe-a-pitre","Guadeloupe","PTP","TFFR",16.265306,-61.531806,36,-4,"U"
-2882,"Point Salines Intl","Point Salines","Grenada","GND","TGPY",12.004247,-61.786192,41,-4,"U"
-2883,"Cyril E King","St. Thomas","Virgin Islands","STT","TIST",18.337306,-64.973361,23,-4,"U"
-2884,"Henry E Rohlsen","St. Criox Island","Virgin Islands","STX","TISX",17.701889,-64.798556,74,-4,"U"
-2885,"Rafael Hernandez","Aguadilla","Puerto Rico","BQN","TJBQ",18.494861,-67.129444,237,-4,"U"
-2886,"Diego Jimenez Torres","Fajardo","Puerto Rico","FAJ","TJFA",18.308889,-65.661861,64,-4,"U"
-2887,"Fernando Luis Ribas Dominicci","San Juan","Puerto Rico","SIG","TJIG",18.456828,-66.098139,10,-4,"U"
-2888,"Eugenio Maria De Hostos","Mayaguez","Puerto Rico","MAZ","TJMZ",18.255694,-67.148472,28,-4,"U"
-2889,"Mercedita","Ponce","Puerto Rico","PSE","TJPS",18.008306,-66.563028,29,-4,"U"
-2890,"Luis Munoz Marin Intl","San Juan","Puerto Rico","SJU","TJSJ",18.439417,-66.001833,9,-4,"U"
-2891,"Robert L Bradshaw","Basse Terre","Saint Kitts and Nevis","SKB","TKPK",17.311194,-62.718667,170,-4,"U"
-6840,"Dinslaken Schwarze-Heide","Dinslaken","Germany","","EDLD",51.3659,6.5155,198,1,"E"
-2893,"George F L Charles","Castries","Saint Lucia","SLU","TLPC",14.020228,-60.992936,22,-4,"U"
-2894,"Hewanorra Intl","Hewandorra","Saint Lucia","UVF","TLPL",13.733194,-60.952597,14,-4,"U"
-2895,"Reina Beatrix Intl","Oranjestad","Aruba","AUA","TNCA",12.501389,-70.015221,60,-4,"U"
-2896,"Flamingo","Kralendijk","Netherlands Antilles","BON","TNCB",12.131044,-68.268511,20,-4,"U"
-2897,"Hato","Willemstad","Netherlands Antilles","CUR","TNCC",12.188853,-68.959803,29,-4,"U"
-2898,"F D Roosevelt","Oranjestad","Netherlands Antilles","EUX","TNCE",17.496492,-62.979439,129,-4,"U"
-2899,"Princess Juliana Intl","Philipsburg","Netherlands Antilles","SXM","TNCM",18.040953,-63.1089,14,-4,"U"
-2900,"Wallblake","The Valley","Anguilla","AXA","TQPF",18.204834,-63.055084,127,-4,"U"
-2901,"Crown Point","Scarborough","Trinidad and Tobago","TAB","TTCP",11.149658,-60.832194,38,-4,"U"
-2902,"Piarco","Port-of-spain","Trinidad and Tobago","POS","TTPP",10.595369,-61.337242,58,-4,"U"
-2903,"Terrance B Lettsome Intl","Roadtown/beef Island","British Virgin Islands","EIS","TUPJ",18.444834,-64.542975,15,-4,"U"
-6839,"Allakaket Airport","Allakaket","United States","AET","PFAL",66.5519,-152.6222,441,-8,"A"
-2905,"Canouan","Canouan Island","Saint Vincent and the Grenadines","CIW","TVSC",12.699042,-61.342431,11,-4,"U"
-2906,"Mustique","Mustique","Saint Vincent and the Grenadines","MQS","TVSM",12.887947,-61.180161,8,-4,"U"
-2907,"E T Joshua","Kingstown","Saint Vincent and the Grenadines","SVD","TVSV",13.144306,-61.210861,66,-4,"U"
-2908,"Almaty","Alma-ata","Kazakhstan","ALA","UAAA",43.352072,77.040508,2234,6,"U"
-2909,"Balkhash","Balkhash","Kazakhstan","","UAAH",46.893333,75.005,1446,6,"U"
-2910,"Astana Intl","Tselinograd","Kazakhstan","TSE","UACC",51.022222,71.466944,1165,6,"U"
-2911,"Taraz","Dzhambul","Kazakhstan","DMB","UADD",42.853611,71.303611,2184,6,"U"
-2912,"Manas","Bishkek","Kyrgyzstan","FRU","UAFM",43.061306,74.477556,2058,5,"U"
-2913,"Osh","Osh","Kyrgyzstan","OSS","UAFO",40.608989,72.793269,2927,5,"U"
-2914,"Shymkent","Chimkent","Kazakhstan","CIT","UAII",42.364167,69.478889,1385,6,"U"
-6803,"Yakutat","Yakutat","United States","YAK","PAYA",59.3012,-139.3937,33,-9,"A"
-2916,"Uralsk","Uralsk","Kazakhstan","URA","UARR",51.150833,51.543056,125,5,"U"
-2917,"Pavlodar","Pavlodar","Kazakhstan","PWQ","UASP",52.195,77.073889,410,6,"U"
-2918,"Semipalatinsk","Semiplatinsk","Kazakhstan","PLX","UASS",50.3513,80.2344,761,6,"U"
-2919,"Aktau","Shevchenko","Kazakhstan","","UATE",43.86005,51.091978,73,5,"U"
-2920,"Aktyubinsk","Aktyubinsk","Kazakhstan","AKX","UATT",50.245833,57.206667,738,5,"U"
-2922,"Heydar Aliyev","Baku","Azerbaijan","GYD","UBBB",40.4675,50.046667,10,4,"E"
-2923,"Yakutsk","Yakutsk","Russia","YKS","UEEE",62.09325,129.770672,325,9,"E"
-2925,"Mirny","Mirnyj","Russia","MJZ","UERR",62.534689,114.038928,1156,9,"E"
-2926,"Ignatyevo","Blagoveschensk","Russia","BQS","UHBB",50.425394,127.412478,638,9,"E"
-2927,"Novy","Khabarovsk","Russia","KHV","UHHH",48.528044,135.188361,244,10,"E"
-6838,"Sawyer International Airport","Marquette","United States","MQT","KMQT",46.353611,-87.395278,1221,-5,"A"
-2929,"Provideniya Bay","Provideniya Bay","Russia","PVS","UHMD",64.378139,-173.243306,71,12,"E"
-2930,"Sokol","Magadan","Russia","GDX","UHMM",59.910989,150.720439,574,11,"E"
-2931,"Pevek","Pevek","Russia","","UHMP",69.783283,170.597006,11,12,"E"
-2932,"Yelizovo","Petropavlovsk","Russia","PKC","UHPP",53.167889,158.453669,131,12,"E"
-2933,"Khomutovo","Yuzhno-sakhalinsk","Russia","UUS","UHSS",46.888672,142.717531,59,10,"E"
-2934,"Knevichi","Vladivostok","Russia","VVO","UHWW",43.398953,132.148017,46,10,"E"
-2935,"Kadala","Chita","Russia","HTA","UIAA",52.026317,113.305556,2272,9,"E"
-2936,"Bratsk","Bratsk","Russia","BTK","UIBB",56.370556,101.698331,1610,8,"E"
-2937,"Irkutsk","Irkutsk","Russia","IKT","UIII",52.268028,104.388975,1675,8,"E"
-2938,"Mukhino","Ulan-ude","Russia","UUD","UIUU",51.807764,107.437644,1690,8,"E"
-2939,"Boryspil Intl","Kiev","Ukraine","KBP","UKBB",50.345,30.894722,427,2,"E"
-2940,"Donetsk Intl","Donetsk","Ukraine","DOK","UKCC",48.073611,37.739722,791,2,"E"
-2941,"Dnipropetrovsk Intl","Dnepropetrovsk","Ukraine","DNK","UKDD",48.357222,35.100556,481,2,"E"
-2942,"Simferopol Intl","Simferopol","Ukraine","SIP","UKFF",45.052222,33.975139,639,2,"E"
-2944,"Zhuliany Intl","Kiev","Ukraine","IEV","UKKK",50.401694,30.449697,586,2,"E"
-2945,"Lviv Intl","Lvov","Ukraine","LWO","UKLL",49.8125,23.956111,1071,2,"E"
-6837,"Ford Airport","Iron Mountain","United States","IMT","KIMT",45.8183611,-88.1145556,1182,-5,"A"
-2947,"Odesa Intl","Odessa","Ukraine","ODS","UKOO",46.426767,30.676464,172,2,"E"
-2948,"Pulkovo","St. Petersburg","Russia","LED","ULLI",59.800292,30.262503,78,3,"E"
-2949,"Murmansk","Murmansk","Russia","MMK","ULMM",68.781672,32.750822,266,3,"E"
-2950,"Gomel","Gomel","Belarus","GME","UMGG",52.527022,31.016692,471,2,"E"
-2951,"Vitebsk","Vitebsk","Belarus","VTB","UMII",55.1265,30.349639,683,2,"E"
-2952,"Khrabrovo","Kaliningrad","Russia","KGD","UMKK",54.89005,20.592633,42,2,"E"
-2953,"Minsk 1","Minsk","Belarus","MHP","UMMM",53.864472,27.539683,748,2,"E"
-2954,"Minsk 2","Minsk 2","Belarus","MSQ","UMMS",53.882469,28.030731,670,2,"E"
-2955,"Abakan","Abakan","Russia","ABA","UNAA",53.74,91.385,831,7,"E"
-2956,"Barnaul","Barnaul","Russia","BAX","UNBB",53.363775,83.538533,838,6,"E"
-2957,"Kemerovo","Kemorovo","Russia","KEJ","UNEE",55.270094,86.107208,863,7,"E"
-2958,"Omsk","Omsk","Russia","OMS","UNOO",54.967042,73.310514,311,6,"E"
-2960,"Pashkovskiy","Krasnodar","Russia","KRR","URKK",45.034689,39.170539,118,3,"E"
-2961,"Uytash","Makhachkala","Russia","MCX","URML",42.816822,47.652294,12,3,"E"
-2962,"Mineralnyye Vody","Mineralnye Vody","Russia","MRV","URMM",44.225072,43.081889,1054,3,"E"
-2963,"Shpakovskoye","Stavropol","Russia","STW","URMT",45.109165,42.112778,1486,3,"E"
-2964,"Rostov Na Donu","Rostov","Russia","ROV","URRR",47.258208,39.818089,280,3,"E"
-2965,"Sochi","Sochi","Russia","AER","URSS",43.449928,39.956589,89,3,"E"
-2966,"Astrakhan","Astrakhan","Russia","ASF","URWA",46.283333,48.006278,-65,5,"E"
-2967,"Gumrak","Volgograd","Russia","VOG","URWW",48.782528,44.345544,482,5,"E"
-2968,"Balandino","Chelyabinsk","Russia","CEK","USCC",55.305836,61.503333,769,5,"E"
-2969,"Magnitogorsk","Magnetiogorsk","Russia","MQF","USCM",53.393131,58.755661,1431,5,"E"
-6834,"Great Barrier Island","Claris","New Zealand","GBZ","NZGB",-36.1429,175.2819,10,11,"Z"
-2972,"Nizhnevartovsk","Nizhnevartovsk","Russia","NJC","USNN",60.949272,76.483617,177,5,"E"
-2973,"Bolshoye Savino","Perm","Russia","PEE","USPP",57.914517,56.021214,404,5,"E"
-2974,"Surgut","Surgut","Russia","SGC","USRR",61.343694,73.401842,200,5,"E"
-2975,"Koltsovo","Sverdlovsk","Russia","SVX","USSS",56.743108,60.802728,764,5,"E"
-2976,"Ashgabat","Ashkhabad","Turkmenistan","ASB","UTAA",37.986814,58.360967,692,5,"U"
-2977,"Turkmenbashi","Krasnovodsk","Turkmenistan","KRW","UTAK",40.063333,53.007222,279,5,"U"
-2978,"Turkmenabat","Chardzhou","Turkmenistan","","UTAV",39.083333,63.613333,630,5,"U"
-2979,"Dushanbe","Dushanbe","Tajikistan","DYU","UTDD",38.543333,68.825,2575,5,"U"
-2980,"Bukhara","Bukhara","Uzbekistan","BHK","UTSB",39.775,64.483333,751,5,"U"
-2981,"Samarkand","Samarkand","Uzbekistan","SKD","UTSS",39.700547,66.983829,2224,5,"U"
-6833,"Al Udeid AB","Doha","Qatar","IUD","OTBH",25.1174,51.3228,130,3,"N"
-2983,"Yuzhny","Tashkent","Uzbekistan","TAS","UTTT",41.257861,69.281186,1417,5,"U"
-2984,"Bryansk","Bryansk","Russia","BZK","UUBP",53.214194,34.176447,663,3,"E"
-2985,"Sheremetyevo","Moscow","Russia","SVO","UUEE",55.972642,37.414589,622,3,"E"
-2986,"Migalovo","Tver","Russia","KLD","UUEM",56.824736,35.757678,469,3,"E"
-2987,"Chertovitskoye","Voronezh","Russia","VOZ","UUOO",51.814211,39.229589,514,3,"E"
-2988,"Vnukovo","Moscow","Russia","VKO","UUWW",55.591531,37.261486,685,3,"E"
-2989,"Syktyvkar","Syktyvkar","Russia","SCW","UUYY",61.64705,50.84505,342,3,"E"
-2990,"Kazan","Kazan","Russia","KZN","UWKD",55.606186,49.278728,411,3,"E"
-2991,"Orenburg","Orenburg","Russia","REN","UWOO",51.795786,55.456744,387,5,"E"
-2992,"Ufa","Ufa","Russia","UFA","UWUU",54.557511,55.874417,449,5,"E"
-2993,"Kurumoch","Samara","Russia","KBY","UWWW",53.504858,50.164336,477,5,"E"
-2994,"Ahmedabad","Ahmedabad","India","AMD","VAAH",23.077242,72.63465,189,5.5,"N"
-2995,"Akola","Akola","India","AKD","VAAK",20.699006,77.058628,999,5.5,"N"
-2996,"Aurangabad","Aurangabad","India","IXU","VAAU",19.862728,75.398114,1911,5.5,"N"
-2997,"Chhatrapati Shivaji Intl","Bombay","India","BOM","VABB",19.088686,72.867919,37,5.5,"N"
-2998,"Bilaspur","Bilaspur","India","PAB","VABI",21.9884,82.110983,899,5.5,"N"
-2999,"Bhuj","Bhuj","India","BHJ","VABJ",23.287828,69.670147,268,5.5,"N"
-3000,"Belgaum","Belgaum","India","IXG","VABM",15.859286,74.618292,2487,5.5,"N"
-3001,"Vadodara","Baroda","India","BDQ","VABO",22.336164,73.226289,129,5.5,"N"
-3002,"Bhopal","Bhopal","India","BHO","VABP",23.287467,77.337375,1719,5.5,"N"
-3003,"Bhavnagar","Bhaunagar","India","BHU","VABV",21.752206,72.185181,44,5.5,"N"
-3004,"Daman","Daman","India","NMB","VADN",20.434364,72.843206,33,5.5,"N"
-3005,"Deesa","Deesa","India","","VADS",24.267936,72.204433,485,5.5,"N"
-3006,"Guna","Guna","India","","VAGN",24.654681,77.347347,1600,5.5,"N"
-3007,"Goa","Goa","India","GOI","VAGO",15.380833,73.831422,184,5.5,"N"
-3008,"Devi Ahilyabai Holkar","Indore","India","IDR","VAID",22.721786,75.801086,1850,5.5,"N"
-3009,"Jabalpur","Jabalpur","India","JLR","VAJB",23.177817,80.052047,1624,5.5,"N"
-3010,"Jamnagar","Jamnagar","India","JGA","VAJM",22.465522,70.012556,69,5.5,"N"
-3011,"Kandla","Kandla","India","IXY","VAKE",23.112719,70.100289,96,5.5,"N"
-3012,"Khajuraho","Khajuraho","India","HJR","VAKJ",24.817197,79.918597,728,5.5,"N"
-3013,"Kolhapur","Kolhapur","India","KLH","VAKP",16.664658,74.289353,1996,5.5,"N"
-3014,"Keshod","Keshod","India","IXK","VAKS",21.317069,70.270403,167,5.5,"N"
-3015,"Dr Ambedkar Intl","Nagpur","India","NAG","VANP",21.092192,79.047183,1033,5.5,"N"
-3016,"Nasik Road","Nasik Road","India","ISK","VANR",19.963739,73.807644,1959,5.5,"N"
-3017,"Pune","Pune","India","PNQ","VAPO",18.582111,73.919697,1942,5.5,"N"
-3018,"Porbandar","Porbandar","India","PBD","VAPR",21.648675,69.657219,23,5.5,"N"
-3019,"Rajkot","Rajkot","India","RAJ","VARK",22.309183,70.779525,441,5.5,"N"
-3020,"Raipur","Raipur","India","RPR","VARP",21.180406,81.738753,1041,5.5,"N"
-3021,"Sholapur","Sholapur","India","SSE","VASL",17.627958,75.934842,1584,5.5,"N"
-3022,"Surat","Surat","India","STV","VASU",21.114061,72.741792,16,5.5,"N"
-3023,"Udaipur","Udaipur","India","UDR","VAUD",24.617697,73.8961,1684,5.5,"N"
-3024,"Bandaranaike Intl Colombo","Colombo","Sri Lanka","CMB","VCBI",7.180756,79.884117,30,6,"U"
-3025,"Anuradhapura","Anuradhapura","Sri Lanka","","VCCA",8.301486,80.4279,324,6,"U"
-3026,"Batticaloa","Batticaloa","Sri Lanka","","VCCB",7.705756,81.678783,20,6,"U"
-3027,"Colombo Ratmalana","Colombo","Sri Lanka","RML","VCCC",6.821994,79.886208,22,6,"U"
-3028,"Amparai","Galoya","Sri Lanka","GOY","VCCG",7.337081,81.625881,150,6,"U"
-3029,"Kankesanturai","Jaffna","Sri Lanka","JAF","VCCJ",9.792331,80.070089,33,6,"U"
-3030,"China Bay","Trinciomalee","Sri Lanka","TRR","VCCT",8.538514,81.181853,6,6,"U"
-6832,"Kirkuk AB","Kirkuk","Iraq","KIK","ORKK",35.17,44.3483,1061,3,"N"
-3033,"Kampong Chhnang","Kompong Chnang","Cambodia","","VDKH",12.255236,104.563875,56,7,"U"
-3034,"Phnom Penh Intl","Phnom-penh","Cambodia","PNH","VDPP",11.546556,104.844139,40,7,"U"
-3035,"Siem Reap","Siem-reap","Cambodia","REP","VDSR",13.410666,103.81284,60,7,"U"
-3036,"Stung Treng","Stung Treng","Cambodia","","VDST",13.531897,106.014531,203,7,"U"
-3037,"Along","Along","India","","VEAN",28.175317,94.802036,900,5.5,"N"
-3038,"Agartala","Agartala","India","IXA","VEAT",23.886978,91.24045,46,5.5,"N"
-3039,"Aizawl","Aizwal","India","AJL","VEAZ",23.746603,92.802767,1001,5.5,"N"
-3040,"Bagdogra","Baghdogra","India","IXB","VEBD",26.681206,88.328567,412,5.5,"N"
-3041,"Bokaro","Bokaro","India","","VEBK",23.643489,86.148886,715,5.5,"N"
-3042,"Bhubaneshwar","Bhubaneswar","India","BBI","VEBS",20.244364,85.817781,138,6,"N"
-3043,"Netaji Subhash Chandra Bose Intl","Calcutta","India","CCU","VECC",22.654739,88.446722,16,5.5,"N"
-3044,"Cooch Behar","Cooch-behar","India","COH","VECO",26.330508,89.467203,138,5.5,"N"
-3045,"Dhanbad","Dhanbad","India","DBD","VEDB",23.834044,86.425261,847,5.5,"N"
-6800,"Delta County Airport","Escanaba","United States","ESC","KESC",45.722778,-87.093611,609,-5,"A"
-6801,"Lauf-Lillinghof","Lillinghof","Germany","",\N,49.6543,11.6539,954,1,"E"
-3048,"Gaya","Gaya","India","GAY","VEGY",24.744308,84.951175,380,5.5,"N"
-3049,"Hirakud","Hirakud","India","","VEHK",21.580231,84.005728,658,5.5,"N"
-3050,"Imphal","Imphal","India","IMF","VEIM",24.75995,93.896697,2540,5.5,"N"
-3051,"Jharsuguda","Jharsuguda","India","","VEJH",21.913536,84.050383,751,5.5,"N"
-3052,"Jamshedpur","Jamshedpur","India","IXW","VEJS",22.813211,86.168844,505,5.5,"N"
-3053,"Jorhat","Jorhat","India","JRH","VEJT",26.731528,94.175536,311,5.5,"N"
-3054,"Kailashahar","Kailashahar","India","IXH","VEKR",24.308192,92.007156,79,5.5,"N"
-3055,"Silchar","Silchar","India","IXS","VEKU",24.912928,92.978742,352,5.5,"N"
-3056,"Lilabari","Lilabari","India","IXI","VELR",27.295494,94.09765,330,5.5,"N"
-3057,"Dibrugarh","Mohanbari","India","MOH","VEMN",27.483853,95.016922,362,5.5,"N"
-3058,"Muzaffarpur","Mazuffarpur","India","","VEMZ",26.119089,85.313664,174,5.5,"N"
-3059,"Nawapara","Nawapara","India","","VENP",20.870036,82.519553,1058,5.5,"N"
-3060,"Panagarh","Panagarh","India","","VEPH",23.474336,87.427508,240,5.5,"N"
-3061,"Patna","Patina","India","PAT","VEPT",25.591317,85.087992,170,5.5,"N"
-3062,"Purnea","Purnea","India","","VEPU",25.759594,87.410011,129,5.5,"N"
-3063,"Birsa Munda","Ranchi","India","IXR","VERC",23.31425,85.321675,2148,5.5,"N"
-3064,"Rourkela","Rourkela","India","RRK","VERK",22.25665,84.814567,659,5.5,"N"
-3065,"Utkela","Utkela","India","","VEUK",20.097411,83.183797,680,5.5,"N"
-3066,"Vishakhapatnam","Vishakhapatnam","India","VTZ","VEVZ",17.721167,83.224483,15,6,"N"
-3067,"Zero","Zero","India","","VEZO",27.588283,93.828061,5403,5.5,"N"
-3068,"Coxs Bazar","Cox's Bazar","Bangladesh","CXB","VGCB",21.452194,91.963889,12,6,"U"
-3069,"Shah Amanat Intl","Chittagong","Bangladesh","CGP","VGEG",22.249611,91.813286,12,6,"U"
-3070,"Ishurdi","Ishurdi","Bangladesh","IRD","VGIS",24.1525,89.049446,45,6,"U"
-3071,"Jessore","Jessore","Bangladesh","JSR","VGJR",23.1838,89.160833,20,6,"U"
-3072,"Shah Mokhdum","Rajshahi","Bangladesh","RJH","VGRJ",24.437219,88.616511,64,6,"U"
-3073,"Saidpur","Saidpur","Bangladesh","SPD","VGSD",25.759228,88.908869,125,6,"U"
-3074,"Osmany Intl","Sylhet Osmani","Bangladesh","ZYL","VGSY",24.963242,91.866783,50,6,"U"
-3075,"Tejgaon","Dhaka","Bangladesh","","VGTJ",23.778783,90.382689,24,6,"U"
-3076,"Zia Intl","Dhaka","Bangladesh","DAC","VGZR",23.843333,90.397781,30,6,"U"
-3077,"Hong Kong Intl","Hong Kong","Hong Kong","HKG","VHHH",22.308919,113.914603,28,8,"U"
-3078,"Sek Kong","Sek Kong","Hong Kong","","VHSK",22.436592,114.080397,50,8,"U"
-3079,"Agra","Agra","India","AGR","VIAG",27.155831,77.960892,551,5.5,"N"
-3080,"Allahabad","Allahabad","India","IXD","VIAL",25.440064,81.733872,322,5.5,"N"
-3081,"Amritsar","Amritsar","India","ATQ","VIAR",31.709594,74.797264,756,5.5,"N"
-3082,"Nal","Bikaner","India","","VIBK",28.070606,73.207161,750,5.5,"N"
-3083,"Bakshi Ka Talab","Bakshi Ka Talab","India","","VIBL",26.988339,80.893117,385,5.5,"N"
-3084,"Varanasi","Varanasi","India","VNS","VIBN",25.452358,82.859342,266,5.5,"N"
-3085,"Kullu Manali","Kulu","India","KUU","VIBR",31.876706,77.154367,3573,5.5,"N"
-3086,"Bhatinda","Bhatinda","India","","VIBT",30.270139,74.755772,662,5.5,"N"
-3087,"Bhiwani","Bhiwani","India","","VIBW",28.837039,76.179094,720,5.5,"N"
-3088,"Bareilly","Bareilly","India","","VIBY",28.422061,79.450842,580,5.5,"N"
-3089,"Chandigarh","Chandigarh","India","IXC","VICG",30.673469,76.788542,1012,5.5,"N"
-3090,"Kanpur Chakeri","Kanpur","India","","VICX",26.4043,80.410119,405,5.5,"N"
-3091,"Safdarjung","Delhi","India","","VIDD",28.584511,77.205783,705,5.5,"N"
-3092,"Dehradun","Dehra Dun","India","DED","VIDN",30.189689,78.180256,1831,5.5,"N"
-3093,"Indira Gandhi Intl","Delhi","India","DEL","VIDP",28.5665,77.103088,777,5.5,"N"
-3094,"Gwalior","Gwalior","India","GWL","VIGR",26.293336,78.227753,617,5.5,"N"
-3095,"Hissar","Hissar","India","","VIHR",29.179444,75.755336,700,5.5,"N"
-3096,"Jhansi","Jhansi","India","","VIJN",25.491172,78.558422,801,5.5,"N"
-3097,"Jodhpur","Jodhpur","India","JDH","VIJO",26.251092,73.048869,717,5.5,"N"
-3098,"Jaipur","Jaipur","India","JAI","VIJP",26.824192,75.812161,1263,5.5,"N"
-3099,"Jaisalmer","Jaisalmer","India","JSA","VIJR",26.888653,70.864967,751,5.5,"N"
-3100,"Jammu","Jammu","India","IXJ","VIJU",32.689142,74.837389,1029,5,"N"
-3101,"Kanpur","Kanpur","India","KNU","VIKA",26.441444,80.364864,411,5.5,"N"
-3102,"Kota","Kota","India","KTU","VIKO",25.160219,75.845631,896,5.5,"N"
-3103,"Ludhiana","Ludhiaha","India","LUH","VILD",30.854681,75.952592,834,5.5,"N"
-3104,"Leh","Leh","India","IXL","VILH",34.135872,77.546514,10682,5.5,"N"
-3105,"Lucknow","Lucknow","India","LKO","VILK",26.760594,80.889339,410,5.5,"N"
-3106,"Pathankot","Pathankot","India","IXP","VIPK",32.233778,75.634628,1017,5.5,"N"
-3107,"Patiala","Patiala","India","","VIPL",30.314847,76.364469,820,5.5,"N"
-3108,"Pantnagar","Nainital","India","PGH","VIPT",29.033408,79.473744,769,5.5,"N"
-3109,"Fursatganj","Raibarelli","India","","VIRB",26.248489,81.380506,360,5.5,"N"
-3111,"Sarsawa","Saharanpur","India","","VISP",29.993919,77.425311,891,5.5,"N"
-3112,"Srinagar","Srinagar","India","SXR","VISR",33.987139,74.77425,5429,5.5,"N"
-3113,"Satna","Satna","India","TNI","VIST",24.562319,80.854933,1060,5.5,"N"
-6495,"Balkhash Airport","Balkhash","Kazakhstan","BXH",\N,46.8933,75.005,1446,5,"E"
-3115,"Luang Phabang Intl","Luang Prabang","Laos","LPQ","VLLB",19.897914,102.160764,955,7,"U"
-3116,"Pakse","Pakse","Laos","PKZ","VLPS",15.132053,105.781417,351,7,"U"
-3117,"Phonesavanh","Phong Savanh","Laos","","VLPV",19.454864,103.218208,3628,7,"U"
-3118,"Savannakhet","Savannakhet","Laos","ZVK","VLSK",16.556594,104.759531,509,7,"U"
-3119,"Sam Neua","Sam Neua","Laos","","VLSN",20.418358,104.066583,3281,7,"U"
-3120,"Wattay Intl","Vientiane","Laos","VTE","VLVT",17.988322,102.563256,564,7,"U"
-3121,"Macau Intl","Macau","Macau","MFM","VMMC",22.149556,113.591558,20,8,"U"
-3122,"Bhairahawa","Bhairawa","Nepal","BWA","VNBW",27.505703,83.41625,358,5.75,"N"
-6831,"Nastaetten","Nastaetten","Germany","",\N,50.1972,7.8916,600,1,"E"
-3124,"Janakpur","Janakpur","Nepal","","VNJP",26.708806,85.922394,256,5.75,"N"
-3125,"Tribhuvan Intl","Kathmandu","Nepal","KTM","VNKT",27.696583,85.3591,4390,5.75,"N"
-3127,"Pokhara","Pokhara","Nepal","PKR","VNPK",28.200881,83.982056,2712,5.75,"N"
-3128,"Simara","Simara","Nepal","SIF","VNSI",27.159456,84.980122,450,5.75,"N"
-3129,"Biratnagar","Biratnagar","Nepal","BIR","VNVT",26.481453,87.264036,236,5.75,"N"
-3130,"Agatti","Agatti Island","India","AGX","VOAT",10.823656,72.176042,14,5.5,"N"
-3131,"Bangalore","Bangalore","India","BLR","VOBL",12.949986,77.668206,2912,5.5,"N"
-3132,"Bellary","Bellary","India","BEP","VOBI",15.162783,76.882775,30,5.5,"N"
-3133,"Bidar","Bidar","India","","VOBR",17.908081,77.487142,2178,5.5,"N"
-3134,"Vijayawada","Vijayawada","India","VGA","VOBZ",16.530433,80.796847,82,5.5,"N"
-3135,"Coimbatore","Coimbatore","India","CJB","VOCB",11.030031,77.043383,1324,5.5,"N"
-3136,"Cochin","Cochin","India","COK","VOCC",9.947386,76.273081,8,5.5,"N"
-3137,"Calicut","Calicut","India","CCJ","VOCL",11.136839,75.9553,342,5.5,"N"
-3138,"Cuddapah","Cuddapah","India","CDP","VOCP",14.509961,78.772833,430,5.5,"N"
-3139,"Carnicobar","Carnicobar","India","","VOCX",9.152508,92.819628,5,5.5,"N"
-3140,"Dundigul","Dundigul","India","","VODG",17.627178,78.403361,2013,5.5,"N"
-3141,"Hyderabad","Hyderabad","India","HYD","VOHY",17.453117,78.467586,1742,5.5,"N"
-3142,"Madurai","Madurai","India","IXM","VOMD",9.834508,78.093378,459,5.5,"N"
-3143,"Mangalore","Mangalore","India","IXE","VOML",12.961267,74.890069,337,5.5,"N"
-3144,"Chennai Intl","Madras","India","MAA","VOMM",12.994414,80.180517,52,5.5,"N"
-3145,"Nagarjuna Sagar","Nagarjunsagar","India","","VONS",16.542653,79.318714,658,5.5,"N"
-3146,"Port Blair","Port Blair","India","IXZ","VOPB",11.641161,92.729744,14,5.5,"N"
-3147,"Pondicherry","Pendicherry","India","","VOPC",11.968722,79.810058,118,5.5,"N"
-3148,"Rajahmundry","Rajahmundry","India","RJA","VORY",17.110361,81.818208,151,5.5,"N"
-3149,"Salem","Salem","India","","VOSM",11.783314,78.065606,1008,5.5,"N"
-3150,"Tanjore","Tanjore","India","","VOTJ",10.722428,79.101567,253,5.5,"N"
-3151,"Tirupati","Tirupeti","India","TIR","VOTP",13.632492,79.543256,350,5.5,"N"
-3152,"Trichy","Tiruchirappalli","India","TRZ","VOTR",10.765364,78.709722,288,5.5,"N"
-3153,"Thiruvananthapuram Intl","Trivandrum","India","TRV","VOTV",8.482122,76.920114,15,5.5,"N"
-3154,"Tambaram","Tambaram","India","","VOTX",12.907214,80.121861,90,5.5,"N"
-3155,"Paro","Thimphu","Bhutan","PBH","VQPR",27.403192,89.424606,7332,6,"N"
-3156,"Male Intl","Male","Maldives","MLE","VRMM",4.191833,73.529128,6,5,"U"
-3157,"Don Muang Intl","Bangkok","Thailand","DMK","VTBD",13.912583,100.60675,9,7,"U"
-3158,"Kamphaeng Saen","Nakhon Pathom","Thailand","","VTBK",14.101975,99.917219,30,7,"U"
-3159,"Khok Kathiam","Lop Buri","Thailand","","VTBL",14.874561,100.663367,123,7,"U"
-3886,"Naha","Naha","Indonesia","NAH","WAMH",3.683214,125.528019,16,8,"U"
-3161,"U Taphao Intl","Pattaya","Thailand","UTP","VTBU",12.679944,101.005028,42,7,"U"
-3162,"Watthana Nakhon","Prachin Buri","Thailand","","VTBW",13.7688,102.315492,200,7,"U"
-3163,"Lampang","Lampang","Thailand","LPT","VTCL",18.270933,99.504167,811,7,"U"
-3164,"Phrae","Phrae","Thailand","PRH","VTCP",18.132169,100.164664,538,7,"U"
-3165,"Hua Hin","Prachuap Khiri Khan","Thailand","HHQ","VTPH",12.636225,99.951533,62,7,"U"
-3166,"Takhli","Nakhon Sawan","Thailand","","VTPI",15.277306,100.295861,107,7,"U"
-3167,"Sak Long","Phetchabun","Thailand","","VTPL",16.824322,101.251389,500,7,"U"
-3169,"Nakhon Sawan","Nakhon Sawan","Thailand","","VTPN",15.672997,100.136794,113,7,"U"
-3170,"Phitsanulok","Phitsanulok","Thailand","PHS","VTPP",16.782939,100.279122,154,7,"U"
-3171,"Khunan Phumipol","Tak","Thailand","","VTPY",17.234211,99.057911,492,7,"U"
-3172,"Khoun Khan","Satun","Thailand","","VTSA",6.661403,100.080317,18,8,"U"
-3173,"Narathiwat","Narathiwat","Thailand","NAW","VTSC",6.519922,101.7434,16,7,"U"
-3174,"Krabi","Krabi","Thailand","KBV","VTSG",8.095969,98.988764,93,7,"U"
-3175,"Songkhla","Songkhla","Thailand","","VTSH",7.186564,100.608031,12,7,"U"
-3176,"Pattani","Pattani","Thailand","PAN","VTSK",6.785458,101.153569,8,7,"U"
-3177,"Samui","Ko Samui","Thailand","USM","VTSM",9.547794,100.062272,64,7,"U"
-3178,"Cha Ian","Nakhon Si Thammarat","Thailand","","VTSN",8.471147,99.955625,44,7,"U"
-3179,"Phuket Intl","Phuket","Thailand","HKT","VTSP",8.1132,98.316872,82,7,"U"
-3180,"Ranong","Ranong","Thailand","","VTSR",9.777622,98.585483,57,7,"U"
-3181,"Hat Yai Intl","Songkhla","Thailand","HDY","VTSS",6.933206,100.392975,90,7,"U"
-3182,"Trang","Trang","Thailand","TST","VTST",7.508744,99.616578,67,7,"U"
-3183,"Udon Thani","Udon Thani","Thailand","UTH","VTUD",17.386436,102.788247,579,7,"U"
-3184,"Sakon Nakhon","Sakon Nakhon","Thailand","SNO","VTUI",17.195142,104.118625,529,7,"U"
-3185,"Surin","Surin","Thailand","","VTUJ",14.868264,103.498256,478,7,"U"
-3186,"Loei","Loei","Thailand","LOE","VTUL",17.439133,101.722064,860,7,"U"
-3187,"Khorat","Nakhon Ratchasima","Thailand","","VTUN",14.934514,102.078639,729,7,"U"
-3188,"Rob Muang","Roi Et","Thailand","","VTUR",16.07035,103.6459,459,7,"U"
-6830,"Finsterwalde-Heinrichsruh","Finsterwalde","Germany","","EDAS",51.6377,13.2419,384,1,"E"
-6829,"Orchid Beach","Fraser Island","Australia","OKB","KOKB",-24.95841,153.3145,6,-10,"O"
-6828,"Mara Lodges","Mara Lodges","Kenya","",\N,-1.183581,35.099931,5600,3,"U"
-3196,"Danang Intl","Danang","Vietnam","DAD","VVDN",16.043917,108.19937,33,7,"U"
-3197,"Hanoi Gia Lam","Hanoi","Vietnam","","VVGL",21.040975,105.886011,50,7,"U"
-3198,"Kep","Kep","Vietnam","","VVKP",21.394639,106.261083,55,7,"U"
-3199,"Noibai Intl","Hanoi","Vietnam","HAN","VVNB",21.221192,105.807178,39,7,"U"
-3200,"Nhatrang","Nhatrang","Vietnam","NHA","VVNT",12.227467,109.192322,20,7,"U"
-3201,"Phubai","Hue","Vietnam","","VVPB",16.4015,107.702614,48,7,"U"
-6827,"Namanga","Namanga","Kenya","",\N,-2.55,36.7833333,4445,3,"U"
-3204,"Phu Quoc","Phuquoc","Vietnam","","VVPQ",10.227025,103.967169,23,7,"U"
-3205,"Tansonnhat Intl","Ho Chi Minh City","Vietnam","SGN","VVTS",10.818797,106.651856,33,7,"U"
-3207,"Ann","Ann","Burma","","VYAN",19.769156,94.026133,74,6.5,"U"
-3208,"Anisakan","Anisakan","Burma","","VYAS",21.955433,96.40605,3000,6.5,"U"
-3209,"Bagan","Bagan","Burma","","VYBG",21.178756,94.930169,312,6.5,"U"
-6826,"Bamburi","Bamburi","Kenya","BMQ","KBMQ",-3.98268888888889,39.7308972222222,50,3,"U"
-3211,"Coco Island","Coco Island","Burma","","VYCI",14.141517,93.368531,20,6,"U"
-3213,"Heho","Heho","Burma","HEH","VYHH",20.747036,96.792044,3858,6.5,"U"
-3214,"Hommalinn","Hommalin","Burma","","VYHL",24.899597,94.914033,534,6.5,"U"
-3215,"Kengtung","Kengtung","Burma","KET","VYKG",21.301611,99.635997,2798,6.5,"U"
-6825,"Williamson Country Regional Airport","Marion","United States","MWA","KMWA",37.7549569,-89.0110936,472,-5,"A"
-3217,"Kyaukpyu","Kyaukpyu","Burma","KYP","VYKP",19.426447,93.534836,20,6.5,"U"
-6824,"Lommis Airport","Lommis","Switzerland","","LSZT",47.5244,9.00306,1539,1,"E"
-3220,"Lashio","Lashio","Burma","LSH","VYLS",22.977881,97.752183,2450,6.5,"U"
-3221,"Lanywa","Lanywa","Burma","","VYLY",20.940361,94.822617,175,6.5,"U"
-3222,"Mandalay Intl","Mandalay","Burma","MDL","VYMD",21.702156,95.977928,300,6.5,"U"
-3223,"Myeik","Myeik","Burma","MGZ","VYME",12.439797,98.621478,75,6.5,"U"
-3224,"Myitkyina","Myitkyina","Burma","MYT","VYMK",25.383636,97.351919,475,6.5,"U"
-3226,"Momeik","Momeik","Burma","","VYMO",23.092525,96.645272,600,6.5,"U"
-3227,"Mong Hsat","Mong Hsat","Burma","MOG","VYMS",20.516758,99.256825,1875,6.5,"U"
-3228,"Nampong","Nampong","Burma","","VYNP",25.354375,97.29515,459,6.5,"U"
-3229,"Namsang","Namsang","Burma","","VYNS",20.890492,97.735922,3100,6.5,"U"
-3230,"Hpa An","Hpa-an","Burma","","VYPA",16.893714,97.674581,150,6.5,"U"
-6823,"Amlikon Glider Airport","Amlikon","Switzerland","","LSPA",47.5742,9.0475,1371,1,"E"
-3232,"Putao","Putao","Burma","PBU","VYPT",27.329922,97.426269,1500,6.5,"U"
-3233,"Pyay","Pyay","Burma","","VYPY",18.824478,95.266003,120,6.5,"U"
-3234,"Shante","Shante","Burma","","VYST",20.941668,95.914497,630,6.5,"U"
-3235,"Sittwe","Sittwe","Burma","AKY","VYSW",20.132708,92.872628,27,6.5,"U"
-3236,"Thandwe","Thandwe","Burma","SNW","VYTD",18.460731,94.300119,20,6.5,"U"
-3237,"Tachileik","Tachilek","Burma","THL","VYTL",20.483831,99.935353,1280,7,"U"
-3238,"Taungoo","Taungoo","Burma","","VYTO",19.031275,96.401239,160,6.5,"U"
-3239,"Yangon Intl","Yangon","Burma","RGN","VYYY",16.907305,96.133222,109,6.5,"U"
-3240,"Hasanuddin","Ujung Pandang","Indonesia","UPG","WAAA",-5.061631,119.554042,47,8,"U"
-3241,"Frans Kaisiepo","Biak","Indonesia","BIK","WABB",-1.190017,136.107997,46,9,"U"
-3242,"Nabire","Nabire","Indonesia","NBX","WABI",-3.368183,135.496406,20,9,"U"
-3243,"Moses Kilangin","Timika","Indonesia","TIM","WABP",-4.528275,136.887375,103,9,"U"
-3244,"Sentani","Jayapura","Indonesia","DJJ","WAJJ",-2.576953,140.516372,289,9,"U"
-3245,"Wamena","Wamena","Indonesia","WMX","WAJW",-4.102511,138.957372,5085,9,"U"
-3246,"Mopah","Merauke","Indonesia","MKQ","WAKK",-8.520294,140.418453,10,9,"U"
-3247,"Jalaluddin","Gorontalo","Indonesia","GTO","WAMG",0.637119,122.849858,105,8,"U"
-3930,"Incheon Intl","Seoul","South Korea","ICN","RKSI",37.469075,126.450517,23,9,"U"
-3249,"Mutiara","Palu","Indonesia","PLW","WAML",-0.918542,119.909642,284,8,"U"
-3250,"Sam Ratulangi","Manado","Indonesia","MDC","WAMM",1.549447,124.925878,264,8,"U"
-3251,"Kasiguncu","Poso","Indonesia","PSJ","WAMP",-1.416753,120.657669,174,8,"U"
-3252,"Pitu","Morotai Island","Indonesia","OTI","WAMR",2.045992,128.324708,49,9,"U"
-3253,"Sultan Babullah","Ternate","Indonesia","TTE","WAMT",0.831414,127.381486,49,9,"U"
-3254,"Bubung","Luwuk","Indonesia","LUW","WAMW",-1.038919,122.771906,56,8,"U"
-6821,"Mukachevo Air Base","Mukacheve","Ukraine","",\N,48.4,22.6833,390,3,"E"
-3256,"Pattimura","Ambon","Indonesia","AMQ","WAPP",-3.710264,128.089136,33,9,"U"
-3257,"Fak Fak","Fak Fak","Indonesia","FKQ","WASF",-2.920192,132.267031,462,9,"U"
-3258,"Kaimana","Kaimana","Indonesia","KNG","WASK",-3.644517,133.695553,19,9,"U"
-3259,"Babo","Babo","Indonesia","BXB","WASO",-2.532242,133.438894,10,9,"U"
-3260,"Rendani","Manokwari","Indonesia","MKW","WASR",-0.891833,134.049183,23,9,"U"
-3261,"Jefman","Sorong","Indonesia","SOQ","WASS",-0.926358,131.121194,10,9,"U"
-3262,"Bintulu","Bintulu","Malaysia","BTU","WBGB",3.12385,113.020472,74,8,"U"
-3263,"Kuching Intl","Kuching","Malaysia","KCH","WBGG",1.484697,110.346933,89,8,"U"
-3264,"Limbang","Limbang","Malaysia","LMN","WBGJ",4.808303,115.010439,14,8,"U"
-3265,"Marudi","Marudi","Malaysia","MUR","WBGM",4.1775,114.321944,103,8,"U"
-3266,"Miri","Miri","Malaysia","MYY","WBGR",4.322014,113.986806,59,8,"U"
-3267,"Sibu","Sibu","Malaysia","SBW","WBGS",2.261603,111.985322,122,8,"U"
-3268,"Lahad Datu","Lahad Datu","Malaysia","LDU","WBKD",5.032247,118.324036,45,8,"U"
-3269,"Kota Kinabalu Intl","Kota Kinabalu","Malaysia","BKI","WBKK",5.937208,116.051181,10,8,"U"
-3270,"Labuan","Labuan","Malaysia","LBU","WBKL",5.300683,115.250181,101,8,"U"
-3271,"Tawau","Tawau","Malaysia","TWU","WBKW",4.313369,118.121953,57,8,"U"
-3272,"Brunei Intl","Brunei","Brunei","BWN","WBSB",4.9442,114.928353,73,8,"U"
-3273,"Sultan Syarif Kasim Ii","Pekanbaru","Indonesia","PKU","WIBB",0.460786,101.444539,102,7,"U"
-3274,"Pinang Kampai","Dumai","Indonesia","DUM","WIBD",1.609194,101.433558,55,7,"U"
-3275,"Soekarno Hatta Intl","Jakarta","Indonesia","CGK","WIII",-6.125567,106.655897,34,7,"U"
-3276,"Binaka","Gunung Sitoli","Indonesia","GNS","WIMB",1.166381,97.704681,20,7,"U"
-3277,"Aek Godang","Padang Sidempuan","Indonesia","","WIME",1.400103,99.430453,922,7,"U"
-3278,"Tabing","Padang","Indonesia","PDG","WIMG",-0.874989,100.351881,9,7,"U"
-3279,"Polonia","Medan","Indonesia","MES","WIMM",3.558056,98.671722,114,7,"U"
-3280,"Dr Ferdinand Lumban Tobing","Sibolga","Indonesia","","WIMS",1.555944,98.888908,43,7,"U"
-3281,"Nanga Pinoh I","Nangapinoh","Indonesia","","WIOG",-0.348869,111.747606,123,7,"U"
-3282,"Rahadi Usman","Ketapang","Indonesia","KTG","WIOK",-1.816639,109.963483,46,7,"U"
-6820,"Mukachevo","Mukacheve","Ukraine","",\N,48.4,22.683,390,3,"E"
-3284,"Supadio","Pontianak","Indonesia","PNK","WIOO",-0.150711,109.403892,10,7,"U"
-6819,"Borovaya Airfield","Minsk","Belarus","","UMMB",53.57,27.39,0,3,"E"
-6798,"Weser-Wuemme","Hellwege","Germany","","EDWM",53.054,9.208667,59,1,"E"
-3287,"Sultan Thaha","Jambi","Indonesia","DJB","WIPA",-1.638017,103.644378,82,7,"U"
-3288,"Fatmawati Soekarno","Bengkulu","Indonesia","BKS","WIPL",-3.8637,102.339036,50,7,"U"
-3289,"Sultan Mahmud Badaruddin Ii","Palembang","Indonesia","PLM","WIPP",-2.89825,104.699903,49,7,"U"
-3291,"Japura","Rengat","Indonesia","RGT","WIPR",-0.352808,102.334917,62,7,"U"
-3292,"Lhok Sukon","Lhok Sukon","Indonesia","","WITL",5.069506,97.259192,28,7,"U"
-6818,"Balti International Airport","Strymba","Moldova","BZY",\N,47.8381,27.7815,758,3,"U"
-3294,"Sultan Iskandarmuda","Banda Aceh","Indonesia","BTJ","WITT",5.523522,95.420372,65,7,"U"
-3295,"Kluang","Kluang","Malaysia","","WMAP",2.041394,103.307394,150,8,"U"
-3296,"Sultan Abdul Halim","Alor Setar","Malaysia","AOR","WMKA",6.189667,100.398183,15,8,"U"
-3297,"Butterworth","Butterworth","Malaysia","","WMKB",5.465917,100.391167,11,8,"U"
-3298,"Sultan Ismail Petra","Kota Bahru","Malaysia","KBR","WMKC",6.16685,102.293014,16,8,"U"
-3299,"Kuantan","Kuantan","Malaysia","KUA","WMKD",3.775389,103.209056,58,8,"U"
-3300,"Kerteh","Kerteh","Malaysia","KTE","WMKE",4.537222,103.426756,18,8,"U"
-3301,"Simpang","Simpang","Malaysia","","WMKF",3.11225,101.70275,111,8,"U"
-3302,"Sultan Azlan Shah","Ipoh","Malaysia","IPH","WMKI",4.567972,101.092194,130,8,"U"
-3303,"Sultan Ismail","Johor Bahru","Malaysia","JHB","WMKJ",1.641308,103.669619,135,8,"U"
-3304,"Kuala Lumpur Intl","Kuala Lumpur","Malaysia","KUL","WMKK",2.745578,101.709917,69,8,"U"
-3305,"Langkawi Intl","Pulau","Malaysia","LGK","WMKL",6.329728,99.728667,29,8,"U"
-3306,"Malacca","Malacca","Malaysia","MKZ","WMKM",2.263361,102.251553,35,8,"U"
-3307,"Sultan Mahmud","Kuala Terengganu","Malaysia","TGG","WMKN",5.382639,103.10336,21,8,"U"
-3308,"Penang Intl","Penang","Malaysia","PEN","WMKP",5.297139,100.276864,11,8,"U"
-3309,"Suai","Suai","East Timor","","WPDB",-9.303306,125.286753,96,8,"U"
-3310,"Presidente Nicolau Lobato Intl","Dili","East Timor","DIL","WPDL",-8.546553,125.524719,25,8,"U"
-3311,"Cakung","Baucau","East Timor","","WPEC",-8.485547,126.399389,1777,8,"U"
-3312,"Sembawang","Sembawang","Singapore","","WSAG",1.425264,103.812806,86,8,"U"
-3313,"Paya Lebar","Paya Lebar","Singapore","QPG","WSAP",1.360417,103.90953,65,8,"U"
-3314,"Tengah","Tengah","Singapore","","WSAT",1.387258,103.708719,50,8,"U"
-3315,"Seletar","Singapore","Singapore","XSP","WSSL",1.41695,103.867653,36,8,"U"
-3316,"Changi Intl","Singapore","Singapore","SIN","WSSS",1.350189,103.994433,22,8,"U"
-3317,"Brisbane Archerfield","Brisbane","Australia","","YBAF",-27.570278,153.008056,63,10,"O"
-3318,"Bamaga Injinoo","Amberley","Australia","ABM","YBAM",-10.950833,142.459444,34,10,"O"
-3319,"Alice Springs","Alice Springs","Australia","ASP","YBAS",-23.806667,133.902222,1789,9.5,"N"
-3320,"Brisbane Intl","Brisbane","Australia","BNE","YBBN",-27.384167,153.1175,13,10,"O"
-3321,"Gold Coast","Coolangatta","Australia","OOL","YBCG",-28.164444,153.504722,21,10,"N"
-3322,"Cairns Intl","Cairns","Australia","CNS","YBCS",-16.885833,145.755278,10,10,"N"
-3323,"Charleville","Charlieville","Australia","CTL","YBCV",-26.413334,146.2625,1003,10,"O"
-3324,"Mount Isa","Mount Isa","Australia","ISA","YBMA",-20.663889,139.488611,1121,10,"O"
-3325,"Maroochydore Sunshine Coast","Maroochydore","Australia","MCY","YBMC",-26.603333,153.091111,15,10,"O"
-3326,"Mackay","Mackay","Australia","MKY","YBMK",-21.171667,149.179722,19,10,"O"
-3328,"Proserpine Whitsunday Coast","Prosserpine","Australia","PPP","YBPN",-20.495,148.552222,82,10,"O"
-3329,"Rockhampton","Rockhampton","Australia","ROK","YBRK",-23.381944,150.475278,34,10,"O"
-3330,"Townsville","Townsville","Australia","TSV","YBTL",-19.2525,146.765278,18,10,"N"
-3331,"Weipa","Weipa","Australia","WEI","YBWP",-12.678611,141.925278,63,10,"O"
-3332,"Avalon","Avalon","Australia","AVV","YMAV",-38.039444,144.469444,35,10,"O"
-3333,"Albury","Albury","Australia","ABX","YMAY",-36.067778,146.958056,539,10,"O"
-3334,"Melbourne Essendon","Melbourne","Australia","MEB","YMEN",-37.728056,144.901944,282,10,"O"
-3335,"East Sale","East Sale","Australia","","YMES",-38.098889,147.149444,23,10,"O"
-3336,"Hobart","Hobart","Australia","HBA","YMHB",-42.836111,147.510278,13,10,"O"
-3337,"Launceston","Launceston","Australia","LST","YMLT",-41.545278,147.214167,562,10,"O"
-3338,"Melbourne Moorabbin","Melbourne","Australia","MBW","YMMB",-37.975833,145.102222,50,10,"O"
-3339,"Melbourne Intl","Melbourne","Australia","MEL","YMML",-37.673333,144.843333,434,10,"O"
-3340,"Point Cook","Point Cook","Australia","","YMPC",-37.932222,144.753333,14,10,"O"
-3341,"Adelaide Intl","Adelaide","Australia","ADL","YPAD",-34.945,138.530556,20,9.5,"O"
-3343,"Edinburgh","Edinburgh","Australia","","YPED",-34.7025,138.620833,67,9.5,"O"
-3344,"Perth Jandakot","Perth","Australia","JAD","YPJT",-32.0975,115.881111,99,8,"O"
-3345,"Karratha","Karratha","Australia","KTA","YPKA",-20.712222,116.773333,29,8,"O"
-3346,"Kalgoorlie Boulder","Kalgoorlie","Australia","KGI","YPKG",-30.789444,121.461667,1203,8,"O"
-3347,"Kununurra","Kununurra","Australia","KNX","YPKU",-15.778056,128.7075,145,8,"O"
-3348,"Learmonth","Learmonth","Australia","LEA","YPLM",-22.235556,114.088611,19,8,"O"
-3349,"Port Hedland Intl","Port Hedland","Australia","PHE","YPPD",-20.377778,118.626389,33,8,"O"
-3350,"Adelaide Parafield","Adelaide","Australia","","YPPF",-34.793333,138.633056,57,9.5,"O"
-3351,"Perth Intl","Perth","Australia","PER","YPPH",-31.940278,115.966944,67,8,"N"
-3352,"Woomera","Woomera","Australia","UMR","YPWR",-31.144167,136.816944,548,9.5,"O"
-3353,"Christmas Island","Christmas Island","Christmas Island","XCH","YPXM",-10.450556,105.690278,916,7,"U"
-3354,"Sydney Bankstown","Sydney","Australia","BWU","YSBK",-33.924444,150.988333,29,10,"O"
-3355,"Canberra","Canberra","Australia","CBR","YSCB",-35.306944,149.195,1886,10,"O"
-3356,"Coffs Harbour","Coff's Harbour","Australia","CFS","YSCH",-30.320556,153.116389,18,10,"O"
-3357,"Camden","Camden","Australia","CDU","YSCN",-34.040278,150.687222,230,10,"O"
-3358,"Dubbo","Dubbo","Australia","DBO","YSDU",-32.216667,148.574722,935,10,"O"
-3359,"Norfolk Island Intl","Norfolk Island","Norfolk Island","NLK","YSNF",-29.041625,167.938742,371,11.5,"U"
-3360,"Richmond","Richmond","Australia","RCM","YSRI",-33.600556,150.780833,67,10,"O"
-3361,"Sydney Intl","Sydney","Australia","SYD","YSSY",-33.946111,151.177222,21,10,"O"
-3362,"Tamworth","Tamworth","Australia","TMW","YSTW",-31.083889,150.846667,1334,10,"O"
-3363,"Wagga Wagga","Wagga Wagga","Australia","WGA","YSWG",-35.165278,147.466389,724,10,"O"
-3364,"Capital Intl","Beijing","China","PEK","ZBAA",40.080111,116.584556,116,8,"U"
-6817,"Hongyuan Airfield","Hongyuan","China","",\N,32.800428,102.534785,11500,8,"N"
-3366,"Dongshan","Hailar","China","HLD","ZBLA",49.204997,119.825,2169,8,"U"
-3368,"Binhai","Tianjin","China","TSN","ZBTJ",39.124353,117.346183,10,8,"U"
-3369,"Wusu","Taiyuan","China","TYN","ZBYN",37.746897,112.628428,2575,8,"U"
-3370,"Baiyun Intl","Guangzhou","China","CAN","ZGGG",23.392436,113.298786,50,8,"U"
-3371,"Huanghua","Changcha","China","CSX","ZGHA",28.189158,113.219633,217,8,"U"
-3372,"Liangjiang","Guilin","China","KWL","ZGKL",25.218106,110.039197,570,8,"U"
-3373,"Wuxu","Nanning","China","NNG","ZGNN",22.608267,108.172442,421,8,"U"
-3374,"Baoan Intl","Shenzhen","China","SZX","ZGSZ",22.639258,113.810664,13,8,"U"
-3375,"Xinzheng","Zhengzhou","China","CGO","ZHCC",34.519672,113.840889,495,8,"U"
-3376,"Tianhe","Wuhan","China","WUH","ZHHH",30.783758,114.2081,113,8,"U"
-3377,"Pyongyang Intl","Pyongyang","Korea","FNJ","ZKPY",39.224061,125.67015,117,9,"U"
-3378,"Zhongchuan","Lanzhou","China","ZGC","ZLLL",36.515242,103.620775,6388,8,"U"
-3379,"Xianyang","Xi'an","China","XIY","ZLXY",34.447119,108.751592,1572,8,"U"
-3380,"Chinggis Khaan Intl","Ulan Bator","Mongolia","ULN","ZMUB",47.843056,106.766639,4364,8,"U"
-3381,"Gasa","Jinghonggasa","China","","ZPJH",21.973914,100.759611,1815,8,"U"
-3382,"Wujiaba","Kunming","China","KMG","ZPPP",24.992364,102.743536,6217,8,"U"
-3383,"Gaoqi","Xiamen","China","XMN","ZSAM",24.544036,118.127739,59,8,"U"
-3384,"Changbei Intl","Nanchang","China","KHN","ZSCN",28.865,115.9,143,8,"U"
-3385,"Changle","Fuzhou","China","FOC","ZSFZ",25.935064,119.663272,46,8,"U"
-3386,"Xiaoshan","Hangzhou","China","HGH","ZSHC",30.229503,120.434453,23,8,"U"
-3387,"Lishe","Ninbo","China","NGB","ZSNB",29.826683,121.461906,13,8,"U"
-3388,"Lukou","Nanjing","China","NKG","ZSNJ",31.742042,118.862025,49,8,"U"
-3389,"Luogang","Hefei","China","HFE","ZSOF",31.780019,117.298436,108,8,"U"
-3390,"Liuting","Qingdao","China","TAO","ZSQD",36.266108,120.374436,33,8,"U"
-3391,"Hongqiao Intl","Shanghai","China","SHA","ZSSS",31.197875,121.336319,10,8,"U"
-3392,"Laishan","Yantai","China","YNT","ZSYT",37.401667,121.371667,59,8,"U"
-3393,"Jiangbei","Chongqing","China","CKG","ZUCK",29.719217,106.641678,1365,8,"U"
-3394,"Longdongbao","Guiyang","China","KWE","ZUGY",26.538522,106.800703,3736,8,"U"
-3395,"Shuangliu","Chengdu","China","CTU","ZUUU",30.578528,103.947086,1625,8,"U"
-3396,"Qingshan","Xichang","China","XIC","ZUXC",27.989083,102.184361,5112,8,"U"
-3397,"Kashi","Kashi","China","KHG","ZWSH",39.542922,76.019956,4529,8,"U"
-3398,"Hotan","Hotan","China","HTN","ZWTN",37.038522,79.864933,4672,8,"U"
-3399,"Diwopu","Urumqi","China","URC","ZWWW",43.907106,87.474244,2125,8,"U"
-3400,"Taiping","Harbin","China","HRB","ZYHB",45.623403,126.250328,457,8,"U"
-6797,"Hohenems","Hohenems","Austria","HOJ","LOIH",47.385,9.7,412,1,"E"
-3402,"Hailang","Mudanjiang","China","","ZYMD",44.524072,129.568972,883,8,"U"
-3404,"Zhoushuizi","Dalian","China","DLC","ZYTL",38.965667,121.5386,107,8,"U"
-3406,"Pudong","Shanghai","China","PVG","ZSPD",31.143378,121.805214,13,8,"U"
-3407,"Pulau Tioman","Tioman","Malaysia","TOD","WMBT",2.818183,104.160019,15,8,"U"
-3408,"Sultan Abdul Aziz Shah Intl","Kuala Lumpur","Malaysia","SZB","WMSA",3.130583,101.549333,90,8,"U"
-3409,"Noto","Wajima","Japan","NTQ","RJNW",37.293097,136.961853,718,9,"U"
-3410,"Borg El Arab Intl","Alexandria","Egypt","HBE","HEBA",30.917669,29.696408,177,2,"U"
-3411,"Barter Island Lrrs","Barter Island","United States","BTI","PABA",70.133989,-143.581867,2,-9,"A"
-3412,"Wainwright As","Fort Wainwright","United States","K03","PAWT",70.613378,-159.86035,35,-9,"A"
-3413,"Cape Lisburne Lrrs","Cape Lisburne","United States","LUR","PALU",68.875133,-166.110022,12,-9,"A"
-3414,"Point Lay Lrrs","Point Lay","United States","PIZ","PPIZ",69.732875,-163.005342,25,-9,"A"
-3415,"Hilo Intl","Hilo","United States","ITO","PHTO",19.721375,-155.048469,38,-10,"N"
-3416,"Executive","Orlando","United States","ORL","KORL",28.545464,-81.332936,113,-5,"A"
-3417,"Bettles","Bettles","United States","BTT","PABT",66.913944,-151.529056,644,-9,"A"
-3418,"Clear","Clear Mews","United States","Z84","PACL",64.301203,-149.120144,552,-9,"A"
-3419,"Indian Mountain Lrrs","Indian Mountains","United States","UTO","PAIM",65.992794,-153.704289,1220,-9,"A"
-3420,"Fort Yukon","Fort Yukon","United States","FYU","PFYU",66.571492,-145.250417,433,-9,"A"
-3421,"Sparrevohn Lrrs","Sparrevohn","United States","SVW","PASV",61.097369,-155.574228,1583,-9,"A"
-3422,"Bryant Ahp","Fort Richardson","United States","FRN","PAFR",61.266381,-149.653119,378,-9,"A"
-3423,"Tatalina Lrrs","Tatalina","United States","TLJ","PATL",62.894369,-155.976525,964,-9,"A"
-3424,"Cape Romanzof Lrrs","Cape Romanzof","United States","CZF","PACZ",61.780297,-166.038747,457,-9,"A"
-3425,"Laurence G Hanscom Fld","Bedford","United States","BED","KBED",42.469953,-71.289031,133,-5,"A"
-3426,"St Paul Island","St. Paul Island","United States","SNP","PASN",57.167333,-170.220444,63,-11,"A"
-3427,"Cape Newenham Lrrs","Cape Newenham","United States","EHM","PAEH",58.646428,-162.062778,541,-9,"A"
-3428,"St George","Point Barrow","United States","PBV","PAPB",56.578344,-169.661611,125,-11,"A"
-3429,"Iliamna","Iliamna","United States","ILI","PAIL",59.754356,-154.910961,186,-9,"A"
-3430,"Platinum","Port Moller","United States","PTU","PAPM",59.011356,-161.819664,15,-9,"A"
-3431,"Big Mountain Afs","Big Mountain","United States","7AK","PABM",59.361247,-155.258822,663,-9,"A"
-3432,"Oscoda Wurtsmith","Oscoda","United States","OSC","KOSC",44.451558,-83.394053,634,-5,"A"
-3433,"Marina Muni","Fort Ord","United States","OAR","KOAR",36.681878,-121.762347,134,-8,"A"
-3434,"Sacramento Mather","Sacramento","United States","MHR","KMHR",38.553897,-121.297592,96,-8,"A"
-3435,"Bicycle Lake Aaf","Fort Irwin","United States","BYS","KBYS",35.280531,-116.630031,2350,-8,"A"
-3436,"Twentynine Palms Eaf","Twenty Nine Palms","United States","NXP","KNXP",34.296161,-116.162203,2051,-8,"A"
-3437,"Fort Smith Rgnl","Fort Smith","United States","FSM","KFSM",35.336583,-94.367444,469,-6,"A"
-3438,"Merrill Fld","Anchorage","United States","MRI","PAMR",61.213544,-149.844447,137,-9,"A"
-3439,"Grants Milan Muni","Grants","United States","GNT","KGNT",35.167286,-107.901989,6537,-7,"A"
-3440,"Ponca City Rgnl","Ponca City","United States","PNC","KPNC",36.731958,-97.099781,1007,-6,"A"
-3441,"Hunter Aaf","Hunter Aaf","United States","SVN","KSVN",32.01,-81.145683,42,-5,"A"
-3442,"Grand Forks Intl","Grand Forks","United States","GFK","KGFK",47.949256,-97.176111,845,-6,"A"
-3443,"Grider Fld","Pine Bluff","United States","PBF","KPBF",34.173142,-91.935597,206,-6,"A"
-3444,"Whiting Fld Nas North","Milton","United States","NSE","KNSE",30.724167,-87.021944,199,-6,"A"
-3445,"Hana","Hana","United States","HNM","PHHN",20.795636,-156.014439,78,-10,"A"
-3446,"Ernest A Love Fld","Prescott","United States","PRC","KPRC",34.654472,-112.419583,5045,-7,"A"
-3447,"Trenton Mercer","Trenton","United States","TTN","KTTN",40.276692,-74.813469,213,-5,"A"
-3448,"General Edward Lawrence Logan Intl","Boston","United States","BOS","KBOS",42.364347,-71.005181,19,-5,"A"
-3449,"Travis Afb","Fairfield","United States","SUU","KSUU",38.262692,-121.927464,62,-8,"A"
-3450,"Griffiss Afld","Rome","United States","RME","KRME",43.2338,-75.407033,504,-5,"A"
-3451,"Wendover","Wendover","United States","ENV","KENV",40.718694,-114.030889,4237,-7,"A"
-3452,"Mobile Downtown","Mobile","United States","BFM","KBFM",30.626783,-88.068092,26,-6,"A"
-3453,"Metropolitan Oakland Intl","Oakland","United States","OAK","KOAK",37.721278,-122.220722,9,-8,"A"
-3454,"Eppley Afld","Omaha","United States","OMA","KOMA",41.303167,-95.894069,984,-6,"A"
-3455,"Port Angeles Cgas","Port Angeles","United States","NOW","KNOW",48.141481,-123.414075,13,-8,"A"
-3456,"Kahului","Kahului","United States","OGG","PHOG",20.89865,-156.430458,54,-10,"N"
-3457,"Wichita Mid Continent","Wichita","United States","ICT","KICT",37.649944,-97.433056,1333,-6,"A"
-3458,"Kansas City Intl","Kansas City","United States","MCI","KMCI",39.297606,-94.713905,1026,-6,"A"
-3459,"Dane Co Rgnl Truax Fld","Madison","United States","MSN","KMSN",43.139858,-89.337514,887,-6,"A"
-3460,"Dillingham","Dillingham","United States","DLG","PADL",59.044667,-158.5055,74,-9,"A"
-3461,"Boone Co","Harrison","United States","HRO","KHRO",36.261519,-93.154728,1365,-6,"A"
-3462,"Phoenix Sky Harbor Intl","Phoenix","United States","PHX","KPHX",33.434278,-112.011583,1135,-7,"N"
-3463,"Bangor Intl","Bangor","United States","BGR","KBGR",44.807444,-68.828139,192,-5,"A"
-3464,"Fort Lauderdale Executive","Fort Lauderdale","United States","FXE","KFXE",26.197281,-80.170706,13,-5,"A"
-3465,"East Texas Rgnl","Longview","United States","GGG","KGGG",32.384014,-94.711486,365,-6,"A"
-3466,"Anderson Rgnl","Andersen","United States","AND","KAND",34.494583,-82.709389,782,-5,"A"
-3467,"Spokane Intl","Spokane","United States","GEG","KGEG",47.619861,-117.533833,2376,-8,"A"
-3468,"North Perry","Hollywood","United States","HWO","KHWO",26.001222,-80.240722,8,-5,"A"
-3469,"San Francisco Intl","San Francisco","United States","SFO","KSFO",37.618972,-122.374889,13,-8,"A"
-3470,"Cut Bank Muni","Cutbank","United States","CTB","KCTB",48.608353,-112.376144,3854,-7,"A"
-3471,"Acadiana Rgnl","Louisiana","United States","ARA","KARA",30.037758,-91.883896,24,-6,"A"
-3472,"Gainesville Rgnl","Gainesville","United States","GNV","KGNV",29.690056,-82.271778,152,-5,"A"
-3473,"Memphis Intl","Memphis","United States","MEM","KMEM",35.042417,-89.976667,341,-6,"A"
-3474,"Bisbee Douglas Intl","Douglas","United States","DUG","KDUG",31.469028,-109.603667,4154,-7,"A"
-3475,"Allen Aaf","Delta Junction","United States","BIG","PABI",63.994547,-145.721642,1291,-9,"A"
-3476,"Tstc Waco","Waco","United States","CNW","KCNW",31.637831,-97.074139,470,-6,"A"
-3477,"Annette Island","Annette Island","United States","ANN","PANT",55.042436,-131.572233,119,-9,"A"
-3478,"Caribou Muni","Caribou","United States","CAR","KCAR",46.8715,-68.017917,626,-4,"A"
-3479,"Little Rock Afb","Jacksonville","United States","LRF","KLRF",34.916944,-92.149722,311,-6,"A"
-3480,"Redstone Aaf","Redstone","United States","HUA","KHUA",34.678653,-86.684781,685,-6,"A"
-3481,"Pope Afb","Fayetteville","United States","POB","KPOB",35.170883,-79.014472,217,-5,"A"
-3482,"Dalhart Muni","Dalhart","United States","DHT","KDHT",36.022586,-102.547278,3991,-6,"A"
-3483,"Laughlin Afb","Del Rio","United States","DLF","KDLF",29.359486,-100.777975,1082,-6,"A"
-3484,"Los Angeles Intl","Los Angeles","United States","LAX","KLAX",33.942536,-118.408075,126,-8,"A"
-3485,"Anniston Metro","Anniston","United States","ANB","KANB",33.588167,-85.858111,612,-6,"A"
-3486,"Cleveland Hopkins Intl","Cleveland","United States","CLE","KCLE",41.411689,-81.849794,791,-5,"A"
-3487,"Dover Afb","Dover","United States","DOV","KDOV",39.129539,-75.465958,28,-5,"A"
-3488,"Cincinnati Northern Kentucky Intl","Cincinnati","United States","CVG","KCVG",39.048836,-84.667822,896,-5,"A"
-3489,"Tipton","Fort Meade","United States","FME","KFME",39.085386,-76.759414,150,-5,"A"
-3490,"China Lake Naws","China","United States","NID","KNID",35.685422,-117.692039,2283,-8,"A"
-3491,"Huron Rgnl","Huron","United States","HON","KHON",44.3852,-98.228542,1289,-6,"A"
-3492,"Juneau Intl","Juneau","United States","JNU","PAJN",58.354972,-134.576278,21,-9,"A"
-3493,"Lafayette Rgnl","Lafayette","United States","LFT","KLFT",30.205278,-91.987611,43,-6,"A"
-3494,"Newark Liberty Intl","Newark","United States","EWR","KEWR",40.6925,-74.168667,18,-5,"A"
-3495,"Boise Air Terminal","Boise","United States","BOI","KBOI",43.564361,-116.222861,2871,-7,"A"
-3496,"Creech Afb","Indian Springs","United States","INS","KINS",36.587183,-115.673353,3133,-8,"A"
-3497,"Garden City Rgnl","Garden City","United States","GCK","KGCK",37.927528,-100.724417,2891,-6,"A"
-3498,"Minot Intl","Minot","United States","MOT","KMOT",48.259378,-101.280333,1716,-6,"A"
-3499,"Wheeler Aaf","Wheeler Afb.","United States","HHI","PHHI",21.4835,-158.039667,837,-10,"A"
-3500,"Maxwell Afb","Montgomery","United States","MXF","KMXF",32.382944,-86.365778,171,-6,"A"
-3501,"Robinson Aaf","Robinson","United States","RBM","KRBM",34.850089,-92.300153,587,-6,"A"
-3502,"Dallas Love Fld","Dallas","United States","DAL","KDAL",32.847111,-96.851778,487,-6,"A"
-3503,"Butts Aaf","Fort Carson","United States","FCS","KFCS",38.678394,-104.756581,5838,-7,"A"
-3504,"Helena Rgnl","Helena","United States","HLN","KHLN",46.606806,-111.98275,3877,-7,"A"
-3505,"Miramar Mcas","Miramar","United States","NKX","KNKX",32.867694,-117.14175,478,-8,"A"
-3506,"Luke Afb","Phoenix","United States","LUF","KLUF",33.535,-112.38306,1085,-7,"A"
-3507,"Hurlburt Fld","Mary Esther","United States","HRT","KHRT",30.427803,-86.689278,38,-6,"A"
-3508,"Jack Northrop Fld Hawthorne Muni","Hawthorne","United States","HHR","KHHR",33.922839,-118.335186,66,-8,"A"
-3509,"Houlton Intl","Houlton","United States","HUL","KHUL",46.123083,-67.792056,489,-4,"A"
-3510,"Vance Afb","Enid","United States","END","KEND",36.339167,-97.9165,1307,-6,"A"
-3511,"Point Mugu Nas","Point Mugu","United States","NTD","KNTD",34.120285,-119.12094,13,-8,"A"
-3512,"Edwards Afb","Edwards Afb","United States","EDW","KEDW",34.905417,-117.883739,2302,-8,"A"
-3513,"Lake Charles Rgnl","Lake Charles","United States","LCH","KLCH",30.126112,-93.223335,15,-6,"A"
-3514,"Kona Intl At Keahole","Kona","United States","KOA","PHKO",19.738767,-156.045631,47,-10,"N"
-3515,"Myrtle Beach Intl","Myrtle Beach","United States","MYR","KMYR",33.67975,-78.928333,25,-5,"A"
-3516,"Lemoore Nas","Lemoore","United States","NLC","KNLC",36.333012,-119.95208,234,-8,"A"
-3517,"Nantucket Mem","Nantucket","United States","ACK","KACK",41.253053,-70.060181,48,-5,"A"
-3518,"Felker Aaf","Fort Eustis","United States","FAF","KFAF",37.1325,-76.608841,12,-5,"A"
-3519,"Campbell Aaf","Hopkinsville","United States","HOP","KHOP",36.668567,-87.496183,573,-6,"A"
-3520,"Ronald Reagan Washington Natl","Washington","United States","DCA","KDCA",38.852083,-77.037722,15,-5,"A"
-3521,"Patuxent River Nas","Patuxent River","United States","NHK","KNHK",38.285981,-76.411781,39,-5,"A"
-3522,"Palacios Muni","Palacios","United States","PSX","KPSX",28.727508,-96.250958,14,-6,"A"
-3523,"Arkansas Intl","Blytheville","United States","BYH","KBYH",35.964347,-89.943956,254,-6,"A"
-3524,"Atlantic City Intl","Atlantic City","United States","ACY","KACY",39.457583,-74.577167,75,-5,"A"
-3525,"Tinker Afb","Oklahoma City","United States","TIK","KTIK",35.414739,-97.386633,1291,-6,"A"
-3526,"Elizabeth City Cgas Rgnl","Elizabeth City","United States","ECG","KECG",36.260581,-76.174572,12,-5,"A"
-3527,"Pueblo Mem","Pueblo Memorial","United States","PUB","KPUB",38.289085,-104.496572,4726,-7,"A"
-3528,"Northern Maine Rgnl At Presque Isle","Presque Isle","United States","PQI","KPQI",46.688958,-68.044797,534,-4,"A"
-3529,"Albuquerque Intl Sunport","Kirtland A.f.b.","United States","IKR","KIKR",35.040222,-106.609194,5355,-7,"A"
-3530,"Gray Aaf","Fort Lewis","United States","GRF","KGRF",47.079217,-122.580783,302,-8,"A"
-3531,"Kodiak","Kodiak","United States","ADQ","PADQ",57.749967,-152.493856,78,-9,"A"
-3532,"Upolu","Opolu","United States","UPP","PHUP",20.265256,-155.859989,96,-10,"A"
-3533,"Fort Lauderdale Hollywood Intl","Fort Lauderdale","United States","FLL","KFLL",26.072583,-80.15275,9,-5,"A"
-3534,"Davis Fld","Muskogee","United States","MKO","KMKO",35.656489,-95.366656,612,-6,"A"
-3535,"Falls Intl","International Falls","United States","INL","KINL",48.566186,-93.403067,1185,-6,"A"
-3536,"Salt Lake City Intl","Salt Lake City","United States","SLC","KSLC",40.788389,-111.977772,4227,-7,"A"
-3537,"Childress Muni","Childress","United States","CDS","KCDS",34.433781,-100.287992,1954,-6,"A"
-3538,"Keesler Afb","Biloxi","United States","BIX","KBIX",30.410425,-88.924433,33,-6,"A"
-3539,"Lawson Aaf","Fort Benning","United States","LSF","KLSF",32.337322,-84.991283,232,-5,"A"
-3540,"Kingsville Nas","Kingsville","United States","NQI","KNQI",27.507223,-97.809723,50,-6,"A"
-3541,"Marshall Aaf","Fort Riley","United States","FRI","KFRI",39.055275,-96.764453,1063,-6,"A"
-3542,"Harrisburg Intl","Harrisburg","United States","MDT","KMDT",40.193494,-76.763403,310,-5,"A"
-3543,"Lincoln","Lincoln","United States","LNK","KLNK",40.850971,-96.75925,1219,-6,"A"
-3544,"Capital City","Lansing","United States","LAN","KLAN",42.7787,-84.587357,861,-5,"A"
-3545,"Waimea Kohala","Kamuela","United States","MUE","PHMU",20.001328,-155.668108,2671,-10,"A"
-3546,"Massena Intl Richards Fld","Massena","United States","MSS","KMSS",44.935833,-74.845547,215,-5,"A"
-3547,"Hickory Rgnl","Hickory","United States","HKY","KHKY",35.741147,-81.38955,1189,-5,"A"
-3548,"Albert Whitted","St. Petersburg","United States","SPG","KSPG",27.765111,-82.626972,7,-5,"A"
-3549,"Page Fld","Fort Myers","United States","FMY","KFMY",26.586611,-81.86325,17,-5,"A"
-3550,"George Bush Intcntl Houston","Houston","United States","IAH","KIAH",29.984433,-95.341442,97,-6,"A"
-3551,"Millinocket Muni","Millinocket","United States","MLT","KMLT",45.647836,-68.685561,408,-5,"A"
-3552,"Andrews Afb","Camp Springs","United States","ADW","KADW",38.810806,-76.867028,280,-5,"A"
-3553,"Smith Reynolds","Winston-salem","United States","INT","KINT",36.133722,-80.222,969,-5,"A"
-3554,"Southern California Logistics","Victorville","United States","VCV","KVCV",34.597453,-117.382997,2885,-8,"A"
-3555,"Bob Sikes","Crestview","United States","CEW","KCEW",30.778833,-86.522111,213,-6,"A"
-3556,"Wheeler Sack Aaf","Fort Drum","United States","GTB","KGTB",44.055619,-75.719458,690,-5,"A"
-3557,"St Clair Co Intl","Port Huron","United States","PHN","KPHN",42.910957,-82.528862,650,-5,"A"
-3558,"Meadows Fld","Bakersfield","United States","BFL","KBFL",35.433598,-119.05677,507,-8,"A"
-3559,"El Paso Intl","El Paso","United States","ELP","KELP",31.80725,-106.377583,3958,-7,"A"
-3560,"Valley Intl","Harlingen","United States","HRL","KHRL",26.2285,-97.654389,36,-6,"A"
-3561,"Columbia Metropolitan","Colombia","United States","CAE","KCAE",33.938833,-81.119528,236,-5,"A"
-3562,"Davis Monthan Afb","Tucson","United States","DMA","KDMA",32.166467,-110.883144,2704,-7,"A"
-3563,"Pensacola Nas","Pensacola","United States","NPA","KNPA",30.352656,-87.318647,28,-6,"A"
-3564,"Pensacola Rgnl","Pensacola","United States","PNS","KPNS",30.473425,-87.186611,121,-6,"A"
-3565,"Grand Forks Afb","Red River","United States","RDR","KRDR",47.961098,-97.401194,913,-6,"A"
-3566,"William P Hobby","Houston","United States","HOU","KHOU",29.645419,-95.278889,46,-6,"A"
-3567,"Buckley Afb","Buckley","United States","BKF","KBKF",39.701668,-104.75166,5662,-7,"A"
-3568,"Northway","Northway","United States","ORT","PAOR",62.961334,-141.929136,1716,-9,"A"
-3569,"Palmer Muni","Palmer","United States","PAQ","PAAQ",61.594914,-149.088711,242,-9,"A"
-3570,"Pittsburgh Intl","Pittsburgh (pennsylva)","United States","PIT","KPIT",40.491467,-80.232872,1204,-5,"A"
-3571,"Wiley Post Will Rogers Mem","Barrow","United States","BRW","PABR",71.285446,-156.766003,44,-9,"A"
-3572,"Ellington Fld","Houston","United States","EFD","KEFD",29.607333,-95.15875,32,-6,"A"
-3573,"Whidbey Island Nas","Whidbey Island","United States","NUW","KNUW",48.351803,-122.655906,47,-8,"A"
-3574,"Alice Intl","Alice","United States","ALI","KALI",27.740889,-98.026944,178,-6,"A"
-3575,"Moody Afb","Valdosta","United States","VAD","KVAD",30.967833,-83.193,233,-5,"A"
-3576,"Miami Intl","Miami","United States","MIA","KMIA",25.79325,-80.290556,8,-5,"A"
-3577,"Seattle Tacoma Intl","Seattle","United States","SEA","KSEA",47.449,-122.309306,433,-8,"A"
-3578,"Lovell Fld","Chattanooga","United States","CHA","KCHA",35.035278,-85.203808,683,-5,"A"
-3579,"Igor I Sikorsky Mem","Stratford","United States","BDR","KBDR",41.163472,-73.126167,9,-5,"A"
-3580,"Jackson Evers Intl","Jackson","United States","JAN","KJAN",32.311167,-90.075889,346,-6,"A"
-3581,"Scholes Intl At Galveston","Galveston","United States","GLS","KGLS",29.265322,-94.860406,6,-6,"A"
-3582,"Long Beach","Long Beach","United States","LGB","KLGB",33.817722,-118.151611,60,-8,"A"
-3583,"Dillingham","Dillingham","United States","HDH","PHDH",21.579475,-158.197281,14,-10,"A"
-3584,"Williamsport Rgnl","Williamsport","United States","IPT","KIPT",41.241836,-76.921094,529,-5,"A"
-3585,"Indianapolis Intl","Indianapolis","United States","IND","KIND",39.717331,-86.294383,797,-5,"A"
-3586,"Whiteman Afb","Knobnoster","United States","SZL","KSZL",38.730306,-93.547864,870,-6,"A"
-3587,"Akron Fulton Intl","Akron","United States","","KAKR",41.0375,-81.466917,1067,-5,"A"
-3588,"Greenwood Leflore","Greenwood","United States","GWO","KGWO",33.494328,-90.084706,162,-6,"A"
-3589,"Westchester Co","White Plains","United States","HPN","KHPN",41.066959,-73.707575,439,-5,"A"
-3590,"Francis S Gabreski","West Hampton Beach","United States","FOK","KFOK",40.843656,-72.631789,67,-5,"A"
-3591,"Jonesboro Muni","Jonesboro","United States","JBR","KJBR",35.831708,-90.646417,262,-6,"A"
-3592,"Tonopah Test Range","Tonopah","United States","TNX","KTNX",37.798836,-116.78075,5549,-8,"A"
-3593,"Palm Beach Co Park","West Palm Beach","United States","LNA","KLNA",26.593,-80.085056,14,-5,"A"
-3594,"North Island Nas","San Diego","United States","NZY","KNZY",32.699219,-117.21531,26,-8,"A"
-3595,"Biggs Aaf","El Paso","United States","BIF","KBIF",31.849528,-106.380039,3948,-7,"A"
-3596,"Yuma Mcas Yuma Intl","Yuma","United States","YUM","KYUM",32.656578,-114.60598,216,-7,"N"
-3597,"Cavern City Air Terminal","Carlsbad","United States","CNM","KCNM",32.337472,-104.263278,3295,-7,"A"
-3598,"Duluth Intl","Duluth","United States","DLH","KDLH",46.842091,-92.193649,1428,-6,"A"
-3599,"Bethel","Bethel","United States","BET","PABE",60.779778,-161.838,121,-9,"A"
-3600,"Bowman Fld","Louisville","United States","LOU","KLOU",38.228,-85.663722,546,-5,"A"
-3601,"Sierra Vista Muni Libby Aaf","Fort Huachuca","United States","FHU","KFHU",31.588472,-110.344389,4719,-7,"A"
-3602,"Lihue","Lihue","United States","LIH","PHLI",21.975983,-159.338958,153,-10,"N"
-3603,"Terre Haute Intl Hulman Fld","Terre Haute","United States","HUF","KHUF",39.451464,-87.307561,589,-5,"A"
-3604,"Havre City Co","Havre","United States","HVR","KHVR",48.542983,-109.762342,2590,-7,"A"
-3605,"Grant Co Intl","Grant County Airport","United States","MWH","KMWH",47.207708,-119.32019,1185,-8,"A"
-3606,"Edward F Knapp State","Montpelier","United States","MPV","KMPV",44.203503,-72.562328,1165,-5,"A"
-3607,"San Nicolas Island Nolf","San Nicolas Island","United States","","KNSI",33.239765,-119.45816,506,-8,"A"
-3608,"Richmond Intl","Richmond","United States","RIC","KRIC",37.505167,-77.319667,167,-5,"A"
-3609,"Shreveport Rgnl","Shreveport","United States","SHV","KSHV",32.446629,-93.8256,258,-6,"A"
-3610,"Merle K Mudhole Smith","Cordova","United States","CDV","PACV",60.491778,-145.477556,48,-9,"A"
-3611,"Norfolk Intl","Norfolk","United States","ORF","KORF",36.894611,-76.201222,26,-5,"A"
-3612,"Southeast Texas Rgnl","Beaumont","United States","BPT","KBPT",29.950833,-94.020694,15,-6,"A"
-3613,"Savannah Hilton Head Intl","Savannah","United States","SAV","KSAV",32.127583,-81.202139,51,-5,"A"
-3614,"Hill Afb","Ogden","United States","HIF","KHIF",41.123939,-111.973039,4789,-7,"A"
-3615,"Nome","Nome","United States","OME","PAOM",64.512203,-165.445247,37,-9,"A"
-3616,"Scappoose Industrial Airpark","San Luis","United States","SPB","KSPB",45.771028,-122.861833,58,-8,"A"
-3617,"St Petersburg Clearwater Intl","St. Petersburg","United States","PIE","KPIE",27.910167,-82.687389,10,-5,"A"
-3618,"Menominee Marinette Twin Co","Macon","United States","MNM","KMNM",45.12665,-87.638443,625,-5,"A"
-3619,"Lone Star Executive","Conroe","United States","CXO","KCXO",30.351833,-95.414467,245,-6,"A"
-3620,"Deadhorse","Deadhorse","United States","SCC","PASC",70.19475,-148.465167,64,-9,"A"
-3621,"San Antonio Intl","San Antonio","United States","SAT","KSAT",29.533694,-98.469778,809,-6,"A"
-3622,"Greater Rochester Intl","Rochester","United States","ROC","KROC",43.118866,-77.672389,559,-5,"A"
-3623,"Patrick Afb","Coco Beach","United States","COF","KCOF",28.234922,-80.610125,8,-5,"A"
-3624,"Teterboro","Teterboro","United States","TEB","KTEB",40.850103,-74.060837,9,-5,"A"
-3625,"Ellsworth Afb","Rapid City","United States","RCA","KRCA",44.145042,-103.103567,3279,-7,"A"
-3626,"Raleigh Durham Intl","Raleigh-durham","United States","RDU","KRDU",35.877639,-78.787472,435,-5,"A"
-3627,"James M Cox Dayton Intl","Dayton","United States","DAY","KDAY",39.902375,-84.219375,1009,-5,"A"
-3628,"Kenai Muni","Kenai","United States","ENA","PAEN",60.573111,-151.245,99,-9,"A"
-3629,"Mc Alester Rgnl","Mcalester","United States","MLC","KMLC",34.882403,-95.783463,770,-6,"A"
-3630,"Niagara Falls Intl","Niagara Falls","United States","IAG","KIAG",43.107333,-78.946194,589,-5,"A"
-3631,"Coulter Fld","Bryan","United States","CFD","KCFD",30.715694,-96.331361,367,-6,"A"
-3632,"Wright Aaf","Wright","United States","","KLHW",31.889097,-81.562333,45,-5,"A"
-3633,"Newport News Williamsburg Intl","Newport News","United States","PHF","KPHF",37.131894,-76.492989,43,-5,"A"
-3634,"Esler Rgnl","Alexandria","United States","ESF","KESF",31.394903,-92.295772,112,-6,"A"
-3635,"Altus Afb","Altus","United States","LTS","KLTS",34.667067,-99.266681,1382,-6,"A"
-3636,"Tucson Intl","Tucson","United States","TUS","KTUS",32.116083,-110.941028,2643,-7,"N"
-3637,"Minot Afb","Minot","United States","MIB","KMIB",48.415572,-101.357661,1668,-6,"A"
-3638,"Beale Afb","Marysville","United States","BAB","KBAB",39.136089,-121.436567,113,-8,"A"
-3639,"Greater Kankakee","Kankakee","United States","IKK","KIKK",41.071389,-87.846278,630,-6,"A"
-3640,"Seymour Johnson Afb","Goldsboro","United States","GSB","KGSB",35.339383,-77.960589,110,-5,"A"
-3641,"Theodore Francis Green State","Providence","United States","PVD","KPVD",41.732581,-71.420383,55,-5,"A"
-3642,"Salisbury Ocean City Wicomico Rgnl","Salisbury","United States","SBY","KSBY",38.340525,-75.510289,52,-5,"A"
-3643,"Rancho Murieta","Rancho Murieta","United States","RIU","KRIU",38.486778,-121.102778,141,-8,"A"
-3644,"Bob Hope","Burbank","United States","BUR","KBUR",34.200667,-118.358667,778,-8,"A"
-3645,"Detroit Metro Wayne Co","Detroit","United States","DTW","KDTW",42.212444,-83.353389,645,-5,"A"
-3646,"Tampa Intl","Tampa","United States","TPA","KTPA",27.975472,-82.53325,26,-5,"A"
-3647,"Pembina Muni","Pembina","United States","PMB","KPMB",48.942501,-97.240833,795,-6,"A"
-3648,"Polk Aaf","Fort Polk","United States","POE","KPOE",31.044833,-93.191667,330,-6,"A"
-3649,"Eielson Afb","Fairbanks","United States","EIL","PAEI",64.665667,-147.1015,548,-9,"A"
-3650,"Chisholm Hibbing","Hibbing","United States","HIB","KHIB",47.3866,-92.838994,1353,-6,"A"
-3651,"Angelina Co","Lufkin","United States","LFK","KLFK",31.234014,-94.75,296,-6,"A"
-3652,"Midland Intl","Midland","United States","MAF","KMAF",31.942528,-102.201914,2871,-6,"A"
-3653,"Austin Straubel Intl","Green Bay","United States","GRB","KGRB",44.485072,-88.129589,695,-6,"A"
-3654,"Ardmore Muni","Ardmore","United States","ADM","KADM",34.300833,-97.008889,762,-6,"A"
-3655,"Mc Guire Afb","Wrightstown","United States","WRI","KWRI",40.015556,-74.591667,131,-5,"A"
-3656,"Cherry Point Mcas","Cherry Point","United States","NKT","KNKT",34.900872,-76.880733,29,-5,"A"
-3657,"Emanuel Co","Santa Barbara","United States","SBO","KSBO",32.609139,-82.369944,327,-5,"A"
-3658,"Augusta Rgnl At Bush Fld","Bush Field","United States","AGS","KAGS",33.369944,-81.9645,144,-5,"A"
-3659,"Sloulin Fld Intl","Williston","United States","ISN","KISN",48.177939,-103.642347,1982,-7,"A"
-3660,"Adams Fld","Little Rock","United States","LIT","KLIT",34.729444,-92.224306,262,-6,"A"
-3661,"Stewart Intl","Newburgh","United States","SWF","KSWF",41.504094,-74.104839,491,-5,"A"
-3662,"Baudette Intl","Baudette","United States","BDE","KBDE",48.728444,-94.612222,1086,-6,"A"
-3663,"Sacramento Executive","Sacramento","United States","SAC","KSAC",38.512524,-121.49347,24,-8,"A"
-3664,"Homer","Homer","United States","HOM","PAHO",59.645556,-151.476583,84,-9,"A"
-3665,"Waynesville Rgnl Arpt At Forney Fld","Fort Leonardwood","United States","TBN","KTBN",37.741631,-92.140736,1159,-6,"A"
-3666,"Dobbins Arb","Marietta","United States","MGE","KMGE",33.915382,-84.516319,1068,-5,"A"
-3667,"Fairchild Afb","Spokane","United States","SKA","KSKA",47.615058,-117.655772,2461,-8,"A"
-3668,"Roscommon Co","Houghton Lake","United States","HTL","KHTL",44.359806,-84.671112,1150,-5,"A"
-3669,"Tyndall Afb","Panama City","United States","PAM","KPAM",30.069567,-85.575417,17,-6,"A"
-3670,"Dallas Fort Worth Intl","Dallas-fort Worth","United States","DFW","KDFW",32.896828,-97.037997,607,-6,"A"
-3671,"Melbourne Intl","Melbourne","United States","MLB","KMLB",28.102753,-80.645258,33,-5,"A"
-3672,"Mc Chord Afb","Tacoma","United States","TCM","KTCM",47.137678,-122.476475,322,-8,"A"
-3673,"Austin Bergstrom Intl","Austin","United States","AUS","KAUS",30.194528,-97.669889,542,-6,"A"
-3674,"Rickenbacker Intl","Columbus","United States","LCK","KLCK",39.813786,-82.927822,744,-5,"A"
-3675,"Sawyer Intl","Gwinn","United States","","KSAW",46.353625,-87.395353,1221,-5,"A"
-3676,"Mc Ghee Tyson","Knoxville","United States","TYS","KTYS",35.810972,-83.994028,981,-5,"A"
-3677,"Hood Aaf","Fort Hood","United States","HLR","KHLR",31.138731,-97.714469,924,-6,"A"
-3678,"Lambert St Louis Intl","St. Louis","United States","STL","KSTL",38.748697,-90.370028,618,-6,"A"
-3679,"Millville Muni","Millville","United States","MIV","KMIV",39.367806,-75.072222,85,-5,"A"
-3680,"Sheppard Afb Wichita Falls Muni","Wichita Falls","United States","SPS","KSPS",33.988797,-98.491894,1019,-6,"A"
-3681,"Cincinnati Muni Lunken Fld","Cincinnati","United States","LUK","KLUK",39.103333,-84.418611,483,-5,"A"
-3682,"Hartsfield Jackson Atlanta Intl","Atlanta","United States","ATL","KATL",33.636719,-84.428067,1026,-5,"A"
-3683,"Castle","Merced","United States","MER","KMER",37.380481,-120.568189,189,-8,"A"
-3684,"Mc Clellan Afld","Sacramento","United States","MCC","KMCC",38.667639,-121.400611,75,-8,"A"
-3685,"Gerald R Ford Intl","Grand Rapids","United States","GRR","KGRR",42.880833,-85.522806,794,-5,"A"
-3686,"Winkler Co","Wink","United States","INK","KINK",31.779628,-103.201361,2822,-6,"A"
-3687,"Fresno Yosemite Intl","Fresno","United States","FAT","KFAT",36.776194,-119.71814,336,-8,"A"
-3688,"Vero Beach Muni","Vero Beach","United States","VRB","KVRB",27.655556,-80.417944,24,-5,"A"
-3689,"Imperial Co","Imperial","United States","IPL","KIPL",32.834219,-115.578744,-54,-8,"A"
-3690,"Nashville Intl","Nashville","United States","BNA","KBNA",36.124472,-86.678194,599,-6,"A"
-3691,"Laredo Intl","Laredo","United States","LRD","KLRD",27.54375,-99.461556,508,-6,"A"
-3692,"Elmendorf Afb","Anchorage","United States","EDF","PAED",61.250986,-149.806503,212,-9,"A"
-3693,"Ralph Wien Mem","Kotzebue","United States","OTZ","PAOT",66.884678,-162.59855,11,-9,"A"
-3694,"Altoona Blair Co","Altoona","United States","AOO","KAOO",40.296372,-78.320022,1504,-5,"A"
-3695,"Dyess Afb","Abilene","United States","DYS","KDYS",32.420756,-99.8546,1789,-6,"A"
-3696,"South Arkansas Rgnl At Goodwin Fld","El Dorado","United States","ELD","KELD",33.220972,-92.813278,277,-6,"A"
-3697,"La Guardia","New York","United States","LGA","KLGA",40.777245,-73.872608,22,-5,"A"
-3698,"Tallahassee Rgnl","Tallahassee","United States","TLH","KTLH",30.396528,-84.350333,81,-5,"A"
-3699,"Dupage","West Chicago","United States","DPA","KDPA",41.907778,-88.248611,758,-6,"A"
-3700,"Waco Rgnl","Waco","United States","ACT","KACT",31.611289,-97.230519,516,-6,"A"
-3701,"Augusta State","Augusta","United States","AUG","KAUG",44.320647,-69.797317,352,-5,"A"
-3702,"Hillsboro Muni","Santa Ana","United States","INJ","KINJ",32.083486,-97.097228,685,-6,"A"
-3703,"Jacksonville Nas","Jacksonville","United States","NIP","KNIP",30.235834,-81.680556,22,-5,"A"
-3704,"Mc Kellar Sipes Rgnl","Jackson","United States","MKL","KMKL",35.599889,-88.915611,434,-6,"A"
-3705,"Molokai","Molokai","United States","MKK","PHMK",21.152886,-157.096256,454,-10,"N"
-3706,"Godman Aaf","Fort Knox","United States","FTK","KFTK",37.907058,-85.972106,756,-6,"A"
-3707,"New River Mcas","Jacksonville","United States","","KNCA",34.708417,-77.439667,26,-5,"A"
-3708,"San Angelo Rgnl Mathis Fld","San Angelo","United States","SJT","KSJT",31.35775,-100.496306,1919,-6,"A"
-3709,"Calexico Intl","Calexico","United States","CXL","KCXL",32.669502,-115.51333,4,-8,"A"
-3710,"Chico Muni","Chico","United States","CIC","KCIC",39.795383,-121.858422,238,-8,"A"
-3711,"Burlington Intl","Burlington","United States","BTV","KBTV",44.471861,-73.153278,335,-5,"A"
-3712,"Jacksonville Intl","Jacksonville","United States","JAX","KJAX",30.494056,-81.687861,30,-5,"A"
-3713,"Durango La Plata Co","Durango","United States","DRO","KDRO",37.151516,-107.75377,6685,-7,"A"
-3714,"Washington Dulles Intl","Washington","United States","IAD","KIAD",38.944533,-77.455811,313,-5,"A"
-3715,"Easterwood Fld","College Station","United States","CLL","KCLL",30.588583,-96.363833,321,-6,"A"
-3716,"Felts Fld","Spokane","United States","SFF","KSFF",47.682819,-117.322558,1953,-8,"A"
-3717,"General Mitchell Intl","Milwaukee","United States","MKE","KMKE",42.947222,-87.896583,723,-6,"A"
-3718,"Abilene Rgnl","Abilene","United States","ABI","KABI",32.411319,-99.681897,1791,-6,"A"
-3719,"Columbia Rgnl","Columbia","United States","COU","KCOU",38.818094,-92.219631,889,-6,"A"
-3720,"Portland Intl","Portland","United States","PDX","KPDX",45.588722,-122.5975,30,-8,"A"
-3721,"Dade Collier Training And Transition","Miami","United States","TNT","KTNT",25.861806,-80.897,13,-5,"A"
-3722,"Palm Beach Intl","West Palm Beach","United States","PBI","KPBI",26.683161,-80.095589,19,-5,"A"
-3723,"Fort Worth Meacham Intl","Fort Worth","United States","FTW","KFTW",32.819778,-97.362444,710,-6,"A"
-3724,"Ogdensburg Intl","Ogdensburg","United States","OGS","KOGS",44.681854,-75.4655,297,-5,"A"
-3725,"Otis Angb","Falmouth","United States","FMH","KFMH",41.658439,-70.521417,131,-5,"A"
-3726,"Boeing Fld King Co Intl","Seattle","United States","BFI","KBFI",47.53,-122.301947,21,-8,"A"
-3727,"Lackland Afb Kelly Fld Annex","San Antonio","United States","SKF","KSKF",29.384228,-98.581108,691,-6,"A"
-3728,"Honolulu Intl","Honolulu","United States","HNL","PHNL",21.318681,-157.922428,13,-10,"N"
-3729,"Des Moines Intl","Des Moines","United States","DSM","KDSM",41.533972,-93.663083,958,-6,"A"
-3730,"Craven Co Rgnl","New Bern","United States","EWN","KEWN",35.072972,-77.042944,18,-5,"A"
-3731,"San Diego Intl","San Diego","United States","SAN","KSAN",32.733556,-117.189667,17,-8,"A"
-3732,"Monroe Rgnl","Monroe","United States","MLU","KMLU",32.510864,-92.037689,79,-6,"A"
-3733,"Shaw Afb","Sumter","United States","SSC","KSSC",33.972719,-80.470564,242,-5,"A"
-3734,"Ontario Intl","Ontario","United States","ONT","KONT",34.056,-117.601194,944,-8,"A"
-3735,"Majors","Greenvile","United States","GVT","KGVT",33.067839,-96.065333,535,-6,"A"
-3736,"Roswell Intl Air Center","Roswell","United States","ROW","KROW",33.301556,-104.530556,3671,-7,"A"
-3737,"Coleman A Young Muni","Detroit","United States","DET","KDET",42.409195,-83.009861,626,-5,"A"
-3738,"Brownsville South Padre Island Intl","Brownsville","United States","BRO","KBRO",25.906833,-97.425861,22,-6,"A"
-3739,"Dothan Rgnl","Dothan","United States","DHN","KDHN",31.321339,-85.449628,401,-6,"A"
-3740,"Cape May Co","Wildwood","United States","WWD","KWWD",39.008507,-74.908275,23,-5,"A"
-3741,"Fallon Nas","Fallon","United States","NFL","KNFL",39.416584,-118.70098,3934,-8,"A"
-3742,"Selfridge Angb","Mount Clemens","United States","MTC","KMTC",42.608333,-82.8355,580,-5,"A"
-3743,"Four Corners Rgnl","Farmington","United States","FMN","KFMN",36.74125,-108.229944,5506,-7,"A"
-3744,"Corpus Christi Intl","Corpus Christi","United States","CRP","KCRP",27.770361,-97.501222,44,-6,"A"
-3745,"Syracuse Hancock Intl","Syracuse","United States","SYR","KSYR",43.111187,-76.106311,421,-5,"A"
-3746,"Key West Nas","Key West","United States","NQX","KNQX",24.575834,-81.688889,6,-5,"A"
-3747,"Chicago Midway Intl","Chicago","United States","MDW","KMDW",41.785972,-87.752417,620,-6,"A"
-3748,"Norman Y Mineta San Jose Intl","San Jose","United States","SJC","KSJC",37.3626,-121.929022,62,-8,"A"
-3749,"Lea Co Rgnl","Hobbs","United States","HOB","KHOB",32.687528,-103.217028,3661,-7,"A"
-3750,"Northeast Philadelphia","Philadelphia","United States","PNE","KPNE",40.081944,-75.010586,121,-5,"A"
-3751,"Denver Intl","Denver","United States","DEN","KDEN",39.861656,-104.673178,5431,-7,"A"
-3752,"Philadelphia Intl","Philadelphia","United States","PHL","KPHL",39.871944,-75.241139,36,-5,"A"
-3753,"Sioux Gateway Col Bud Day Fld","Sioux City","United States","SUX","KSUX",42.402603,-96.384367,1098,-6,"A"
-3754,"Middle Georgia Rgnl","Macon","United States","MCN","KMCN",32.69285,-83.649211,354,-5,"A"
-3755,"Truth Or Consequences Muni","Truth Or Consequences","United States","TCS","KTCS",33.236944,-107.27175,4853,-7,"A"
-3756,"Palmdale Rgnl Usaf Plt 42","Palmdale","United States","PMD","KPMD",34.629391,-118.08456,2543,-8,"A"
-3757,"Randolph Afb","San Antonio","United States","RND","KRND",29.529675,-98.2789,762,-6,"A"
-3758,"El Centro Naf","El Centro","United States","NJK","KNJK",32.829222,-115.671667,-42,-8,"A"
-3759,"Port Columbus Intl","Columbus","United States","CMH","KCMH",39.997972,-82.891889,815,-5,"A"
-3760,"Drake Fld","Fayetteville","United States","FYV","KFYV",36.005094,-94.170059,1251,-6,"A"
-3761,"Henry Post Aaf","Fort Sill","United States","FSI","KFSI",34.649833,-98.402167,1189,-6,"A"
-3762,"Princeton Muni","Princeton","United States","PNM","KPNM",45.559868,-93.608217,979,-6,"A"
-3763,"Wright Patterson Afb","Dayton","United States","FFO","KFFO",39.826111,-84.048332,823,-5,"A"
-3764,"Edward G Pitka Sr","Galena","United States","GAL","PAGA",64.736178,-156.937417,152,-9,"A"
-3765,"Chandler Muni","Chandler","United States","","KCHD",33.269111,-111.811111,1243,-7,"A"
-3766,"Mineral Wells","Mineral Wells","United States","MWL","KMWL",32.781606,-98.060175,974,-6,"A"
-3767,"Mc Connell Afb","Wichita","United States","IAB","KIAB",37.621853,-97.268192,1371,-6,"A"
-3768,"New Orleans Nas Jrb","New Orleans","United States","NBG","KNBG",29.825333,-90.035,3,-6,"A"
-3769,"Beaufort Mcas","Beaufort","United States","NBC","KNBC",32.477411,-80.723161,37,-5,"A"
-3770,"Texarkana Rgnl Webb Fld","Texarkana","United States","TXK","KTXK",33.453722,-93.991028,390,-6,"A"
-3771,"Plattsburgh Intl","Plattsburgh","United States","PBG","KPBG",44.650944,-73.468139,234,-5,"A"
-3772,"Phillips Aaf","Aberdeen","United States","APG","KAPG",39.466219,-76.168808,57,-5,"A"
-3773,"Tucumcari Muni","Tucumcari","United States","TCC","KTCC",35.182777,-103.603186,4065,-7,"A"
-3774,"Ted Stevens Anchorage Intl","Anchorage","United States","ANC","PANC",61.174361,-149.996361,152,-9,"A"
-3775,"Robert Gray Aaf","Killeen","United States","GRK","KGRK",31.06725,-97.828917,1015,-6,"A"
-3776,"Black Rock","Zuni Pueblo","United States","ZUN","KZUN",35.083228,-108.791778,6454,-7,"A"
-3777,"Bellingham Intl","Bellingham","United States","BLI","KBLI",48.792694,-122.537528,170,-8,"A"
-3778,"Millington Rgnl Jetport","Millington","United States","NQA","KNQA",35.356667,-89.870278,320,-6,"A"
-3779,"Elkins Randolph Co Jennings Randolph","Elkins","United States","EKN","KEKN",38.889444,-79.857139,1987,-5,"A"
-3780,"Hartford Brainard","Hartford","United States","HFD","KHFD",41.736722,-72.649444,18,-5,"A"
-3781,"North Central State","Smithfield","United States","SFZ","KSFZ",41.920764,-71.491381,441,-5,"A"
-3782,"Mobile Rgnl","Mobile","United States","MOB","KMOB",30.691231,-88.242814,219,-6,"A"
-3783,"Moffett Federal Afld","Mountain View","United States","NUQ","KNUQ",37.416142,-122.049139,32,-8,"A"
-3784,"Santa Fe Muni","Santa Fe","United States","SAF","KSAF",35.617108,-106.089422,6348,-7,"A"
-3785,"Barking Sands Pmrf","Barking Sands","United States","BKH","PHBK",22.022833,-159.785,23,-10,"A"
-3786,"Beauregard Rgnl","Deridder","United States","DRI","KDRI",30.831722,-93.339917,202,-6,"A"
-3787,"Bradshaw Aaf","Bradshaw Field","United States","BSF","PHSF",19.760056,-155.553717,6190,-10,"A"
-3788,"Nogales Intl","Nogales","United States","OLS","KOLS",31.417722,-110.84789,3955,-7,"A"
-3789,"Macdill Afb","Tampa","United States","MCF","KMCF",27.849339,-82.521214,14,-5,"A"
-3790,"Scott Afb Midamerica","Belleville","United States","BLV","KBLV",38.545178,-89.835183,459,-6,"A"
-3791,"Opa Locka","Miami","United States","OPF","KOPF",25.907,-80.278389,8,-5,"A"
-3792,"Del Rio Intl","Del Rio","United States","DRT","KDRT",29.374208,-100.927158,1002,-6,"A"
-3793,"Southwest Florida Intl","Fort Myers","United States","RSW","KRSW",26.536167,-81.755167,30,-5,"A"
-3794,"King Salmon","King Salmon","United States","AKN","PAKN",58.676778,-156.649278,68,-9,"A"
-3795,"Muir Aaf","Muir","United States","MUI","KMUI",40.434811,-76.569411,489,-5,"A"
-3796,"Kapalua","Lahania-kapalua","United States","JHM","PHJH",20.962936,-156.673031,256,-10,"A"
-3797,"John F Kennedy Intl","New York","United States","JFK","KJFK",40.639751,-73.778925,13,-5,"A"
-3798,"Homestead Arb","Homestead","United States","HST","KHST",25.48855,-80.383567,6,-5,"A"
-3799,"Riverside Muni","Riverside","United States","RAL","KRAL",33.951875,-117.445103,818,-8,"A"
-3800,"Sherman Aaf","Fort Leavenworth","United States","FLV","KFLV",39.368332,-94.914686,772,-6,"A"
-3801,"Wallops Flight Facility","Wallops Island","United States","WAL","KWAL",37.940194,-75.466389,40,-5,"A"
-3802,"Holloman Afb","Alamogordo","United States","HMN","KHMN",32.852519,-106.106525,4093,-7,"A"
-3803,"Willow Grove Nas Jrb","Willow Grove","United States","NXX","KNXX",40.199833,-75.148167,358,-5,"A"
-3804,"Cheyenne Rgnl Jerry Olson Fld","Cheyenne","United States","CYS","KCYS",41.155722,-104.811839,6156,-7,"A"
-3805,"Stockton Metropolitan","Stockton","United States","SCK","KSCK",37.894167,-121.238306,33,-8,"A"
-3806,"Charleston Afb Intl","Charleston","United States","CHS","KCHS",32.898647,-80.040528,45,-5,"A"
-3807,"Reno Tahoe Intl","Reno","United States","RNO","KRNO",39.499108,-119.768108,4415,-8,"A"
-3808,"Ketchikan Intl","Ketchikan","United States","KTN","PAKT",55.355556,-131.71375,88,-9,"A"
-3809,"Willow Run","Detroit","United States","YIP","KYIP",42.237928,-83.530408,716,-5,"A"
-3810,"Vandenberg Afb","Lompoc","United States","VBG","KVBG",34.737333,-120.584306,369,-8,"A"
-3811,"Birmingham Intl","Birmingham","United States","BHM","KBHM",33.562942,-86.75355,644,-6,"A"
-3812,"Lakehurst Naes","Lakehurst","United States","NEL","KNEL",40.033333,-74.353333,103,-5,"A"
-3813,"Eareckson As","Shemya","United States","SYA","PASY",52.712275,174.11362,98,-10,"A"
-3814,"Nellis Afb","Las Vegas","United States","LSV","KLSV",36.236197,-115.034253,1870,-8,"A"
-3815,"March Arb","Riverside","United States","RIV","KRIV",33.880711,-117.259453,1535,-8,"A"
-3816,"Modesto City Co Harry Sham","Modesto","United States","MOD","KMOD",37.625817,-120.954422,97,-8,"A"
-3817,"Sacramento Intl","Sacramento","United States","SMF","KSMF",38.695417,-121.590778,27,-8,"A"
-3818,"Waukegan Rgnl","Chicago","United States","UGN","KUGN",42.422161,-87.867908,727,-6,"A"
-3819,"City Of Colorado Springs Muni","Colorado Springs","United States","COS","KCOS",38.805805,-104.700778,6187,-7,"A"
-3820,"Buffalo Niagara Intl","Buffalo","United States","BUF","KBUF",42.940525,-78.732167,724,-5,"A"
-3821,"Griffing Sandusky","Sandusky","United States","SKY","KSKY",41.433361,-82.652333,580,-5,"A"
-3822,"Snohomish Co","Everett","United States","PAE","KPAE",47.906342,-122.281564,606,-8,"A"
-3823,"Mountain Home Afb","Mountain Home","United States","MUO","KMUO",43.043603,-115.872431,2996,-7,"A"
-3824,"Cedar City Rgnl","Cedar City","United States","CDC","KCDC",37.700967,-113.098847,5622,-7,"A"
-3825,"Bradley Intl","Windsor Locks","United States","BDL","KBDL",41.938889,-72.683222,173,-5,"A"
-3826,"Mc Allen Miller Intl","Mcallen","United States","MFE","KMFE",26.175833,-98.238611,107,-6,"A"
-3827,"Norfolk Ns","Norfolk","United States","NGU","KNGU",36.937644,-76.289289,15,-5,"A"
-3828,"Westover Arb Metropolitan","Chicopee Falls","United States","CEF","KCEF",42.194014,-72.534783,241,-5,"A"
-3829,"Lubbock Preston Smith Intl","Lubbock","United States","LBB","KLBB",33.663639,-101.822778,3282,-6,"A"
-3830,"Chicago Ohare Intl","Chicago","United States","ORD","KORD",41.978603,-87.904842,668,-6,"A"
-3831,"Boca Raton","Boca Raton","United States","BCT","KBCT",26.3785,-80.107694,13,-5,"A"
-3832,"Fairbanks Intl","Fairbanks","United States","FAI","PAFA",64.815114,-147.856267,434,-9,"A"
-3833,"Quantico Mcaf","Quantico","United States","NYG","KNYG",38.501683,-77.305333,11,-5,"A"
-3834,"Cannon Afb","Clovis","United States","CVS","KCVS",34.382775,-103.322147,4295,-7,"A"
-3835,"Kaneohe Bay Mcaf","Kaneohe Bay","United States","NGF","PHNG",21.450453,-157.768,24,-10,"A"
-3836,"Offutt Afb","Omaha","United States","OFF","KOFF",41.118332,-95.912511,1052,-6,"A"
-3837,"Gulkana","Gulkana","United States","GKN","PAGK",62.154888,-145.456639,1580,-9,"A"
-3838,"Watertown Intl","Watertown","United States","ART","KART",43.991922,-76.021739,325,-5,"A"
-3839,"Palm Springs Intl","Palm Springs","United States","PSP","KPSP",33.829667,-116.506694,477,-8,"A"
-3840,"Rick Husband Amarillo Intl","Amarillo","United States","AMA","KAMA",35.219369,-101.705931,3607,-6,"A"
-3841,"Fort Dodge Rgnl","Fort Dodge","United States","FOD","KFOD",42.5512,-94.191842,1157,-6,"A"
-3842,"Barksdale Afb","Shreveport","United States","BAD","KBAD",32.50182,-93.662674,166,-6,"A"
-3843,"Forbes Fld","Topeka","United States","FOE","KFOE",38.950944,-95.663611,1078,-6,"A"
-3844,"Cotulla Lasalle Co","Cotulla","United States","COT","KCOT",28.456694,-99.220294,474,-6,"A"
-3845,"Wilmington Intl","Wilmington","United States","ILM","KILM",34.270615,-77.902569,32,-5,"A"
-3846,"Baton Rouge Metro Ryan Fld","Baton Rouge","United States","BTR","KBTR",30.533167,-91.149639,70,-6,"A"
-3847,"Meridian Nas","Meridian","United States","NMM","KNMM",32.552083,-88.555557,317,-6,"A"
-3848,"Tyler Pounds Rgnl","Tyler","United States","TYR","KTYR",32.354139,-95.402386,544,-6,"A"
-3849,"Baltimore Washington Intl","Baltimore","United States","BWI","KBWI",39.175361,-76.668333,146,-5,"A"
-3850,"Hobart Muni","Hobart","United States","HBR","KHBR",34.991308,-99.051353,1564,-6,"A"
-3851,"Lanai","Lanai","United States","LNY","PHNY",20.785611,-156.951419,1308,-10,"N"
-3852,"Alexandria Intl","Alexandria","United States","AEX","KAEX",31.3274,-92.549833,89,-6,"A"
-3853,"Condron Aaf","White Sands","United States","WSD","KWSD",32.341484,-106.40277,3934,-7,"A"
-3854,"Cold Bay","Cold Bay","United States","CDB","PACD",55.206061,-162.725436,96,-9,"A"
-3855,"Tulsa Intl","Tulsa","United States","TUL","KTUL",36.198389,-95.888111,677,-6,"A"
-3856,"Sitka Rocky Gutierrez","Sitka","United States","SIT","PASI",57.047138,-135.361611,21,-9,"A"
-3857,"Long Island Mac Arthur","Islip","United States","ISP","KISP",40.79525,-73.100222,99,-5,"A"
-3858,"Minneapolis St Paul Intl","Minneapolis","United States","MSP","KMSP",44.881956,-93.221767,841,-6,"A"
-3859,"New Castle","Wilmington","United States","ILG","KILG",39.678722,-75.606528,79,-5,"A"
-3860,"Unalaska","Unalaska","United States","DUT","PADU",53.900139,-166.5435,22,-9,"A"
-3861,"Louis Armstrong New Orleans Intl","New Orleans","United States","MSY","KMSY",29.993389,-90.258028,4,-6,"A"
-3862,"Portland Intl Jetport","Portland","United States","PWM","KPWM",43.646161,-70.309281,77,-5,"A"
-3863,"Will Rogers World","Oklahoma City","United States","OKC","KOKC",35.393089,-97.600733,1295,-6,"A"
-3864,"Albany Intl","Albany","United States","ALB","KALB",42.748267,-73.801692,285,-5,"A"
-3865,"Valdez Pioneer Fld","Valdez","United States","VDZ","PAVD",61.133949,-146.248342,118,-9,"A"
-3866,"Langley Afb","Hampton","United States","LFI","KLFI",37.082881,-76.360547,11,-5,"A"
-3867,"John Wayne Arpt Orange Co","Santa Ana","United States","SNA","KSNA",33.675667,-117.868222,56,-8,"A"
-3868,"Columbus Afb","Colombus","United States","CBM","KCBM",33.643833,-88.443833,219,-6,"A"
-3869,"Kendall Tamiami Executive","Kendall-tamiami","United States","TMB","KTMB",25.647889,-80.432777,8,-5,"A"
-3870,"Oceana Nas","Oceana","United States","NTU","KNTU",36.820703,-76.033542,22,-5,"A"
-3871,"Grissom Arb","Peru","United States","GUS","KGUS",40.648094,-86.152119,812,-5,"A"
-3872,"Natrona Co Intl","Casper","United States","CPR","KCPR",42.908,-106.464417,5347,-7,"A"
-3873,"Eglin Afb","Valparaiso","United States","VPS","KVPS",30.48325,-86.5254,87,-6,"A"
-3874,"Craig Fld","Selma","United States","SEM","KSEM",32.343947,-86.987803,166,-6,"A"
-3875,"Key West Intl","Key West","United States","EYW","KEYW",24.556111,-81.759556,3,-5,"A"
-3876,"Charlotte Douglas Intl","Charlotte","United States","CLT","KCLT",35.214,-80.943139,748,-5,"A"
-3877,"Mc Carran Intl","Las Vegas","United States","LAS","KLAS",36.080056,-115.15225,2141,-8,"A"
-3878,"Orlando Intl","Orlando","United States","MCO","KMCO",28.429394,-81.308994,96,-5,"A"
-3879,"Florence Rgnl","Florence","United States","FLO","KFLO",34.185361,-79.723889,146,-5,"A"
-3880,"Great Falls Intl","Great Falls","United States","GTF","KGTF",47.482,-111.370689,3677,-7,"A"
-3881,"Youngstown Warren Rgnl","Youngstown","United States","YNG","KYNG",41.260736,-80.679097,1196,-5,"A"
-3882,"Ladd Aaf","Fort Wainwright","United States","FBK","PAFB",64.8375,-147.614444,454,-9,"A"
-3883,"Mc Minnville Muni","Mackminnville","United States","MMV","KMMV",45.194444,-123.135944,163,-8,"A"
-3884,"Robins Afb","Macon","United States","WRB","KWRB",32.640144,-83.59185,294,-5,"A"
-3885,"Suvarnabhumi Intl","Bangkok","Thailand","BKK","VTBS",13.681108,100.747283,5,7,"U"
-3887,"Andi Jemma","Masamba","Indonesia","","WAWM",-2.558044,120.324383,164,8,"U"
-3888,"Soroako","Soroako","Indonesia","","WAWS",-2.531203,121.357639,1388,8,"U"
-3889,"Pongtiku","Makale","Indonesia","","WAWT",-3.044736,119.821536,2884,8,"U"
-3890,"Wolter Monginsidi","Kendari","Indonesia","KDI","WAWW",-4.081608,122.418231,538,8,"U"
-3891,"Maimun Saleh","Sabang","Indonesia","SBG","WITB",5.874131,95.339672,393,7,"U"
-3892,"Cibeureum","Tasikmalaya","Indonesia","","WICM",-7.346603,108.246092,1148,7,"U"
-3893,"Iswahyudi","Madiun","Indonesia","","WARI",-7.615767,111.434117,361,7,"U"
-3894,"Abdul Rachman Saleh","Malang","Indonesia","MLG","WARA",-7.926556,112.714514,1726,7,"U"
-3895,"Budiarto","Tangerang","Indonesia","","WICB",-6.293169,106.5699,151,7,"U"
-3896,"Husein Sastranegara","Bandung","Indonesia","BDO","WICC",-6.900625,107.576294,2436,7,"U"
-3897,"Penggung","Cirebon","Indonesia","CBN","WICD",-6.756144,108.539672,89,7,"U"
-3898,"Adi Sutjipto","Yogyakarta","Indonesia","JOG","WARJ",-7.788181,110.431758,350,7,"U"
-3899,"Tunggul Wulung","Cilacap","Indonesia","CXP","WIHL",-7.645056,109.033911,69,7,"U"
-3900,"Pondok Cabe","Jakarta","Indonesia","PCB","WIHP",-6.336964,106.764561,200,7,"U"
-3901,"Achmad Yani","Semarang","Indonesia","SRG","WARS",-6.971447,110.374122,13,7,"U"
-3903,"Hang Nadim","Batam","Indonesia","BTH","WIDD",1.121028,104.118753,126,7,"U"
-3904,"H As Hanandjoeddin","Tanjung Pandan","Indonesia","TJQ","WIOD",-2.745722,107.754917,164,7,"U"
-3905,"Depati Amir","Pangkal Pinang","Indonesia","PGK","WIPK",-2.1622,106.139064,109,7,"U"
-3906,"Kijang","Tanjung Pinang","Indonesia","TNJ","WIDN",0.922683,104.532311,52,7,"U"
-3907,"Dabo","Singkep","Indonesia","SIQ","WIDS",-0.479189,104.579283,95,7,"U"
-3908,"Syamsudin Noor","Banjarmasin","Indonesia","BDJ","WAOO",-3.442356,114.762553,66,8,"U"
-3909,"Batu Licin","Batu Licin","Indonesia","","WAOC",-3.412408,115.995136,3,8,"U"
-3910,"Iskandar","Pangkalan Bun","Indonesia","PKN","WAOI",-2.705197,111.673208,75,7,"U"
-3911,"Tjilik Riwut","Palangkaraya","Indonesia","PKY","WAOP",-2.225128,113.942661,82,7,"U"
-6822,"Militaerlager","S-Chanf","Switzerland","",\N,46.6166,9.9833,5100,1,"U"
-3913,"Wai Oti","Maumere","Indonesia","MOF","WATC",-8.640647,122.236889,115,8,"U"
-3914,"H Hasan Aroeboesman","Ende","Indonesia","ENE","WATE",-8.849294,121.660644,49,8,"U"
-3915,"Satar Tacik","Ruteng","Indonesia","RTG","WATG",-8.597011,120.477061,3510,8,"U"
-3916,"El Tari","Kupang","Indonesia","KOE","WATT",-10.171583,123.671136,335,8,"U"
-3917,"Mutiara Ii","Labuhan Bajo","Indonesia","LBJ","WATO",-8.486656,119.88905,66,8,"U"
-3919,"Sepinggan","Balikpapan","Indonesia","BPN","WALL",-1.268272,116.894478,12,8,"U"
-3920,"Juwata","Taraken","Indonesia","TRK","WALR",3.326694,117.565569,20,8,"U"
-3921,"Temindung","Samarinda","Indonesia","SRI","WALS",-0.484531,117.157111,33,8,"U"
-3922,"Tanjung Santan","Tanjung Santan","Indonesia","","WALT",-0.093215,117.439292,121,8,"U"
-3923,"Selaparang","Mataram","Indonesia","AMI","WADA",-8.560708,116.094656,52,8,"U"
-3924,"Muhammad Salahuddin","Bima","Indonesia","BMU","WADB",-8.539647,118.687322,3,8,"U"
-6799,"Krems Langenlois","Krems","Austria","","LOAG",48.446075,15.631243,1022,-1,"E"
-3927,"Mau Hau","Waingapu","Indonesia","WGP","WADW",-9.669217,120.302006,33,8,"U"
-3928,"Juanda","Surabaya","Indonesia","SUB","WARR",-7.379831,112.786858,9,7,"U"
-3929,"Adi Sumarmo Wiryokusumo","Solo City","Indonesia","SOC","WARQ",-7.516089,110.756892,421,7,"U"
-3931,"Chiang Mai Intl","Chiang Mai","Thailand","CNX","VTCC",18.766847,98.962644,1036,7,"U"
-3932,"Chiang Rai Intl","Chiang Rai","Thailand","CEI","VTCT",19.952342,99.882928,1280,7,"U"
-3933,"Nakhon Si Thammarat","Nakhon Si Thammarat","Thailand","NST","VTSF",8.539617,99.944725,13,7,"U"
-3940,"Bali Ngurah Rai","Denpasar","Indonesia","DPS","WADD",-8.748169,115.167172,14,8,"U"
-3935,"Nakhon Ratchasima","Nakhon Ratchasima","Thailand","NAK","VTUQ",14.949497,102.312736,765,7,"U"
-3936,"Nakhon Phanom","Nakhon Phanom","Thailand","KOP","VTUW",17.383794,104.643022,587,7,"U"
-3937,"Ubon Ratchathani","Ubon Ratchathani","Thailand","UBP","VTUU",15.251278,104.870231,406,7,"U"
-3938,"Khon Kaen","Khon Kaen","Thailand","KKC","VTUK",16.466628,102.783661,670,7,"U"
-3939,"Sukhothai","Sukhothai","Thailand","THS","VTPO",17.237992,99.818183,179,7,"U"
-3941,"Eleftherios Venizelos Intl","Athens","Greece","ATH","LGAV",37.936358,23.944467,308,2,"E"
-3942,"Chubu Centrair Intl","Nagoya","Japan","NGO","RJGG",34.858414,136.805408,15,9,"U"
-3943,"Kobe","Kobe","Japan","UKB","RJBE",34.632778,135.223889,22,9,"U"
-3944,"Pullman-Moscow Rgnl","Pullman","United States","PUW","KPUW",46.743861,-117.109583,2556,-8,"A"
-3945,"Lewiston Nez Perce Co","Lewiston","United States","LWS","KLWS",46.3745,-117.015389,1442,-8,"A"
-3946,"Elmira Corning Rgnl","Elmira","United States","ELM","KELM",42.159889,-76.891611,954,-5,"A"
-3947,"Ithaca Tompkins Rgnl","Ithaca","United States","ITH","KITH",42.491028,-76.458444,1099,-5,"A"
-3948,"Monterey Peninsula","Monterey","United States","MRY","KMRY",36.587,-121.842944,257,-8,"A"
-3949,"Santa Barbara Muni","Santa Barbara","United States","SBA","KSBA",34.426211,-119.840372,10,-8,"A"
-3950,"Daytona Beach Intl","Daytona Beach","United States","DAB","KDAB",29.179917,-81.058056,34,-5,"A"
-6815,"Berlin - Metropolencode","Berlin","Germany","BER",\N,52.31,13.24,34,1,"E"
-3952,"Liepaja Intl","Liepaja","Latvia","LPX","EVLA",56.5175,21.096944,16,2,"E"
-3953,"Riga Intl","Riga","Latvia","RIX","EVRA",56.923611,23.971111,34,2,"E"
-3954,"Siauliai Intl","Siauliai","Lithuania","SQQ","EYSA",55.893886,23.394975,443,2,"E"
-3955,"Barysiai","Barysiai","Lithuania","HLJ","EYSB",56.070556,23.558056,270,2,"E"
-3956,"Kaunas Intl","Kaunas","Lithuania","KUN","EYKA",54.963919,24.084778,256,2,"E"
-3957,"S. Darius","Kaunas","Lithuania","","EYKS",54.879792,23.881511,246,2,"E"
-3958,"Palanga Intl","Palanga","Lithuania","PLQ","EYPA",55.973228,21.093856,33,2,"E"
-3959,"Vilnius Intl","Vilnius","Lithuania","VNO","EYVI",54.634133,25.285767,646,2,"E"
-3960,"Pajuostis","Panevezys","Lithuania","PNV","EYPP",55.729444,24.460833,197,2,"E"
-3962,"Erebuni","Yerevan","Armenia","","UDYE",40.122114,44.464992,2948,4,"E"
-3963,"Stepanavan","Stepanavan","Armenia","","UDLS",41.04845,44.337172,4836,4,"E"
-3964,"Zvartnots","Yerevan","Armenia","EVN","UDYZ",40.147275,44.395881,2838,4,"E"
-3965,"Gyumri","Gyumri","Armenia","LWN","UDSG",40.750369,43.859342,5000,4,"E"
-3966,"Assab Intl","Assab","Eritrea","ASA","HHSB",13.071783,42.645006,46,3,"U"
-3967,"Asmara Intl","Asmara","Eritrea","ASM","HHAS",15.291853,38.910667,7661,3,"U"
-3968,"Massawa Intl","Massawa","Eritrea","MSW","HHMS",15.669989,39.370103,194,3,"U"
-3969,"Yasser Arafat Intl","Gaza","Palestine","GZA","LVGZ",31.246389,34.276111,320,2,"U"
-3974,"Riyan","Mukalla","Yemen","RIY","OYRN",14.662639,49.375028,54,3,"U"
-3971,"Batumi","Batumi","Georgia","BUS","UGSB",41.610278,41.599694,105,2,"E"
-3972,"Kopitnari","Kutaisi","Georgia","KUT","UGKO",42.176653,42.482583,223,4,"E"
-3973,"Tbilisi","Tbilisi","Georgia","TBS","UGTB",41.669167,44.954722,1624,4,"E"
-3975,"Taiz Intl","Taiz","Yemen","TAI","OYTZ",13.685964,44.139056,4838,3,"U"
-3976,"Hodeidah Intl","Hodeidah","Yemen","HOD","OYHD",14.753,42.976336,41,3,"U"
-3977,"Aden Intl","Aden","Yemen","ADE","OYAA",12.829542,45.028792,7,3,"U"
-3978,"Ataq","Ataq","Yemen","AXK","OYAT",14.551322,46.826183,3735,3,"U"
-3979,"Al Ghaidah Intl","Al Ghaidah Intl","Yemen","AAY","OYGD",16.191667,52.175,134,3,"U"
-3980,"Sanaa Intl","Sanaa","Yemen","SAH","OYSN",15.476258,44.219739,7216,3,"U"
-3986,"Allgau","Memmingen","Germany","FMM","EDJA",47.988758,10.2395,2077,1,"E"
-3982,"Beihan","Beihan","Yemen","BHN","OYBN",14.781972,45.720083,3800,3,"U"
-6863,"RK Heliplex","Panorama","Canada","",\N,50.2735,-116.14,358,-8,"A"
-3984,"Socotra Intl","Socotra","Yemen","SCT","OYSQ",12.630672,53.905778,146,3,"U"
-3985,"Al Badie","Al Badie","Yemen","","OYBA",18.719311,50.836911,908,3,"U"
-3987,"Kapadokya","Nevsehir","Turkey","NAV","LTAZ",38.771867,34.53455,3100,2,"E"
-3988,"Ministro Pistarini","Buenos Aires","Argentina","EZE","SAEZ",-34.822222,-58.535833,67,-3,"S"
-3989,"Erbil Intl","Erbil","Iraq","EBL","ORER",36.237611,43.963158,1341,3,"U"
-3990,"Emerald","Emerald","Australia","EMD","YEML",-23.5675,148.179167,624,10,"O"
-3991,"Ellinikon International Airport","Athens","Greece","","LGAT",37.5354,23.4346,68,2,"E"
-3992,"Kansai","Osaka","Japan","KIX","RJBB",34.4347222,135.244167,49,9,"U"
-3993,"Wall Street Heliport","New York","United States","JRB","KJRB",40.701214,-74.009028,7,-5,"A"
-3994,"Tagbilaran","Tagbilaran","Philippines","TAG","RPVT",9.66408056,123.853247,38,8,"U"
-3995,"Ilulissat","Ilulissat","Greenland","JAV","BGJN",69.23444,-51.05111,2,-3,"E"
-3996,"Qasigiannguit","Qasigiannguit","Greenland","JCH","BGCH",68.833336,-51,2,-3,"E"
-3997,"Aasiaat","Aasiaat","Greenland","JEG","BGEM",68.7,-52.75,2,-3,"E"
-3998,"Son Sant Joan","Palma de Mallorca","Spain","PMI","LEPA",39.55361,2.727778,24,1,"E"
-3999,"Darwin Intl","Darwin","Australia","DRW","YPDN",-12.4083333,130.87266,103,9.5,"N"
-4000,"Surat Thani","Surat Thani","Thailand","URT","VTSB",9.1325,99.135556,286,7,"U"
-4001,"Bagan Intl","Nyuang U","Burma","NYU","VYBR",21.173833266,94.9246666,290,6.5,"U"
-4002,"Godofredo P","Caticlan","Philippines","MPH","RPXE",11.9214999,121.953,20,8,"U"
-4003,"Bimini North Seaplane Base","Bimini","Bahamas","NSB",\N,25.767,-79.25,0,-5,"U"
-4004,"Talkeetna","Talkeetna","United States","TKA","PATK",62.3205,-150.093694,358,-9,"A"
-4005,"Xewkija Heliport","Gozo","Malta","GZM","LMMG",36.027222,14.272778,300,1,"E"
-4006,"Tweed-New Haven Airport","New Haven","United States","HVN","KHVN",41.26375,-72.886806,14,-5,"A"
-4007,"Asheville Regional Airport","Asheville","United States","AVL","KAVL",35.436194,-82.541806,2165,-5,"A"
-4008,"Piedmont Triad","Greensboro","United States","GSO","KGSO",36.09775,-79.937306,925,-5,"A"
-4009,"Sioux Falls","Sioux Falls","United States","FSD","KFSD",43.582014,-96.741914,1429,-6,"A"
-4010,"Ayers Rock","Uluru","Australia","AYQ","YAYE",-25.186111,130.975556,1626,9.5,"N"
-4011,"Manchester Regional Airport","Manchester NH","United States","MHT","KMHT",42.932556,-71.435667,266,-5,"A"
-4012,"Naples Muni","Naples","United States","APF","KAPF",26.152619,-81.775294,8,-5,"A"
-4013,"Redang","Redang","Malaysia","RDN","WMPR",5.76528,103.007,10,8,"U"
-4014,"Louisville International Airport","Louisville","United States","SDF","KSDF",38.1740858,-85.7364989,501,-5,"A"
-4015,"Charlottesville-Albemarle","Charlottesville VA","United States","CHO","KCHO",38.138639,-78.452861,639,-5,"A"
-4016,"Roanoke Regional","Roanoke VA","United States","ROA","KROA",37.325472,-79.975417,1175,-5,"A"
-4017,"Blue Grass","Lexington KY","United States","LEX","KLEX",38.0365,-84.605889,979,-5,"A"
-4018,"Evansville Regional","Evansville","United States","EVV","KEVV",38.036997,-87.532364,418,-6,"A"
-4019,"Albuquerque International Sunport","Albuquerque","United States","ABQ","KABQ",35.0402222,-106.6091944,5355,-7,"A"
-4020,"Gallatin Field","Bozeman","United States","BZN","KBZN",45.777643,-111.160151,4500,-7,"A"
-4021,"Billings Logan International Airport","Billings","United States","BIL","KBIL",45.80921,-108.537654,3652,-7,"A"
-4022,"Bert Mooney Airport","Butte","United States","BTM","KBTM",45.954806,-112.497472,5550,-7,"A"
-4023,"Cherry Capital Airport","Traverse City","United States","TVC","KTVC",44.741445,-85.582235,624,-5,"A"
-4024,"Mundo Maya International","Flores","Guatemala","FRS","MGTK",16.913819,-89.866383,427,-6,"U"
-4025,"Hancock County - Bar Harbor","Bar Harbor","United States","BHB","KBHB",44.4497689,-68.3615653,83,-5,"A"
-4026,"Knox County Regional Airport","Rockland","United States","RKD","KRKD",44.0601111,-69.0992303,56,-5,"A"
-4027,"Jackson Hole Airport","Jacksn Hole","United States","JAC","KJAC",43.607333333,-110.73775,6451,-7,"A"
-4028,"Chicago Rockford International Airport ","Rockford","United States","RFD","KRFD",42.1953611,-89.0972222,742,-6,"A"
-4029,"Domodedovo","Moscow - ","Russia","DME","UUDD",55.408611,37.906111,588,3,"E"
-4030,"Phoenix International","Sanya","China","SYX","ZJSY",18.302897,109.412272,92,8,"U"
-4031,"Milford Sound Airport","Milford Sound","New Zealand","MFN","NZMF",-44.67333,167.92333,10,12,"Z"
-4032,"East 34th Street Heliport","New York","United States","TSS","NONE",40.7425,-73.971944,10,-5,"A"
-4033,"Lijiang Airport","Lijiang","China","LJG","ZPLJ",26.883333,100.23333,7923,8,"U"
-4034,"Greenville-Spartanburg International","Greenville","United States","GSP","KGSP",34.895556,-82.218889,964,-5,"A"
-4035,"Cologne Railway","Cologne","Germany","QKL",\N,50.9,7.183,100,1,"E"
-4036,"Stuttgart Railway Station","Stuttgart","Germany","ZWS",\N,48.783611,9.181667,200,1,"E"
-4037,"Central Illinois Rgnl","Bloomington","United States","BMI","KBMI",40.477111,-88.915917,871,-6,"A"
-4038,"Gulfport-Biloxi","Gulfport","United States","GPT","KGPT",30.407278,-89.070111,28,-6,"A"
-4039,"Kalamazoo","Kalamazoo","United States","AZO","KAZO",42.234875,-85.552058,874,-5,"A"
-4040,"Toledo","Toledo","United States","TOL","KTOL",41.586806,-83.807833,684,-5,"A"
-4041,"Fort Wayne","Fort Wayne","United States","FWA","KFWA",40.978472,-85.195139,815,-5,"A"
-4042,"Decatur","Decatur","United States","DEC","KDEC",39.834564,-88.865689,682,-6,"A"
-4043,"Cedar Rapids","Cedar Rapids","United States","CID","KCID",41.884694,-91.710806,869,-6,"A"
-4044,"LaCrosse Municipal","LaCrosse","United States","LSE","KLSE",43.878986,-91.256711,654,-6,"A"
-4045,"Central Wisconsin","Wassau","United States","CWA","KCWA",44.772726,-89.646635,840,-6,"A"
-4046,"Peoria Regional","Peoria","United States","PIA","KPIA",40.664203,-89.693258,660,-6,"A"
-4047,"Appleton","Appleton","United States","ATW","KATW",44.257526,-88.507576,680,-6,"A"
-4048,"Rochester","Rochester","United States","RST","KRST",43.908283,-92.500014,1317,-6,"A"
-4049,"Champaign","Champaign","United States","CMI","KCMI",40.03925,-88.278056,754,-6,"A"
-4050,"Manhattan Reigonal","Manhattan","United States","MHK","KMHK",39.140972,-96.670833,1057,-6,"A"
-4051,"Kingscote Airport","Kingscote","Australia","KGC","YKSC",-35.713889,137.521389,24,9.5,"O"
-4052,"Hervey Bay Airport","Hervey Bay","Australia","HVB","YHBA",-25.318889,152.880278,60,10,"O"
-4053,"EuroAirport Basel-Mulhouse-Freiburg","Basel-Mulhouse-Freiburg","Switzerland","BSL",\N,47.59,7.529167,885,1,"E"
-4054,"Dali","Dali","China","DLU","ZPDL",25.649444,100.319444,6978,8,"U"
-4055,"Jinghong","Jinghong","China","JHG",\N,21.973914,100.759611,1815,8,"U"
-4056,"Mulu","Mulu","Malaysia","MZV",\N,4.048333,114.805,80,8,"U"
-4057,"Sharm El Sheikh Intl","Sharm El Sheikh","Egypt","SSH",\N,27.977286,34.39495,143,2,"U"
-4058,"Franklin","Franklin","United States","FKL","KFKL",41.377874,-79.860362,1540,-5,"A"
-4059,"Jomo Kenyatta International","Nairobi","Kenya","NBO","HKJK",-1.319167,36.9275,5327,3,"N"
-4060,"Seronera","Seronera","Kenya","SEU","HTSN",-2.458056,34.8225,5080,3,"U"
-4061,"El Calafate","El Calafate","Argentina","FTE","SAWC",-50.280322,-72.053103,669,-3,"S"
-4062,"Armidale","Armidale","Australia","ARM","YARM",-30.528056,151.617222,3556,10,"O"
-4063,"Grand Junction Regional","Grand Junction","United States","GJT","KGJT",39.122413,-108.526735,4858,-7,"A"
-4064,"St George Muni","Saint George","United States","SGU","KSGU",37.090583,-113.593056,2941,-7,"A"
-4065,"David Wayne Hooks Field","Houston","United States","DWH","KDWH",30.063746,-95.554276,152,-6,"A"
-4066,"Port O\\'Connor Airfield","Port O\\'Connor","United States","S46","XS46",28.429977,-96.442859,10,-6,"A"
-4067,"Sarasota Bradenton Intl","Sarasota","United States","SRQ","KSRQ",27.395444,-82.554389,30,-5,"A"
-4071,"Van Nuys","Van Nuys","United States","VNY","KVNY",34.209811,-118.489972,802,-8,"A"
-4069,"Bermuda Intl","Bermuda","Bermuda","BDA","TXKF",32.364042,-64.678703,12,-4,"U"
-4070,"Arthur Dunn Airpark","Titusville","United States","X21",\N,28.622552,-80.83541,30,-5,"A"
-4072,"Quad City Intl","Moline","United States","MLI","KMLI",41.448528,-90.507539,590,-6,"A"
-4073,"Panama City Bay Co Intl","Panama City","United States","PFN","KPFN",30.212083,-85.682806,20,-6,"A"
-4074,"Honiara International","Honiara","Solomon Islands","HIR","AGGH",-9.428,160.054789,28,11,"U"
-4075,"Faa\\'a International","Papeete","French Polynesia","PPT","NTAA",-17.556667,-149.611389,7,-10,"U"
-4076,"Nauru Intl","Nauru","Nauru","INU","ANYN",-0.547458,166.9191,22,12,"U"
-4077,"Funafuti International","Funafuti","Tuvalu","FUN","NGFU",-8.525,179.196389,9,12,"U"
-4078,"Tolmachevo","Novosibirsk","Russia","OVB","UNNT",55.012622,82.650656,365,6,"E"
-4079,"Orlando","Orlando","United States","DWS",\N,28,82,340,5.75,"A"
-4080,"Stavns","Samsoe","Denmark","","EKSS",55.89,10.62,1,1,"E"
-4081,"Xieng Khouang","Phon Savan","Laos","XKH","VLXK",19.449997,103.158333,3445,7,"U"
-4082,"Phu Bai","Hue","Vietnam","HUI",\N,16.401499,107.702614,48,7,"U"
-4083,"Bismarck Municipal Airport","Bismarck","United States","BIS","KBIS",46.775842,-100.757931,1661,-6,"A"
-4084,"Telluride","Telluride","United States","TEX","KTEX",37.953759,-107.90848,9078,-7,"A"
-4085,"Yinchuan","Yinchuan","China","INC","ZLIC",38.481944,106.009167,3600,8,"U"
-4086,"Mae Hong Son","Mae Hong Son","Thailand","HGN","VTCH",19.301667,97.975,929,7,"U"
-4087,"Rapid City Regional Airport","Rapid City","United States","RAP","KRAP",44.045278,-103.057222,3204,-7,"A"
-4088,"McClellan-Palomar Airport","Carlsbad","United States","CLD","KCRQ",33.0742,-117.1648,328,-8,"A"
-4089,"Bishop International","Flint","United States","FNT","KFNT",42.965424,-83.743629,782,-5,"A"
-4090,"Francisco Bangoy International","Davao","Philippines","DVO","RPMD",7.125522,125.645778,59,8,"N"
-4091,"Madeira","Funchal","Portugal","FNC","LPMA",32.697889,-16.774453,192,0,"E"
-4092,"Santarem","Santarem","Brazil","STM","SBSN",-2.422431,-54.792789,198,-4,"U"
-4093,"Sihanoukville","Sihanoukville","Cambodia","KOS","VDSV",10.579686,103.636828,33,7,"N"
-4094,"Ekati","Ekati","Canada","YOA","CYOA",64.698889,-110.614722,1540,-7,"A"
-4095,"Napier","NAPIER","New Zealand","NPE","NZNR",-39.465833,176.87,6,12,"Z"
-4096,"Levuka Airfield","Levuka","Fiji","LEV","NFNB",-17.68333,178.83333,11,12,"N"
-4097,"Lhasa-Gonggar","Lhasa","China","LXA","ZULS",29.297778,90.911944,13136,8,"U"
-4098,"Redding Muni","Redding","United States","RDD","KRDD",40.509,-122.293389,504,-8,"A"
-4099,"Mahlon Sweet Fld","Eugene","United States","EUG","KEUG",44.124583,-123.211972,374,-8,"A"
-4100,"Idaho Falls Rgnl","Idaho Falls","United States","IDA","KIDA",43.514556,-112.07075,4744,-7,"A"
-4101,"Rogue Valley Intl Medford","Medford","United States","MFR","KMFR",42.374228,-122.8735,1335,-8,"A"
-4102,"Kaikoura","Kaikoura","New Zealand","KBZ",\N,6.638,-42.253,19,-3,"Z"
-4103,"Roberts Fld","Redmond-Bend","United States","RDM","KRDM",44.254066,-121.149964,3077,-8,"A"
-4104,"Koromiko","Picton","New Zealand","PCN","NZPN",-41.348333,173.955278,60,12,"Z"
-4105,"Windhoek Hosea Kutako International Airport ","Windhoek","Namibia","WDH","FYWV",-22.486667,17.4625,5640,1,"S"
-4106,"Victoria Inner Harbour Airport","Victoria","Canada","YWH","CYWH",48.422778,-123.3875,0,-8,"A"
-4107,"Vancouver Coal Harbour","Vancouver","Canada","CXH","CAQ3",49.289722,-123.115833,0,-8,"A"
-4108,"Jinan","Jinan","China","TNA","ZSJN",36.857214,117.215992,76,8,"U"
-4109,"Changzhou","Changzhou","China","CZX","ZSCG",31.941667,119.711667,39,8,"U"
-4110,"Yibin","Yibin","China","YBP","ZUYB",28.800278,104.544444,1000,8,"U"
-4111,"Roschino","Tyumen","Russia","TJM","USTR",57.189567,65.3243,378,5,"E"
-4112,"Akron Canton Regional Airport","AKRON","United States","CAK",\N,40.9160833,-81.4421944,1228,-5,"A"
-4113,"Huntsville International Airport-Carl T Jones Field","HUNTSVILLE","United States","HSV",\N,34.6371944,-86.7750556,629,-6,"A"
-4114,"Mid-Ohio Valley Regional Airport","PARKERSBURG","United States","PKB","KPKB",39.3451039,-81.4392031,858,-5,"A"
-4115,"Montgomery Regional Airport ","MONTGOMERY","United States","MGM","KMGM",32.3006389,-86.3939722,221,-6,"A"
-4116,"Tri-Cities Regional Airport","BRISTOL","United States","TRI","KTRI",36.4752222,-82.4074167,1519,-5,"A"
-4117,"Barkley Regional Airport","PADUCAH","United States","PAH","KPAH",37.0602875,-88.7729583,410,-6,"A"
-4118,"Kurumoch","Samara","Russia","KUF",\N,53.5,50.15,0,3,"E"
-4119,"Ambouli International Airport","Djibouti","Djibouti","JIB","HDAM",11.5472,43.1594,49,3,"U"
-4120,"Meilan","Haikou","China","HAK","ZJHK",19.934856,110.458961,75,8,"U"
-4121,"Mafia","Mafia Island","Tanzania","MFA","HTMA",-7.913889,39.665,60,3,"U"
-4127,"Glacier Park Intl","Kalispell","United States","FCA","KFCA",48.310472,-114.256,2977,-7,"A"
-4123,"Mtemere Airstrip","Selous","Tanzania","","",-7.75093364715576,38.2032814025878,60,3,"U"
-4124,"Page Municipal Airport","Page","United States","PGA","KPGA",36.9261,-111.4483,4316,-7,"A"
-4125,"Utila Airport","Utila","Honduras","UII","MHUT",16.091667,-86.8875,10,-6,"U"
-4126,"Santa Elena Airport","Santa Elena de Uairen","Venezuela","SNV",\N,4.55,-61.11667,3585,-4,"U"
-4128,"Mbs Intl","Saginaw","United States","MBS","KMBS",43.532913,-84.079647,668,-5,"A"
-4129,"Greater Binghamton Edwin A Link Fld","Binghamton","United States","BGM","KBGM",42.208689,-75.979839,1636,-5,"A"
-4130,"Baghdad International Airport","Baghdad","Iraq","BGW","ORBI",33.262539,44.234578,114,3,"U"
-4131,"Nan","Nan","Thailand","NNT","VTCN",18.807914,100.783419,685,7,"U"
-4132,"Roi Et","Roi Et","Thailand","ROI","VTUV",16.116761,103.773797,451,7,"U"
-4133,"Buri Ram","Buri Ram","Thailand","BFV","VTUO",15.229539,103.253231,590,7,"U"
-4134,"Ranong","Ranong","Thailand","UNN",\N,9.777622,98.585483,57,7,"U"
-4135,"Trat","Trat","Thailand","TDX","VTBO",12.274572,102.318958,105,7,"U"
-4136,"Blythe Airport","Blythe","United States","BLH","KBLH",33.619167,-114.716889,399,-8,"A"
-4137,"Al Asad Airbase","Al Asad","Iraq","","ORAA",33.785608,42.4412,618,3,"U"
-4138,"Al Taqaddum Airbase","Al Taqaddum","Iraq","","ORAT",33.338053,43.597072,275,3,"U"
-4139,"Balad Southeast Airport","Al Bakr","Iraq","","ORBD",33.940194,44.361583,161,3,"U"
-4140,"Diosdado Macapagal International","Angeles City","Philippines","CRK","RPLC",15.185833,120.560278,484,8,"U"
-4141,"Sandakan","Sandakan","Malaysia","SDK","WBKS",5.900897,118.059486,46,8,"U"
-4142,"Luang Namtha","Luang Namtha","Laos","LXG","VLLN",20.960556,101.4025,1968,7,"U"
-4143,"Oudomxay","Muang Xay","Laos","ODY","VLOS",20.6827,101.994,1380,7,"N"
-4144,"Shenyang Taoxian International Airport","Shenyang","China","SHE","ZYTX",41.3824,123.2901,198,8,"U"
-4145,"Dongying Airport","Dongying","China","DOY","ZSDY",37.2716,118.2819,86,8,"U"
-4146,"John A. Osborne Airport","Geralds","Montserrat","MNI","TRPG",16.791389,-62.193333,40,1,"N"
-4147,"Petersburg James A. Johnson","Petersburg","United States","PSG","PAPG",56.801667,-132.945278,105,-9,"A"
-4148,"Luoyang Airport","Luoyang","China","LYA","ZHLY",34.41,112.28,210,8,"U"
-4149,"Xuzhou Guanyin Airport","Xuzhou","China","XUZ","ZSXZ",34.16,117.11,140,8,"U"
-4150,"Esfahan Shahid Beheshti Intl","Isfahan","Iran","IFN",\N,32.750836,51.861267,5059,3.5,"E"
-4151,"Magwe","Magwe","Burma","MWQ","VYMW",20.165453,94.941185,275,6.5,"U"
-4152,"Khamti","Khamti","Burma","KHM","VYKI",25.988333,95.674444,6000,6.5,"U"
-4153,"Dalat","Dalat","Vietnam","DLI","VVDL",11.75,108.367,3156,7,"U"
-4154,"Dong Hoi","Dong Hoi","Vietnam","VDH",\N,17.515,106.590556,50,7,"U"
-4155,"Rach Gia","Rach Gia","Vietnam","VKG","VVRG",9.949676,105.133659,7,7,"U"
-4156,"Ca Mau","Ca Mau","Vietnam","CAH","VVCM",9.188049,105.174721,50,7,"U"
-4157,"Chu Lai","Chu Lai","Vietnam","VCL","VVCA",15.405944,108.705889,10,7,"U"
-4158,"Dong Tac","Tuy Hoa","Vietnam","TBB","VVTH",13.04955,109.333706,20,7,"U"
-4159,"Pai","Pai","Thailand","PYY","VTCI",19.372,98.437,1271,7,"U"
-4160,"Brac","Brac","Croatia","BWK","LDSB",43.285719,16.679719,1776,1,"E"
-4161,"Yaounde Nsimalen","Yaounde","Cameroon","NSI","FKYS",3.722556,11.553269,2278,1,"N"
-4162,"Conakry","Conakry","Guinea","CKY","GUCY",9.576889,-13.611961,72,0,"N"
-4163,"Bergrestaurant","Trogen","Switzerland","",\N,46.992094,8.390315,1800,1,"E"
-4164,"Uetliberg","Zuerich","Switzerland","",\N,47.36029,8.47805,1800,1,"E"
-4165,"Flugplatz Merzbrueck","Aachen","Germany","AAH","EDKA",50.823194,6.186389,570,1,"E"
-4166,"Baden Airpark","Karlsruhe/Baden-Baden","Germany","FKB","EDSB",48.7793,8.08048,407,1,"E"
-4167,"Orlando Sanford Intl","Sanford","United States","SFB","KSFB",28.777639,-81.237489,55,-5,"A"
-4168,"Duong Dong Airport","Phu Quoc","Vietnam","PQC",\N,10.227025,103.967169,23,7,"U"
-4169,"John Murtha Johnstown-Cambria County Airport","Johnstown","United States","JST","KJST",40.316111,-78.833889,2284,-5,"A"
-4170,"Lukla","Lukla","Nepal","LUA","VNLK",27.687778,86.731389,9100,5.75,"N"
-4171,"Bhojpur","Bhojpur","Nepal","BHP","VNBJ",27.14743,87.050819,4000,5.75,"N"
-4172,"Lamidanda","Lamidanda","Nepal","LDN","VNLD",27.253117,86.670044,4100,5.75,"N"
-4173,"Jomsom","Jomsom","Nepal","JMO","VNJS",28.782222,83.7225,8800,5.75,"N"
-4174,"Manang","Manang","Nepal","NGX","VNMA",28.633,84,11000,5.75,"N"
-4175,"Phaplu","Phaplu","Nepal","PPL","VNPL",27.517,86.6,7918,5.75,"N"
-4176,"Thamkharka","Thamkharka","Nepal","TMK",\N,27.052222,86.861944,6000,5.75,"N"
-4177,"Rumjatar","Rumjatar","Nepal","RUM","VNRT",27.303509,86.55043,4500,5.75,"N"
-4178,"Tulsipur","Dang","Nepal","DNP","VNDG",28.111111,82.294167,2100,5.75,"N"
-4179,"Rukumkot","Rukumkot","Nepal","RUK","VNRK",28.627,82.195,2500,5.75,"N"
-4180,"Jumla","Jumla","Nepal","JUM","VNJL",29.274167,82.193333,7700,5.75,"N"
-4181,"Chaurjhari","Chaurjhari","Nepal","HRJ","VNCJ",28,83.833,4000,5.75,"N"
-4182,"Taplejung","Taplejung","Nepal","TPJ","VNTJ",27.35,84.667,4000,5.75,"N"
-4183,"Tumling Tar","Tumling Tar","Nepal","TMI","VNTR",27.315,87.193333,1700,5.75,"N"
-4184,"Surkhet","Surkhet","Nepal","SKH","VNSK",28.586,81.636,2400,5.75,"N"
-4185,"Simikot","Simikot","Nepal","IMK","VNST",29.971064,81.818932,9246,5.75,"N"
-4186,"Dolpa","Dolpa","Nepal","DOP","VNDP",28.985718,82.819145,8200,5.75,"N"
-4187,"Bajhang","Bajhang","Nepal","BJH","VNBG",29.53896,81.185364,4100,5.75,"N"
-4188,"Dhangarhi","Dhangarhi","Nepal","DHI","VNDH",28.753333,80.581944,690,5.75,"N"
-4189,"Muan","Muan","South Korea","MWX","RKJB",34.991389,126.382778,51,9,"U"
-4190,"Astypalaia","Astypalaia","Greece","JTY","LGPL",36.579886,26.375822,165,2,"E"
-4191,"Ikaria","Ikaria","Greece","JIK","LGIK",37.682717,26.347061,79,2,"E"
-4192,"Kalymnos Island","Kalymnos","Greece","JKL","LGKY",36.963333,26.940556,771,2,"E"
-4193,"Milos","Milos","Greece","MLO","LGML",36.696111,24.4775,12,2,"E"
-4194,"Naxos","Cyclades Islands","Greece","JNX","LGNX",37.080556,25.368056,10,2,"E"
-4195,"Paros","Paros","Greece","PAS","LGPA",37.010278,25.127778,121,2,"E"
-4196,"Kastelorizo","Kastelorizo","Greece","KZS","LGKJ",36.127777,29.566656,474,2,"E"
-4197,"Marsa Alam Intl","Marsa Alam","Egypt","RMF","HEMA",25.557111,34.583711,251,2,"U"
-4198,"Niederrhein","Weeze","Germany","NRN","EDLV",51.602222,6.141944,106,1,"E"
-4199,"Busuanga","Busuanga","Philippines","USU","RPVV",12.121458,120.100031,148,8,"U"
-4200,"Butuan","Butuan","Philippines","BXU","RPME",8.951322,125.477972,141,8,"U"
-4201,"Dipolog","Dipolog","Philippines","DPL","RPMG",8.601261,123.334481,12,8,"U"
-4202,"Laoag Intl","Laoag","Philippines","LAO","RPLI",18.178092,120.531522,25,8,"U"
-4203,"Legazpi","Legazpi","Philippines","LGP","RPLP",13.157064,123.746247,66,8,"U"
-4204,"Ozamis","Ozamis","Philippines","OZC","RPMO",8.178508,123.841731,75,8,"U"
-6510,"Zweibruecken","Zweibruecken","Germany","ZQW",\N,49.209445,7.401323,1132,1,"E"
-4206,"Mactan Cebu Intl","Cebu","Philippines","CEB","RPVM",10.307542,123.979439,31,8,"U"
-4207,"Sonderlandeplatz Norden-Norddeich","Norden","Germany","NOE","EDWS",53.632221,7.191389,3,1,"E"
-4208,"Verkehrslandeplatz Juist","Juist","Germany","JUI","EDWJ",53.681572,7.055731,6,1,"E"
-4209,"Aeroporto de Porto Seguro","Porto Seguro","Brazil","BPS","SBPS",-16.438611,-39.080833,167,-3,"U"
-4210,"Gounda Airport","Gounda","Central African Republic","GDA",\N,9.272222,21.197222,1509,1,"N"
-4211,"Heliport Hotel das Cataratas","Cataratas National Park","Brazil","",\N,-25.684,-54.44024,1000,-3,"U"
-4213,"Iguatu","Iguatu","Brazil","","SNIG",-6.346639,-39.293777,699,-3,"U"
-4214,"Palmas","Palmas","Brazil","PMW","SBPJ",-10.241667,-48.35278,774,-3,"U"
-4215,"Caldas Novas","Caldas Novas","Brazil","CLV","SBCN",-17.7267,-48.6114,2247,-3,"U"
-4216,"Missoula Intl","Missoula","United States","MSO","KMSO",46.916306,-114.090556,3205,-7,"A"
-4217,"Blackall","Blackall","Australia","BKQ","YBCK",-24.427778,145.428611,928,10,"O"
-4218,"Bundaberg","Bundaberg","Australia","BDB","YBUD",-24.903889,152.318611,107,10,"O"
-4219,"Grand Canyon National Park Airport","Grand Canyon","United States","GCN","KGCN",35.9523611,-112.1469722,6609,-7,"N"
-4220,"Sugar Land Regional Airport","Sugar Land","United States","SGR","KSGR",29.62225,-95.6565278,82,-6,"A"
-4221,"Hayman Island Airport","Hayman Island","Australia","HIS","YHYN",-20.066668,148.86667,10,10,"O"
-4222,"Centennial","Denver","United States","APA","KAPA",39.570129,-104.849294,5883,-7,"A"
-4223,"Clovis Muni","Clovis","United States","CVN","KCVN",34.425139,-103.079278,4216,-6,"A"
-4224,"Fort Stockton Pecos Co","Fort Stockton","United States","FST","KFST",30.915667,-102.916139,3011,-6,"A"
-4225,"Las Vegas Muni","Las Vegas","United States","LVS","KLVS",35.654222,-105.142389,6877,-7,"A"
-4226,"West Houston","Houston","United States","IWS","KIWS",29.818194,-95.672611,111,-6,"A"
-4227,"La Junta Muni","La Junta","United States","LHX","KLHX",38.049719,-103.509431,4238,-7,"A"
-4228,"Las Cruces Intl","Las Cruces","United States","LRU","KLRU",32.289417,-106.921972,4456,-7,"A"
-4229,"Stephens Co","Breckenridge","United States","BKD","KBKD",32.719047,-98.891,1284,-6,"A"
-4230,"Draughon Miller Central Texas Rgnl","Temple","United States","TPL","KTPL",31.1525,-97.407778,682,-6,"A"
-4231,"Ozona Muni","Ozona","United States","OZA","KOZA",30.735281,-101.202972,2381,-6,"A"
-4232,"Hong Kong Kai Tak","Hong Kong","Hong Kong","","HKGX",22.315365,114.195349,1,8,"U"
-6416,"Athen Helenikon Airport","Athens","Greece","HEW",\N,37.8933,23.7261,69,2,"E"
-6415,"Waikoloa Heliport","Waikoloa Village","United States","WKL","HI07",19.9136,-155.864,109,-10,"N"
-4235,"Kaadedhdhoo","Kaadedhdhoo","Maldives","KDM",\N,0.4880555,72.995556,3,5,"U"
-4236,"Aklavik","Aklavik","Canada","LAK","CYKD",68.223333,-135.005833,23,-7,"A"
-4237,"Deline","Deline","Canada","YWJ","CYWJ",65.1833333,-125.41666667,550,-7,"A"
-4238,"Tulita","Tulita","Canada","ZFN","CZFN",64.0833333,-125.5833333,320,-7,"A"
-4239,"Fort Good Hope","Fort Good Hope","Canada","YGH","CYGH",66.26666667,-128.65,215,-7,"A"
-4240,"Inuvik Town","Inuvik","Canada","",\N,66.3676,-133.7594,200,-7,"A"
-4241,"INAWR","Inuvik","Canada","",\N,68.3676,-133.7594,200,-7,"A"
-4242,"Tanna island","Tanna","Vanuatu","TAH",\N,-19.455198,169.22394,3,11,"U"
-6509,"Sun Island","Sun Island","Maldives","",\N,3.48596289680953,72.8060746192932,0,5,"N"
-4244,"Paulatuk","Paulatuk","Canada","YPC","CYPC",62.35,-124.3333,50,-7,"A"
-4246,"Nicholson Peninsula","Nicholson Peninsula","Canada","","YUCX",69.917,-128.95,1,-7,"A"
-4247,"Santa Cruz","Santa Cruz","Bolivia","SRZ",\N,-17.8,-63.166667,1224,-4,"U"
-4248,"Kulusuk","Kulusuk","Greenland","KUS",\N,65.566667,-37.1166667,112,-2,"E"
-4249,"Juancho E. Yrausquin","Saba","Netherlands Antilles","SAB","TNCS",17.645278,-63.220556,60,-4,"U"
-4250,"Eagle Co Rgnl","Vail","United States","EGE","KEGE",39.642556,-106.917694,6540,-7,"A"
-4251,"Stapleton","Denver","United States","",\N,39.779255,-104.88184,5333,-7,"A"
-4252,"Skagen","Stokmarknes","Norway","SKN","ENSK",68.580833,15.026111,11,1,"E"
-4253,"Cuyahoga County","Richmond Heights","United States","CGF","KCGF",41.565124,-81.4863555,879,-5,"A"
-4254,"Mansfield Lahm Regional","Mansfield","United States","MFD","KMFD",40.8214167,-82.5166389,1297,-5,"A"
-4255,"Columbus Metropolitan Airport","Columbus","United States","CSG","KCSG",32.5163333,-84.9388611,397,-5,"A"
-4256,"Lawton-Fort Sill Regional Airport","Lawton","United States","LAW","KLAW",34.5677144,-98.4166367,1110,-6,"A"
-4257,"Fort Collins Loveland Muni","F","United States","FNL","KFNL",40.451828,-105.011336,5016,-7,"A"
-6835,"Gouvia Marina","Gouvia","Greece","",\N,39.648682,19.855771,0,2,"E"
-6836,"Paxos Marina","Paxos","Greece","",\N,39.202676,20.187968,0,2,"E"
-4261,"Flagstaff Pulliam Airport","Flagstaff","United States","FLG","KFLG",35.140318,-111.6692392,7015,-7,"N"
-4262,"Lake Tahoe Airport","South Lake Tahoe","United States","TVL","KTVL",38.893889,-119.995278,8544,-8,"A"
-4263,"Magic Valley Regional Airport","Twin Falls","United States","TWF","KTWF",42.481803,-114.487733,4151,-7,"A"
-4264,"Monaco","Monaco","Monaco","MCM",\N,43.73333333,7.41666666,0,1,"E"
-4265,"Martha\\'s Vineyard","Vineyard Haven MA","United States","MVY","KMVY",41.391667,-70.615278,67,-5,"A"
-4266,"Newport State","Newport RI","United States","UUU",\N,41.533056,-71.282222,172,-5,"A"
-4267,"Hartness State","Springfield VT","United States","VSF",\N,43.343333,-72.517222,577,-5,"A"
-4268,"Concord Municipal","Concord NH","United States","CON",\N,43.20267,-71.50233,342,-5,"A"
-4269,"Sanford Regional","Sanford ME","United States","SFM",\N,43.39383,-70.708,244,-5,"A"
-4270,"Groton New London","Groton CT","United States","GON","KGON",41.330056,-72.045139,9,-5,"A"
-4271,"Saint Cloud Regional Airport","Saint Cloud","United States","STC","KSTC",45.546556,-94.059889,1031,-6,"A"
-4272,"Bagan","Bagan","Burma","BPE",\N,24,96,0,6.5,"U"
-4273,"Golden Triangle Regional Airport","Columbus Mississippi","United States","GTR","KGTR",33.450333,-88.591361,264,-6,"A"
-4274,"Strigino","Nizhniy Novgorod","Russia","GOJ","UWGG",56.230119,43.784042,256,3,"E"
-4275,"Bowerman Field","Hoquiam","United States","HQM",\N,46.9711944,-123.9365556,18,-8,"A"
-4276,"Erie Intl Tom Ridge Fld","Erie","United States","ERI","KERI",42.082022,-80.176217,733,-5,"A"
-4277,"Conrad Maldives Resort","Rangali Island","Maldives","",\N,3.5833,72.7167,0,5,"U"
-4278,"Barnstable Muni Boardman Polando Fld","Barnstable","United States","HYA","KHYA",41.669336,-70.280356,55,-5,"A"
-4279,"San Pedro","San Pedro","Belize","SPR","MZ10",17.913936,-87.971075,4,-6,"U"
-4280,"Sedona","Sedona","United States","SDX","KSEZ",34.848628,-111.788472,4830,-7,"A"
-4281,"Dry Tortugas","Dry Tortugas","United States","",\N,24.62,-82.87,5,-6,"A"
-4282,"Dry Tortugas","Dry Tortugas","United States","",\N,24.62,24.62,5,1,"A"
-4283,"Dry Tortugas","Dry Tortugas","United States","",\N,24.628,82.873,5,5.5,"A"
-4284,"Morgantown Muni Walter L Bill Hart Fld","Morgantown","United States","MGW","KMGW",39.642908,-79.916314,1248,-5,"A"
-4285,"Yeager","Charleston","United States","CRW","KCRW",38.373147,-81.593189,981,-5,"A"
-4286,"Wilkes Barre Scranton Intl","Scranton","United States","AVP","KAVP",41.338478,-75.723403,962,-5,"A"
-4287,"Bemidji Regional Airport","Bemidji","United States","BJI","KBJI",47.510722,-94.934722,1391,-6,"A"
-4288,"Heydar Aliyev","Baku","Azerbaijan","BAK",\N,40.4675,50.046667,10,4,"E"
-4289,"Thangool","Biloela","Australia","THG","YTNG",-24.493889,150.576111,644,10,"O"
-4290,"Fagali\\'i","Apia","Samoa","FGI","NSFI",-13.84861111,-171.74083333,25,-11,"U"
-4291,"Ballina Byron Gateway","Ballina Byron Bay","Australia","BNK","YBNA",-28.833889,153.5625,7,10,"O"
-4292,"Hector International Airport","Fargo","United States","FAR","KFAR",46.92065,-96.8157639,902,-6,"A"
-4293,"Downtown","Kansas City","United States","MKC","KMKC",39.1275,-94.598889,759,-6,"A"
-6505,"Phoenix-Mesa Gateway","Mesa","United States","AZA","KIWA",33.307833,-111.655,1382,-7,"N"
-4295,"Ratanakiri","Ratanakiri","Cambodia","RBE",\N,13.73,106.987,0,7,"U"
-4296,"Gillette-Campbell County Airport","Gillette","United States","GCC","KGCC",44.3489167,-105.5393611,4365,-7,"A"
-4297,"Tomsk Bogashevo Airport","Tomsk","Russia","TOF","UNTT",56.380278,85.208333,597,7,"E"
-4298,"El Toro","Santa Ana","United States","NZJ","KNZJ",33.676132,-117.731164,383,-8,"A"
-4299,"Phetchabun","Phetchabun","Thailand","PHY","VTPB",16.676028,101.195108,450,7,"U"
-4300,"Chumphon","Chumphon","Thailand","CJM","VTSE",10.7112,99.361706,18,7,"U"
-4301,"Jiuzhaigou Huanglong","Jiuzhaigou","China","JZH","ZUJZ",32.857,103.683,11311,8,"U"
-4302,"Wai Sha Airport","Shantou","China","SWA","ZGOW",23.4,116.683,0,8,"U"
-4303,"Les Ailerons","Enghien-moisselles","France","","LFFE",0,0,302,0,"E"
-4304,"Cheddi Jagan Intl","Georgetown","Guyana","GEO","SYCJ",6.498553,-58.254119,95,-4,"U"
-4305,"Ciudad del Este","Ciudad del Este","Paraguay","AGT","SGES",-25.4555,-54.843592,846,-4,"S"
-4306,"Ogle","Georgetown","Guyana","OGL","SYGO",6.806944,-58.104444,10,-4,"U"
-4307,"Kaieteur","Kaieteur","Guyana","KAI","SYKA",5.167,-59.483,750,-4,"U"
-4308,"Dunhuang Airport","Dunhuang","China","DNH","ZLDH",40.094,94.4818,3688,8,"U"
-4309,"Falconara","Ancona","Italy","AOI","LIPY",43.616389,13.362222,10,1,"E"
-4310,"Samjiyon","Samjiyon","South Korea","","ZZ04",41.542301,128.243571,4410,9,"U"
-4311,"El Calafate","El calafate","Argentina","ECA",\N,11,11,1,1,"S"
-4312,"Copiapo","Copiapo","Chile","CPO","SCHA",-27,-70,1000,-4,"S"
-4313,"Taba Intl","Taba","Egypt","TCP","HETB",29.587778,34.778056,2415,2,"U"
-4314,"Edward Bodden Airfield","Little Cayman","Cayman Islands","LYB","MWCL",19.6591666667,-80.09083333,1,-5,"U"
-4315,"Bodrum - Milas","Bodrum","Turkey","BJV","LTFE",37.82,28.204,19,2,"E"
-4316,"7 Novembre","Tabarka","Tunisia","TBJ","DTKA",36.978333,8.876389,0,1,"E"
-4317,"Sabiha Gokcen","Istanbul","Turkey","SAW","LTFJ",40.898553,29.309219,312,2,"E"
-4318,"University Park Airport","State College Pennsylvania","United States","SCE","KUNV",40.849278,-77.848694,1239,-5,"A"
-4319,"Broome","Broome","Australia","BME","YPBR",-17.8,122.2,56,8,"O"
-4320,"Newcastle Airport","Newcastle","Australia","NTL","YWLM",-32.78,151.83,31,10,"O"
-4321,"Bakki Airport","Bakki","Iceland","","BIBA",63.55805,-20.14833,45,0,"N"
-4322,"Woerthersee International Airport","Klagenfurt","Austria","KLU","LOWK",46.642514,14.337739,452,1,"E"
-4323,"General Manuel Carlos Piar","Ciudad Guayana","Venezuela","CGU",\N,8.288527,-62.760361,472,-4,"U"
-4324,"Flugplatz Hoepen","Schneverdingen","Germany","",\N,53.1167,9.8,267,1,"E"
-4325,"Hammerfest Airport","Hammerfest","Norway","HFT","ENHF",70.679722,23.668889,799,1,"E"
-4326,"Valan","Honningsvag","Norway","HVG","ENHV",70.99,25.83,46,1,"E"
-4327,"Airport","Mehamn","Norway","MEH","ENMR",71.029722,27.826667,41,1,"E"
-4328,"Airport","Vadso","Norway","VDS","ENVD",70.065,29.844,127,1,"E"
-4329,"Riem","Munich","Germany","","MUCX",48.137778,11.690278,1487,1,"E"
-4330,"Imam Khomeini","Tehran","Iran","IKA",\N,35,51,3305,3.5,"E"
-4331,"Mashhad","Mashhad","Iran","MHD",\N,36,59,3263,3.5,"E"
-4332,"Egelsbach","Egelsbach","Germany","QEF",\N,49.9608,8.64361,384,1,"E"
-4333,"Ust-Ilimsk","Ust Ilimsk","Russia","UIK","UIBS",58.08,108.08,0,8,"E"
-4334,"Mudanjiang","Mudanjiang","China","MDG",\N,44.523889,129.568889,883,8,"U"
-4335,"Key Field","Meridian","United States","MEI","KMEI",32.332624,-88.751868,297,-6,"A"
-4336,"Abraham Lincoln Capital","Springfield","United States","SPI","KSPI",39.8441,-89.677889,597,-6,"A"
-4337,"Uzundzhovo","Haskovo","Bulgaria","HKV","LB14",41.976375,25.589817,160,2,"E"
-4338,"Cortez Muni","Cortez","United States","CEZ","KCEZ",37.303,-108.628056,5918,-7,"A"
-4339,"Yampa Valley","Hayden","United States","HDN","KHDN",40.481181,-107.21766,6602,-7,"A"
-4340,"Gallup Muni","Gallup","United States","GUP","KGUP",35.511058,-108.789308,6472,-7,"A"
-4341,"Liberal Muni","Liberal","United States","LBL","KLBL",37.044222,-100.95986,2885,-6,"A"
-4342,"Lamar Muni","Lamar","United States","LAA","KLAA",38.069694,-102.6885,3706,-7,"A"
-4343,"Renner Fld","Goodland","United States","GLD","KGLD",39.370621,-101.698992,3656,-6,"A"
-4344,"Yellowstone Rgnl","Cody","United States","COD","KCOD",44.520194,-109.023806,5102,-7,"A"
-4345,"Hovden","Orsta-Volda","Norway","HOV","ENOV",62.18,6.0742,242,1,"E"
-4346,"RNAS WATTON","WATTON","United Kingdom","","EGYR",52.33,0.51,173,0,"E"
-4347,"ISLES OF SCILLY","ST MARY\\'S","United Kingdom","ISC",\N,49.919,-6.3075,70,0,"E"
-4348,"Springfield Branson Natl","Springfield","United States","SGF","KSGF",37.245667,-93.388639,1268,-6,"A"
-4349,"Framnes","Narvik","Norway","NVK","ENNK",68.435833,17.388056,97,1,"E"
-4350,"Berlevag","Berlevag","Norway","BVG","ENBV",70.866667,29,43,1,"E"
-4351,"Fornebu","Oslo","Norway","FBU","ENFB",59.883333,10.616667,56,1,"E"
-4352,"Alykel","Norilsk","Russia","NSK","UOOO",69.311053,87.332183,595,7,"E"
-4353,"Vityazevo","Anapa","Russia","AAQ","URKA",45.002097,37.347272,174,3,"E"
-4354,"Joplin Rgnl","Joplin","United States","JLN","KJLN",37.151814,-94.498269,981,-6,"A"
-4355,"Lehigh Valley Intl","Allentown","United States","ABE","KABE",40.652083,-75.440806,393,-5,"A"
-4356,"NW Arkansas Regional","Bentonville","United States","XNA","KXNA",36.2818694,-94.3068111,1287,-6,"A"
-4357,"Atyrau","Atyrau","Kazakhstan","GUW","UATG",47.121944,51.821389,0,5,"U"
-4358,"Kzyl-Orda","Kzyl-Orda","Kazakhstan","KZO","UAOO",44.709,65.591,0,6,"U"
-4359,"South Bend Rgnl","South Bend","United States","SBN","KSBN",41.708661,-86.31725,799,-5,"A"
-4360,"Bykovo","Moscow","Russia","BKA","UUBB",55.617222,38.059999,427,3,"E"
-4361,"Chintheche","Chintheche","Malawi","","FWCC",-11.8333,34.1667,0,2,"U"
-4362,"Talagi","Arkhangelsk","Russia","ARH","ULAA",64.360281,40.430167,19,3,"E"
-4363,"Central","Saratov","Russia","RTW","UWSS",51.334366,46.022952,152,5,"E"
-4364,"Novyi Urengoy","Novy Urengoy","Russia","NUX","USMU",66.041811,76.313938,20,5,"E"
-4365,"Noyabrsk","Noyabrsk","Russia","NOJ","USRO",63.110079,75.162243,20,5,"E"
-6508,"Washington Union Station","Washington","United States","ZWU",\N,38.89746,-77.00643,76,-5,"A"
-4367,"Aktau","Aktau","Kazakhstan","SCO",\N,43.513557,51.052817,21,5,"U"
-4368,"Ukhta","Ukhta","Russia","UCT",\N,63.340297,53.482592,100,3,"E"
-4369,"Usinsk","Usinsk","Russia","USK",\N,66.00077,57.221113,20,3,"E"
-4370,"Pechora","Pechora","Russia","PEX",\N,65.070387,57.082045,20,3,"E"
-4371,"Naryan-Mar","Naryan-Mar","Russia","NNM","ULAM",67.380537,53.051016,20,3,"E"
-4372,"Kresty","Pskov","Russia","PKV","ULOO",57.783917,28.395614,154,3,"E"
-4373,"Kogalym International","Kogalym","Russia","KGP","USRK",62.18,74.53,220,5,"E"
-4374,"Emelyanovo","Krasnoyarsk","Russia","KJA","UNKL",56.18,92.475,940,7,"E"
-4375,"Sary-Arka","Karaganda","Kazakhstan","KGF","UAKK",49.670833,73.334444,1765,5,"U"
-4376,"Severny","Novosibirsk","Russia","","UNCC",55.1,82.9,560,6,"E"
-4377,"Uraj","Uraj","Russia","URJ","USHU",60.1,64.83,186,5,"E"
-4378,"Turkmenabat","Turkmenabat","Turkmenistan","CRZ",\N,39.083333,63.602222,630,5,"U"
-4379,"Yuzhny","Ivanovo","Russia","IWA","UUBI",56.939444,40.940833,410,3,"E"
-4380,"Changchun","Changchun","China","CGQ","ZYCC",43.5412,125.1201,227,8,"U"
-4381,"Niigata","Niigata","Japan","KIJ","RJSN",37.5711,139.0646,1,9,"U"
-4382,"Johnston Atoll","Johnston Island","Johnston Atoll","JON","PJON",16.7286,-169.534,7,-10,"U"
-4383,"Smith Fld","Fort Wayne IN","United States","SMD","KSMD",41.143353,-85.152778,834,-5,"A"
-4384,"Arcata","Arcata CA","United States","ACV","KACV",40.978111,-124.108611,221,-8,"A"
-4385,"Camp Mabry Austin City","Austin TX","United States","ATT","KATT",30.31666,-97.7666,0,-6,"A"
-4386,"Albert J Ellis","Jacksonville NC","United States","OAJ","KOAJ",34.829164,-77.612139,94,-5,"A"
-4387,"Tuscaloosa Rgnl","Tuscaloosa AL","United States","TCL","KTCL",33.220627,-87.611403,170,-6,"A"
-4388,"Dubuque Rgnl","Dubuque IA","United States","DBQ","KDBQ",42.402,-90.709472,1076,-6,"A"
-4389,"Forde Bringeland","Forde","Norway","FDE",\N,61.25,5.45,1034,1,"E"
-4390,"Shun Tak Heliport","Hong Kong","Hong Kong","","VHST",22.289372,114.152153,10,8,"N"
-6092,"Poliarny Airport","Yakutia","Russia","PYJ","UERP",66.400431,112.030325,1660,9,"E"
-6090,"Nakhchivan Airport","Nakhchivan","Azerbaijan","NAJ","UBBN",39.1888,45.4584,2863,3.5,"E"
-6089,"Ganja Airport","Ganja","Azerbaijan","KVD","UBBG",40.7377,46.3176,1083,4,"E"
-6804,"Torp","Sandefjord","Norway","",\N,59.186703,10.258628,286,1,"E"
-6086,"Ust Kamenogorsk Airport","Ust Kamenogorsk","Kazakhstan","UKK","UASK",50.0366,82.4942,939,6,"U"
-6084,"Petropavlosk South Airport","Petropavlosk","Kazakhstan","PPK","UACP",54.7747,69.1839,453,6,"U"
-6078,"Les Bases Airport","Grand Bourg","Guadeloupe","GBJ","TFFM",15.86875,-61.270022,16,-4,"U"
-6077,"St-François Airport","St-François","Guadeloupe","SFC","TFFC",16.2578,-61.2625,10,-4,"U"
-6074,"Codrington Airport","Codrington","Antigua and Barbuda","BBQ","TAPH",17.6358,-61.8286,15,-4,"U"
-6073,"Ji-Paraná Airport","Ji-Paraná","Brazil","JPR","SWJI",-10.8708,-61.8465,598,-4,"U"
-6071,"Escuela Mariscal Sucre Airport","Maracay","Venezuela","MYC","SVBS",10.249978,-67.649419,1338,-4,"U"
-6068,"Maria Reiche Neuman Airport","Nazca","Peru","NZA","SPZA",-14.854192,-74.961811,1860,-5,"U"
-6066,"Mayor General FAP Armando Revoredo Iglesias Airport","Cajamarca","Peru","CJA","SPJR",-7.139183,-78.4894,8781,-5,"U"
-6064,"Gatokae Airport","Gatokae","Solomon Islands","GTA","",-8.75,158.2,0,11,"U"
-6063,"Boorama Airport","Boorama","Somalia","BXX","",9.933,43.15,0,3,"U"
-6062,"Mucuri Airport","Mucuri","Brazil","MVS","SNMU",-18.0489,-39.8642,276,-3,"U"
-6061,"Zorg en Hoop Airport","Paramaribo","Suriname","ORG","SMZO",5.81108,-55.1907,10,-3,"U"
-6059,"Reyes Airport","Reyes","Bolivia","REY","SLRY",-14.3044,-67.3534,935,-4,"U"
-6057,"Puerto Rico Airport","Puerto Rico/Manuripi","Bolivia","PUR","SLPR",-11.1077,-67.5512,597,-4,"U"
-6055,"El Alcaraván Airport","Yopal","Colombia","EYP","SKYP",5.319114,-72.383975,1028,-5,"U"
-6047,"General Rivadeneira Airport","Tachina","Ecuador","ESM","SETN",0.978519,-79.6266,32,-5,"U"
-6043,"Pucón Airport","Pucon","Chile","ZPC","SCPC",-39.2928,-71.9159,853,-4,"S"
-6041,"Toledo Airport","Toledo","Brazil","TOW","SBTD",-24.6863,-53.6975,1843,-3,"U"
-6040,"Santa Maria Airport","Santa Maria","Brazil","RIA","SBSM",-29.711358,-53.688153,287,-3,"U"
-6036,"Chapada Diamantina Airport","Lençóis","Brazil","LEC","SBLE",-12.4823,-41.277,1676,-3,"U"
-6805,"Goulburn Airport","Goulburn","Australia","GUL","YGLB",-34.8103,149.726,2141,10,"O"
-6034,"Orlando Bezerra de Menezes Airport","Juazeiro Do Norte","Brazil","JDO","SBJU",-7.218958,-39.2701,1392,-3,"U"
-6032,"Santa Teresita Airport","Santa Teresita","Argentina","SST","SAZL",-36.542317,-56.721756,9,-3,"S"
-6031,"Gobernador Gregores Airport","Gobernador Gregores","Argentina","GGS","SAWR",-48.7831,-70.15,356,-3,"S"
-6029,"Antoine De St Exupery Airport","San Antonio Oeste","Argentina","OES","SAVN",-40.7512,-65.0343,85,-3,"S"
-6028,"Las Heras Airport","Las Heras","Argentina","LHS","SAVH",-46.533056,-68.951111,1082,-3,"S"
-6027,"General Enrique Mosconi Airport","Tartagal","Argentina","TTG","SAST",-22.619167,-63.793189,1472,-3,"S"
-6025,"Masbate Airport","Masbate","Philippines","MBT","RPVJ",12.3694,123.629,26,8,"U"
-6024,"Catarman National Airport","Catarman","Philippines","CRM","RPVF",12.502417,124.635778,6,8,"U"
-6013,"Jolo Airport","","Philippines","JOL","RPMJ",6.05367,121.011,118,8,"U"
-6012,"Camiguin Airport","","Philippines","CGM","RPMH",9.25352,124.707,53,8,"U"
-6010,"Cuyo Airport","Cuyo","Philippines","CYU","RPLO",10.8581,121.069,0,8,"U"
-6008,"Cheongju International Airport","Chongju","South Korea","CJJ","RKTU",36.7166,127.499119,191,9,"U"
-6007,"Sacheon Air Base","Sacheon","South Korea","HIN","RKPS",35.088543,128.07037,25,9,"U"
-6005,"Wonju Airport","Wonju","South Korea","WJU","RKNW",37.438081,127.960383,329,9,"U"
-6004,"Mokpo Airport","Mokpo","South Korea","MPK","RKJM",34.758906,126.379872,23,9,"U"
-6003,"Kunsan Air Base","Kunsan","South Korea","KUV","RKJK",35.903756,126.615906,29,9,"U"
-6002,"Miyakejima Airport","","Japan","MYE","RJTQ",34.0736,139.56,67,9,"U"
-6001,"Shonai Airport","Shonai","Japan","SYO","RJSY",38.812222,139.787222,86,9,"U"
-6000,"Odate Noshiro Airport","","Japan","ONJ","RJSR",40.1919,140.371,292,9,"U"
-5999,"Fukushima Airport","","Japan","FKS","RJSF",37.2274,140.431,1221,9,"U"
-5998,"Iwami Airport","","Japan","IWJ","RJOW",34.6764,131.79,184,9,"U"
-5997,"Nagoya Airport","Nagoya","Japan","NKM","RJNA",35.255,136.924,52,9,"U"
-5996,"Saga Airport","Saga","Japan","HSG","RJFS",33.1497,130.302,6,9,"N"
-5995,"Okadama Airport","Sapporo","Japan","OKD","RJCO",43.1161,141.38,25,9,"U"
-5994,"Kushiro Airport","","Japan","KUH","RJCK",43.041,144.193,327,9,"U"
-5993,"Matsu Beigan Airport","Matsu Islands","Taiwan","MFK","RCMT",26.224153,120.00275,41,8,"U"
-5992,"Hengchun Airport","Hengchun","Taiwan","HCN","RCKW",22.041075,120.730208,46,8,"U"
-5991,"Matsu Nangan Airport","Matsu Islands","Taiwan","LZN","RCFG",26.1598,119.958,232,8,"U"
-5990,"Eniwetok Airport","Eniwetok Atoll","Marshall Islands","ENT","PKMA",11.34075,162.327861,13,12,"U"
-5989,"Kalaupapa Airport","Molokai","United States","LUP","PHLU",21.211,-156.974,24,-10,"A"
-5988,"El Nido Airport","El Nido","Philippines","ENI","",11.202,119.417,0,8,"U"
-5987,"Wipim Airport","Wipim","Papua New Guinea","WPM","",-8.78822,142.882,173,10,"U"
-5986,"Baimuru Airport","Baimuru","Papua New Guinea","VMU","",-7.49686,144.82,27,10,"U"
-5985,"Nuku Airport","Nuku","Papua New Guinea","UKU","",-3.667,142.483,750,10,"U"
-5984,"Tufi Airport","Tufi","Papua New Guinea","TFI","",-9.07595,149.32,85,10,"U"
-5983,"Suki Airport","Suki","Papua New Guinea","SKC","",-8.033,141.717,24,10,"U"
-5982,"Balimo Airport","Balimo","Papua New Guinea","OPU","",-8.05,142.933,51,10,"U"
-5981,"Obo Airport","Obo","Papua New Guinea","OBX","",-7.583,141.317,29,10,"U"
-5980,"Losuia Airport","Losuia","Papua New Guinea","LSA","",-8.50582,151.081,27,10,"U"
-5979,"Londolovit Airport","Londolovit","Papua New Guinea","LNV","",-3.04361,152.629,167,10,"U"
-5978,"Lake Murray Airport","Lake Murray","Papua New Guinea","LMY","",-7.00992,141.494,52,10,"U"
-5977,"Kamusi Airport","Kamusi","Papua New Guinea","KUY","",-7.42035,143.122,0,10,"U"
-5976,"Kokoda Airport","Kokoda","Papua New Guinea","KKD","",-8.88468,147.731,1240,10,"U"
-5975,"Kandrian Airport","Kandrian","Papua New Guinea","KDR","",-6.183,149.533,280,10,"U"
-5974,"Jacquinot Bay Airport","Jacquinot Bay","Papua New Guinea","JAQ","",-5.6525,151.507,136,10,"U"
-5973,"Nissan Island Airport","Nissan Island","Papua New Guinea","IIS","",-4.49972,154.226,52,10,"U"
-5972,"Ihu Airport","Ihu","Papua New Guinea","IHU","",-7.89756,145.396,47,10,"U"
-5971,"Gasmata Island Airport","Gasmata Island","Papua New Guinea","GMI","",-6.27111,150.331,23,10,"U"
-5970,"Tadji Airport","Aitape","Papua New Guinea","ATP","",-3.18985,142.43,48,10,"U"
-5969,"Wrangell Airport","Wrangell","United States","WRG","PAWG",56.4843,-132.37,44,-9,"A"
-5968,"Chevak Airport","Chevak","United States","VAK","PAVA",61.5338,-165.584,75,-9,"A"
-5967,"Aniak Airport","Aniak","United States","ANI","PANI",61.5816,-159.543,88,-9,"A"
-5966,"Mountain Village Airport","Mountain Village","United States","MOU","PAMO",62.0954,-163.682,337,-9,"A"
-5965,"McGrath Airport","Mcgrath","United States","MCG","PAMC",62.9529,-155.606,338,-9,"A"
-5964,"Kalskag Airport","Kalskag","United States","KLG","PALG",61.5363,-160.341,55,-9,"A"
-5963,"Haines Airport","Haines","United States","HNS","PAHN",59.2438,-135.524,15,-9,"A"
-5962,"Holy Cross Airport","Holy Cross","United States","HCR","PAHC",62.1883,-159.775,70,-9,"A"
-5961,"Skagway Airport","Skagway","United States","SGY","PAGY",59.4601,-135.316,44,-9,"A"
-5960,"Gustavus Airport","Gustavus","United States","GST","PAGS",58.4253,-135.707,34,-9,"A"
-5959,"Adak Airport","Adak Island","United States","ADK","PADK",51.878,-176.646,18,-10,"A"
-5958,"Sambu Airport","Boca de Sábalo","Panama","SAX","",8.017,-78.2,32,-5,"U"
-5957,"Contadora Airport","Contadora Island","Panama","OTD","",8.62876,-79.0347,14,-5,"U"
-5956,"EL Real Airport","El Real","Panama","ELE","",8.133,-77.7,57,-5,"U"
-5955,"Bahia Piña Airport","Bahia Piña","Panama","BFQ","",7.583,-78.2,14,-5,"U"
-5954,"Sayun International Airport","Sayun Intl","Yemen","GXF","OYSY",15.966111,48.7883,2097,3,"U"
-5953,"Kamishly Airport","Kamishly","Syria","KAC","OSKL",37.020625,41.191394,1480,2,"E"
-5952,"Sulaymaniyah International Airport","Sulaymaniyah","Iraq","ISU","ORSU",35.5608,45.3147,2494,3,"U"
-5951,"Turbat International Airport","Turbat","Pakistan","TUK","OPTU",25.986369,63.030167,498,5,"U"
-5950,"Sehwan Sharif Airport","Sehwan Sharif","Pakistan","SYW","OPSN",26.4731,67.7172,121,5,"U"
-5949,"Skardu Airport","Skardu","Pakistan","KDU","OPSD",35.335508,75.536047,7316,5,"U"
-5948,"Parachinar Airport","Parachinar","Pakistan","PAJ","OPPC",33.9021,70.0716,5800,5,"U"
-5947,"Ormara Airport","Ormara Raik","Pakistan","ORW","OPOR",25.2747,64.586,10,5,"U"
-5946,"Khuzdar Airport","Khuzdar","Pakistan","KDD","OPKH",27.7906,66.6473,4012,5,"U"
-5945,"Hyderabad Airport","Hyderabad","Pakistan","HDD","OPKD",25.3181,68.3661,130,5,"U"
-5944,"Jiwani Airport","Jiwani","Pakistan","JIW","OPJI",25.0678,61.8054,186,5,"U"
-5943,"Dera Ismael Khan Airport","Dera Ismael Khan","Pakistan","DSK","OPDI",31.909422,70.896639,594,5,"U"
-5942,"Dera Ghazi Khan Airport","Dera Ghazi Khan","Pakistan","DEA","OPDG",29.961011,70.485925,492,5,"U"
-5941,"Dalbandin Airport","Dalbandin","Pakistan","DBA","OPDB",28.8783,64.3998,2800,5,"U"
-5940,"Chitral Airport","Chitral","Pakistan","CJL","OPCH",35.886592,71.800578,4920,5,"U"
-5939,"Bahawalpur Airport","Bahawalpur","Pakistan","BHV","OPBW",29.3481,71.717981,392,5,"U"
-5938,"Bannu Airport","Bannu","Pakistan","BNP","OPBN",32.9729,70.5279,1325,5,"U"
-5937,"Al Ain International Airport","Al Ain","United Arab Emirates","AAN","OMAL",24.261667,55.609167,869,4,"U"
-5936,"Uromiyeh Airport","","Iran","OMH","OITR",37.6681,45.0687,4343,3.5,"E"
-5935,"Ardabil Airport","Ardabil","Iran","ADU","OITL",38.325678,48.424356,4315,3.5,"E"
-5934,"Lar Airport","Lar","Iran","LRR","OISL",27.674725,54.383278,2641,3.5,"E"
-5933,"Sari Dasht E Naz Airport","Dasht-e-naz","Iran","SRY","OINZ",36.635833,53.193611,35,3.5,"E"
-5932,"Noshahr Airport","Noshahr","Iran","NSH","OINN",36.663333,51.464722,-61,3.5,"E"
-5931,"Sabzevar National Airport","Sabzevar","Iran","AFZ","OIMS",36.168083,57.595183,3010,3.5,"E"
-5930,"Bojnourd Airport","Bojnourd","Iran","BJB","OIMN",37.492958,57.308219,3499,3.5,"E"
-5929,"Rafsanjan Airport","Rafsanjan","Iran","RJN","OIKR",30.297714,56.051139,5298,3.5,"E"
-5928,"Bam Airport","Bam","Iran","BXR","OIKM",29.084169,58.450042,3231,3.5,"E"
-5927,"Khoram Abad Airport","Khorram Abad","Iran","KHD","OICK",33.435378,48.282889,3782,3.5,"E"
-5926,"Wadi Al Dawasir Airport","Wadi-al-dawasir","Saudi Arabia","EWD","OEWD",20.504275,45.199556,2062,3,"U"
-5925,"Al-Jawf Domestic Airport","Al-Jawf","Saudi Arabia","AJF","OESK",29.785133,40.100006,2261,3,"U"
-5924,"Dawadmi Domestic Airport","Dawadmi","Saudi Arabia","DWD","OEDW",24.5,44.4,3429,3,"U"
-6506,"Saul Airport","Saul","French Guiana","XAU","SOOS",3.61361,-53.2042,656,-3,"U"
-5922,"Faizabad Airport","Faizabad","Afghanistan","FBD","OAFZ",37.1211,70.5181,3872,4.5,"U"
-5921,"Île des Pins Airport","","New Caledonia","ILP","NWWE",-22.5889,167.456,315,11,"U"
-5920,"Belep Islands Airport Airport","Waala","New Caledonia","BMY","NWWC",-19.7206,163.661,306,11,"U"
-5919,"Tiga Airport","Tiga","New Caledonia","TGJ","NWWA",-21.0961,167.804,128,11,"U"
-5918,"Ipota Airport","Ipota","Vanuatu","IPA","NVVI",-18.8783,169.308,23,11,"U"
-5917,"Futuna Airport","Futuna Island","Vanuatu","FTA","NVVF",-19.5164,170.232,0,11,"U"
-5916,"Dillon's Bay Airport","Dillon's Bay","Vanuatu","DLY","NVVD",-18.7694,169.001,538,11,"U"
-5915,"Aniwa Airport","Aniwa","Vanuatu","AWD","NVVB",-19.24,169.605,69,11,"U"
-5914,"Anelghowhat Airport","Anelghowhat","Vanuatu","AUY","NVVA",-20.2492,169.771,7,11,"U"
-5913,"North West Santo Airport","Olpoi","Vanuatu","OLZ","NVSZ",-14.8817,166.558,0,11,"U"
-5912,"Southwest Bay Airport","Malekula Island","Vanuatu","SWJ","NVSX",-16.495,167.438,0,11,"U"
-5911,"Valesdir Airport","Valesdir","Vanuatu","VLS","NVSV",-16.7961,168.177,10,11,"U"
-5910,"Uléi Airport","Ambryn Island","Vanuatu","ULB","NVSU",-16.333,168.283,0,11,"U"
-5909,"Tongoa Island Airport","Tongoa Island","Vanuatu","TGH","NVST",-16.8911,168.551,443,11,"U"
-5908,"Santo Pekoa International Airport","Santo","Vanuatu","SON","NVSS",-15.505033,167.219742,184,11,"U"
-5907,"Redcliffe Airport","Redcliffe","Vanuatu","RCL","NVSR",-15.472,167.835,36,11,"U"
-5906,"Gaua Island Airport","Gaua Island","Vanuatu","ZGU","NVSQ",-14.2181,167.587,0,11,"U"
-5905,"Norsup Airport","Norsup","Vanuatu","NUS","NVSP",-16.0797,167.401,23,11,"U"
-5904,"Lonorore Airport","Lonorore","Vanuatu","LNE","NVSO",-15.8656,168.172,43,11,"U"
-5903,"Naone Airport","Maewo Island","Vanuatu","MWF","NVSN",-15,168.083,0,11,"U"
-5902,"Lamen Bay Airport","Lamen Bay","Vanuatu","LNB","NVSM",-16.5842,168.159,7,11,"U"
-5901,"Lamap Airport","Lamap","Vanuatu","LPM","NVSL",-16.454,167.823,7,11,"U"
-5900,"Tavie Airport","Paama Island","Vanuatu","PBJ","NVSI",-16.439,168.257,0,11,"U"
-5899,"Sara Airport","Pentecost Island","Vanuatu","SSR","NVSH",-15.4708,168.152,0,11,"U"
-5898,"Longana Airport","Longana","Vanuatu","LOD","NVSG",-15.3067,167.967,167,11,"U"
-5897,"Craig Cove Airport","Craig Cove","Vanuatu","CCV","NVSF",-16.265,167.924,69,11,"U"
-5896,"Sangafa Airport","Sangafa","Vanuatu","EAE","NVSE",-17.0903,168.343,7,11,"U"
-5895,"Torres Airstrip","Loh/Linua","Vanuatu","TOH","NVSD",-13.328,166.638,0,11,"U"
-5894,"Sola Airport","Sola","Vanuatu","SLH","NVSC",-13.8517,167.537,7,11,"U"
-5893,"Mota Lava Airport","Ablow","Vanuatu","MTV","NVSA",-13.666,167.712,63,11,"U"
-5892,"Ua Huka Airport","Ua Huka","French Polynesia","UAH","NTMU",-8.93611,-139.552,160,-9.5,"U"
-5891,"Ua Pou Airport","Ua Pou","French Polynesia","UAP","NTMP",-9.35167,-140.078,16,-9.5,"U"
-5890,"Hiva Oa-Atuona Airport","Hiva-oa","French Polynesia","AUQ","NTMN",-9.768794,-139.011256,1481,-9.5,"U"
-5889,"Ahe Airport","","French Polynesia","AHE","NTHE",-14.4281,-146.257,11,-10,"U"
-5888,"Apataki Airport","Apataki","French Polynesia","APK","NTGD",-15.5736,-146.415,8,-10,"U"
-5887,"Maota Airport","Savaii Island","Samoa","MXS","NSMA",-13.733,-172.3,0,-11,"U"
-5886,"Mountain Airport","Mountain","Nepal","MWP","",28,85.333,0,5.75,"N"
-5885,"Pointe Vele Airport","Futuna Island","Wallis and Futuna","FUT","NLWF",-14.3114,-178.066,20,12,"U"
-5884,"Niue International Airport","Alofi","Niue","IUE","NIUE",-19.080028,-169.925639,209,-11,"U"
-5883,"Vanua Balavu Airport","Vanua Balavu","Fiji","VBV","NFVB",-17.269,-178.976,76,12,"U"
-5882,"Kuini Lavenia Airport","Niuatoputapu","Tonga","NTT","NFTP",-15.9767,-173.755,0,13,"U"
-5881,"Mata'aho Airport","Angaha, Niuafo'ou Island","Tonga","NFO","NFTO",-15.5708,-175.633,160,13,"U"
-5880,"Lifuka Island Airport","Lifuka","Tonga","HPA","NFTL",-19.777,-174.341,31,13,"U"
-5879,"Kaufana Airport","Eua Island","Tonga","EUA","NFTE",-21.3783,-174.958,325,13,"U"
-5878,"Savusavu Airport","Savusavu","Fiji","SVU","NFNS",-16.8028,179.341,17,12,"U"
-5877,"Rotuma Airport","Rotuma","Fiji","RTA","NFNR",-12.4825,177.071,22,12,"U"
-5876,"Koro Island Airport","Koro Island","Fiji","KXF","NFNO",-17.3458,179.422,358,12,"U"
-5875,"Matei Airport","Matei","Fiji","TVU","NFNM",-16.6906,-179.877,60,12,"U"
-5874,"Labasa Airport","Lambasa","Fiji","LBS","NFNL",-16.466749,179.33986,44,12,"U"
-5873,"Lakeba Island Airport","Lakeba Island","Fiji","LKB","NFNK",-18.1992,-178.817,280,12,"U"
-5872,"Ngau Airport","Ngau","Fiji","NGI","NFNG",-18.1156,179.34,50,12,"U"
-5871,"Moala Airport","Moala","Fiji","MFJ","NFMO",-18.5667,179.951,13,12,"U"
-5870,"Mana Island Airport","Mana Island","Fiji","MNF","NFMA",-17.6731,177.098,0,12,"U"
-5869,"Vunisea Airport","Vunisea","Fiji","KDV","NFKD",-19.0581,178.157,6,12,"U"
-5868,"Malolo Lailai Island Airport","Malolo Lailai Island","Fiji","PTF","NFFO",-17.7779,177.197,10,12,"U"
-5867,"Cicia Airport","Cicia","Fiji","ICI","NFCI",-17.7433,-179.342,13,12,"U"
-5866,"Penrhyn Island Airport","Penrhyn Island","Cook Islands","PYE","NCPY",-9.00667,-158.037,8,-10,"U"
-5865,"Mitiaro Island Airport","Mitiaro Island","Cook Islands","MOI","NCMR",-19.8425,-157.703,25,-10,"U"
-5864,"Mauke Airport","Mauke Island","Cook Islands","MUK","NCMK",-20.1361,-157.345,26,-10,"U"
-5863,"Manihiki Island Airport","Manihiki Island","Cook Islands","MHX","NCMH",-10.3767,-161.002,0,-10,"U"
-5862,"Mangaia Island Airport","Mangaia Island","Cook Islands","MGS","NCMG",-21.8956,-157.905,45,-10,"U"
-5861,"Atiu Island Airport","Atiu Island","Cook Islands","AIU","NCAT",-19.9678,-158.119,36,-10,"U"
-5860,"Nassau Paradise Island Airport","Nassau","Bahamas","PID","MYPI",25.083,-77.3,0,-5,"U"
-5859,"Colonel Hill Airport","Colonel Hill","Bahamas","CRI","MYCI",22.745561,-74.182353,5,-5,"U"
-5858,"New Bight Airport","Cat Island","Bahamas","CAT","MYCB",24.315292,-75.452331,5,-5,"U"
-5857,"Arthurs Town Airport","Arthur's Town","Bahamas","ATC","MYCA",24.629417,-75.673775,18,-5,"U"
-5856,"Congo Town Airport","Andros","Bahamas","COX","MYAK",24.158933,-77.589758,15,-5,"U"
-5855,"Long Banga Airport","Long Banga","Malaysia","LBP","",3.18495,115.454,750,8,"U"
-5854,"Salina Cruz Naval Air Station","Salina Cruz","Mexico","SCX","MM57",16.2126,-95.2016,75,-6,"S"
-5853,"Alberto Delgado Airport","Trinidad","Cuba","TND","MUTD",21.788461,-79.997203,125,-5,"U"
-5852,"Cayo Coco Airport","Cayo Coco","Cuba","CCC","MUOC",22.5132,-78.511,6,-5,"U"
-5851,"Port-de-Paix Airport","Port-de-Paix","Haiti","PAX","MTPX",19.9336,-72.8486,9,-5,"U"
-5850,"Jeremie Airport","Jeremie","Haiti","JEE","MTJE",18.6631,-74.1703,147,-5,"U"
-5849,"Playa Samara Airport","Playa Samara","Costa Rica","PLD","MRSR",10.25,-85.417,10,-6,"U"
-5848,"Tobias Bolanos International Airport","San Jose","Costa Rica","SYQ","MRPV",9.957053,-84.139797,3287,-6,"U"
-5847,"Puerto Jimenez Airport","Puerto Jimenez","Costa Rica","PJM","MRPJ",8.53333,-83.3,7,-6,"U"
-5845,"Islita Airport","Nandayure","Costa Rica","PBP","MRIA",9.85611,-85.3708,7,-6,"U"
-5844,"Cabo Velas Airport","Nicoya","Costa Rica","TNO","MRCV",10.3557,-85.852892,33,-6,"U"
-5843,"Barra del Colorado Airport","Pococi","Costa Rica","BCL","MRBC",10.768736,-83.585614,3,-6,"U"
-5842,"Aerotortuguero Airport","Roxana","Costa Rica","TTQ","MRAO",10.569,-83.5148,82,-6,"U"
-5841,"Captain Ramon Xatruch Airport","La Palma","Panama","PLP","MPLP",8.40667,-78.1417,30,-5,"U"
-5840,"Jaqué Airport","Jaqué","Panama","JQE","MPJE",7.51778,-78.1572,29,-5,"U"
-5839,"Enrique Adolfo Jimenez Airport","Colón","Panama","ONX","MPEJ",9.35664,-79.8674,25,-5,"U"
-5838,"Alonso Valderrama Airport","Chitré","Panama","CTD","MPCE",7.98784,-80.4097,33,-5,"U"
-5837,"Lencero Airport","Jalapa","Mexico","JAL","MMJA",19.475083,-96.797506,3127,-6,"S"
-5836,"Guerrero Negro Airport","Guerrero Negro","Mexico","GUB","MMGR",28.0261,-114.024,59,-7,"S"
-5835,"Ciudad Constitución Airport","Ciudad Constitución","Mexico","CUA","MMDA",25.0538,-111.615,213,-7,"S"
-5834,"Captain Rogelio Castillo National Airport","Celaya","Mexico","CYW","MMCY",20.545994,-100.88655,5709,-6,"S"
-5833,"Mili Island Airport","Mili Island","Marshall Islands","MIJ","MLIP",6.08333,171.733,4,12,"U"
-5832,"Puerto Lempira Airport","Puerto Lempira","Honduras","PEU","MHPL",15.2622,-83.7812,25,-6,"U"
-5831,"Ahuas Airport","Ahuas","Honduras","AHS","MHAH",15.4722,-84.3522,98,-6,"U"
-5830,"Wotho Island Airport","Wotho Island","Marshall Islands","WTO","",10.1733,166.003,0,12,"U"
-5829,"Wotje Atoll Airport","Wotje Atoll","Marshall Islands","WTE","N36",9.46667,170.233,4,12,"U"
-5828,"Woja Airport","Majuro Atoll","Marshall Islands","WJA","",7.083,171.133,0,12,"U"
-5827,"Jaluit Airport","Jabor Jaluit Atoll","Marshall Islands","UIT","N55",5.90924,169.637,4,12,"U"
-5826,"Rongelap Island Airport","Rongelap Island","Marshall Islands","RNP","",11.1572,166.887,0,12,"U"
-5825,"Namorik Atoll Airport","Namorik Atoll","Marshall Islands","NDK","3N0",5.63167,168.125,15,12,"U"
-5824,"Majkin Airport","Majkin","Marshall Islands","MJE","",7.833,168.167,0,12,"U"
-5823,"Mejit Atoll Airport","Mejit Atoll","Marshall Islands","MJB","Q30",10.2833,170.883,5,12,"U"
-5822,"Maloelap Island Airport","Maloelap Island","Marshall Islands","MAV","",8.70444,171.23,0,12,"U"
-5821,"Likiep Airport","Likiep Island","Marshall Islands","LIK","",9.82316,169.308,0,12,"U"
-5820,"Kaben Airport","Kaben","Marshall Islands","KBT","",8.90056,170.844,0,12,"U"
-5819,"Jeh Airport","Ailinglapalap Atoll","Marshall Islands","JEJ","",7.56535,168.962,0,12,"U"
-5818,"Jabot Airport","Ailinglapalap Atoll","Marshall Islands","JAT","",7.45235,168.552,0,12,"U"
-5817,"Enyu Airfield","Bikini Atoll","Marshall Islands","BII","",11.5225,165.565,0,12,"U"
-5816,"Aur Island Airport","Aur Atoll","Marshall Islands","AUL","",8.14528,171.173,0,12,"U"
-5815,"Ailuk Airport","Ailuk Island","Marshall Islands","AIM","",10.2168,169.983,0,12,"U"
-5814,"Utirik Airport","Utirik Island","Marshall Islands","UTK","03N",11.222,169.852,4,12,"U"
-5813,"Quezaltenango Airport","Quezaltenango","Guatemala","AAZ","MGQZ",14.8656,-91.502,7779,-6,"U"
-5812,"Puerto Barrios Airport","Puerto Barrios","Guatemala","PBR","MGPB",15.730878,-88.583767,33,-6,"U"
-5811,"Dr Joaquin Balaguer International Airport","La Isabela","Dominican Republic","JBQ","MDJB",18.5725,-69.9856,98,-4,"U"
-5810,"Samaná El Catey International Airport","Samana","Dominican Republic","AZS","MDCY",19.267,-69.742,30,-4,"U"
-5809,"Salt Cay Airport","Salt Cay","Turks and Caicos Islands","SLX","MBSY",21.333,-71.2,3,-5,"U"
-5808,"Middle Caicos Airport","Middle Caicos","Turks and Caicos Islands","MDS","MBMC",21.833,-71.817,9,-5,"U"
-5807,"JAGS McCartney International Airport","Cockburn Town","Turks and Caicos Islands","GDT","MBGT",21.4445,-71.1423,13,-5,"U"
-5806,"Žilina Airport","Žilina","Slovakia","ILZ","LZZI",49.231528,18.6135,1020,1,"E"
-5805,"Ubari Airport","Ubari","Libya","QUB","",26.5675,12.8231,1387,1,"N"
-5804,"Misratah Airport","Misratah","Libya","MRA","",32.325,15.061,60,1,"N"
-5803,"Samsun-Çarşamba Airport","Samsun","Turkey","SZF","LTFH",41.2545,36.5671,18,2,"E"
-5802,"Balikesir Korfez Airport","","Turkey","EDO","LTFD",39.5546,27.0138,50,2,"E"
-5801,"Isparta Süleyman Demirel Airport","Isparta","Turkey","ISE","LTFC",37.8554,30.3684,2835,2,"E"
-5800,"Adiyaman Airport","","Turkey","ADF","LTCP",37.7314,38.4689,2216,2,"E"
-5799,"Agri Airport","","Turkey","AJI","LTCO",39.6546,43.0271,5462,2,"E"
-5798,"Kahramanmaras Airport","","Turkey","KCM","LTCN",37.539,36.9534,1723,2,"E"
-5797,"Sanliurfa Airport","Sanliurfa","Turkey","SFQ","LTCH",37.094261,38.847103,1483,2,"E"
-5796,"Kars Airport","Kars","Turkey","KSY","LTCF",40.562222,43.115002,5889,2,"E"
-5795,"Usak Airport","Usak","Turkey","USQ","LTBO",38.681478,29.471675,2897,2,"E"
-5794,"Banja Luka International Airport","Banja Luka","Bosnia and Herzegovina","BNX","LQBK",44.941444,17.297501,400,1,"E"
-5793,"Corvo Airport","Corvo","Portugal","CVU","LPCR",39.6715,-31.1136,0,-1,"E"
-5792,"Salerno Pontecagnano Airport","Salerno","Italy","QSR","LIRI",40.6204,14.911294,123,1,"E"
-5791,"Aosta Airport","Aosta","Italy","AOT","LIMW",45.738456,7.368719,1791,1,"E"
-5790,"Sármellék International Airport","Sármellék","Hungary","SOB","LHSM",46.686389,17.159056,408,1,"N"
-5789,"Győr-Pér International Airport","Győr","Hungary","QGY","LHPR",47.627097,17.808347,424,1,"N"
-5788,"Pécs-Pogány Airport","Pécs-Pogány","Hungary","PEV","LHPP",45.990928,18.240983,1000,1,"N"
-5787,"Syros Airport","Syros Island","Greece","JSY","LGSO",37.422792,24.950936,236,2,"E"
-5786,"La Môle Airport","La Môle","France","LTT","LFTZ",43.2054,6.482,59,1,"E"
-6810,"EuroAirport","Mulhouse","France","EAP",\N,47.589583,7.529914,885,1,"E"
-6511,"Tekapo","Lake Tekapo","New Zealand","","NZTL",-44,170.28,2,12,"Z"
-5783,"Angers-Loire Airport","Angers/Marcé","France","ANE","LFJR",47.5603,-0.312222,194,1,"E"
-5782,"Île d'Yeu Airport","Île d'Yeu","France","IDY","LFEY",46.718611,-2.391111,79,0,"E"
-5781,"Logroño-Agoncillo Airport","","Spain","RJL","LELO",42.4542,-2.32083,1161,1,"E"
-5780,"Ercan International Airport","Nicosia","Cyprus","ECN","LCEN",35.1547,33.4961,404,2,"U"
-5779,"Yakima Air Terminal McAllister Field","Yakima","United States","YKM","KYKM",46.5682,-120.544,1095,-8,"A"
-5778,"Kiwayu (Mkononi) Airport","Kiwayu","Kenya","KWY","",-1.96056,41.2975,21,3,"U"
-5777,"Worland Municipal Airport","Worland","United States","WRL","KWRL",43.9657,-107.951,4227,-7,"A"
-5776,"Valdosta Regional Airport","Valdosta","United States","VLD","KVLD",30.7825,-83.2767,203,-5,"A"
-5775,"Victoria Regional Airport","Victoria","United States","VCT","KVCT",28.8526,-96.9185,115,-6,"A"
-5774,"Quincy Regional Baldwin Field","Quincy","United States","UIN","KUIN",39.9427,-91.1946,769,-6,"A"
-5773,"Tupelo Regional Airport","Tupelo","United States","TUP","KTUP",34.2681,-88.7699,346,-6,"A"
-5772,"Santa Maria Pub Cpt G Allan Hancock Airport","Santa Maria","United States","SMX","KSMX",34.8989,-120.457,261,-8,"A"
-5771,"Salina Municipal Airport","Salina","United States","SLN","KSLN",38.791,-97.6522,1288,-6,"A"
-5770,"Adirondack Regional Airport","Saranac Lake","United States","SLK","KSLK",44.3853,-74.2062,1663,-5,"A"
-5769,"Sheridan County Airport","Sheridan","United States","SHR","KSHR",44.7692,-106.98,4021,-7,"A"
-5768,"San Luis County Regional Airport","San Luis Obispo","United States","SBP","KSBP",35.2368,-120.642,212,-8,"A"
-5767,"Rutland State Airport","Rutland","United States","RUT","KRUT",43.5294,-72.9496,787,-5,"A"
-5766,"Rock Springs Sweetwater County Airport","Rock Springs","United States","RKS","KRKS",41.5942,-109.065,6760,-7,"A"
-5765,"Rhinelander Oneida County Airport","Rhinelander","United States","RHI","KRHI",45.6312,-89.4675,1624,-6,"A"
-5764,"Reading Regional Carl A Spaatz Field","Reading","United States","RDG","KRDG",40.3785,-75.9652,344,-5,"A"
-5763,"Pease International Tradeport","Portsmouth","United States","PSM","KPSM",43.0779,-70.8233,100,-5,"A"
-5762,"Pellston Regional Airport of Emmet County Airport","Pellston","United States","PLN","KPLN",45.5709,-84.7967,720,-5,"A"
-5761,"Pierre Regional Airport","Pierre","United States","PIR","KPIR",44.3827,-100.286,1742,-6,"A"
-5760,"Pocatello Regional Airport","Pocatello","United States","PIH","KPIH",42.9098,-112.596,4452,-7,"A"
-5759,"Hattiesburg Laurel Regional Airport","Hattiesburg/Laurel","United States","PIB","KPIB",31.4671,-89.3371,298,-6,"A"
-5758,"Owensboro Daviess County Airport","Owensboro","United States","OWB","KOWB",37.7401,-87.1668,406,-6,"A"
-5757,"Southwest Oregon Regional Airport","North Bend","United States","OTH","KOTH",43.4171,-124.246,17,-8,"A"
-5756,"Northwest Alabama Regional Airport","Muscle Shoals","United States","MSL","KMSL",34.7453,-87.6102,550,-6,"A"
-5755,"Frank Wiley Field","Miles City","United States","MLS","KMLS",46.428,-105.886,2630,-7,"A"
-5754,"Muskegon County Airport","Muskegon","United States","MKG","KMKG",43.1695,-86.2382,628,-5,"A"
-5753,"Lynchburg Regional Preston Glenn Field","Lynchburg","United States","LYH","KLYH",37.3267,-79.2004,938,-5,"A"
-5752,"Lewistown Municipal Airport","Lewistown","United States","LWT","KLWT",47.0493,-109.467,4170,-7,"A"
-5751,"Lancaster Airport","Lancaster","United States","LNS","KLNS",40.1217,-76.2961,403,-5,"A"
-5750,"Klamath Falls Airport","Klamath Falls","United States","LMT","KLMT",42.1561,-121.733,4095,-8,"A"
-5749,"Lebanon Municipal Airport","Lebanon","United States","LEB","KLEB",43.6261,-72.3042,603,-5,"A"
-5748,"North Platte Regional Airport Lee Bird Field","North Platte","United States","LBF","KLBF",41.1262,-100.684,2776,-6,"A"
-5747,"Arnold Palmer Regional Airport","Latrobe","United States","LBE","KLBE",40.2759,-79.4048,1185,-5,"A"
-5746,"Laramie Regional Airport","Laramie","United States","LAR","KLAR",41.3121,-105.675,7284,-7,"A"
-5745,"Jamestown Regional Airport","Jamestown","United States","JMS","KJMS",46.9297,-98.6782,1498,-6,"A"
-5744,"Kirksville Regional Airport","Kirksville","United States","IRK","KIRK",40.0935,-92.5449,966,-6,"A"
-5743,"Kili Airport","Kili Island","Marshall Islands","KIO","Q51",5.64452,169.12,5,12,"U"
-5742,"Tri State Milton J Ferguson Field","Huntington","United States","HTS","KHTS",38.3667,-82.558,828,-5,"A"
-5741,"Memorial Field","Hot Springs","United States","HOT","KHOT",34.478,-93.0962,540,-6,"A"
-5740,"Central Nebraska Regional Airport","Grand Island","United States","GRI","KGRI",40.9675,-98.3096,1847,-6,"A"
-5739,"Wokal Field Glasgow International Airport","Glasgow","United States","GGW","KGGW",48.2125,-106.615,2296,-7,"A"
-5738,"Fayetteville Regional Grannis Field","Fayetteville","United States","FAY","KFAY",34.9912,-78.8803,189,-5,"A"
-5737,"New Bedford Regional Airport","New Bedford","United States","EWB","KEWB",41.6761,-70.9569,80,-5,"A"
-5736,"Elko Regional Airport","Elko","United States","EKO","KEKO",40.8249,-115.792,5140,-8,"A"
-5735,"Chippewa Valley Regional Airport","Eau Claire","United States","EAU","KEAU",44.8658,-91.4843,913,-6,"A"
-5734,"DuBois Regional Airport","Du Bois","United States","DUJ","KDUJ",41.1783,-78.8987,1817,-5,"A"
-5733,"Dodge City Regional Airport","Dodge City","United States","DDC","KDDC",37.7634,-99.9656,2594,-6,"A"
-5732,"Houghton County Memorial Airport","Hancock","United States","CMX","KCMX",47.1684,-88.4891,1095,-5,"A"
-5731,"William R Fairchild International Airport","Port Angeles","United States","CLM","KCLM",48.1202,-123.5,291,-8,"A"
-5730,"Harrison Marion Regional Airport","Clarksburg","United States","CKB","KCKB",39.2966,-80.2281,1217,-5,"A"
-5729,"Chippewa County International Airport","Sault Ste Marie","United States","CIU","KCIU",46.2508,-84.4724,800,-5,"A"
-5728,"Cape Girardeau Regional Airport","Cape Girardeau","United States","CGI","KCGI",37.2253,-89.5708,342,-6,"A"
-5727,"Del Norte County Airport","Crescent City","United States","CEC","KCEC",41.7802,-124.237,57,-8,"A"
-5726,"Southeast Iowa Regional Airport","Burlington","United States","BRL","KBRL",40.7832,-91.1255,698,-6,"A"
-5725,"Brunswick Golden Isles Airport","Brunswick","United States","BQK","KBQK",31.2588,-81.4665,26,-5,"A"
-5724,"Raleigh County Memorial Airport","Beckley","United States","BKW","KBKW",37.7873,-81.1242,2504,-5,"A"
-5723,"Western Nebraska Regional Airport","Scottsbluff","United States","BFF","KBFF",41.874,-103.596,3967,-7,"A"
-5722,"Bradford Regional Airport","Bradford","United States","BFD","KBFD",41.8031,-78.6401,2143,-5,"A"
-5721,"Watertown Regional Airport","Watertown","United States","ATY","KATY",44.914,-97.1547,1748,-6,"A"
-5720,"Alpena County Regional Airport","Alpena","United States","APN","KAPN",45.0781,-83.5603,689,-5,"A"
-5719,"Walla Walla Regional Airport","Walla Walla","United States","ALW","KALW",46.0949,-118.288,1191,-8,"A"
-5718,"Waterloo Regional Airport","Waterloo","United States","ALO","KALO",42.5571,-92.4003,873,-6,"A"
-5717,"Alamogordo White Sands Regional Airport","Alamogordo","United States","ALM","KALM",32.8399,-105.991,4200,-7,"A"
-5716,"Athens Ben Epps Airport","Athens","United States","AHN","KAHN",33.9486,-83.3263,808,-5,"A"
-5715,"Southwest Georgia Regional Airport","Albany","United States","ABY","KABY",31.5355,-84.1945,197,-5,"A"
-5714,"Aberdeen Regional Airport","Aberdeen","United States","ABR","KABR",45.4491,-98.4218,1302,-6,"A"
-5713,"San Domino Island Heliport","Tremiti Islands","Italy","TQR","",42.1025,15.488,0,1,"E"
-5712,"Gheshm Airport","Gheshm","Iran","GSM","",26.9487,56.2688,100,3.5,"E"
-5711,"Diu Airport","Diu","India","DIU","VA1P",20.7131,70.9211,31,5.5,"N"
-5710,"Gulu Airport","Gulu","Uganda","ULU","HUGU",2.805556,32.271792,3510,3,"U"
-5709,"Arua Airport","Arua","Uganda","RUA","HUAR",3.05,30.917,3951,3,"U"
-5708,"Tabora Airport","Tabora","Tanzania","TBO","HTTB",-5.07639,32.8333,3868,3,"U"
-5707,"Shinyanga Airport","Shinyanga","Tanzania","SHY","HTSY",-3.667,33.417,3800,3,"U"
-5706,"Musoma Airport","Musoma","Tanzania","MUZ","HTMU",-1.483,33.8,3806,3,"U"
-5705,"Kikwetu Airport","Lindi","Tanzania","LDI","HTLI",-9.85111,39.7578,100,3,"U"
-5704,"Kigoma Airport","Kigoma","Tanzania","TKQ","HTKA",-4.883,29.633,2700,3,"U"
-5703,"Bukoba Airport","Bukoba","Tanzania","BKZ","HTBU",-1.3,31.8,3745,3,"U"
-5702,"Port Sudan New International Airport","Port Sudan","Sudan","PZU","HSPN",19.4336,37.2341,135,2,"U"
-5701,"Nyala Airport","Nyala","Sudan","UYL","HSNN",12.0535,24.9562,2106,2,"U"
-5700,"Atbara Airport","Atbara","Sudan","ATB","HSAT",17.7,33.967,1181,2,"U"
-5699,"La Abraq Airport","Al Bayda'","Libya","LAQ","HLLQ",32.788673,21.964333,2157,1,"N"
-5698,"Mitiga Airport","Tripoli","Libya","MJI","HLLM",32.8941,13.276,36,1,"N"
-5697,"Gamal Abdel Nasser Airport","Tobruk","Libya","TOB","HLGN",31.861,23.907,519,1,"N"
-5696,"Gardabya Airport","Sirt","Libya","SRX","HLGD",31.0635,16.595,267,1,"N"
-5695,"Nanyuki Civil Airport","Nanyuki","Kenya","NYK","HKNY",-0.067,37.033,6250,3,"U"
-5694,"Malindi Airport","Malindi","Kenya","MYD","HKML",-3.22931,40.1017,80,3,"U"
-5693,"Lokichoggio Airport","Lokichoggio","Kenya","LKG","HKLK",4.204117,34.348186,2074,3,"U"
-5692,"Amboseli Airport","Amboseli National Park","Kenya","ASV","HKAM",-2.64505,37.2531,3755,3,"U"
-5691,"Asyut International Airport","Asyut","Egypt","ATZ","HEAT",27.046508,31.011983,772,2,"U"
-5690,"El Arish International Airport","El Arish","Egypt","AAC","HEAR",31.073333,33.835833,121,2,"U"
-5689,"Burao Airport","Burao","Somalia","BUO","HCMV",9.517,45.567,3400,3,"U"
-5688,"Galcaio Airport","Galcaio","Somalia","GLK","HCMR",6.78083,47.4547,975,3,"U"
-5687,"Aden Adde International Airport","Mogadishu","Somalia","MGQ","HCMM",2.01444,45.3047,29,3,"U"
-5686,"Bosaso Airport","Bosaso","Somalia","BSA","HCMF",11.2753,49.1494,3,3,"U"
-5685,"Alula Airport","Alula","Somalia","ALU","HCMA",11.95,50.733,6,3,"U"
-5684,"Tippi Airport","Tippi","Ethiopia","TIE","HATP",7.117,35.383,1100,3,"U"
-5683,"Mizan Teferi Airport","Mizan Teferi","Ethiopia","MTF","HAMT",6.967,35.533,4396,3,"U"
-5682,"Kabri Dehar Airport","Kabri Dehar","Ethiopia","ABK","HAKD",6.734,44.253,1800,3,"U"
-5681,"Gore Airport","Gore","Ethiopia","GOR","HAGR",8.167,35.55,6580,3,"U"
-5680,"Gode Airport","Gode","Ethiopia","GDE","HAGO",5.935128,43.578567,834,3,"U"
-5679,"Dembidollo Airport","Dembidollo","Ethiopia","DEM","HADD",8.554,34.858,5200,3,"U"
-5678,"Combolcha Airport","Dessie","Ethiopia","DSE","HADC",11.0825,39.7114,6117,3,"U"
-5677,"Beica Airport","Beica","Ethiopia","BEI","HABE",9.38639,34.5219,5410,3,"U"
-5676,"Baco Airport","Baco","Ethiopia","BCO","HABC",5.78287,36.562,0,3,"U"
-5675,"Sao Filipe Airport","Sao Filipe, Fogo Island","Cape Verde","SFL","GVSF",14.885,-24.48,617,-1,"U"
-5674,"Praia International Airport","Praia, Santiago Island","Cape Verde","RAI","GVNP",14.9245,-23.4935,230,-1,"U"
-5673,"El Aroui Airport","","Morocco","NDR","GMMW",34.9888,-3.02821,574,0,"N"
-5672,"Hassan I Airport","El Aaiún","Western Sahara","EUN","GMML",27.1517,-13.2192,207,0,"N"
-5671,"Mogador Airport","Essadouira","Morocco","ESU","GMMI",31.3975,-9.681667,384,0,"N"
-5670,"Dakhla Airport","Dakhla","Western Sahara","VIL","GMMH",23.7183,-15.932,36,0,"N"
-5669,"Smara Airport","Smara","Western Sahara","SMW","GMMA",26.7318,-11.6847,350,0,"N"
-5668,"Iginniarfik Heliport","","Greenland","QFI","",68.7,-52.9667,0,-3,"E"
-5667,"Akunnaaq Heliport","","Greenland","QCU","",68.75,-52.3333,0,-3,"E"
-5666,"Groennedal Heliport","Groennedal","Greenland","JGR","",61.2333,-48.1,0,-3,"E"
-5665,"Osvaldo Vieira International Airport","Bissau","Guinea-Bissau","OXB","GGOV",11.89485,-15.653681,129,0,"N"
-5664,"Kenema Airport","Kenema","Sierra Leone","KEN","GFKE",7.89129,-11.1766,485,0,"N"
-5663,"Bo Airport","Bo","Sierra Leone","KBS","GFBO",7.9444,-11.761,328,0,"N"
-5662,"Sherbro International Airport","Bonthe","Sierra Leone","BTE","GFBN",7.53242,-12.5189,14,0,"N"
-5661,"Ceuta Heliport","Ceuta","Spain","JCU","GECT",35.8969,-5.29908,0,0,"E"
-5660,"Lauriston Airport","Carriacou Island","Grenada","CRU","",12.4761,-61.4728,0,-4,"U"
-5659,"La Gomera Airport","","Spain","GMZ","GCGM",28.0296,-17.2146,718,0,"E"
-5658,"Papa Stour Airport","Papa Stour","United Kingdom","PSV","",60.3217,-1.69306,0,0,"E"
-5657,"Outer Skerries Airport","","United Kingdom","OUK","",60.417,-0.75,0,0,"E"
-5656,"Foula Airport","Foula","United Kingdom","FOA","",60.121,-2.052,0,0,"E"
-5655,"Gamba","Gamba","Gabon","GAX","",-2.71016,9.96062,73,1,"N"
-5654,"Ilebo Airport","Ilebo","Congo (Kinshasa)","PFR","FZVS",-4.333,20.583,1450,1,"N"
-5653,"Lodja Airport","Lodja","Congo (Kinshasa)","LJA","FZVA",-3.417,23.45,1647,2,"N"
-5652,"Tshikapa Airport","Tshikapa","Congo (Kinshasa)","TSH","FZUK",-6.43833,20.7947,1595,2,"N"
-5651,"Basankusu Airport","Basankusu","Congo (Kinshasa)","BSU","FZEN",1.22472,19.7889,1217,1,"N"
-5650,"Basango Mboliasa Airport","Kiri","Congo (Kinshasa)","KRZ","FZBT",-1.435,19.024,1013,1,"N"
-5649,"Nioki Airport","Nioki","Congo (Kinshasa)","NIO","FZBI",-2.7175,17.6847,1043,1,"N"
-5648,"Inongo Airport","Inongo","Congo (Kinshasa)","INO","FZBA",-1.94722,18.2858,1040,1,"N"
-5647,"Tshimpi Airport","Matadi","Congo (Kinshasa)","MAT","FZAM",-5.79961,13.4404,1115,1,"N"
-5646,"Boma Airport","Boma","Congo (Kinshasa)","BOA","FZAJ",-5.854,13.064,26,1,"N"
-5645,"Eros Airport","Windhoek","Namibia","ERS","FYWE",-22.6122,17.0804,5575,1,"S"
-5644,"Swakopmund Airport","Swakopmund","Namibia","SWP","FYSM",-22.6619,14.5681,207,1,"S"
-5643,"Oranjemund Airport","Oranjemund","Namibia","OMD","FYOG",-28.5847,16.4467,14,2,"S"
-5642,"Ondangwa Airport","Ondangwa","Namibia","OND","FYOA",-17.8782,15.9526,3599,1,"S"
-5641,"Luderitz Airport","Luderitz","Namibia","LUD","FYLZ",-26.6874,15.2429,457,1,"S"
-5640,"Club Makokola Airport","Club Makokola","Malawi","CMK","FWCM",-14.3069,35.1325,1587,2,"U"
-5639,"Sarh Airport","Sarh","Chad","SRH","FTTA",9.14444,18.3744,1198,1,"N"
-5638,"Croisette Heliport","Cannes","France","JCA","",43.536,7.03736,0,1,"E"
-5637,"Chimoio Airport","Chimoio","Mozambique","VPY","FQCH",-19.151267,33.428958,2287,2,"U"
-5636,"Tchibanga Airport","Tchibanga","Gabon","TCH","FOOT",-2.85,11.017,269,1,"N"
-5635,"Mouilla Ville Airport","Mouila","Gabon","MJL","FOGM",-1.84514,11.0567,295,1,"N"
-5634,"Koulamoutou Airport","Koulamoutou","Gabon","KOU","FOGK",-1.18461,12.4413,1070,1,"N"
-5633,"Namibe Airport","Mocamedes","Angola","MSZ","FNMO",-15.261222,12.146756,210,1,"N"
-5632,"Ondjiva Pereira Airport","Ondjiva","Angola","VPE","FNGI",-17.043464,15.683822,3566,1,"N"
-5631,"Dundo Airport","","Angola","DUE","FNDU",-7.40089,20.8185,2451,1,"N"
-5630,"Catumbela Airport","Catumbela","Angola","CBT","FNCT",-12.4792,13.4869,0,1,"N"
-5629,"Manja Airport","Manja","Madagascar","MJA","FMSJ",-21.417,44.317,787,3,"U"
-5628,"Mandritsara Airport","Mandritsara","Madagascar","WMA","FMNX",-15.817,48.833,1007,3,"U"
-5627,"Tsaratanana Airport","Tsaratanana","Madagascar","TTS","FMNT",-16.75,47.617,1073,3,"U"
-5626,"Mampikony Airport","Mampikony","Madagascar","WMP","FMNP",-16.049,47.622,0,3,"U"
-5625,"Soalala Airport","Soalala","Madagascar","DWB","FMNO",-16.083,45.367,141,3,"U"
-5624,"Ambanja Airport","Ambanja","Madagascar","IVA","FMNJ",-13.65,48.467,36,3,"U"
-5623,"Port Bergé Airport","Port Bergé","Madagascar","WPB","FMNG",-15.583,47.617,213,3,"U"
-5622,"Ambatondrazaka Airport","Ambatondrazaka","Madagascar","WAM","FMMZ",-17.8,48.433,2513,3,"U"
-5621,"Tsiroanomandidy Airport","Tsiroanomandidy","Madagascar","WTS","FMMX",-18.75,46.05,2776,3,"U"
-5620,"Tambohorano Airport","Tambohorano","Madagascar","WTA","FMMU",-17.4761,43.9728,23,3,"U"
-5619,"Morafenobe Airport","Morafenobe","Madagascar","TVA","FMMR",-17.85,44.917,748,3,"U"
-5618,"Maintirano Airport","Maintirano","Madagascar","MXT","FMMO",-18.05,44.033,95,3,"U"
-5617,"Belo sur Tsiribihina Airport","Belo sur Tsiribihina","Madagascar","BMD","FMML",-19.6867,44.5419,154,3,"U"
-5616,"Ankavandra Airport","Ankavandra","Madagascar","JVA","FMMK",-18.8,45.283,427,3,"U"
-5615,"Antsalova Airport","Antsalova","Madagascar","WAQ","FMMG",-18.7,44.617,551,3,"U"
-5614,"Iconi Airport","Moroni","Comoros","YVA","FMCN",-11.7108,43.2439,33,3,"U"
-5613,"Solwesi Airport","Solwesi","Zambia","SLI","FLSW",-12.1737,26.3651,4551,2,"U"
-5612,"Chipata Airport","Chipata","Zambia","CIP","FLCP",-13.5583,32.5872,3360,2,"U"
-5611,"Loubomo Airport","Loubomo","Congo (Brazzaville)","DIS","FCPL",-4.2,12.7,1079,1,"N"
-5610,"Limpopo Valley Airport","Tuli Lodge","Botswana","TLD","FBTL",-22.1892,29.1269,1772,2,"U"
-5609,"Shakawe Airport","Shakawe","Botswana","SWX","FBSW",-18.3739,21.8326,3379,2,"U"
-5608,"Orapa Airport","","Botswana","ORP","FBOR",-21.2667,25.3167,3100,2,"U"
-5607,"Ghanzi Airport","Ghanzi","Botswana","GNZ","FBGZ",-21.6925,21.6581,3730,2,"U"
-5606,"Mmabatho International Airport","Mafeking","South Africa","MBD","FAMM",-25.798444,25.548028,4181,2,"U"
-5605,"Malamala Airport","Malamala","South Africa","AAM","FAMD",-24.818111,31.544584,1124,2,"U"
-5604,"Kruger Mpumalanga International Airport","Mpumalanga","South Africa","MQP","FAKN",-25.3832,31.1056,2829,2,"U"
-5603,"Rand Airport","Johannesburg","South Africa","QRA","FAGM",-26.242506,28.151169,5483,2,"U"
-5602,"Ventspils International Airport","Ventspils","Latvia","VTS","EVVA",57.357778,21.544167,19,2,"E"
-5601,"Shire Inda Selassie Airport","Shire Indasilase","Ethiopia","SHC","",14.0781,38.2725,6207,3,"U"
-5600,"Shilavo Airport","Shilavo","Ethiopia","HIL","",6.08333,44.7667,1296,3,"U"
-5599,"Hemavan Airport","Hemavan","Sweden","HMV","ESUT",65.806111,15.082778,1503,1,"E"
-5598,"Storuman Airport","Mohed","Sweden","SQO","ESUD",64.960894,17.696583,915,1,"E"
-5597,"Ängelholm-Helsingborg Airport","Ängelholm","Sweden","AGH","ESTA",56.2961,12.8471,68,1,"E"
-5596,"Torsby Airport","Torsby","Sweden","TYF","ESST",60.157622,12.991269,393,1,"E"
-5595,"Karlstad Airport","","Sweden","KSD","ESOK",59.4447,13.3374,352,1,"E"
-5594,"Hagfors Airport","Hagfors","Sweden","HFS","ESOH",60.020064,13.578908,474,1,"E"
-5593,"Östersund Airport","Östersund","Sweden","OSD","ESNZ",63.1944,14.5003,1233,1,"E"
-5592,"Łódź Władysław Reymont Airport","Lodz","Poland","LCJ","EPLL",51.721881,19.398133,604,1,"N"
-5591,"Bydgoszcz Ignacy Jan Paderewski Airport","Bydgoszcz","Poland","BZG","EPBY",53.0968,17.9777,235,1,"N"
-5590,"Værøy Heliport","Værøy","Norway","VRY","ENVR",67.6667,12.6833,36,1,"E"
-5589,"Svartnes Airport","Vardø","Norway","VAW","ENSS",70.355392,31.044889,42,1,"E"
-5588,"Sorkjosen Airport","","Norway","SOJ","ENSR",69.7868,20.9594,16,1,"E"
-5587,"Svolvær Helle Airport","Svolvær","Norway","SVJ","ENSH",68.2433,14.6692,27,1,"E"
-5586,"Sogndal Airport","Sogndal","Norway","SOG","ENSG",61.1561,7.13778,0,1,"E"
-5585,"Anda Airport","Sandane","Norway","SDN","ENSD",61.83,6.10583,196,1,"E"
-5584,"Røst Airport","","Norway","RET","ENRS",67.5278,12.1033,7,1,"E"
-5583,"Ryum Airport","Rørvik","Norway","RVK","ENRM",64.8383,11.1461,14,1,"E"
-5582,"Røssvoll Airport","Mo i Rana","Norway","MQN","ENRA",66.3639,14.3014,229,1,"E"
-5581,"Namsos Høknesøra Airport","Namsos","Norway","OSY","ENNM",64.4722,11.5786,7,1,"E"
-5580,"Leknes Airport","Leknes","Norway","LKN","ENLK",68.1525,13.6094,78,1,"E"
-5579,"Sindal Airport","Sindal","Denmark","CNL","EKSN",57.503525,10.229372,92,1,"N"
-5578,"Weston Airport","Leixlip","Ireland","WST","EIWT",53.351333,-6.4875,150,0,"E"
-5577,"Donegal Airport","Dongloe","Ireland","CFN","EIDL",55.044192,-8.341,30,0,"E"
-6816,"Raron Airport","Raron","Switzerland","","LSTA",46.3036,7.82333,2029,1,"E"
-5575,"Barra Airport","Barra","United Kingdom","BRR","EGPR",57.0228,-7.44306,5,0,"E"
-5574,"Anglesey Airport","Angelsey","United Kingdom","HLY","EGOV",53.248097,-4.535339,37,0,"E"
-5573,"Penzance Heliport","Penzance","United Kingdom","PZE","EGHK",50.1281,-5.51845,14,0,"E"
-5572,"Land's End / St. Just Airport","Land's End","United Kingdom","LEQ","EGHC",50.1028,-5.67056,401,0,"E"
-5571,"Westray Airport","Westray","United Kingdom","WRY","EGEW",59.3503,-2.95,29,0,"E"
-5570,"Lerwick / Tingwall Airport","Lerwick","United Kingdom","LWK","EGET",60.1922,-1.24361,43,0,"E"
-5569,"Sanday Airport","Sanday","United Kingdom","NDY","EGES",59.2503,-2.57667,68,0,"E"
-5568,"Stronsay Airport","Stronsay","United Kingdom","SOY","EGER",59.1553,-2.64139,39,0,"E"
-5567,"Papa Westray Airport","Papa Westray","United Kingdom","PPW","EGEP",59.3517,-2.90028,91,0,"E"
-5566,"North Ronaldsay Airport","North Ronaldsay","United Kingdom","NRL","EGEN",59.3675,-2.43444,40,0,"E"
-5565,"Fair Isle Airport","Fair Isle","United Kingdom","FIE","EGEF",59.5358,-1.62806,223,0,"E"
-5564,"Eday Airport","Eday","United Kingdom","EOI","EGED",59.1906,-2.77222,10,0,"E"
-5563,"Campbeltown Airport","Campbeltown","United Kingdom","CAL","EGEC",55.4372,-5.68639,42,0,"E"
-5562,"Robin Hood Doncaster Sheffield Airport","Doncaster, Sheffield","United Kingdom","DSA","EGCN",53.474722,-1.004444,55,0,"E"
-5561,"Nottingham Airport","Nottingham","United Kingdom","NQT","EGBN",52.92,-1.079167,138,0,"E"
-5560,"Seinäjoki Airport","Seinäjoki / Ilmajoki","Finland","SJY","EFSI",62.6921,22.8323,302,2,"E"
-5559,"Helgoland-Düne Airport","Helgoland","Germany","HGL","EDXH",54.1853,7.91583,7,1,"E"
-5558,"Heide-Büsum Airport","Büsum","Germany","HEI","EDXB",54.1533,8.90167,7,1,"E"
-5557,"Heringsdorf Airport","Heringsdorf","Germany","HDF","EDAH",53.878706,14.152347,93,1,"E"
-5556,"Kumasi Airport","","Ghana","KMS","DGSI",6.71456,-1.59082,942,0,"N"
-5555,"Guemar Airport","","Algeria","ELU","DAUO",33.5114,6.77679,203,1,"N"
-5554,"Bordj Badji Mokhtar Airport","Bordj Badji Mokhtar","Algeria","BMW","DATM",21.375,0.923889,1303,1,"N"
-5553,"Béchar Boudghene Ben Ali Lotfi Airport","Béchar","Algeria","CBH","DAOR",31.6457,-2.26986,2661,1,"N"
-5552,"Batna Airport","Batna","Algeria","BLJ","DABT",35.752106,6.308589,2697,1,"N"
-5551,"Wollaston Lake Airport","Wollaston Lake","Canada","ZWL","CZWL",58.1069,-103.172,1360,-6,"A"
-5550,"Churchill Falls Airport","Churchill Falls","Canada","ZUM","CZUM",53.5619,-64.1064,1442,-4,"A"
-5549,"Shamattawa Airport","Shamattawa","Canada","ZTM","CZTM",55.8656,-92.0814,289,-6,"A"
-5548,"Sandy Lake Airport","Sandy Lake","Canada","ZSJ","CZSJ",53.0642,-93.3444,951,-6,"A"
-5547,"Round Lake (Weagamow Lake) Airport","Round Lake","Canada","ZRJ","CZRJ",52.9436,-91.3128,974,-6,"A"
-5546,"Sachigo Lake Airport","Sachigo Lake","Canada","ZPB","CZPB",53.8911,-92.1964,876,-6,"A"
-5545,"Masset Airport","Masset","Canada","ZMT","CZMT",54.0275,-132.125,25,-8,"A"
-5544,"Muskrat Dam Airport","Muskrat Dam","Canada","MSA","CZMD",53.4414,-91.7628,911,-6,"A"
-5543,"Kashechewan Airport","Kashechewan","Canada","ZKE","CZKE",52.2825,-81.6778,35,-5,"A"
-5542,"Swan River Airport","Swan River","Canada","ZJN","CZJN",52.1206,-101.236,1100,-6,"A"
-5541,"Gods River Airport","Gods River","Canada","ZGI","CZGI",54.8397,-94.0786,627,-6,"A"
-5540,"Fond-Du-Lac Airport","Fond-Du-Lac","Canada","ZFD","CZFD",59.3344,-107.182,814,-6,"A"
-5539,"Eastmain River Airport","Eastmain River","Canada","ZEM","CZEM",52.2264,-78.5225,24,-5,"A"
-5538,"Bathurst Airport","Bathurst","Canada","ZBF","CZBF",47.6297,-65.7389,193,-4,"A"
-5537,"Ilford Airport","Ilford","Canada","ILF","CZBD",56.0614,-95.6139,642,-6,"A"
-5536,"York Landing Airport","York Landing","Canada","ZAC","CZAC",56.0894,-96.0892,621,-6,"A"
-5535,"Salluit Airport","Salluit","Canada","YZG","CYZG",62.1794,-75.6672,743,-5,"A"
-5534,"Whale Cove Airport","Whale Cove","Canada","YXN","CYXN",62.24,-92.5981,40,-6,"A"
-5533,"Webequie Airport","Webequie","Canada","YWP","CYWP",52.9597,-87.3689,685,-5,"A"
-5532,"Deer Lake Airport","Deer Lake","Canada","YVZ","CYVZ",52.6558,-94.0614,1092,-6,"A"
-5531,"Big Trout Lake Airport","Big Trout Lake","Canada","YTL","CYTL",53.8178,-89.8969,729,-5,"A"
-5530,"St. Theresa Point Airport","St. Theresa Point","Canada","YST","CYST",53.8456,-94.8519,773,-6,"A"
-5529,"Sanikiluaq Airport","Sanikiluaq","Canada","YSK","CYSK",56.5378,-79.2467,104,-5,"A"
-5528,"Stony Rapids Airport","Stony Rapids","Canada","YSF","CYSF",59.2503,-105.841,805,-6,"A"
-5527,"Red Lake Airport","Red Lake","Canada","YRL","CYRL",51.0669,-93.7931,1265,-6,"A"
-5526,"Rae Lakes Airport","Gamètì","Canada","YRA","CYRA",64.1161,-117.31,723,-7,"A"
-5525,"Nakina Airport","Nakina","Canada","YQN","CYQN",50.182777,-86.696388,1057,-5,"A"
-5524,"The Pas Airport","The Pas","Canada","YQD","CYQD",53.9714,-101.091,887,-6,"A"
-5523,"Powell River Airport","Powell River","Canada","YPW","CYPW",49.8342,-124.5,425,-8,"A"
-5522,"Peawanuck Airport","Peawanuck","Canada","YPO","CYPO",54.9881,-85.4433,173,-5,"A"
-5521,"Pikangikum Airport","Pikangikum","Canada","YPM","CYPM",51.8197,-93.9733,1114,-6,"A"
-5520,"Inukjuak Airport","Inukjuak","Canada","YPH","CYPH",58.4719,-78.0769,83,-5,"A"
-5519,"Oxford House Airport","Oxford House","Canada","YOH","CYOH",54.9333,-95.2789,663,-6,"A"
-5518,"Points North Landing Airport","Points North Landing","Canada","YNL","CYNL",58.2767,-104.082,1605,-6,"A"
-5517,"Norway House Airport","Norway House","Canada","YNE","CYNE",53.9583,-97.8442,734,-6,"A"
-5516,"Wemindji Airport","Wemindji","Canada","YNC","CYNC",53.0106,-78.8311,66,-5,"A"
-5515,"Umiujaq Airport","Umiujaq","Canada","YUD","CYMU",56.5361,-76.5183,250,-5,"A"
-5514,"Chapais Airport","Chibougamau","Canada","YMT","CYMT",49.7719,-74.5281,1270,-5,"A"
-5513,"Mary's Harbour Airport","Mary's Harbour","Canada","YMH","CYMH",52.3028,-55.8472,38,-4,"A"
-5512,"Kangiqsualujjuaq (Georges River) Airport","Kangiqsualujjuaq","Canada","XGR","CYLU",58.7114,-65.9928,215,-5,"A"
-5511,"Lutselk'e Airport","Lutselk'e","Canada","YSG","CYLK",62.4183,-110.682,596,-7,"A"
-5510,"Lansdowne House Airport","Lansdowne House","Canada","YLH","CYLH",52.1956,-87.9342,834,-5,"A"
-5509,"Kimmirut Airport","Kimmirut","Canada","YLC","CYLC",62.85,-69.8833,175,-5,"A"
-5508,"Aupaluk Airport","Aupaluk","Canada","YPJ","CYLA",59.2967,-69.5997,119,-5,"A"
-5507,"Waskaganish Airport","Waskaganish","Canada","YKQ","CYKQ",51.4733,-78.7583,80,-5,"A"
-5506,"Akulivik Airport","Akulivik","Canada","AKV","CYKO",60.8186,-78.1486,75,-5,"A"
-5505,"Island Lake Airport","Island Lake","Canada","YIV","CYIV",53.8572,-94.6536,770,-6,"A"
-5504,"Ivujivik Airport","Ivujivik","Canada","YIK","CYIK",62.4173,-77.9253,126,-5,"A"
-5503,"Chevery Airport","Chevery","Canada","YHR","CYHR",50.4689,-59.6367,39,-4,"A"
-5502,"Hopedale Airport","Hopedale","Canada","YHO","CYHO",55.4483,-60.2286,39,-4,"A"
-5501,"Nemiscau Airport","Nemiscau","Canada","YNS","CYHH",51.6911,-76.1356,802,-5,"A"
-5500,"Vancouver Harbour Water Airport","","Canada","YHC","CYHC",49.2944,-123.111,0,-8,"A"
-5499,"Quaqtaq Airport","Quaqtaq","Canada","YQC","CYHA",61.0464,-69.6178,103,-5,"A"
-5498,"Grise Fiord Airport","Grise Fiord","Canada","YGZ","CYGZ",76.4261,-82.9092,146,-5,"A"
-5497,"Gillam Airport","Gillam","Canada","YGX","CYGX",56.3575,-94.7106,476,-6,"A"
-5496,"Kuujjuarapik Airport","Kuujjuarapik","Canada","YGW","CYGW",55.2819,-77.7653,34,-5,"A"
-5495,"Igloolik Airport","Igloolik","Canada","YGT","CYGT",69.3647,-81.8161,174,-5,"A"
-5494,"Gods Lake Narrows Airport","Gods Lake Narrows","Canada","YGO","CYGO",54.5589,-94.4914,617,-6,"A"
-5493,"Texada Gillies Bay Airport","Texada","Canada","YGB","CYGB",49.6942,-124.518,326,-8,"A"
-5492,"Makkovik Airport","Makkovik","Canada","YMN","CYFT",55.0769,-59.1864,234,-4,"A"
-5491,"Fort Hope Airport","Fort Hope","Canada","YFH","CYFH",51.5619,-87.9078,899,-5,"A"
-5490,"Fort Albany Airport","Fort Albany","Canada","YFA","CYFA",52.2014,-81.6969,48,-5,"A"
-5489,"Fort Severn Airport","Fort Severn","Canada","YER","CYER",56.0189,-87.6761,48,-5,"A"
-5488,"Nain Airport","Nain","Canada","YDP","CYDP",56.5492,-61.6803,22,-4,"A"
-5487,"Chesterfield Inlet Airport","Chesterfield Inlet","Canada","YCS","CYCS",63.3469,-90.7311,32,-6,"A"
-5486,"Cartwright Airport","Cartwright","Canada","YRF","CYCA",53.6828,-57.0419,40,-4,"A"
-5485,"Lourdes De Blanc Sablon Airport","Lourdes-De-Blanc-Sablon","Canada","YBX","CYBX",51.4436,-57.1853,121,-4,"A"
-5484,"Uranium City Airport","Uranium City","Canada","YBE","CYBE",59.5614,-108.481,1044,-6,"A"
-5483,"Lac Du Bonnet Airport","Lac Du Bonnet","Canada","","CYAX",50.2944,-96.01,850,-6,"A"
-5482,"Attawapiskat Airport","Attawapiskat","Canada","YAT","CYAT",52.9275,-82.4319,31,-5,"A"
-5481,"Kangirsuk Airport","Kangirsuk","Canada","YKG","CYAS",60.0272,-69.9992,403,-5,"A"
-5480,"Kasabonika Airport","Kasabonika","Canada","XKS","CYAQ",53.5247,-88.6428,672,-5,"A"
-5479,"Fort Frances Municipal Airport","Fort Frances","Canada","YAG","CYAG",48.6542,-93.4397,1125,-6,"A"
-5478,"Cat Lake Airport","Cat Lake","Canada","YAC","CYAC",51.7272,-91.8244,1344,-6,"A"
-5477,"Tarapacá Airport","Tarapacá","Colombia","TCD","",-2.867,-69.733,0,-4,"U"
-5476,"Apartadó Airport","Apartadó","Colombia","APO","",7.033,-77.2,0,-5,"U"
-5475,"Nantong Airport","Nantong","China","NTG","",32.0708,120.976,0,8,"U"
-5474,"La Tabatière Airport","La Tabatière","Canada","ZLT","CTU5",50.8308,-58.9756,102,-4,"A"
-5473,"Tête-à-la-Baleine Airport","Tête-à-la-Baleine","Canada","ZTB","CTB6",50.6744,-59.3836,107,-4,"A"
-5472,"Chisasibi Airport","Chisasibi","Canada","YKU","CSU2",53.8056,-78.9169,43,-5,"A"
-5471,"Poplar Hill Airport","Poplar Hill","Canada","YHP","CPV7",52.1133,-94.2556,1095,-6,"A"
-5470,"Ogoki Post Airport","Ogoki Post","Canada","YOG","CNT3",51.6586,-85.9017,594,-5,"A"
-5469,"Kingfisher Lake Airport","Kingfisher Lake","Canada","KIF","CNM5",53.0125,-89.8553,866,-5,"A"
-5468,"Bearskin Lake Airport","Bearskin Lake","Canada","XBE","CNE3",53.9656,-91.0272,800,-6,"A"
-5467,"North Spirit Lake Airport","North Spirit Lake","Canada","YNO","CKQ3",52.49,-92.9711,1082,-6,"A"
-5466,"Wunnumin Lake Airport","Wunnumin Lake","Canada","WNN","CKL3",52.8939,-89.2892,819,-5,"A"
-5465,"Wapekeka Airport","Angling Lake","Canada","YAX","CKB6",53.8492,-89.5794,712,-5,"A"
-5464,"Summer Beaver Airport","Summer Beaver","Canada","SUR","CJV7",52.7086,-88.5419,832,-5,"A"
-5463,"Whatì Airport","Whatì","Canada","YLE","CEM3",63.1317,-117.246,882,-7,"A"
-5462,"Colville Lake Airport","Colville Lake","Canada","YCK","CEB3",67.0333,-126.083,850,-7,"A"
-5461,"Rigolet Airport","Rigolet","Canada","YRG","CCZ2",54.1797,-58.4575,180,-4,"A"
-5460,"Port Hope Simpson Airport","Port Hope Simpson","Canada","YHA","CCP4",52.5281,-56.2861,347,-4,"A"
-5459,"St. Lewis (Fox Harbour) Airport","St. Lewis","Canada","YFX","CCK4",52.3728,-55.6739,74,-4,"A"
-5458,"Williams Harbour Airport","Williams Harbour","Canada","YWM","CCA6",52.5669,-55.7847,70,-4,"A"
-5457,"Anahim Lake Airport","Anahim Lake","Canada","YAA","CAJ4",52.4525,-125.303,3635,-8,"A"
-5456,"Whistler/Green Lake Water Aerodrome","Whistler","Canada","YWS","CAE5",50.1436,-122.949,2100,-8,"A"
-5455,"Punta Gorda Airport","Punta Gorda","Belize","PND","",16.1024,-88.8083,7,-6,"U"
-5454,"Caye Caulker Airport","Caye Caulker","Belize","CUK","",17.7347,-88.0325,1,-6,"U"
-5453,"Vopnafjörður Airport","Vopnafjörður","Iceland","VPN","BIVO",65.7206,-14.8506,0,0,"N"
-5452,"Thorshofn Airport","Thorshofn","Iceland","THO","BITN",66.2185,-15.3356,65,0,"N"
-6945,"Drake Bay Airport","Puntarenas","Costa Rica","DRK","MRDK",8.71889,-83.6417,12,-6,"N"
-5450,"Grímsey Airport","Grímsey","Iceland","GRY","BIGR",66.5547,-18.0175,66,0,"N"
-5449,"Qaarsut Airport","Uummannaq","Greenland","JQA","BGUQ",70.7342,-52.6962,289,-3,"E"
-5448,"Upernavik Airport","Upernavik","Greenland","JUV","BGUK",72.7902,-56.1306,414,-4,"E"
-5447,"Sisimiut Airport","Sisimiut","Greenland","JHS","BGSS",66.9513,-53.7293,33,-3,"E"
-5446,"Qaanaaq Airport","Qaanaaq","Greenland","NAQ","BGQQ",77.4886,-69.3887,51,-4,"E"
-5445,"Narsaq Heliport","Narsaq","Greenland","JNS","BGNS",60.9167,-46.0586,0,-3,"E"
-5444,"Nanortalik Heliport","Nanortalik","Greenland","JNN","BGNN",60.14,-45.2317,0,-3,"E"
-5443,"Maniitsoq Airport","Maniitsoq","Greenland","JSU","BGMQ",65.4125,-52.9394,91,-3,"E"
-5442,"Qaqortoq Heliport","","Greenland","JJU","BGJH",60.7158,-46.0294,0,-3,"E"
-5441,"Qeqertarsuaq Heliport","Qeqertarsuaq Airport","Greenland","JGO","BGGN",69.2511,-53.5381,0,-3,"E"
-5440,"Paamiut Heliport","Paamiut","Greenland","JFR","BGFH",61.9922,-49.6625,0,-3,"E"
-5439,"Neerlerit Inaat Airport","Neerlerit Inaat","Greenland","CNP","BGCO",70.7433,-22.6606,45,-1,"E"
-5438,"Alluitsup Paa Heliport","Alluitsup Paa","Greenland","LLU","BGAP",60.4644,-45.5778,89,-3,"E"
-5437,"Wapenamanda Airport","","Papua New Guinea","WBM","AYWD",-5.6433,143.895,5889,10,"U"
-5436,"Vanimo Airport","","Papua New Guinea","VAI","AYVN",-2.69717,141.302,10,10,"U"
-5435,"Tokua Airport","","Papua New Guinea","RAB","AYTK",-4.34046,152.38,32,10,"U"
-5434,"Tabubil Airport","Tabubil","Papua New Guinea","TBG","AYTB",-5.27861,141.226,1570,10,"U"
-5433,"Tari Airport","Tari","Papua New Guinea","TIZ","AYTA",-5.845,142.948,5500,10,"U"
-5432,"Misima Island Airport","Misima Island","Papua New Guinea","MIS","AYMS",-10.6892,152.838,26,10,"U"
-5431,"Moro Airport","Moro","Papua New Guinea","MXH","AYMR",-6.36333,143.238,2740,10,"U"
-5430,"Momote Airport","","Papua New Guinea","MAS","AYMO",-2.06189,147.424,12,10,"U"
-5429,"Mendi Airport","","Papua New Guinea","MDU","AYMN",-6.14774,143.657,5680,10,"U"
-5428,"Kavieng Airport","","Papua New Guinea","KVG","AYKV",-2.5794,150.808,7,10,"U"
-5427,"Kerema Airport","","Papua New Guinea","KMA","AYKM",-7.96361,145.771,10,10,"U"
-5426,"Kikori Airport","Kikori","Papua New Guinea","KRI","AYKK",-7.42438,144.25,50,10,"U"
-5425,"Kiunga Airport","Kiunga","Papua New Guinea","UNG","AYKI",-6.12571,141.282,88,10,"U"
-5424,"Kimbe Airport","Hoskins","Papua New Guinea","HKN","AYHK",-5.46217,150.405,66,10,"U"
-5423,"Girua Airport","","Papua New Guinea","PNP","AYGR",-8.80454,148.309,311,10,"U"
-5422,"Gurney Airport","","Papua New Guinea","GUR","AYGN",-10.3115,150.334,88,10,"U"
-5421,"Daru Airport","","Papua New Guinea","DAU","AYDU",-9.08676,143.208,20,10,"U"
-5420,"Chimbu Airport","Kundiawa","Papua New Guinea","CMU","AYCH",-6.02429,144.971,4974,10,"U"
-5419,"Buka Airport","Buka Island","Papua New Guinea","BUA","AYBK",-5.42232,154.673,11,10,"U"
-5418,"Ramata Airport","Ramata","Solomon Islands","RBV","AGRM",-8.16806,157.643,0,11,"U"
-5417,"Kagau Island Airport","Kagau Island","Solomon Islands","KGE","AGKG",-7.333,157.583,0,11,"U"
-5416,"Suavanao Airport","Suavanao","Solomon Islands","VAO","AGGV",-7.58556,158.731,0,11,"U"
-5415,"Marau Airport","Marau","Solomon Islands","RUS","AGGU",-9.86167,160.825,0,11,"U"
-5414,"Rennell/Tingoa Airport","Rennell Island","Solomon Islands","RNL","AGGR",-11.5339,160.063,0,11,"U"
-5413,"Mono Airport","Stirling Island","Solomon Islands","MNY","AGGO",-7.41694,155.565,0,10,"U"
-5412,"Nusatupe Airport","Gizo","Solomon Islands","GZO","AGGN",-8.09778,156.864,13,11,"U"
-5411,"Munda Airport","","Solomon Islands","MUA","AGGM",-8.32797,157.263,10,11,"U"
-5410,"Santa Cruz/Graciosa Bay/Luova Airport","Santa Cruz/Graciosa Bay/Luova","Solomon Islands","SCZ","AGGL",-10.7203,165.795,18,11,"U"
-5409,"Ngorangora Airport","Kirakira","Solomon Islands","IRA","AGGK",-10.4497,161.898,0,11,"U"
-5408,"Babanakira Airport","Mbambanakira","Solomon Islands","MBU","AGGI",-9.7475,159.839,0,11,"U"
-5407,"Fera/Maringe Airport","Fera Island","Solomon Islands","FRE","AGGF",-8.1075,159.577,0,11,"U"
-5406,"Ballalae Airport","Ballalae","Solomon Islands","BAS","AGGE",-6.967,155.883,5,11,"U"
-5405,"Auki Airport","Auki","Solomon Islands","AKS","AGGA",-8.70257,160.682,5,11,"U"
-5404,"Uru Harbour Airport","Atoifi","Solomon Islands","ATD","AGAT",-8.87333,161.011,0,11,"U"
-6097,"Komsomolsk-on-Amur Airport","Komsomolsk-on-Amur","Russia","KXK","UHKK",50.4094,136.934,92,10,"E"
-6096,"Moyo Airport","Moyo","Uganda","OYG","",3.633,31.75,0,3,"U"
-6095,"Tiksi Airport","Tiksi","Russia","IKS","UEST",71.6977,128.903,26,9,"E"
-6094,"Cherskiy Airport","Cherskiy","Russia","CYX","UESS",68.7406,161.338,20,12,"E"
-6093,"Chokurdakh Airport","Chokurdah","Russia","CKH","UESO",70.6231,147.902,151,11,"E"
-6091,"Chulman Airport","Chulman","Russia","CNN","UELL",56.9139,124.914,2812,9,"E"
-6088,"Kostanay West Airport","Kostanay","Kazakhstan","KSN","UAUU",53.206944,63.550278,595,6,"U"
-6085,"Zhezkazgan Airport","Zhezkazgan","Kazakhstan","DZN","UAKD",47.708333,67.733333,1250,6,"U"
-6083,"Kokshetau Airport","Kokshetau","Kazakhstan","KOV","UACK",53.3291,69.5946,900,6,"U"
-6082,"Union Island International Airport","Union Island","Saint Vincent and the Grenadines","UNI","TVSU",12.583,-61.417,16,-4,"U"
-6081,"J F Mitchell Airport","Bequia","Saint Vincent and the Grenadines","BQU","TVSB",12.988444,-61.262033,15,-4,"U"
-6080,"Virgin Gorda Airport","Spanish Town","British Virgin Islands","VIJ","TUPW",18.4464,-64.4275,9,-4,"U"
-6079,"Vance Winkworth Amory International Airport","Charlestown","Saint Kitts and Nevis","NEV","TKPN",17.205678,-62.589869,14,-4,"U"
-6076,"Baillif Airport","Basse Terre","Guadeloupe","BBR","TFFB",16.0133,-61.7422,59,-4,"U"
-6075,"La Désirade Airport","Grande Anse","Guadeloupe","DSD","TFFA",16.2969,-61.0844,10,-4,"U"
-6072,"Juan Pablo Pérez Alfonso Airport","El Vigía","Venezuela","VIG","SVVG",8.6241,-71.672819,250,-4,"U"
-6070,"El Jaguel / Punta del Este Airport","Maldonado","Uruguay","MDO","SUPE",-34.917,-54.917,66,-4,"S"
-6069,"Santa Rosa Airport","Santa Rosa","Brazil","SRA","SSZR",-27.9067,-54.5204,984,-3,"U"
-6067,"Alferez Fap David Figueroa Fernandini Airport","Huánuco","Peru","HUU","SPNC",-9.878811,-76.204797,6070,-5,"U"
-6065,"Caballococha Airport","Caballococha","Peru","LHC","SPBC",-3.916858,-70.508225,328,-5,"U"
-6060,"Capitán Av. German Quiroga G. Airport","San Borja","Bolivia","SRJ","SLSB",-14.8592,-66.7375,633,-4,"U"
-6058,"Capitán Av. Selin Zeitun Lopez Airport","Riberalta","Bolivia","RIB","SLRI",-11,-66,462,-4,"U"
-6056,"Capitán de Av. Emilio Beltrán Airport","Guayaramerín","Bolivia","GYA","SLGY",-10.8206,-65.3456,557,-4,"U"
-6054,"Obando Airport","Puerto Inírida","Colombia","PDA","SKPD",3.85,-67.91,460,-5,"U"
-6053,"Reyes Murillo Airport","Nuquí","Colombia","NQU","SKNQ",5.7,-77.28,12,-5,"U"
-6052,"La Pedrera Airport","La Pedrera","Colombia","LPD","SKLP",-1.33,-69.58,590,-4,"U"
-6051,"Caucaya Airport","Puerto Leguízamo","Colombia","LQM","SKLG",-0.18,-74.77,573,-5,"U"
-6050,"La Jagua Airport","Garzón","Colombia","GLJ","SKGZ",2.17,-75.67,2620,-5,"U"
-6049,"Santa Ana Airport","Cartago","Colombia","CRC","SKGO",4.758181,-75.955753,2979,-5,"U"
-6048,"Stanley Airport","Stanley","Falkland Islands","PSY","SFAL",-51.685672,-57.777644,75,-4,"U"
-6046,"Camilo Ponce Enriquez Airport","La Toma (Catamayo)","Ecuador","LOH","SETM",-3.99589,-79.3719,4056,-5,"U"
-6045,"San Cristóbal Airport","San Cristóbal","Ecuador","SCY","SEST",-0.910206,-89.61745,62,-6,"U"
-6044,"Sorocaba Airport","Sorocaba","Brazil","SOD","SDCO",-23.478,-47.49,2077,-3,"U"
-6042,"Ricardo García Posada Airport","El Salvador","Chile","ESR","SCES",-26.3111,-69.7652,5240,-4,"S"
-6039,"Vitória da Conquista Airport","Vitória Da Conquista","Brazil","VDC","SBQV",-14.862761,-40.863106,2998,-3,"U"
-6038,"Marília Airport","Marília","Brazil","MII","SBML",-22.196892,-49.9264,2122,-3,"U"
-6037,"Macaé Airport","Macaé","Brazil","MEA","SBME",-22.343,-41.766,8,-3,"U"
-6033,"Necochea Airport","Necochea","Argentina","NEC","SAZO",-38.483056,-58.817222,72,-3,"S"
-6030,"Lago Argentino Airport","El Calafate","Argentina","ING","SAWA",-50.3361,-72.2486,732,-3,"S"
-6026,"Roxas Airport","Roxas City","Philippines","RXS","RPVR",11.597669,122.751669,10,8,"U"
-6023,"Calbayog Airport","Calbayog City","Philippines","CYP","RPVC",12.072706,124.545092,12,8,"U"
-6022,"Virac Airport","Virac","Philippines","VRC","RPUV",13.576439,124.205672,121,8,"U"
-6021,"Tuguegarao Airport","Tuguegarao","Philippines","TUG","RPUT",17.638311,121.730614,70,8,"U"
-6020,"San Fernando Airport","San Fernando","Philippines","SFE","RPUS",16.595589,120.303219,13,8,"U"
-6019,"Basco Airport","Basco","Philippines","BSO","RPUO",20.451322,121.979883,291,8,"U"
-6018,"Naga Airport","Naga","Philippines","WNP","RPUN",13.584886,123.270239,142,8,"U"
-6017,"Tandag Airport","","Philippines","TDG","RPMW",9.07211,126.171,16,8,"U"
-6016,"Surigao Airport","Sangley Point","Philippines","SUG","RPMS",9.757567,125.479328,20,8,"U"
-6507,"Fremont Airport","Fremont","United States","",\N,41.3331,-83.1612,663,-6,"A"
-6014,"Sanga Sanga Airport","","Philippines","SGS","RPMN",5.04699,119.743,15,8,"U"
-6011,"General Santos International Airport","General Santos City","Philippines","GES","RPMB",6.106439,125.2353,28,8,"U"
-6009,"Subic Bay International Airport","Olongapo City","Philippines","SFS","RPLB",14.7944,120.271,64,8,"U"
-6006,"Yangyang International Airport","Sokcho / Gangneung","South Korea","YNY","RKNY",38.061311,128.669164,241,9,"U"
-6098,"Ugolny Airport","Anadyr","Russia","DYR","UHMA",64.73495,177.741483,194,12,"E"
-6099,"Okhotsk Airport","Okhotsk","Russia","OHO","UHOO",59.4101,143.057,0,10,"E"
-6100,"Ujae Atoll Airport","Ujae Atoll","Marshall Islands","UJE","UJAP",8.92806,165.762,0,12,"U"
-6101,"Mariupol International Airport","","Ukraine","MPW","UKCM",47.0761,37.4496,251,2,"E"
-6102,"Luhansk International Airport","","Ukraine","VSG","UKCW",48.4174,39.3741,636,2,"E"
-6103,"Zaporizhzhia International Airport","","Ukraine","OZH","UKDE",47.867,35.3157,373,2,"E"
-6104,"Lozuvatka International Airport","","Ukraine","KWG","UKDR",48.0433,33.21,408,2,"E"
-6105,"Osnova International Airport","Kharkov","Ukraine","HRK","UKHH",49.924786,36.289986,508,2,"E"
-6106,"Ivano Frankivsk International Airport","Ivano-Frankivsk","Ukraine","IFO","UKLI",48.884167,24.686111,919,2,"E"
-6107,"Chernivtsi International Airport","Chernovtsk","Ukraine","CWC","UKLN",48.259322,25.980831,826,2,"E"
-6108,"Rivne International Airport","Rivne","Ukraine","RWN","UKLR",50.6071,26.1416,755,2,"E"
-6109,"Uzhhorod International Airport","Uzhgorod","Ukraine","UDJ","UKLU",48.634278,22.263356,383,2,"E"
-6110,"Solovki Airport","Solovetsky Islands","Russia","CSH","ULAS",65.03,35.7333,0,3,"E"
-6111,"Cherepovets Airport","Cherepovets","Russia","CEE","ULBC",59.2736,38.0158,377,3,"E"
-6112,"Amderma Airport","Amderma","Russia","AMV","ULDD",69.7633,61.5564,13,3,"E"
-6113,"Kotlas Airport","Kotlas","Russia","KSZ","ULKK",61.2358,46.6975,184,3,"E"
-6114,"Petrozavodsk Airport","Petrozavodsk","Russia","PES","ULPB",61.8852,34.1547,151,3,"E"
-6115,"Hrodno Airport","Hrodna","Belarus","GNA","UMMG",53.602,24.0538,443,2,"E"
-6116,"Mogilev Airport","Mogilev","Belarus","MVQ","UMOO",53.9549,30.0951,637,2,"E"
-6117,"Yeniseysk Airport","Yeniseysk","Russia","EIE","UNII",58.4742,92.1125,253,7,"E"
-6118,"Kyzyl Airport","Kyzyl","Russia","KYZ","UNKY",51.6694,94.4006,2123,7,"E"
-6119,"Spichenkovo Airport","Novokuznetsk","Russia","NOZ","UNWW",53.8114,86.8772,1024,7,"E"
-6120,"Khatanga Airport","Khatanga","Russia","HTG","UOHH",71.978058,102.490514,95,7,"E"
-6121,"Igarka Airport","Igarka","Russia","IAA","UOII",67.4372,86.6219,82,7,"E"
-6122,"Grozny Airport","Grozny","Russia","GRV","URMG",43.2981,45.7841,548,3,"E"
-6123,"Nalchik Airport","Nalchik","Russia","NAL","URMN",43.5129,43.6366,1461,3,"E"
-6124,"Beslan Airport","Beslan","Russia","OGZ","URMO",43.2051,44.6066,1673,3,"E"
-6125,"Elista Airport","Elista","Russia","ESL","URWI",46.3739,44.3309,501,3,"E"
-6126,"Aleknagik Airport","Aleknagik","United States","WKK","5A8",59.2826,-158.618,66,-9,"A"
-6127,"Brookings Regional Airport","Brookings","United States","BKX","BKX",44.3048,-96.8169,1648,-6,"A"
-6128,"Mercer County Airport","Bluefield","United States","BLF","BLF",37.2958,-81.2077,2857,-5,"A"
-6129,"Kearney Municipal Airport","Kearney","United States","EAR","EAR",40.727,-99.0068,2131,-6,"A"
-6130,"Mid Delta Regional Airport","Greenville","United States","GLH","GLH",33.4829,-90.9856,131,-6,"A"
-6131,"Laughlin-Bullhead Intl","Bullhead","United States","IFP","IFP",35.1574,-114.56,695,-7,"A"
-6132,"Kingman Airport","Kingman","United States","IGM","IGM",35.2595,-113.938,3449,-7,"A"
-6133,"Tri Cities Airport","Pasco","United States","PSC","PSC",46.2647,-119.119,410,-8,"A"
-6134,"Akutan Seaplane Base","Akutan","United States","KQA","KQA",54.1325,-165.785,0,-9,"A"
-6135,"Grant County Airport","Silver City","United States","SVC","SVC",32.6365,-108.156,5446,-7,"A"
-6136,"Lopez Island Airport","Lopez","United States","LPS","S31",48.4839,-122.938,209,-8,"A"
-6137,"Salekhard Airport","Salekhard","Russia","SLY","USDD",66.590753,66.611042,218,5,"E"
-6138,"Khanty Mansiysk Airport","Khanty-Mansiysk","Russia","HMA","USHH",61.028479,69.086067,76,5,"E"
-6139,"Nyagan Airport","Nyagan","Russia","NYA","USHN",62.11,65.615,361,5,"E"
-6140,"Sovetsky Tyumenskaya Airport","Sovetskiy","Russia","OVS","USHS",61.32,63.6044,351,5,"E"
-6141,"Izhevsk Airport","Izhevsk","Russia","IJK","USII",56.8281,53.4575,531,5,"E"
-6142,"Pobedilovo Airport","Kirov","Russia","KVX","USKK",58.5033,49.3483,479,4,"E"
-6143,"Nadym Airport","Nadym","Russia","NYM","USMM",65.4809,72.6989,49,5,"E"
-6144,"Raduzhny Airport","Raduzhnyi","Russia","RAT","USNR",62.1586,77.3289,250,5,"E"
-6145,"Nefteyugansk Airport","Nefteyugansk","Russia","NFG","USRN",61.1083,72.65,115,5,"E"
-6146,"Kurgan Airport","Kurgan","Russia","KRO","USUU",55.4753,65.4156,240,5,"E"
-6147,"Khudzhand Airport","Khudzhand","Tajikistan","LBD","UTDL",40.2154,69.6947,1450,5,"U"
-6148,"Andizhan Airport","Andizhan","Uzbekistan","AZN","UTKA",40.7277,72.294,1515,5,"U"
-6149,"Fergana Airport","Fergana","Uzbekistan","FEG","UTKF",40.3588,71.745,1980,5,"U"
-6150,"Namangan Airport","Namangan","Uzbekistan","NMA","UTKN",40.9846,71.5567,1555,5,"U"
-6151,"Nukus Airport","Nukus","Uzbekistan","NCU","UTNN",42.4884,59.6233,246,5,"U"
-6152,"Urgench Airport","Urgench","Uzbekistan","UGC","UTNU",41.5843,60.6417,320,5,"U"
-6153,"Karshi Khanabad Airport","Khanabad","Uzbekistan","KSQ","UTSL",38.8336,65.9215,1365,5,"U"
-6154,"Termez Airport","Termez","Uzbekistan","TMJ","UTST",37.286667,67.31,1027,5,"U"
-6155,"Staroselye Airport","Rybinsk","Russia","RYB","UUBK",58.1042,38.9294,423,3,"E"
-6156,"Belgorod International Airport","Belgorod","Russia","EGO","UUOB",50.6438,36.5901,735,3,"E"
-6157,"Kursk East Airport","Kursk","Russia","URS","UUOK",51.7506,36.2956,686,3,"E"
-6158,"Lipetsk Airport","Lipetsk","Russia","LPK","UUOL",52.7028,39.5378,584,3,"E"
-6159,"Vorkuta Airport","Vorkuta","Russia","VKT","UUYW",67.4886,63.9931,604,5,"E"
-6160,"Bugulma Airport","Bugulma","Russia","UUA","UWKB",54.64,52.8017,991,5,"E"
-6161,"Yoshkar-Ola Airport","Yoshkar-Ola","Russia","JOK","UWKJ",56.7006,47.9047,348,3,"E"
-6162,"Cheboksary Airport","Cheboksary","Russia","CSY","UWKS",56.0903,47.3473,558,3,"E"
-6163,"Ulyanovsk East Airport","Ulyanovsk","Russia","ULY","UWLW",54.401,48.8027,252,4,"E"
-6164,"Orsk Airport","Orsk","Russia","OSW","UWOR",51.0725,58.5956,909,5,"E"
-6165,"Penza Airport","Penza","Russia","PEZ","UWPP",53.1106,45.0211,614,3,"E"
-6166,"Saransk Airport","Saransk","Russia","SKX","UWPS",54.1251,45.2123,676,3,"E"
-6167,"Balakovo Airport","Balakovo","Russia","BWO","UWSB",51.8583,47.7456,95,4,"E"
-6168,"Hubli Airport","","India","HBX","VAHB",15.3617,75.0849,2171,5.5,"N"
-6169,"Koggala Airport","","Sri Lanka","KCT","VCCK",5.99368,80.3203,10,6,"U"
-6170,"Wirawila Airport","Wirawila","Sri Lanka","WRZ","VCCW",6.254494,81.235189,50,6,"U"
-6171,"Battambang Airport","Battambang","Cambodia","BBM","VDBG",13.0956,103.224,59,7,"U"
-6172,"Shillong Airport","Shillong","India","SHL","VEBI",25.7036,91.9787,2910,5.5,"N"
-6173,"Lokpriya Gopinath Bordoloi International Airport","Guwahati","India","GAU","VEGT",26.106092,91.585939,162,5.5,"N"
-6174,"Dimapur Airport","","India","DMU","VEMR",25.8839,93.7711,487,5.5,"N"
-6175,"Tezpur Airport","","India","TEZ","VETZ",26.7091,92.7847,240,5.5,"N"
-6176,"Barisal Airport","Barisal","Bangladesh","BZL","VGBR",22.801,90.3012,23,6,"U"
-6177,"Ban Huoeisay Airport","Huay Xai","Laos","OUI","VLHS",20.2573,100.437,1380,7,"N"
-6178,"Kontum Airport","Kontum","Vietnam","KON","",14.35,108.017,1804,7,"U"
-6179,"Bharatpur Airport","Bharatpur","Nepal","BHR","VNBP",27.6781,84.4294,600,5.75,"N"
-6180,"Chandragadhi Airport","Chandragarhi","Nepal","BDP","VNCG",26.570822,88.079578,300,5.5,"N"
-6181,"Meghauli Airport","Meghauli","Nepal","MEY","VNMG",27.583,84.233,600,5.5,"N"
-6182,"Nepalgunj Airport","Nepalgunj","Nepal","KEP","VNNG",28.103633,81.667006,540,5.5,"N"
-6183,"Gan Island Airport","","Maldives","GAN","VRMG",-0.693342,73.1556,6,5,"U"
-6184,"Hanimaadhoo Airport","Haa Dhaalu Atoll","Maldives","HAQ","VRMH",6.74423,73.1705,4,5,"U"
-6185,"Kadhdhoo Airport","Laamu Atoll","Maldives","KDO","VRMK",1.85917,73.5219,4,5,"U"
-6186,"Mae Sot Airport","Tak","Thailand","MAQ","VTPM",16.699856,98.545056,690,7,"U"
-6187,"Buon Ma Thuot Airport","Buonmethuot","Vietnam","BMV","VVBM",12.668311,108.120272,1729,7,"U"
-6188,"Cat Bi International Airport","Haiphong","Vietnam","HPH","VVCI",20.819386,106.724989,6,7,"U"
-6189,"Cam Ranh Airport","Nha Trang","Vietnam","CXR","VVCR",11.998153,109.219372,40,7,"U"
-6190,"Co Ong Airport","Conson","Vietnam","VCS","VVCS",8.731831,106.632589,20,7,"U"
-6191,"Trà Nóc Airport","Can Tho","Vietnam","VCA","VVCT",10.085119,105.711922,9,7,"U"
-6192,"Dien Bien Phu Airport","Dienbienphu","Vietnam","DIN","VVDB",21.397481,103.007831,1611,7,"U"
-6193,"Phu Cat Airport","Phucat","Vietnam","UIH","VVPC",13.954986,109.042267,80,7,"U"
-6194,"Pleiku Airport","Pleiku","Vietnam","PXU","VVPK",14.004522,108.017158,2434,7,"U"
-6195,"Vinh Airport","Vinh","Vietnam","VII","VVVH",18.737569,105.670764,23,7,"U"
-6196,"Banmaw Airport","Banmaw","Burma","BMO","VYBM",24.269033,97.246153,370,6.5,"U"
-6197,"Dawei Airport","Dawei","Burma","TVY","VYDW",14.103886,98.203636,84,6.5,"U"
-6198,"Kawthoung Airport","Kawthoung","Burma","KAW","VYKT",10.049258,98.538006,180,7,"U"
-6199,"Loikaw Airport","Loikaw","Burma","LIW","VYLK",19.691494,97.214825,2940,6.5,"U"
-6200,"Mawlamyine Airport","Mawlamyine","Burma","MNU","VYMM",16.444747,97.660669,52,6.5,"U"
-6201,"Pathein Airport","Pathein","Burma","BSX","VYPN",16.815233,94.779911,20,6.5,"U"
-6202,"Pakhokku Airport","Pakhokku","Burma","PKK","VYPU",21.3333,95.1,151,6.5,"U"
-6203,"Sumbawa Besar Airport","Sumbawa Island","Indonesia","SWQ","WADS",-8.489039,117.412119,16,8,"U"
-6204,"Tambolaka Airport","Waikabubak-Sumba Island","Indonesia","TMC","WADT",-9.409717,119.244494,161,8,"U"
-6205,"Bokondini Airport","Bokondini-Papua Island","Indonesia","BUI","WAJB",-3.58365,138.533,9104,9,"U"
-6206,"Senggeh Airport","Senggeh-Papua Island","Indonesia","SEH","WAJS",-3.43333,140.817,914,9,"U"
-6207,"Tanjung Harapan Airport","Tanjung Selor-Borneo Island","Indonesia","TJS","WALG",2.83641,117.374,10,8,"U"
-6208,"Datadawai Airport","Datadawai-Borneo Island","Indonesia","DTD","WALJ",0.717,116.483,229,8,"U"
-6209,"Barau(Kalimaru) Airport","Tanjung Redep-Borneo Island","Indonesia","BEJ","WALK",2.155497,117.432256,59,8,"U"
-6210,"Warukin Airport","Tanjung-Borneo Island","Indonesia","TJG","WAON",-2.21656,115.436,197,8,"U"
-6211,"Sampit(Hasan) Airport","Sampit-Borneo Island","Indonesia","SMQ","WAOS",-2.499194,112.974992,50,7,"U"
-6212,"Dumatumbun Airport","Langgur-Seram Island","Indonesia","LUV","WAPL",-5.661619,132.731431,10,9,"U"
-6213,"Mali Airport","Alor Island","Indonesia","ARD","WATM",-8.13234,124.597,10,8,"U"
-6214,"Belaga Airport","Belaga","Malaysia","BLG","WBGC",2.65,113.767,200,8,"U"
-6215,"Long Lellang Airport","Long Datih","Malaysia","LGL","WBGF",3.421,115.154,1400,8,"U"
-6216,"Long Seridan Airport","Long Seridan","Malaysia","ODN","WBGI",3.967,115.05,607,8,"U"
-6217,"Mukah Airport","Mukah","Malaysia","MKM","WBGK",2.90639,112.08,13,8,"U"
-6218,"Bakalalan Airport","Bakalalan","Malaysia","BKM","WBGQ",3.974,115.618,2900,8,"U"
-6219,"Lawas Airport","Lawas","Malaysia","LWY","WBGW",4.84917,115.408,5,8,"U"
-6220,"Bario Airport","Bario","Malaysia","BBN","WBGZ",3.73389,115.479,3350,8,"U"
-6221,"Tomanggong Airport","Tomanggong","Malaysia","TMG","WBKM",5.4,118.65,26,8,"U"
-6222,"Kudat Airport","Kudat","Malaysia","KUD","WBKT",6.9225,116.836,10,8,"U"
-6223,"Radin Inten II (Branti) Airport","Bandar Lampung-Sumatra Island","Indonesia","TKG","WICT",-5.242339,105.178939,282,7,"U"
-6224,"Halim Perdanakusuma International Airport","Jakarta","Indonesia","HLP","WIHH",-6.26661,106.891,84,7,"U"
-6225,"Ranai Airport","Ranai-Natuna Besar Island","Indonesia","NTX","WION",3.908714,108.387897,7,7,"U"
-6226,"Pangsuma Airport","Putussibau-Borneo Island","Indonesia","PSU","WIOP",0.835578,112.937144,297,7,"U"
-6227,"Susilo Airport","Sintang-Borneo Island","Indonesia","SQG","WIOS",0.063619,111.473428,98,7,"U"
-6228,"Pendopo Airport","Talang Gudang-Sumatra Island","Indonesia","PDO","WIPQ",-3.286069,103.8796,184,7,"U"
-6229,"Malikus Saleh Airport","Lhok Seumawe-Sumatra Island","Indonesia","LSW","WITM",5.226681,96.950342,90,7,"U"
-6230,"Pulau Pangkor Airport","Pangkor Island","Malaysia","PKG","WMPA",4.24472,100.553,19,8,"U"
-6231,"Stagen Airport","Laut Island","Indonesia","KBU","WRBK",-3.29472,116.165,4,8,"U"
-6232,"Long Bawan Airport","Long Bawan-Borneo Island","Indonesia","LBW","WRLB",3.867,115.683,3590,8,"U"
-6233,"Nunukan Airport","Nunukan-Nunukan Island","Indonesia","NNX","WRLF",4.13653,117.667,52,8,"U"
-6234,"Long Apung Airport","Long Apung-Borneo Island","Indonesia","LPU","WRLP",0.583,115.6,627,8,"U"
-6235,"Albany Airport","Albany","Australia","ALH","YABA",-34.9433,117.809,233,8,"O"
-6236,"Argyle Airport","","Australia","GYL","YARG",-16.6369,128.451,522,8,"O"
-6237,"Aurukun Airport","","Australia","AUU","YAUR",-13.3539,141.721,31,10,"O"
-6238,"Barcaldine Airport","","Australia","BCI","YBAR",-23.5653,145.307,878,10,"O"
-6239,"Badu Island Airport","","Australia","BDD","YBAU",-10.15,141.175,14,9,"O"
-6240,"Birdsville Airport","","Australia","BVI","YBDV",-25.8975,139.348,159,10,"O"
-6241,"Broken Hill Airport","","Australia","BHQ","YBHI",-32.0014,141.472,958,9.5,"O"
-6242,"Hamilton Island Airport","","Australia","HTI","YBHM",-20.3581,148.952,15,10,"O"
-6243,"Bedourie Airport","","Australia","BEU","YBIE",-24.3461,139.46,300,10,"O"
-6244,"Bourke Airport","","Australia","BRK","YBKE",-30.0392,145.952,352,10,"O"
-6245,"Burketown Airport","","Australia","BUC","YBKT",-17.7486,139.534,21,10,"O"
-6246,"Boigu Airport","","Australia","GIC","YBOI",-9.23278,142.218,23,10,"O"
-6247,"Oakey Airport","Oakey","Australia","OKY","YBOK",-27.411389,151.735278,1335,10,"O"
-6248,"Boulia Airport","","Australia","BQL","YBOU",-22.9133,139.9,542,10,"O"
-6249,"Bathurst Airport","","Australia","BHS","YBTH",-33.4094,149.652,2435,10,"O"
-6250,"Blackwater Airport","","Australia","BLT","YBTR",-23.6031,148.807,657,10,"O"
-6251,"Carnarvon Airport","","Australia","CVQ","YCAR",-24.8806,113.672,13,8,"O"
-6252,"Cobar Airport","","Australia","CAZ","YCBA",-31.5383,145.794,724,10,"O"
-6253,"Coober Pedy Airport","","Australia","CPD","YCBP",-29.04,134.721,740,9.5,"O"
-6254,"Coconut Island Airport","","Australia","CNC","YCCT",-10.05,143.07,3,10,"O"
-6255,"Cloncurry Airport","","Australia","CNJ","YCCY",-20.6686,140.504,616,10,"O"
-6256,"Ceduna Airport","","Australia","CED","YCDU",-32.1306,133.71,77,9.5,"O"
-6257,"Cooktown Airport","","Australia","CTN","YCKN",-15.4447,145.184,26,10,"O"
-6258,"Cunnamulla Airport","","Australia","CMA","YCMU",-28.03,145.622,630,10,"O"
-6259,"Coonamble Airport","","Australia","CNB","YCNM",-30.9833,148.376,604,10,"O"
-6260,"Coen Airport","","Australia","CUQ","YCOE",-13.7608,143.114,532,10,"O"
-6261,"Cooma Snowy Mountains Airport","","Australia","OOM","YCOM",-36.3006,148.974,3088,10,"O"
-6262,"Doomadgee Airport","","Australia","DMD","YDMG",-17.9403,138.822,153,10,"O"
-6263,"Darnley Island Airport","Darnley Island","Australia","NLF","YDNI",-9.58333,143.767,0,10,"O"
-6264,"Devonport Airport","","Australia","DPO","YDPO",-41.1697,146.43,33,10,"O"
-6265,"Elcho Island Airport","","Australia","ELC","YELD",-12.0194,135.571,101,9.5,"O"
-6266,"Esperance Airport","","Australia","EPR","YESP",-33.6844,121.823,470,8,"O"
-6267,"Flinders Island Airport","","Australia","FLS","YFLI",-40.0917,147.993,10,10,"O"
-6268,"Geraldton Airport","","Australia","GET","YGEL",-28.7961,114.707,121,8,"O"
-6269,"Gladstone Airport","","Australia","GLT","YGLA",-23.8697,151.223,64,10,"O"
-6270,"Groote Eylandt Airport","","Australia","GTE","YGTE",-13.975,136.46,53,9.5,"O"
-6271,"Griffith Airport","","Australia","GFF","YGTH",-34.2508,146.067,439,10,"O"
-6272,"Horn Island Airport","","Australia","HID","YHID",-10.5864,142.29,43,10,"O"
-6273,"Hooker Creek Airport","","Australia","HOK","YHOO",-18.3367,130.638,320,9.5,"O"
-6274,"Mount Hotham Airport","","Australia","MHU","YHOT",-37.0475,147.334,4260,10,"O"
-6275,"Hughenden Airport","","Australia","HGD","YHUG",-20.815,144.225,1043,10,"O"
-6276,"Julia Creek Airport","","Australia","JCK","YJLC",-20.6683,141.723,404,10,"O"
-6277,"Kalbarri Airport","","Australia","KAX","YKBR",-27.69,114.262,157,8,"O"
-6278,"King Island Airport","","Australia","KNS","YKII",-39.8775,143.878,132,10,"O"
-6279,"Kalkgurung Airport","","Australia","KFG","YKKG",-17.4319,130.808,646,9.5,"O"
-6280,"Karumba Airport","","Australia","KRB","YKMB",-17.4567,140.83,5,10,"O"
-6281,"Kowanyama Airport","","Australia","KWM","YKOW",-15.4856,141.751,35,10,"O"
-6282,"Kubin Airport","","Australia","KUG","YKUB",-10.225,142.218,15,9,"O"
-6283,"Leonora Airport","Leonora","Australia","LNO","YLEO",-28.8781,121.315,1217,8,"O"
-6284,"Lake Evella Airport","","Australia","LEL","YLEV",-12.4989,135.806,256,9.5,"O"
-6285,"Lord Howe Island Airport","","Australia","LDH","YLHI",-31.5383,159.077,5,10.5,"O"
-6286,"Lockhart River Airport","","Australia","IRG","YLHR",-12.7869,143.305,77,10,"O"
-6287,"Lismore Airport","","Australia","LSY","YLIS",-28.8303,153.26,35,10,"O"
-6288,"Lightning Ridge Airport","","Australia","LHG","YLRD",-29.4567,147.984,540,10,"O"
-6289,"Longreach Airport","","Australia","LRE","YLRE",-23.4342,144.28,627,10,"O"
-6290,"Leinster Airport","","Australia","LER","YLST",-27.8433,120.703,1631,8,"O"
-6291,"Laverton Airport","","Australia","LVO","YLTN",-28.6136,122.424,1530,8,"O"
-6292,"Mabuiag Island Airport","Mabuiag Island","Australia","UBB","YMAA",-9.95,142.183,0,9,"O"
-6293,"Meekatharra Airport","","Australia","MKR","YMEK",-26.6117,118.548,1713,8,"O"
-6294,"Merimbula Airport","","Australia","MIM","YMER",-36.9086,149.901,7,10,"O"
-6295,"Milingimbi Airport","","Australia","MGT","YMGB",-12.0944,134.894,53,9.5,"O"
-6296,"Maningrida Airport","","Australia","MNG","YMGD",-12.0561,134.234,123,9.5,"O"
-6297,"McArthur River Mine Airport","","Australia","MCV","YMHU",-16.4425,136.084,131,9.5,"O"
-6298,"Mildura Airport","","Australia","MQL","YMIA",-34.2292,142.086,167,10,"O"
-6299,"Mount Magnet Airport","","Australia","MMG","YMOG",-28.1161,117.842,1354,8,"O"
-6300,"Moree Airport","","Australia","MRZ","YMOR",-29.4989,149.845,701,10,"O"
-6301,"Moranbah Airport","","Australia","MOV","YMRB",-22.0578,148.077,770,10,"O"
-6302,"Moruya Airport","","Australia","MYA","YMRY",-35.8978,150.144,14,10,"O"
-6303,"Mount Gambier Airport","","Australia","MGB","YMTG",-37.7456,140.785,212,9.5,"O"
-6304,"Mornington Island Airport","","Australia","ONG","YMTI",-16.6625,139.178,33,9,"O"
-6305,"Murray Island Airport","Murray Island","Australia","MYI","YMUI",-9.91667,144.055,0,10,"O"
-6306,"Maryborough Airport","","Australia","MBH","YMYB",-25.5133,152.715,38,10,"O"
-6307,"Narrandera Airport","","Australia","NRA","YNAR",-34.7022,146.512,474,10,"O"
-6308,"Narrabri Airport","","Australia","NAA","YNBR",-30.3192,149.827,788,10,"O"
-6309,"Normanton Airport","","Australia","NTN","YNTN",-17.6836,141.07,73,10,"O"
-6310,"Newman Airport","Newman","Australia","ZNE","YNWN",-23.4178,119.803,1724,8,"O"
-6311,"Olympic Dam Airport","","Australia","OLP","YOLD",-30.485,136.877,343,9.5,"O"
-6312,"Port Augusta Airport","Argyle","Australia","PUG","YPAG",-32.506944,137.716667,56,9.5,"O"
-6313,"Palm Island Airport","","Australia","PMK","YPAM",-18.7553,146.581,28,10,"O"
-6314,"Paraburdoo Airport","","Australia","PBO","YPBO",-23.1711,117.745,1406,8,"O"
-6315,"Cocos Keeling Island Airport","","Cocos (Keeling) Islands","CCK","YPCC",-12.1883,96.8339,10,6.5,"U"
-6316,"Gove Airport","","Australia","GOV","YPGV",-12.2694,136.818,192,9.5,"O"
-6317,"Parkes Airport","","Australia","PKE","YPKS",-33.1314,148.239,1069,10,"O"
-6318,"Port Lincoln Airport","","Australia","PLO","YPLC",-34.6053,135.88,36,9.5,"O"
-6319,"Pormpuraaw Airport","","Australia","EDR","YPMP",-14.8967,141.609,10,10,"O"
-6320,"Port Macquarie Airport","","Australia","PQQ","YPMQ",-31.4358,152.863,12,10,"O"
-6321,"Portland Airport","","Australia","PTJ","YPOD",-38.3181,141.471,265,9.5,"O"
-6322,"Quilpie Airport","","Australia","ULP","YQLP",-26.6122,144.253,655,10,"O"
-6323,"Ramingining Airport","","Australia","RAM","YRNG",-12.3564,134.898,206,9.5,"O"
-6324,"Roma Airport","","Australia","RMA","YROM",-26.545,148.775,1032,10,"O"
-6325,"St George Airport","","Australia","SGO","YSGE",-28.0497,148.595,656,10,"O"
-6326,"Shark Bay Airport","","Australia","DNM","YSHK",-25.8939,113.577,111,8,"O"
-6327,"Saibai Island Airport","Saibai Island","Australia","SBR","YSII",-9.37833,142.625,0,10,"O"
-6328,"Strahan Airport","","Australia","SRN","YSRN",-42.155,145.292,20,10,"O"
-6329,"Thargomindah Airport","","Australia","XTG","YTGM",-27.9864,143.811,433,10,"O"
-6330,"Tennant Creek Airport","Tennant Creek","Australia","TCA","YTNK",-19.6344,134.183,1236,9.5,"O"
-6331,"Victoria River Downs Airport","","Australia","VCD","YVRD",-16.4033,131.002,89,9.5,"O"
-6332,"Warraber Island Airport","Sue Islet","Australia","SYU","YWBS",-10.2083,142.825,3,10,"O"
-6333,"Windorah Airport","","Australia","WNR","YWDH",-25.4131,142.667,452,10,"O"
-6334,"Whyalla Airport","Whyalla","Australia","WYA","YWHA",-33.0589,137.514,41,9.5,"O"
-6335,"Wiluna Airport","","Australia","WUN","YWLU",-26.6292,120.221,1649,8,"O"
-6336,"Wollongong Airport","","Australia","WOL","YWOL",-34.5611,150.789,31,10,"O"
-6337,"Winton Airport","","Australia","WIN","YWTN",-22.3636,143.086,638,10,"O"
-6338,"Wynyard Airport","Burnie","Australia","BWT","YWYY",-40.9989,145.731,62,10,"O"
-6339,"Yorke Island Airport","Yorke Island","Australia","OKR","YYKI",-9.75703,143.411,0,10,"O"
-6340,"Yam Island Airport","Yam Island","Australia","XMY","YYMI",-9.90111,142.776,0,10,"O"
-6341,"Beijing Nanyuan Airport","Beijing","China","NAY","ZBBB",39.9608,116.257,0,8,"U"
-6342,"Chifeng Airport","Chifeng","China","CIF","ZBCF",42.235,118.908,0,8,"U"
-6343,"Changzhi Airport","Changzhi","China","CIH","ZBCZ",36.2475,113.126,0,8,"U"
-6344,"Datong Airport","Datong","China","DAT","ZBDT",40.0603,113.482,3442,8,"U"
-6345,"Baita Airport","Huhhot","China","HET","ZBHH",40.851422,111.824103,3556,8,"U"
-6346,"Baotou Airport","Baotou","China","BAV","ZBOW",40.56,109.997,3321,8,"U"
-6347,"Shijiazhuang Daguocun International Airport","Shijiazhuang","China","SJW","ZBSJ",38.280686,114.6973,233,8,"U"
-6348,"Tongliao Airport","Tongliao","China","TGO","ZBTL",43.5567,122.2,0,8,"U"
-6349,"Ulanhot Airport","Ulanhot","China","HLH","ZBUL",46.083,122.017,0,8,"U"
-6350,"Xilinhot Airport","Xilinhot","China","XIL","ZBXH",43.9156,115.964,0,8,"U"
-6351,"Beihai Airport","Beihai","China","BHY","ZGBH",21.5394,109.294,0,8,"U"
-6352,"Changde Airport","Changde","China","CGD","ZGCD",28.9189,111.64,0,8,"U"
-6353,"Dayong Airport","Dayong","China","DYG","ZGDY",29.1028,110.443,692,8,"U"
-6354,"Meixian Airport","Meixian","China","MXZ","ZGMX",24.35,116.133,0,8,"U"
-6355,"Zhuhai Airport","Zhuhai","China","ZUH","ZGSD",22.0064,113.376,0,8,"U"
-6356,"Bailian Airport","Liuzhou","China","LZH","ZGZH",24.2075,109.391,295,8,"U"
-6357,"Zhanjiang Airport","Zhanjiang","China","ZHA","ZGZJ",21.2144,110.358,0,8,"U"
-6358,"Enshi Airport","Enshi","China","ENH","ZHES",30.3203,109.485,0,8,"U"
-6359,"Nanyang Airport","Nanyang","China","NNY","ZHNY",32.9808,112.615,0,8,"U"
-6360,"Xiangfan Airport","Xiangfan","China","XFN","ZHXF",32.1506,112.291,0,8,"U"
-6361,"Yichang Airport","Yichang","China","YIH","ZHYC",30.671,111.441,0,8,"U"
-6362,"Ankang Airport","Ankang","China","AKA","ZLAK",32.7081,108.931,0,8,"U"
-6363,"Golmud Airport","Golmud","China","GOQ","ZLGM",34.633,98.867,0,8,"U"
-6364,"Hanzhong Airport","Hanzhong","China","HZG","ZLHZ",33.0636,107.008,0,8,"U"
-6365,"Qingyang Airport","Qingyang","China","IQN","ZLQY",35.7997,107.603,0,8,"U"
-6366,"Xining Caojiabu Airport","Xining","China","XNN","ZLXN",36.5275,102.043,0,8,"U"
-6367,"Yan'an Airport","Yan'an","China","ENY","ZLYA",36.6369,109.554,0,8,"U"
-6368,"Yulin Airport","Yulin","China","UYN","ZLYL",38.2692,109.731,0,8,"U"
-6369,"Arvaikheer Airport","","Mongolia","AVK","ZMAH",46.2503,102.802,5932,8,"U"
-6370,"Altai Airport","","Mongolia","LTI","ZMAT",46.3764,96.2211,7260,8,"U"
-6371,"Bayankhongor Airport","","Mongolia","BYN","ZMBH",46.1633,100.704,6085,8,"U"
-6372,"Dalanzadgad Airport","","Mongolia","DLZ","ZMDZ",43.5917,104.43,4787,8,"U"
-6373,"Khovd Airport","","Mongolia","HVD","ZMKD",47.9541,91.6282,4898,8,"U"
-6374,"Muren Airport","","Mongolia","MXV","ZMMN",49.6633,100.099,4272,8,"U"
-6375,"Diqing Airport","Shangri-La","China","DIG","ZPDQ",27.7936,99.6772,0,8,"U"
-6376,"Mangshi Airport","Luxi","China","LUM","ZPLX",24.4011,98.5317,2890,8,"U"
-6377,"Simao Airport","Simao","China","SYM","ZPSM",22.7933,100.959,0,8,"U"
-6378,"Zhaotong Airport","Zhaotong","China","ZAT","ZPZT",27.3256,103.755,0,8,"U"
-6379,"Ganzhou Airport","Ganzhou","China","KOW","ZSGZ",25.8258,114.912,0,8,"U"
-6380,"Jingdezhen Airport","Jingdezhen","China","JDZ","ZSJD",29.3386,117.176,112,8,"U"
-6381,"Jiujiang Lushan Airport","Jiujiang","China","JIU","ZSJJ",29.733,115.983,0,8,"U"
-6382,"Quzhou Airport","Quzhou","China","JUZ","ZSJU",28.9658,118.899,0,8,"U"
-6383,"Lianyungang Airport","Lianyungang","China","LYG","ZSLG",34.55,119.25,0,8,"U"
-6384,"Huangyan Luqiao Airport","Huangyan","China","HYN","ZSLQ",28.5622,121.429,0,8,"U"
-6385,"Shubuling Airport","Linyi","China","LYI","ZSLY",35.0461,118.412,0,8,"U"
-6386,"Quanzhou Airport","Quanzhou","China","JJN","ZSQZ",24.7964,118.59,0,8,"U"
-6387,"Tunxi International Airport","Huangshan","China","TXN","ZSTX",29.7333,118.256,0,8,"U"
-6388,"Weifang Airport","Weifang","China","WEF","ZSWF",36.6467,119.119,0,8,"U"
-6389,"Weihai Airport","Weihai","China","WEH","ZSWH",37.1871,122.229,145,8,"U"
-6390,"Wuxi Airport","Wuxi","China","WUX","ZSWX",31.4944,120.429,0,8,"U"
-6391,"Nanping Wuyishan Airport Airport","Wuyishan","China","WUS","ZSWY",27.7019,118.001,614,8,"U"
-6392,"Wenzhou Yongqiang Airport","Wenzhou","China","WNZ","ZSWZ",27.9122,120.852,0,8,"U"
-6393,"Yancheng Airport","Yancheng","China","YNZ","ZSYN",33.3856,120.125,0,8,"U"
-6394,"Yiwu Airport","Yiwu","China","YIW","ZSYW",29.3447,120.032,0,8,"U"
-6395,"Zhoushan Airport","Zhoushan","China","HSN","ZSZS",29.9342,122.362,0,8,"U"
-6396,"Qamdo Bangda Airport","Bangda","China","BPX","ZUBD",30.5536,97.1083,14219,8,"U"
-6397,"Dachuan Airport","Dazhou","China","DAX","ZUDX",31.3,107.5,0,8,"U"
-6398,"Guangyuan Airport","Guangyuan","China","GYS","ZUGU",32.3911,105.702,0,8,"U"
-6399,"Luzhou Airport","Luzhou","China","LZO","ZULZ",28.8522,105.393,0,8,"U"
-6400,"Mianyang Airport","Mianyang","China","MIG","ZUMY",31.4281,104.741,0,8,"U"
-6401,"Nanchong Airport","Nanchong","China","NAO","ZUNC",30.754,106.062,0,8,"U"
-6402,"Nyingchi Airport","Nyingchi","China","LZY","ZUNZ",29.3033,94.3353,9675,5.5,"U"
-6403,"Wanxian Airport","Wanxian","China","WXN","ZUWX",30.8361,108.406,0,8,"U"
-6404,"Aksu Airport","Aksu","China","AKU","ZWAK",41.2625,80.2917,0,8,"U"
-6405,"Qiemo Airport","Qiemo","China","IQM","ZWCM",38.1494,85.5328,4108,8,"U"
-6406,"Kuqa Airport","Kuqa","China","KCA","ZWKC",41.7181,82.9869,3524,8,"U"
-6407,"Korla Airport","Korla","China","KRL","ZWKL",41.6978,86.1289,0,8,"U"
-6408,"Karamay Airport","Karamay","China","KRY","ZWKM",45.617,84.883,0,8,"U"
-6409,"Yining Airport","Yining","China","YIN","ZWYN",43.9558,81.3303,0,8,"U"
-6410,"Heihe Airport","Heihe","China","HEK","ZYHE",50.25,127.3,8530,8,"U"
-6411,"Jiamusi Airport","Jiamusi","China","JMU","ZYJM",46.843394,130.465389,262,8,"U"
-6412,"Jinzhou Airport","Jinzhou","China","JNZ","ZYJZ",41.1014,121.062,0,8,"U"
-6413,"Qiqihar Sanjiazi Airport","Qiqihar","China","NDG","ZYQQ",47.239628,123.918131,477,8,"U"
-6414,"Yanji Airport","Yanji","China","YNJ","ZYYJ",42.8828,129.451258,624,8,"U"
-6417,"Valletta Sea Plane Terminal","Valletta","Malta","",\N,35.888863,14.508417,0,1,"E"
-6418,"Gozo Sea Plane Terminal","Mgarr","Malta","",\N,36.026389,14.298333,0,1,"E"
-6419,"Mount Keith","Mount Keith","Australia","WME","YMNE",-27.286389,120.554722,1792,8,"O"
-6420,"Gran Roque Airport","Los Roques","Venezuela","LRV","SVRS",11.95,-66.67,17,-4,"S"
-6421,"Inishmore Airport","Inis Mor","Ireland","IOR","EIIM",53.1067,-9.65361,24,0,"U"
-6422,"Connemara Regional Airport","Indreabhan","Ireland","NNR","EICA",53.2303,-9.46778,0,0,"U"
-6423,"Guettin MecklenburgVorpommern Germany","Ruegen","Germany","GTI","EDCG",54.383333,13.325278,69,1,"U"
-6424,"Berezovo","Berezovo","Russia","NBB","USHB",63.9241,65.0487,98,5,"E"
-6425,"Szczecin-Dabie","Szczecin","Poland","","EPSD",53.471138,14.63775,3,1,"E"
-6426,"Worcester Regional Airport","Worcester","United States","ORH","KORH",42.2673,-71.8757,1009,-5,"U"
-6427,"Anqing Airport","Anqing","China","AQG","ZSAQ",30.5822,117.0502,0,8,"N"
-6428,"Jing Gang Shan Airport","Ji An","China","JGS",\N,26.8997,114.7375,0,8,"N"
-6429,"Shanhaiguan Airport","Qinhuangdao","China","SHP","ZBSH",39.9681,119.731,0,8,"N"
-6430,"Zhangxiao","Yuncheng","China","YCU","ZBYC",35.018,110.993,0,8,"N"
-6431,"Lanzhou Airport","Lanzhou","China","LHW","ZLAN",36.117,103.617,0,8,"N"
-6432,"Jiayuguan Airport","Jiayuguan","China","JGN","ZLJQ",39.8569,98.3414,0,8,"N"
-6433,"Dandong","Dandong","China","DDG","ZYDD",40.0255,124.2866,0,8,"N"
-6434,"Dongsheng","Dongsheng","China","DSN","ZBDS",39.85,110.033,0,8,"N"
-6435,"Panzhihua","Panzhihua","China","PZI","ZUZH",26.54,101.799,9186,8,"N"
-6436,"Grytviken","Grytviken","South Georgia and the Islands","",\N,-54.16534,-36.30288,0,-2,"N"
-6437,"South Shetland","South Shetland","Antarctica","",\N,-68,-58,0,-4,"N"
-6438,"South Shetland","South Shetland","Antarctica","",\N,-63.37,-62.83,0,-4,"N"
-6439,"New Rochelle Amtrak Station","New Rochelle","United States","",\N,40.913923,-73.782008,66,-5,"A"
-6440,"New York Penn Station","New York","United States","",\N,40.75058,-73.99358,33,-5,"A"
-6441,"New Haven Rail Station","New Haven","United States","ZVE",\N,41.298669,-72.925992,7,-5,"A"
-6442,"Chicago Union Station","Chicago","United States","",\N,41.8791966,-87.6388507,581,-6,"A"
-6443,"Dibrugarh Airport","Dibrugarh","India","DIB",\N,27.4839,95.0169,362,5.5,"N"
-6444,"Doha Free Zone Airport","Doha","Qatar","XOZ",\N,24.8333,50.9166,0,3,"N"
-6445,"Bremerton National","Bremerton","United States","PWT","KPWT",47.490244,-122.764814,444,-8,"A"
-6446,"Spencer Muni","Spencer","United States","SPW","KSPW",43.165527,-95.202805,1339,-6,"A"
-6447,"Jefferson City Memorial Airport","Jefferson City","United States","JEF","KJEF",38.5912,-92.1561,549,-6,"A"
-6448,"Grand Canyon West Airport","Grand Canyon West","United States","GCW",\N,35.5925,-113.4859,4825,-8,"U"
-6449,"Boulder City Municipal Airport","Boulder City","United States","BLD","KBVU",35.5651,-114.514,2201,-8,"U"
-6450,"Tannheim","Tannheim","Germany","","EDMT",48.011736,10.100903,1902,1,"E"
-6451,"Glenview Amtrak Station","Glenview","United States","",\N,42.074197,-87.805346,630,-6,"A"
-6452,"Baltimore Penn Station","Baltimore","United States","",\N,39.307408,-76.615552,62,-5,"A"
-6453,"Summit Camp","Ice Cap","Greenland","",\N,72.579187,-38.4572,11000,-3,"U"
-6454,"Unst Airport","Unst","United Kingdom","UNT","EGPW",60.7472,-0.85385,0,0,"E"
-6455,"Pagerungan","Pagerungan","Indonesia","","WA19",-6.956608,115.931239,20,9,"U"
-6456,"Provincetown Muni","Provincetown","United States","PVC","KPVC",42.071945,-70.22139,9,-5,"A"
-6457,"Kenmore Air Harbor Seaplane Base","Seattle","United States","LKE","KW55",47.629,-122.339,14,-7,"A"
-6458,"Seria - Anduki","Seria","Brunei","","WBAK",4.6333,114.3833,5,8,"N"
-6459,"Magas","Nazran","Russia","%u0","%u04",43.323815,45.017761,1060,3,"E"
-6460,"Saint Barthelemy","Gustavia","France","SBH","TFFJ",17.9023,-62.8324,50,-4,"E"
-6461,"Morro de Sao Paulo","Morro de Sao Paulo","Brazil","",\N,-13.2314,-38.5432,10,3,"N"
-6462,"Morro de Sao Paulo","Morro de Sao Paulo","Brazil","",\N,-13.386571,-38.909122,10,3,"N"
-6463,"Belize City Municipal Airport","Belize","Belize","TZA",\N,17.5344,-88.298,15,-6,"N"
-6464,"Kostroma - Sokerkino","Kostroma","Russia","","UUBA",57.47,41.01,453,3,"E"
-6465,"Babusheri","Sukhumi","Georgia","SUI","UGSS",42.87,41.12,0,3,"E"
-6466,"Tambow","Tambow","Russia","TBW","UUOT",52.81,41.48,126,3,"U"
-6467,"Oban Airport","North Connel","United Kingdom","OBN","EGEO",56.464,-5.4,23,0,"E"
-6468,"Vilamendhoo","Vilamendhoo","Maldives","",\N,73.0191098670891,3.60965475494316,0,5,"U"
-6469,"Vilamendhoo","Vilamendhoo","Maldives","",\N,3.60965475494316,73.0191098670891,0,5,"U"
-6470,"Vilamendhoo","Vilamendhoo","Maldives","",\N,3.484,73.802,0,5,"U"
-6471,"Vilamendhoo","Vilamendhoo","Maldives","",\N,73.801,3.801,0,5,"U"
-6472,"Aaa","Aaa","Maldives","",\N,73.9,3.222,0,5,"U"
-6473,"Vilamendhoo","Vilamendhoo","Maldives","",\N,0,0,0,5,"U"
-6474,"Vilamendhoo","Vilamendhoo","Maldives","",\N,3.8,73.8,0,5,"U"
-6475,"Sharya","Sharya","Russia","",\N,58.2321,45.3314,453,3,"E"
-6476,"Mt. Fuji Shizuoka Airport","Shizuoka","Japan","FSZ","RJNS",34.796111,138.189444,433,9,"N"
-6477,"Erechim Airport","Erechim","Brazil","ERM","SSER",-27.6619,-52.2683,2498,-3,"S"
-6478,"La Cote","Prangins","Switzerland","","LSGP",46.413056,6.258611,1350,1,"E"
-6479,"Courchevel Airport","Courcheval","France","CVF","LFLJ",45.3967,6.63472,6588,1,"E"
-6481,"Fullerton Municipal Airport","Fullerton","United States","FUL","KFUL",33.521925,-117.584722,96,-7,"A"
-6482,"Concord Rgnl","Concord","United States","","KJQF",35.387775,-80.709136,705,-5,"A"
-6483,"Sandown","Isle Of Wight","United Kingdom","","EGHN",50.677776,-1.317803,18,0,"E"
-6484,"Fort William Heliport","Fort William","United Kingdom","FWM",\N,56.816666,-5.116667,0,0,"E"
-6485,"Navoi Airport","Navoi","Uzbekistan","NVI","UTSA",40.1172,65.1708,0,5,"E"
-6486,"La Defense Heliport","Paris","France","JPU",\N,48.86667,2.333333,0,1,"E"
-6487,"Andernos-Les-Bains","Andernos-Les-Bains","France","","LFCD",44.81111,-1.186023,0,1,"E"
-6488,"Ronda Airport","Ronda","Spain","RRA",\N,36.75,-5.166667,2500,1,"E"
-6489,"Bienenfarm Airport","Nauen","Germany","","EDOI",52.6617,12.7458,131,1,"E"
-6490,"Neryungri","Neryungri","Russia","NER","NULL",56.9,124.8833,1000,10,"E"
-6491,"Champion-7","Champion-7","Brunei","",\N,5.21,114.7419,12,8,"N"
-6492,"Ain Arnat Airport","Setif","Algeria","QSF","DAAS",36.1781,5.32449,3360,0,"U"
-6493,"La Rochelle-Ile de Re","La Rochelle","France","LRH","LFBH",46.1792,-1.19528,74,1,"E"
-6494,"Friedman Mem","Hailey","United States","SUN","KSUN",43.504444,-114.296194,5320,-7,"A"
-6497,"Yverdon-Les-Bains","Yverdon-Les-Bains","Switzerland","","LSGY",46.86667,6.7,1427,1,"E"
-6498,"Portsmouth Airport","Portsmouth","United Kingdom","PME",\N,50.8,-1.083333,0,0,"E"
-6499,"Aleksandrowice","Bielsko-Biala","Poland","","EPBA",49.84997,19.020193,860,1,"E"
-6500,"Mason City Municipal","Mason City","United States","MCW","KMCW",43.2247,-93.4067,1243,-5,"A"
-6501,"Salar de Uyuni","Salar de Uyuni","Bolivia","",\N,-20.330706,-67.046881,12000,-4,"S"
-6502,"Isla Pescado","Isla Pescado","Bolivia","",\N,-20.240932,-67.62538,12020,-4,"S"
-6503,"Toro Toro","Toro Toro","Bolivia","",\N,-18.133114,-65.768781,9007,-4,"S"
-6512,"QTHRL","Queenstown","New Zealand","",\N,-44.8898,168.6762,1,12,"Z"
-6513,"QTHRS","Queenstown","New Zealand","",\N,-44.9486,168.7068,1,12,"Z"
-6514,"Helirafting Start","Queenstown","New Zealand","",\N,-44.9486,168.7068,1300,12,"Z"
-6515,"Helirafting Landung","Queenstown","New Zealand","",\N,-44.8898,168.6762,1300,12,"Z"
-6517,"Jomo Kenyatta","Nairobi","Kenya","",\N,-1.319242,36.927775,1625,3,"U"
-6518,"DWEST","DWEST","Germany","",\N,51.025,7.1837,300,1,"E"
-6519,"Niederoeblarn","Niederoeblarn","Austria","","LOGO",47.478,14.008,2142,1,"E"
-6520,"Bad Voeslau","Bad Voeslau","Austria","","LOAV",47.965,16.259,765,1,"E"
-6521,"Arekuna Camp","Arekuna","Venezuela","",\N,6.290501,-62.534499,0,-4.5,"S"
-6522,"Uetersen","Uetersen","Germany","","EDHE",53.646667,9.704167,7,1,"E"
-6523,"HLP1 HS-16","Salzwedel","Germany","",\N,52.8333,11.2027,111,1,"U"
-6524,"HLP2 HS-16","Nordhausen","Germany","",\N,51.4888,10.7833,278,1,"U"
-6525,"HLP HQ GT","Paetz","Germany","",\N,52.2361,13.6667,98,1,"U"
-6944,"Jining Airport ","Jining","China","JNG",\N,35.417,116.533,1540,8,"U"
-6943,"Heilongjiang Mohe Airport","Mohe County","China","OHE",\N,53,122.5,1500,8,"U"
-6942,"Daqing Saertu Airport","Daqing","China","DAQ",\N,46.583333,125,1020,8,"U"
-6941,"Byron Airport","Byron","United States","",\N,37.8284,-121.626,79,-8,"A"
-6940,"Tunoshna","Yaroslavl","Russia","IAR","UUDL",57.560666676667,40.157369454444,270,3,"U"
-6939,"Belaya","Sredniiy","Russia","","UIIB",52.91500001,103.57500001,1396,8,"U"
-6938,"Borisoglebskoe","Kazan","Russia","",\N,55.86067,49.10099,384,3,"U"
-6937,"Dzemgi","Komsomolsk-on-Amur","Russia","","UHKD",50.605,137.08167,82,10,"U"
-6936,"Khabarovsk-MVL","Khabarovsk","Russia","","UHHT",48.528,135.179,213,10,"U"
-6935,"Irkutsk-2","Irkutsk","Russia","","UIIR",52.3678,104.183,13411,8,"U"
-6934,"Zhukovski","Ramenskoe","Russia","","UUBW",55.589,38.154,335,3,"U"
-6933,"Gelendzhik","Gelendzhik","Russia","","URKG",44.55,38.083,100,3,"U"
-6932,"Taganrog-Juzhnyi","Taganrog","Russia","","URRT",47.117,38.513,100,3,"U"
-6931,"Neuchatel Airport","Neuchatel","Switzerland","QNC","LSGN",46.9575,6.86472,1427,1,"E"
-6930,"Locarno Airport","Locarno","Switzerland","ZJI","LSZL",46.1608,8.87861,650,1,"E"
-6929,"Speck-Fehraltorf Airport","Fehraltorf","Switzerland","","LSZK",47.3764,8.7575,1748,1,"E"
-6928,"Lausanne-la Blecherette Airport","Lausanne","Switzerland","","LSGL",46.5453,6.61667,2041,1,"E"
-6927,"Triengen Airport","Triengen","Switzerland","","LSPN",47.2267,8.07806,1594,1,"E"
-6926,"Rimatara","Rimatara","French Polynesia","RMT","NTAM",-22.637253,-152.805192,56,-10,"U"
-6925,"Ust-Ilimsk","Ust-Ilimsk","Russia","",\N,58.116667,102.4666667,1244,8,"U"
-6924,"Ust-Kut","Ust-Kut","Russia","UKX","UITT",56.85,105.7167,2033,8,"U"
-6923,"Kavalerovo","Kavalerovo","Russia","",\N,44.270556,135.054722,675,10,"U"
-6922,"Kirensk","Kirensk","Russia","","UIKK",57.7667,108.05,780,8,"U"
-6921,"Fortman Airport","St. Marys","United States","1OH",\N,40.5553253,-84.3866186,885,-5,"U"
-6920,"Bellona","Bellona","Solomon Islands","BN1",\N,15.981666666667,-11.3,3,11,"U"
-6919,"Bellona","Bellona","Solomon Islands","BNY",\N,-11.3111,15.981666666667,3,11,"U"
-6918,"Ringi Cove Airport","Ringi Cove","Solomon Islands","RIN","AGRC",-8.12639,157.143,0,11,"U"
-6917,"Antonio Juarbe Pol Airport","Arecibo","Puerto Rico","ARE","TJAB",18.451111,-66.675556,23,-4,"N"
-6916,"Pangborn Field","Wenatchee","United States","EAT","KEAT",47.398,-120.206,1249,-8,"A"
-6915,"Bendigo Airport","Bendigo","Australia","","YBDG",-36.7394,144.33,705,11,"U"
-6913,"Aeroporto Prefeito Octavio de Almeida Neves","Sao Joao del Rei","Brazil","JDR",\N,-21.0864,-44.2258,3120,-3,"S"
-6914,"RAAF Pearce","Perth","Australia","","YPEA",-31.66778,116.015,149,8,"O"
-6911,"Wangerooge Airport","Wangerooge","Germany","AGE","EDWG",53.7828,7.91389,7,1,"E"
-6910,"Harle Airport","Harlesiel","Germany","","EDXP",53.7067,7.82028,7,1,"E"
-6909,"Wittman Regional Airport","Oshkosh","United States","OSH","KOSH",44.024983,-88.551336,790,-5,"A"
-6908,"Brest","Brest","Belarus","BQT","UMBB",52.06,23.53,468,2,"E"
-6907,"Ternopol","Ternopol","Ukraine","TNL","UKLT",49.31,25.42,1073,2,"E"
-6906,"Chernigov","Chernigov","Ukraine","CEJ","UKRR",51.24,31.09,446,2,"E"
-6905,"Lutsk","Lutsk","Ukraine","UKC","UKLC",50.6833,25.4833,774,2,"U"
-6904,"Southwest Michigan Regional Airport","Benton Harbor","United States","BEH",\N,42.1285833,-86.4285,643,-5,"U"
-6903,"Waukesha County Airport","Waukesha","United States","UES",\N,43.0410278,-88.2370556,911,-6,"U"
-6902,"Ronda","Ronda","Spain","",\N,36.73333,-5.166667,1000,-2,"U"
-6901,"Thurles","Thurles","Ireland","",\N,52.67888,-7.814369,500,-2,"U"
-6900,"Limerick","Limerick","Ireland","",\N,52.659,-8.624,500,-2,"U"
-6899,"Nowra Airport","Nowra","Australia","NOA","YSNW",-34.9489,150.537,400,10,"O"
-6898,"RAAF Williams Laverton Base","Laverton","Australia","","YLVT",-37.8636,144.746,18,9,"O"
-6897,"Tindal Airport","Katherine","Australia","KTR","YPTN",-14.5211,132.378,443,9,"O"
-6896,"Amberley","Amberley","Australia","","YAMB",-27.64,152.712,91,10,"O"
-6895,"Geiranger","Geiranger","Norway","","GEIR",62.1,7.2,0,1,"E"
-6894,"Zell am See","Zell am See","Austria","","LOWZ",47.1734,12.4719,2470,-1,"E"
-6893,"Galt Field Airport","Greenwood","United States","10C",\N,42.4028889,-88.3751111,875,-6,"U"
-6892,"Everglades Airpark","Everglades","United States","X01",\N,25.8488611,-81.3902778,5,-5,"U"
-6795,"Choibalsan Airport","","Mongolia","COQ","ZMCD",48.1357,114.646,2457,8,"U"
-6794,"Taree Airport","","Australia","TRO","YTRE",-31.8886,152.514,38,10,"U"
-6793,"Orange Airport","","Australia","OAG","YORG",-33.3817,149.133,3115,10,"U"
-6792,"Grafton Airport","","Australia","GFN","YGFN",-29.7594,153.03,110,10,"U"
-6791,"Marinduque Airport","Gasan","Philippines","MRQ","RPUW",13.360967,121.825583,32,8,"U"
-6790,"Hamadan Airport","Hamadan","Iran","HDM","OIHH",34.869167,48.5525,5755,3.5,"E"
-6789,"St Augustin Airport","St-Augustin","Canada","YIF","CYIF",51.2117,-58.6583,20,-4,"A"
-6788,"Vieques Airport","Vieques Island","Puerto Rico","VQS","TJCG",18.1158,-65.4227,19,-4,"U"
-6787,"Kalay Airport","Kalemyo","Myanmar","KMV","VYKL",23.188811,94.051094,499,6.5,"U"
-6786,"Terre-de-Haut Airport","Les Saintes","Guadeloupe","LSS","TFFS",15.8644,-61.5806,46,-4,"U"
-6785,"Yenisehir Airport","Yenisehir","Turkey","YEI","LTBR",40.255208,29.562569,764,2,"E"
-6784,"Tekirdağ Çorlu Airport","Çorlu","Turkey","TEQ","LTBU",41.13825,27.919094,574,2,"E"
-6783,"Sinop Airport","Sinop","Turkey","SIC","LTCM",42.0158,35.0664,20,2,"E"
-6782,"Mus Airport","Mus","Turkey","MSR","LTCK",38.747769,41.661236,4157,2,"E"
-6781,"Canakkale Airport","Canakkale","Turkey","CKZ","LTBH",40.137722,26.426777,23,2,"E"
-6780,"Anadolu Airport","Eskissehir","Turkey","AOE","LTBY",39.809858,30.519378,2588,2,"E"
-6779,"Katima Mulilo Airport","Mpacha","Namibia","MPA","FYKM",-17.6344,24.1767,3144,1,"N"
-6778,"Walvis Bay Airport","Walvis Bay","Namibia","WVB","FYWB",-22.9799,14.6453,299,1,"N"
-6777,"Capitan Corbeta C A Curbelo International Airport","Punta del Este","Uruguay","PDP","SULS",-34.855139,-55.094278,95,-3,"S"
-6776,"Sialkot Airport","Sialkot","Pakistan","SKT","OPST",32.5356,74.3639,810,5,"U"
-6775,"Bonaventure Airport","Bonaventure","Canada","YVB","CYVB",48.0711,-65.4603,123,-4,"A"
-6774,"Brus Laguna Airport","Brus Laguna","Honduras","BHG","MHBL",15.7631,-84.5436,2,-6,"U"
-6773,"Samburu South Airport","Samburu South","Kenya","UAS","HKSB",0.530583,37.5342,3295,3,"U"
-6772,"Chaoyang Airport","Chaoyang","China","CHG","ZYCY",41.5381,120.435,0,8,"U"
-6771,"Walaha Airport","Walaha","Vanuatu","WLH","NVSW",-15.412,167.691,151,11,"U"
-6770,"Tanjung Manis Airport","Tanjung Manis","Malaysia","TGC","WBTM",2.17784,111.202,15,8,"U"
-6769,"Long Akah Airport","Long Akah","Malaysia","LKH","WBGL",3.3,114.783,289,8,"U"
-6768,"Geneina Airport","Geneina","Sudan","EGN","HSGN",13.4817,22.4672,2650,2,"U"
-6767,"Togiak Airport","Togiak Village","United States","TOG","PATG",59.0528,-160.397,21,-9,"A"
-6766,"Port Heiden Airport","Port Heiden","United States","PTH","PAPH",56.9591,-158.633,95,-9,"A"
-6765,"King Cove Airport","King Cove","United States","KVC","PAVC",55.1163,-162.266,155,-9,"A"
-6764,"New Stuyahok Airport","New Stuyahok","United States","KNW","PANW",59.4499,-157.328,302,-9,"A"
-6763,"Igiugig Airport","Igiugig","United States","IGG","PAIG",59.324,-155.902,90,-9,"A"
-6762,"Shimla Airport","Shimla","India","SLV","VISM",31.081803,77.067967,5072,5.5,"N"
-6761,"Nanded Airport","","India","NDC","VAND",19.1833,77.3167,1250,5.5,"N"
-6760,"Kangra Airport","","India","DHM","VIGG",32.1651,76.2634,2525,5.5,"N"
-6759,"Shahre Kord Airport","","Iran","CQD","OIFS",32.2972,50.8422,6723,3.5,"E"
-6758,"Sege Airport","Sege","Solomon Islands","EGM","AGGS",-8.57889,157.876,0,11,"U"
-6757,"Burgos Airport","Burgos","Spain","RGS","LEBG",42.357628,-3.620764,2945,1,"E"
-6756,"Leon Airport","Leon","Spain","LEN","LELN",42.589,-5.655556,3006,1,"E"
-6755,"Deering Airport","Deering","United States","DEE","PADE",66.0696,-162.766,21,-9,"A"
-6754,"Sugraly Airport","Zarafshan","Uzbekistan","AFS","UTSN",41.6139,64.2332,1396,5,"U"
-6753,"Mardin Airport","","Turkey","MQM","LTCR",37.2233,40.6317,1729,2,"E"
-6752,"Tacheng Airport","Tacheng","China","TCG","ZWTC",46.6725,83.3408,0,8,"U"
-6751,"Tocache Airport","Tocache","Perú","TCG","SPCH",-8.183,-76.517,1500,-5,"U"
-6750,"Nueva Loja Airport","Lago Agrio","Ecuador","LGQ","SELA",0.093056,-76.8675,980,-5,"U"
-6749,"Parsabade Moghan Airport","Parsabad","Iran","PFQ","OITP",39.603606,47.8815,251,3.5,"E"
-6748,"Ilam Airport","Ilam","Iran","IIL","OICI",33.586606,46.404842,4404,3.5,"E"
-6747,"Gorgan Airport","Gorgan","Iran","GBT","OING",36.909381,54.401339,-24,3.5,"E"
-6746,"Sahand Airport","Maragheh","Iran","ACP","OITM",37.348017,46.127903,4396,3.5,"E"
-6745,"Romblon Airport","Romblon","Philippines","TBH","RPVU",12.311,122.085,10,8,"U"
-6744,"Changzhoudao Airport","Wuzhou","China","WUZ","ZGWZ",23.4567,111.248,89,8,"U"
-6743,"Hami Airport","Hami","China","HMI","ZWHM",42.8414,93.6692,0,8,"U"
-6742,"Sand Point Airport","Sand Point","United States","SDP","PASD",55.315,-160.523,21,-9,"A"
-6741,"Gorakhpur Airport","Gorakhpur","India","GOP","VEGK",26.739708,83.449708,259,5.5,"N"
-6740,"Araracuara Airport","Araracuara","Colombia","ACR","SKAC",-0.58,-72.41,1250,-5,"U"
-6739,"Hagerstown Regional Richard A Henson Field","Hagerstown","United States","HGR","KHGR",39.7079,-77.7295,704,-5,"A"
-6738,"Bella Coola Airport","Bella Coola","Canada","QBC","CYBD",52.3875,-126.596,117,-8,"A"
-6737,"Pajala Airport","","Sweden","PJA","ESUP",67.2456,23.0689,542,1,"E"
-6736,"Port Clarence Coast Guard Station","Port Clarence","United States","KPC","PAPC",65.2537,-166.859,10,-9,"A"
-6735,"Governador Valadares Airport","Governador Valadares","Brazil","GVR","SBGV",-18.8952,-41.9822,561,-3,"U"
-6734,"Kirovsk-Apatity Airport","Apatity","Russia","KVK","ULMK",67.4633,33.5883,515,3,"E"
-6733,"Cauayan Airport","Cauayan","Philippines","CYZ","RPUY",16.929861,121.753036,200,8,"U"
-6732,"Tambor Airport","Nicoya","Costa Rica","TMU","MRTR",9.73852,-85.0138,33,-6,"U"
-6731,"Arenal Airport","La Fortuna/San Carlos","Costa Rica","FON","MRAN",10.478,-84.6345,342,-6,"U"
-6730,"Imo Airport","","Nigeria","QOW","DNIM",5.42706,7.20603,373,1,"N"
-6729,"Arctic Village Airport","Arctic Village","United States","ARC","PARC",68.1147,-145.579,2092,-9,"A"
-6728,"Tasiujaq Airport","Tasiujaq","Canada","YTQ","CYTQ",58.6678,-69.9558,122,-5,"A"
-6727,"Puvirnituq Airport","Puvirnituq","Canada","YPX","CYPX",60.0506,-77.2869,74,-5,"A"
-6726,"Ormoc Airport","Ormoc City","Philippines","OMC","RPVO",11.057997,124.565322,83,8,"U"
-6725,"Noatak Airport","Noatak","United States","WTK","PAWN",67.5661,-162.975,88,-9,"A"
-6724,"Savoonga Airport","Savoonga","United States","SVA","PASA",63.6864,-170.493,53,-9,"A"
-6723,"Shishmaref Airport","Shishmaref","United States","SHH","PASH",66.2496,-166.089,12,-9,"A"
-6722,"Ruby Airport","Ruby","United States","RBY","PARY",64.7272,-155.47,653,-9,"A"
-6721,"Point Hope Airport","Point Hope","United States","PHO","PPHO",68.3488,-166.799,12,-9,"A"
-6720,"Mekoryuk Airport","Mekoryuk","United States","MYU","PAMY",60.3714,-166.271,48,-9,"A"
-6719,"Kivalina Airport","Kivalina","United States","KVL","PAVL",67.7362,-164.563,13,-9,"A"
-6718,"St Marys Airport","St Mary's","United States","KSM","PASM",62.0605,-163.302,311,-9,"A"
-6717,"Kaltag Airport","Kaltag","United States","KAL","PAKV",64.3191,-158.741,187,-9,"A"
-6716,"Hooper Bay Airport","Hooper Bay","United States","HPB","PAHP",61.5239,-166.147,7,-9,"A"
-6715,"Gambell Airport","Gambell","United States","GAM","PAGM",63.7668,-171.733,27,-9,"A"
-6714,"Atqasuk Edward Burnell Sr Memorial Airport","Atqasuk","United States","ATK","PATQ",70.4673,-157.436,96,-9,"A"
-6713,"Anvik Airport","Anvik","United States","ANV","PANV",62.6467,-160.191,309,-9,"A"
-6712,"Anaktuvuk Pass Airport","Anaktuvuk Pass","United States","AKP","PAKP",68.1336,-151.743,2103,-9,"A"
-6946,"Altay Airport","Altay","China","AAT","ZWAT",47.866667,88.116667,2491,8,"U"
-6947,"Tuzla","Null","Bosnia and Herzegovina","","LQTZ",44.458656,18.724783,784,1,"E"
-6948,"Fort Worth NAS","Dallas","United States","","KNFW",32.769167,-97.441528,650,-6,"A"
-6949,"Naypyidaw","Naypyidaw","Burma","ELA","VYEL",19.6235,96.201028,302,6.5,"U"
-6950,"Kyauktu","Kyauktu","Burma","","VYXG",21.406667,94.130278,1345,6.5,"U"
-6951,"Jan Mayensfield","Jan Mayen","Norway","ZXB","ENJA",70.961111,-8.575833,33,1,"E"
-6952,"Bokepyin","Bokepyin","Burma","","VYBP",11.267,98.767,100,6.5,"U"
-6953,"Huanghua Intl","Changsha","China","HHA",\N,28.189158,113.219633,217,8,"U"
-6954,"Manzhouli","Manzhouli","China","NZH",\N,49.566667,117.329444,0,8,"U"
-6955,"Wuhai","Wuhai","China","WUA","ZBUH",39.794444,106.799444,0,8,"U"
-6956,"Gary Chicago International Airport","Gary","United States","GYY","KGYY",41.6163,-87.4128,591,-6,"U"
-6957,"Brainerd Lakes Rgnl","Brainerd","United States","BRD","KBRD",46.398308,-94.138078,1226,-6,"U"
-6958,"Greenbrier Valley Airport","Lewisburg","United States","LWB","KLWB",37.858333,-80.399444,2302,-5,"U"
-6959,"Pitt-Greenville Airport","Greenville","United States","PGV","KPGV",35.635278,-77.385278,27,-5,"A"
-6960,"Chefornak Airport","Chefornak","United States","CYF","PACK",60.149167,-164.285556,40,-9,"A"
-6961,"Oxnard - Ventura County","Oxnard","United States","OXR","KOXR",34.200833,-119.207222,15,-8,"A"
-6962,"Branson LLC","Branson","United States","BKG","KBBG",36.531994,-93.200556,1302,-6,"A"
-6963,"Tongren","Tongren","China","TEN","ZUTR",27.884,109.31,0,8,"U"
-6964,"Jinggangshan","Jian","China","KNC","ZSJA",26.8575,114.737222,0,8,"U"
-6965,"Penn Station","Baltimore","United States","ZBP",\N,39.307222,-76.615556,66,-5,"A"
-6966,"Penn Station","New York","United States","ZYP",\N,40.7505,-73.9935,35,-5,"A"
-6967,"Niau","Niau","French Polynesia","NIU","NTKN",-16.119037,-146.368406,49,-10,"U"
-6968,"Stratton ANGB - Schenectady County Airpor","Scotia NY","United States","SCH","KSCH",42.85245555,-73.928866666,378,-5,"A"
-6969,"Begishevo","Nizhnekamsk","Russia","NBW","UWKE",55.34,52.06,50,3,"E"
-6970,"Bogovarovo","Bogovarovo","Russia","",\N,58.8535,47.0114,100,3,"E"
-6971,"Summit Camp","Greenland Ice Cap","Greenland","","GSUM",72.5795841916667,-38.4591850305556,10552,-2,"N"
-6972,"Warri Airport","Osubi","Nigeria","QRW","DNSU",5.31,5.45,50,1,"U"
-6973,"Volkel","Volkel","Netherlands","","EHVK",51.656389,5.708611,72,1,"E"
-6974,"Sayak Airport","Siargao","Philippines","","RPNS",9.859097,126.014017,10,8,"U"
-6975,"Langeoog Airport","Langeoog","Germany","LGO","EDWL",53.7425,7.49778,7,-1,"E"
-6976,"Fane Airport","Fane","Papua New Guinea","FNE",\N,-8.55,147.083,0,10,"U"
-6977,"Itokama Airport","Itokama","Papua New Guinea","ITK",\N,-9.2,148.25,0,10,"U"
-6978,"Ononge Airport","Ononge","Papua New Guinea","ONB",\N,-8.583,147.2,0,10,"U"
-6979,"Tapini Airport","Tapini","Papua New Guinea","TPI",\N,-8.35,146.983,0,10,"U"
-6980,"Wanigela Airport","Wanigela","Papua New Guinea","AGL",\N,-9.333,149.15,0,10,"U"
-6981,"Woitape Airport","Woitape","Papua New Guinea","WTP",\N,-8.533,147.25,0,10,"U"
-6982,"Awaba Airport","Awaba","Papua New Guinea","AWB",\N,-8,142.75,0,10,"U"
-6983,"Telefomin Airport","Telefomin","Papua New Guinea","TFM",\N,-5.117,141.633,0,10,"U"
-6984,"Kappelen","Biel","Switzerland","","LSZP",47.089167,7.29,1437,1,"E"
-6985,"Nelspruit Airport","Nelspruit","South Africa","NLP","FANS",-25.5,30.9138,2875,2,"U"
-6986,"Cherkassy","Cherkassy","Ukraine","CKC","UKKE",49.416666,32.1333,114,2,"E"
-6987,"Gotska Sandon Heliport","Gotland","Sweden","",\N,58.392393,19.193142,0,1,"E"
-6988,"Lauterhorn","Faro","Sweden","",\N,57.9521,19.0812,0,1,"E"
-6989,"St. Augustine Airport","St. Augustine Airport","United States","UST","KSGJ",29.959167,-81.339722,10,-5,"A"
-6990,"Mykolaiv International Airport","Nikolayev","Ukraine","NLV","UKON",47.0579,31.9198,184,2,"E"
-6991,"Ramechhap","Ramechhap","Nepal","RHP","VNRC",27.394005,86.06144,1555,5.45,"U"
-6992,"Charles M Schulz Sonoma Co","Santa Rosa","United States","STS","KSTS",38.508978,-122.81288,125,-8,"A"
-6993,"Kissimmee Gateway Airport","Kissimmee","United States","ISM","KISM",28.289806,-81.437083,82,-5,"A"
-6994,"Lake City Municipal Airport","Lake City","United States","LCQ","KLCQ",30.181944,-82.576944,201,-5,"A"
-6995,"DeLand Municipal Airport","DeLand","United States","","KDED",29.066944,-81.283889,79,-5,"A"
-6996,"Haller Airpark Airport","Green Cove Springs","United States","","7FL4",29.903021,-81.685923,75,-5,"A"
-6997,"Santa Lucia PNP Airstrip","Santa Lucia","Peru","","SLPA",-8.337041,-76.385733,50,-5,"U"
-6998,"Logan-Cache","Logan","United States","LGU","KLGU",41.791,-111.852,4457,-7,"A"
-6999,"Brigham City","Brigham City","United States","BMC","KBMC",41.552,-112.062,4229,-7,"A"
-7000,"Malad City","Malad City","United States","MLD","KMLD",42.17,-112.289,4503,-7,"A"
-7001,"Aspen Pitkin County Sardy Field","Aspen","United States","ASE","KASE",39.2232,-106.869,7820,-7,"A"
-7002,"Hilton Head","Hilton Head","United States","HHH","KHHH",32.216,-80.752,10,-5,"U"
-7003,"Barataevka","Ulyanovsk","Russia","","UWLL",54.268299,48.2267,463,3,"U"
-7004,"Horog","Horog","Tajikistan","","UTOD",37.5,71.5,2000,4,"U"
-7005,"Sabi Sabi Airport","Sabi Sabi","South Africa","GSS",\N,-24.9415,31.4446,1276,2,"U"
-7006,"Philadelphia 30th St Station","Philadelphia","United States","ZFV",\N,39.9557,-75.182,0,-5,"A"
-7007,"KBWD","Brownwood","United States","BWD",\N,31.7936111,-98.9565,1387,-6,"A"
-7008,"Mexia - Limestone County Airport","Mexia","United States","LXY",\N,31.6411783,-96.5144594,544,-6,"A"
-7009,"Kerrville Municipal Airport","Kerrville","United States","ERV",\N,29.9766667,-99.0854722,1617,-6,"A"
-7010,"Birrfeld","Birrfeld","Switzerland","","LSZF",47.4436,8.23361,1300,1,"E"
-7011,"Sussex Co","Georgetown","United States","GED","KGED",38.689194,-75.358889,50,-5,"A"
-7012,"Seal Cove Seaplane Base","Prince Rupert","Canada","ZSW","CZSW",54.3333,-130.283,0,-8,"A"
-7013,"Great Bend Municipal","Great Bend","United States","GBN","KGBD",38.344167,-98.859167,1887,-5,"A"
-7014,"Hays Regional Airport","Hays","United States","HYS","KHYS",38.8422,-99.2732,1998,-5,"A"
-7015,"Spirit Of St Louis","Null","United States","SUS","KSUS",38.662119,-90.652044,463,-7,"A"
-7016,"Ely Municipal","Ely","United States","LYU","KELO",47.824444,-91.830833,1456,-6,"A"
-7017,"Grand Rapids Itasca County","Grand Rapids MN","United States","GPZ","KGPZ",47.211111,-93.509722,413,-6,"A"
-7018,"Thief River Falls","Thief River Falls","United States","TVF","KTVF",48.065556,-96.185,1116,-6,"A"
-7019,"Eagle River","Eagle River","United States","EGV","KEGV",45.932333,-89.268283,1642,-6,"A"
-7020,"Lakeland","Minocqua - Woodruff","United States","ARV","KARV",45.927778,-89.730833,1629,-6,"A"
-7021,"Ankeny Regl Airport","Ankeny","United States","IKV","KIKV",41.691389,-93.566389,910,-6,"A"
-7022,"Berens River","Berens River","Canada","YBV","CYBV",52.358889,-97.018333,728,-6,"A"
-7023,"Corpus Christi NAS","Corpus Christi","United States","NGP","KNGP",27.692701,-97.290376,18,-6,"A"
-7024,"Seaplane Base","Port Simpson","Canada","YPI","CYPI",54.566667,-130.433333,0,-8,"A"
-7025,"Avalon","Catalina Island","United States","AVX","KAVX",33.405,-118.415833,1602,-8,"A"
-7026,"Mojave","Mojave","United States","MHV","KMHV",35.059364,-118.151856,2791,-8,"A"
-7027,"Air Base","Interlaken","Switzerland","ZIN","LSMI",46.6766,7.87908,1893,1,"E"
-7028,"Kenmore Air Harbor Inc Seaplane Base","Kenmore","United States","KEH",\N,47.7548,-122.259,14,-8,"A"
-7029,"Municipal","Corozal","Belize","CZH",\N,18.3822,-88.4119,40,-6,"N"
-7030,"Inisheer","Inisheer","Ireland","INQ","EIIR",53.0647,-9.5109,40,0,"E"
-7031,"Winterlandeplatz","Maennlichen","Switzerland","",\N,46.610833,7.9425,7297,1,"E"
-7032,"Paketzentrum","Ostermundigen","Switzerland","",\N,46.963,7.482,1854,1,"E"
-7033,"Strezhevoy","Strezhevoy","Russia","SWT","UNSS",60.716667,77.65,164,6,"E"
-7034,"Cashel","Cashel","Ireland","",\N,52.5158333,-7.8855556,440,0,"U"
-7035,"Hutchinson Municipal Airport","Hutchinson","United States","HUT","KHUT",38.0655,-97.8606,1543,-6,"A"
-7036,"Bagram AFB","Kabul","Afghanistan","BPM","OAIX",34.5646,69.1554,4895,4.5,"U"
-7037,"Al Kharj AFB","Al Kharj","Saudi Arabia","","OEPS",24.0346,47.345,1651,3,"N"
-7038,"Eagle County Airport","Eagle","United States","EGA",\N,39.6427611,-106.9159347,6548,-7,"U"
-7039,"Oak Lawn Train Station","Oak Lawn","United States","",\N,41.7198242969588,-87.7488327026367,500,-7,"U"
-7040,"Wrigleyville","Chicago","United States","",\N,41.948958067066,-87.6587533950806,500,-7,"U"
-7041,"Gelendzik","Gelendzik","Russia","GDZ",\N,44.566666666667,38.016666666667,50,3,"E"
-7042,"Rosecrans Mem","Rosecrans","United States","STJ","KSTJ",39.771944,-94.909706,826,-6,"A"
-7043,"Hartford Union Station","Hartford","United States","ZRT",\N,41.76888,-72.6815,0,-5,"A"
-7044,"Stamford Amtrak Station","Stamford","United States","ZTF",\N,41.046937,-73.541493,0,-5,"A"
-7045,"Newark Penn Station","Newark","United States","ZRP",\N,40.734722,-74.164167,0,-5,"A"
-7046,"Papa Airport","Papa","Hungary","","LHPA",47.3636,17.5008,466,2,"E"
-7047,"Cuxhaven Airport","Cuxhaven","Germany","NDZ","KNDZ",53.768612,8.644722,75,1,"E"
-7048,"Volk Fld","Camp Douglas","United States","VOK","KVOK",43.938956,-90.253433,912,-6,"A"
-7049,"BFT County Airport","Beauford","United States","BFT","KBFT",32.41083,-80.635,500,-5,"A"
-7050,"Adana-Incirlik Airbase","Adana","Turkey","UAB","KUAB",37.00028,35.41833,500,2,"E"
-7051,"Gunnison - Crested Butte","Gunnison","United States","GUC","KGUC",38.533889,-106.933056,7678,-7,"A"
-7052,"Xi\\'An Xiguan","Xi\\'AN","China","SIA","ZLSN",34.3767,109.12,0,8,"U"
-7053,"Zamperini Field Airport","Torrance","United States","TOA","KTOA",33.803392,-118.339611,101,-8,"A"
-7054,"Manistee County-Blacker Airport","Manistee","United States","MBL","KMBL",44.2725,-86.246944,621,-5,"A"
-7055,"Hickam Air Force Base","Honolulu","United States","","PHIK",21.318681,-157.922428,13,-10,"N"
-7056,"Charlotte County-Punta Gorda Airport","Punta Gorda","United States","PGD","KPGD",26.919722,-81.990556,26,-5,"A"
-7057,"Grand Canyon Heliport","Grand Canyon","United States","JGC",\N,35.96666666,-112.13333333,2500,-8,"A"
-7058,"Northern Aroostook Regional Airport","Frenchville","United States","WFK","KFVE",47.285556,-68.312778,988,-5,"A"
-7059,"Chautauqua County-Jamestown","Jamestown","United States","JHW","KJHW",42.153333,-79.258056,525,-5,"A"
-7060,"Riviere Rouge - Mont-Tremblant International Inc. Airport","Mont-Tremblant","Canada","YTM","CYFJ",46.409444,-74.78,827,-5,"A"
-7061,"Lake Cumberland Regional Airport","Somerset","United States","SME","KSME",37.053611,-84.615556,927,-5,"A"
-7062,"Shenandoah Valley Regional Airport","Weyers Cave","United States","SHD","KSHD",38.263889,-78.896389,1201,-5,"A"
-7063,"Devils Lake Regional Airport","Devils Lake","United States","DVL","KDVL",48.114444,-98.908611,1445,-6,"A"
-7064,"Dickinson Theodore Roosevelt Regional Airport","Dickinson","United States","DIK","KDIK",46.7975,-102.801944,2592,-5,"A"
-7065,"Sidney-Richland Municipal Airport","Sidney","United States","SDY","KSDY",47.706944,-104.1925,1984,-7,"A"
-7066,"Chadron Municipal Airport","Chadron","United States","CDR","KCDR",42.8375,-103.095556,3297,-7,"A"
-7067,"Alliance Municipal Airport","Alliance","United States","AIA","KAIA",42.053333,-102.803889,3931,-7,"A"
-7068,"McCook Regional Airport","McCook","United States","MCK","KMCK",40.206389,-100.592222,2583,-6,"A"
-7069,"Florida Keys Marathon Airport","Marathon","United States","MTH","KMTH",24.726111,-81.051389,7,-5,"A"
-7070,"Dawson Community Airport","Glendive","United States","GDV","KGDV",47.138611,-104.807222,749,-7,"A"
-7071,"LM Clayton Airport","Wolf Point","United States","OLF","KOLF",48.094444,-105.575,1986,-7,"A"
-7072,"Yellowstone Airport","West Yellowstone","United States","WYS","KWYS",44.688333,-111.1175,6644,-7,"A"
-7073,"San Luis Valley Regional Airport","Alamosa","United States","ALS","KALS",37.435,-105.866667,7539,-7,"A"
-7074,"Canyonlands Field","Moab","United States","CNY","KCNY",38.755,-109.754722,4555,-7,"A"
-7075,"Ely Airport","Ely","United States","ELY","KELY",39.299722,-114.841944,6259,-8,"A"
-7076,"Vernal Regional Airport","Vernal","United States","VEL","KVEL",40.440833,-109.51,5278,-7,"A"
-7077,"Sierra Blanca Regional Airport","Ruidoso","United States","SRR","KSRR",33.46285,-105.534751,6814,-7,"A"
-7078,"Show Low Regional Airport","Show Low","United States","SOW","KSOW",34.265556,-110.005556,6415,-7,"A"
-7079,"McCall Municipal Airport","McCall","United States","MYL","KMYL",44.889722,-116.101389,5021,-7,"A"
-7080,"Lemhi County Airport","Salmon","United States","SMN","KSMN",45.123889,-113.881389,4043,-7,"A"
-7081,"Mammoth Yosemite Airport","Mammoth Lakes","United States","MMH","KMMH",37.624049,-118.837772,7128,-8,"A"
-7082,"Friday Harbor Airport","Friday Harbor","United States","FRD","KFHR",48.521944,-123.024444,113,-8,"A"
-7083,"Orcas Island Airport","Eastsound","United States","ESD","KORS",48.708056,-122.910556,31,-8,"A"
-7084,"Anacortes Airport","Anacortes","United States","OTS",\N,48.498889,-122.6625,241,-8,"A"
-7085,"Astoria Regional Airport","Astoria","United States","AST","KAST",46.157972,-123.878694,15,-8,"A"
-7086,"Newport Municipal Airport","Newport","United States","ONP","KNOP",44.580361,-124.057917,160,8,"A"
-7087,"Emmonak Airport","Emmonak","United States","EMK","PAEM",62.786111,-164.490833,13,-9,"A"
-7088,"Unalakleet Airport","Unalakleet","United States","UNK","PAUN",63.888333,-160.798889,21,-9,"A"
-7089,"Ugnu-Kuparuk Airport","Kuparuk","United States","UUK","PAKU",70.330833,-149.5975,67,-9,"A"
-7090,"Shageluk Airport","Shageluk","United States","SHX","PAHX",62.692222,-159.569167,79,-9,"A"
-7091,"Chuathbaluk Airport","Chuathbaluk","United States","CHU","PACH",61.579167,-159.215556,243,-9,"A"
-7092,"Nuiqsut Airport","Nuiqsut","United States","NUI","PAQT",70.21,-151.005556,38,-9,"A"
-7093,"Eek Airport","Eek","United States","EEK","PAEE",60.213611,-162.043889,15,-9,"A"
-7094,"Kasigluk Airport","Kasigluk","United States","KUK","PFKA",60.873333,-162.524444,40,-9,"A"
-7095,"Kwethluk Airport","Kwethluk","United States","KWT","PFKW",60.790278,-161.443611,30,-9,"A"
-7096,"Kwigillingok Airport","Kwigillingok","United States","KWK","PAGG",59.876389,-163.168611,18,-9,"A"
-7097,"Marshall Don Hunter Sr. Airport","Marshall","United States","MLL","PADM",61.8646418,-162.026111,103,-9,"A"
-7098,"Russian Mission Airport","Russian Mission","United States","RSH","PARS",61.775,-161.319444,51,-9,"A"
-7099,"Tuntutuliak Airport","Tuntutuliak","United States","WTL",\N,60.335278,-162.666944,16,-9,"A"
-7100,"Ekwok Airport","Ekwok","United States","KEK",\N,59.356944,-157.471111,135,-9,"A"
-7101,"Koliganek Airport","Koliganek","United States","KGK","PAJZ",59.726667,-157.259444,269,-9,"A"
-7102,"Levelock Airport","Levelock","United States","KLL",\N,59.128056,-156.858611,39,-9,"A"
-7103,"Manokotak Airport","Manokotak","United States","KMO","PAMB",58.990278,-159.05,51,-9,"A"
-7104,"Twin Hills Airport","Twin Hills","United States","TWA",\N,59.074444,-160.275,82,-9,"A"
-7105,"Chalkyitsik Airport","Chalkyitsik","United States","CIK","PACI",66.645,-143.74,544,-9,"A"
-7106,"Eagle Airport","Eagle","United States","EAA","PAEG",64.778056,-141.149722,908,-9,"A"
-7107,"Hughes Airport","Hughes","United States","HUS","PAHU",66.039167,-154.264722,299,-9,"A"
-7108,"Huslia Airport","Huslia","United States","HSL","PAHL",65.697778,-156.351389,213,-9,"A"
-7109,"Livingood Airport","Livingood","United States","LIV",\N,65.531111,-148.541111,696,-9,"A"
-7110,"Minto Airport","Minto","United States","MNT",\N,65.143611,-149.37,460,-9,"A"
-7111,"Nulato Airport","Nulato","United States","NUL","PANU",64.729444,-158.074167,399,-9,"A"
-7112,"Rampart Airport","Rampart","United States","RMP",\N,65.507778,-150.140833,302,-9,"A"
-7113,"Tanana Airport","Tanana","United States","TAL",\N,65.179556,-152.075833,207,-9,"A"
-7114,"Venetie Airport","Venetie","United States","VEE","PAVE",67.008611,-146.366389,574,-9,"A"
-7115,"Beaver Airport","Beaver","United States","WBQ","PAWB",66.362222,-147.406667,359,-9,"A"
-7116,"Central Airport","Central","United States","CEM","PACE",65.573889,-144.780833,937,-9,"A"
-7117,"Shungnak Airport","Shungnak","United States","SHG","PAGH",66.888056,-157.1625,197,-9,"A"
-7118,"Birch Creek Airport","Brich Creek","United States","KBC",\N,66.256708,-145.815319,450,-9,"A"
-7119,"Coldfoot Airport","Coldfoot","United States","CXF",\N,67.251389,-150.176111,1014,-9,"A"
-7120,"Inyokern Airport","Inyokern","United States","IYK","KIYK",35.658889,-117.829444,2455,-8,"A"
-7121,"Visalia Municipal Airport","Visalia","United States","VIS","KVIS",36.318611,-119.392778,295,-8,"A"
-7122,"Merced Municipal Airport","Merced","United States","MCE","KMCE",37.284722,-120.513889,156,-8,"A"
-7123,"Laguna de Los Patos International Airport","Colonia","Uruguay","CYR","SUCA",-34.4564,-57.7706,66,-4,"U"
-7124,"Camelo","Camelo","Uruguay","","SULO",-33.963882,-58.288612,10,-4,"U"
-7125,"Amarais Airport","Campinas","Brazil","CPQ","SDAM",-22.8592,-47.1082,2008,-4,"U"
-7126,"Phoenix Goodyear","Goodyear","United States","","KGYR",33.423725,-112.374456,968,-7,"N"
-7127,"Park City","Park City","United States","",\N,40.659444,-111.4997222,7000,-7,"U"
-7128,"Tawoomba","Tawoomba","Australia","TWB","YTWB",-27.542778,151.916389,2086,10,"N"
-7129,"Ballera","Ballera","Australia","","YLLE",-27.408333,141.808333,385,10,"N"
-7130,"Gatton","Gatton","Australia","","YGAT",-27.5583000183105,152.341995239258,400,10,"N"
-7131,"Arkalyk Airport","Arkalyk","Kazakhstan","AYK","UAUR",50.2395,66.941,1152,5,"U"
-7132,"Hamburger Hafen","Hamburg","Germany","","ZZ06",53.542369,9.981592,0,1,"E"
-7133,"Flugplatz Fehmarn-Neujellingsdorf","Neujellingsdorf","Germany","","ZZ05",54.455802,11.109273,0,1,"E"
-7134,"Nabern Teck","Kirchheim-Teck","Germany","","EDTN",48.3676,9.2863,1215,1,"E"
-7135,"Angoon Seaplane Base","Angoon","United States","AGN","PAGN",57.503611,-134.585,0,-9,"A"
-7136,"Elfin Cove Seaplane Base","Elfin Cove","United States","ELV","PAEL",58.195278,-136.3475,0,-9,"A"
-7137,"Tenakee Seaplane Base","Tenakee Springs","United States","TKE",\N,57.779722,-135.218333,0,-9,"A"
-7138,"Pelican Seaplane Base","Pelican","United States","PEC",\N,57.955278,-136.236389,0,-9,"A"
-7139,"Chatham Seaplane Base","Sitka","United States","CYM",\N,57.515,-134.946111,0,-9,"A"
-7140,"Funter Bay Seaplane Base","Funter Bay","United States","FNR","PANR",58.254444,-134.897778,0,-9,"A"
-7141,"Excursion Inlet Seaplane Base","Excursion Inlet","United States","EXI",\N,58.420556,-135.449167,0,-9,"A"
-7142,"Hoonah Airport","Hoonah","United States","HNH","PAOH",58.096111,-135.409722,19,-9,"A"
-7143,"Kake Airport","Kake","United States","AFE","PAFE",56.961389,-133.910278,172,-9,"A"
-7144,"Craig Seaplane Base","Craig","United States","CGA",\N,55.478889,-133.147778,0,-9,"A"
-7145,"Hollis Seaplane Base","Hollis","United States","HYL",\N,55.481667,-132.646111,0,-9,"A"
-7146,"Metlakatla Seaplane Base","Metakatla","United States","MTM","PAMM",55.131111,-131.578056,0,-9,"A"
-7147,"Thorne Bay Seaplane Base","Thorne Bay","United States","KTB",\N,55.688056,-132.536667,0,-9,"A"
-7148,"Hydaburg Seaplane Base","Hydaburg","United States","HYG","PAHY",55.206389,-132.828333,0,-9,"A"
-7149,"Hyder Seaplane Base","Hyder","United States","WHD",\N,55.903333,-130.006667,0,-9,"A"
-7150,"Point Baker Seaplane Base","Point Baker","United States","KPB",\N,56.351944,-133.6225,0,-9,"A"
-7151,"Port Protection Seaplane Base","Port Protection","United States","PPV",\N,56.328889,-133.61,0,-9,"A"
-7152,"North Whale Seaplane Base","North Whale Pass","United States","WWP",\N,56.116389,-133.121667,0,-9,"A"
-7153,"Chignik Lake Airport","Chignik Lake","United States","KCQ",\N,56.255,-158.775278,50,-9,"A"
-7154,"Egegik Airport","Egegik","United States","EGX","PAII",58.185556,-157.375556,92,-9,"A"
-7155,"Chignik Lagoon Airport","Chignik Lagoon","United States","KCL",\N,56.311111,-158.534167,25,-9,"A"
-7156,"Chignik Bay Seaplane Base","Chignik","United States","KBW",\N,56.295556,-158.401398,0,-9,"A"
-7157,"Perryville Airport","Perryville","United States","KPV","PAPE",55.906667,-159.160833,29,-9,"A"
-7158,"Pilot Point Airport","Pilot Point","United States","PIP","PAPN",57.585393,-157.571944,57,-9,"A"
-7159,"South Naknek Airport","South Naknek","United States","WSN","PFWS",58.702222,-157.0025,162,-9,"A"
-7160,"Akhiok Airport","Akhiok","United States","AKK","PAKH",56.938611,-154.1825,44,-9,"A"
-7161,"Karuluk Airport","Karluk","United States","KYK","PAKY",57.566944,-154.450278,137,-9,"A"
-7162,"Larsen Bay Airport","Larsen Bay","United States","KLN","PALB",57.535,-153.976667,87,-9,"A"
-7163,"Old Harbor Airport","Old Harbor","United States","OLH",\N,57.218056,-153.269722,55,-9,"A"
-7164,"Ouzinkie Airport","Ouzinkie","United States","KOZ",\N,57.922876,-152.500511,55,-9,"A"
-7165,"Port Lions Airport","Port Lions","United States","ORI",\N,57.885278,-152.846111,52,-9,"A"
-7166,"Alitak Seaplane Base","Lazy Bay","United States","ALZ",\N,56.899444,-154.247778,0,-9,"A"
-7167,"Amook Bay Seaplane Base","Amook Bay","United States","AOS",\N,57.471389,-153.815278,0,-9,"A"
-7168,"Kitoi Bay Seaplane Base","Kitoi Bay","United States","KKB",\N,58.190833,-152.370556,0,-9,"A"
-7169,"Moser Bay Seaplane Base","Moser Bay","United States","KMY",\N,57.025556,-154.145833,0,-9,"A"
-7170,"Olga Bay Seaplane Base","Olga Bay","United States","KOY",\N,57.161389,-154.229722,0,-9,"A"
-7171,"Port Bailey Seaplane Base","Port Bailey","United States","KPY",\N,57.93,-153.040556,0,-9,"A"
-7172,"Port Williams Seaplane Base","Port Williams","United States","KPR",\N,58.49,-152.582222,0,-9,"A"
-7173,"Seal Bay Seaplane Base","Seal Bay","United States","SYB",\N,58.166667,-152.5,0,-9,"A"
-7174,"San Juan - Uganik Seaplane Base","San Juan","United States","WSJ",\N,57.730278,-153.320556,0,-9,"A"
-7175,"West Point Village Seaplane Base","West Point","United States","KWP",\N,57.77,-153.548889,0,-9,"A"
-7176,"Zachar Bay Seaplane Base","Zachar Bay","United States","KZB",\N,57.55,-153.75,0,-9,"A"
-7177,"Ambler Airport","Ambler","United States","ABL","PAFM",67.106389,-157.8575,334,-9,"A"
-7178,"Buckland Airport","Buckland","United States","BKC","PABL",65.981667,-161.149167,31,-9,"A"
-7179,"Bob Baker Memorial Airport","Kiana","United States","IAN","PAIK",66.975833,-160.436667,166,-9,"A"
-7180,"Kobuk Airport","Kobuk","United States","OBU","PAOB",66.912222,-156.897222,137,-9,"A"
-7181,"Robert Curtis Memorial Airport","Noorvik","United States","ORV","PFNO",66.8175,-161.022222,55,-9,"A"
-7182,"Selawik Airport","Selawik","United States","WLK","PASK",66.6,-159.985833,17,-9,"A"
-7183,"Brevig Mission Airport","Brevig Mission","United States","KTS","PFKT",65.331389,-166.465833,35,-9,"A"
-7184,"Elim Airport","Elim","United States","ELI","PFEL",64.615,-162.270556,162,-9,"A"
-7185,"Golovin Airport","Golovin","United States","GLV","PAGL",64.550556,-163.007222,59,-9,"A"
-7186,"Teller Airport","Teller","United States","TLA","PATE",65.240278,-166.339444,294,-9,"A"
-7187,"Wales Airport","Wales","United States","WAA","PAIW",65.6225,-168.095,22,-9,"A"
-7188,"White Mountain Airport","White Mountain","United States","WMO","PAWM",64.689167,-163.412778,267,-9,"A"
-7189,"Council Airport","Council","United States","CIL",\N,64.897778,-163.703333,85,-9,"A"
-7190,"Koyuk Alfred Adams Airport","Koyuk","United States","KKA","PAKK",64.939444,-161.154167,154,-9,"A"
-7191,"St. Michael Airport","St. Michael","United States","SMK","PAMK",63.49,-162.110278,98,-9,"A"
-7192,"Shaktoolik Airport","Shaktoolik","United States","SKK","PFSH",64.371111,-161.223889,24,-9,"A"
-7193,"Stebbins Airport","Stebbins","United States","WBB",\N,63.515833,-162.278056,14,-9,"A"
-7194,"Tin City LRRS Airport","Tin City","United States","TNC","PATC",65.563056,-167.921667,269,-9,"A"
-7195,"Atka Airport","Atka","United States","AKB","PAAK",52.220278,-174.206389,56,-9,"A"
-7196,"Nikolski Air Station","Nikolski","United States","IKO","PAKO",52.941667,-168.848889,77,-9,"A"
-7197,"Icy Bay Airport","Icy Bay","United States","ICY",\N,59.968889,-141.661667,50,-9,"A"
-7198,"Yakataga Airport","Yakataga","United States","CYT","PACY",60.081901,-142.493611,12,-9,"A"
-7199,"Alakanuk Airport","Alakanuk","United States","AUK","PAUK",62.68,-164.66,10,-9,"A"
-7200,"Sheldon Point Airport","Nunam Iqua","United States","SXP",\N,62.520556,-164.847778,12,-9,"A"
-7201,"Kipnuk Airport","Kipnuk","United States","KPN","PAKI",59.933056,-164.030556,11,-9,"A"
-7202,"False Pass Airport","False Pass","United States","KFP","PAKF",54.8475,-163.410278,20,-9,"A"
-7203,"Nelson Lagoon","Nelson Lagoon","United States","NLG","PAOU",56.0075,-161.160278,14,-9,"A"
-7204,"Port Moller Airport","Cold Bay","United States","PML","PAAL",56.006111,-160.560833,20,-9,"A"
-7205,"Klawock Airport","Klawock","United States","KLW","PAKW",55.579167,-133.076111,80,-9,"A"
-7206,"Quinhagak Airport","Quinhagak","United States","KWN","PAQH",59.755,-161.845278,42,-9,"A"
-7207,"Kotlik Airport","Kotlik","United States","KOT","PFKO",63.030556,-163.532778,15,-9,"A"
-7208,"Koyukuk Airport","Koyukuk","United States","KYU","PFKU",64.875833,-157.730556,149,-9,"A"
-7209,"Scammon Bay Airport","Scammon Bay","United States","SCM","PACM",61.845278,-165.571389,14,-9,"A"
-7210,"Nondalton Airport","Nondalton","United States","NNL","PANO",59.966944,-154.851667,262,-9,"A"
-7211,"Pedro Bay Airport","Pedro Bay","United States","PDB",\N,59.782222,-154.1325,45,-9,"A"
-7212,"Nunapitchuk Airport","Nunapitchuk","United States","NUP",\N,60.905833,-162.439167,12,-9,"A"
-7213,"Kongiganak Airport","Kongiganak","United States","KKH","PADY",59.960833,-162.881111,30,-9,"A"
-7214,"Nikolai Airport","Nikolai","United States","NIB","PAFS",63.010833,-154.383889,427,-9,"A"
-7215,"Takotna Airport","Takotna","United States","TCT",\N,62.971944,-156.082778,825,-9,"A"
-7216,"Pilot Station Airport","Pilot Station","United States","PQS",\N,61.934444,-162.899444,305,-9,"A"
-7217,"Akiak Airport","Akiak","United States","AKI","PFAK",60.902778,-161.230556,30,-9,"A"
-7218,"Tuluksak Airport","Tuluksak","United States","TLT",\N,61.096944,-160.969444,30,-9,"A"
-7219,"Grayling Airport","Grayling","United States","KGX",\N,62.894444,-160.065,99,-9,"A"
-7220,"Wainwright Airport","Wainwright","United States","AIN","PAWI",70.638056,-159.994722,41,-9,"A"
-7221,"ZAPALA","ZAPALA","Argentina","APZ","SAHZ",-38.9755,-70.113581,3330,-3,"S"
-7222,"Rincon de los Sauces","Rincon de los Sauces","Argentina","RDS",\N,-37.390617,-68.904211,1969,-3,"S"
-7223,"Colonia Sarmiento","Colonia Sarmiento","Argentina","OLN",\N,-45.6,-69.083333,849,-3,"S"
-7224,"Grytvyken","Grytvyken","South Georgia and the Islands","",\N,-54.276667,-36.511667,538,-2,"S"
-7225,"Rio Turbio","Rio Turbio","Argentina","RYO",\N,-51.533333,-72.3,1158,-3,"S"
-7226,"Puerto Natales","Puerto Natales","Chile","PNT","SCNT",-51.733333,-72.516667,9,-3,"S"
-7227,"Caleta Olivia","Caleta Olivia","Argentina","CVI",\N,-46.4333,-67.5333,124,-3,"S"
-7228,"Fitz Roy","El Chalten","Argentina","",\N,-47.033333,-67.25,757,-3,"S"
-7229,"Sierra Grande","Sierra Grande","Argentina","SGV","SAVS",-41.6,-65.366667,820,-3,"S"
-7230,"Ingeniero Jacobacci","Ingeniero Jacobacci","Argentina","IGB","SAVJ",-41.3,-69.5833,2936,-3,"S"
-7231,"Lago Posadas","Lago Posadas","Argentina","",\N,-47.533333,-71.75,748,-3,"S"
-7232,"El Chalten","El Chalten","Argentina","ELX",\N,-49.328889,-72.93,1279,-3,"S"
-7233,"Chenega Bay Airport","Chenega","United States","NCN","PFCB",60.077222,-147.991944,72,-9,"A"
-7234,"Chisana Airport","Chisana","United States","CZN",\N,62.071111,-142.048333,1011,-9,"A"
-7235,"Tok Junction Airport","Tok","United States","6K8","PFTO",63.329444,-142.953611,1639,-9,"A"
-7236,"Circle City Airport","Circle","United States","IRC","PACR",65.827778,-144.076111,613,-9,"A"
-7237,"Coffman Cove Seaplane Base","Coffman Cove","United States","KCC",\N,56.014722,-132.833889,0,-9,"A"
-7238,"Crooked Creek Airport","Crooked Creek","United States","CKD",\N,61.867778,-158.135,178,-9,"A"
-7239,"Red Devil Airport","Red Devil","United States","RDV",\N,61.788056,-157.350278,174,-9,"A"
-7240,"Sleetmute Airport","Sleetmute","United States","SLQ","PASL",61.700566,-157.165833,190,-9,"A"
-7241,"Stony River 2 Airport","Stony River","United States","SRV",\N,61.7875,-156.591111,230,-9,"A"
-7242,"Healy River Airport","Healy","United States","HKB","PAHV",63.8675,-148.968889,1263,-9,"A"
-7243,"Kake Seaplane Base","Kake","United States","KAE",\N,56.973056,-133.945556,0,-9,"A"
-7244,"Klawock Seaplane Base","Klawock","United States","AQC","PAQC",55.554658,-133.101693,0,-9,"A"
-7245,"Minchumina Airport","Lake Minchumina","United States","MHM","PAMH",63.886111,-152.301944,678,-9,"A"
-7246,"Manley Hot Springs Airport","Manley Hot Springs","United States","MLY","PAML",64.9975,-150.644167,270,-9,"A"
-7247,"St. George Airport","St. George","United States","STG",\N,56.577222,-169.663611,125,-9,"A"
-7248,"Tatitlek Airport","Tatitlek","United States","TEK",\N,60.8725,-146.691111,62,-9,"A"
-7249,"Ketchikan harbor Seaplane Base","Ketchikan","United States","WFB",\N,55.344444,-131.663333,0,-9,"A"
-7250,"Fox Harbour Airport","Fox Harbour","Canada","",\N,45.87,-63.461111,62,-4,"A"
-7251,"Natuashish Airport","Natuashish","Canada","","CNH2",55.913889,-61.184444,33,-4,"A"
-7252,"Postville Airport","Postville","Canada","YSO","CCD4",54.910278,-59.785278,223,-4,"A"
-7253,"Kangiqsujuaq - Wakeham Bay Airport","Kangiqsujuaq","Canada","YWB","CYKG",61.588611,-71.929444,501,-6,"A"
-7254,"Alma Airport","Alma","Canada","YTF","CYTF",48.508611,-71.641389,449,-6,"A"
-7255,"Havre Saint-Pierre Airport","Havre-Saint-Pierre","Canada","YGV","CYGV",50.281944,-63.611389,124,-4,"A"
-7256,"Rimouski Airport","Rimouski","Canada","YXK","CYXK",48.478056,-68.496944,82,-6,"A"
-7257,"Vakarufahli Island","Vakarufahli Island","Maldives","",\N,3.578742,72.902075,0,4.5,"U"
-7258,"Vakarufalhi Island","Vakarufalhi Island","Maldives","",\N,3.578742,72.902075,0,4.5,"N"
-7259,"Tadoule Lake Airport","Tadoule Lake","Canada","XTL","CYBQ",58.706111,-98.512222,923,-7,"A"
-7260,"Lac Brochet Airport","Lac Brochet","Canada","XLB","CZWH",58.614167,-101.468889,1212,-6,"A"
-7261,"South Indian Lake Airport","South Indian Lake","Canada","XSI","CZSN",56.792778,-98.907222,951,-7,"A"
-7262,"Brochet Airport","Brochet","Canada","YBT","CYBT",57.889444,-101.679167,1131,-7,"A"
-7263,"Little Grand Rapids Airport","Little Grand Rapids","Canada","ZGR","CZGR",52.045,-95.466111,1008,-7,"A"
-7264,"Cross Lake - Charlie Sinclair Memorial Airport","Cross Lake","Canada","YCR","CYCR",54.610833,-97.760278,707,-7,"A"
-7265,"Red Sucker Lake Airport","Red Sucker Lake","Canada","YRS","CYRS",54.167222,-93.557222,729,-7,"A"
-7266,"Rainbow Lake Airport","Rainbow Lake","Canada","YOP","CYOP",58.491389,-119.407778,1756,-7,"A"
-7267,"Bonnyville Airport","Bonnyville","Canada","YBY","CYBF",54.304722,-110.741111,1839,-7,"A"
-7268,"Nanaimo Harbour Water Airport","Nanaimo","Canada","ZNA","CAC8",49.183333,-123.95,0,-8,"A"
-7269,"Ganges Water Aerodrome","Ganges","Canada","","CAX6",48.85,-123.5,0,-8,"A"
-7270,"Bedwell Harbour Water Aerdrome","Bedwell Harbour","Canada","",\N,48.75,-123.233333,0,-8,"A"
-7271,"Qualicum Beach Airport","Qualicum Beach","Canada","XQU",\N,49.337222,-124.393889,191,-8,"A"
-7272,"Fort St. James - Perison Airport","Fort St. James","Canada","YJM","CYJM",54.397222,-124.262778,2364,-8,"A"
-7273,"Boundary Bay Airport","Boundary Bay","Canada","YDT","CZBB",49.073889,-123.0075,6,-8,"A"
-7274,"Langley Regional Airport","Langley Township","Canada","","CYNJ",49.101111,-122.630556,34,-8,"A"
-7275,"Bella Bella Airport","Bella Bella","Canada","ZEL","CYJQ",52.139722,-128.063611,162,-8,"A"
-7276,"Sechelt Aerodrome","Sechelt-Gibsons","Canada","YHS",\N,49.460556,-123.718611,250,-8,"A"
-7277,"Wekweeti Airport","Wekweeti","Canada","","CFJ2",64.190833,-114.076667,1206,-7,"A"
-7278,"Campo Cuatro Milpas Airport","Guasave","Mexico","","MM52",25.651944,-108.538056,72,-6,"A"
-7279,"Isla de Cedros Airport","Cedros","Mexico","","MMCD",28.0375,-115.189444,98,-8,"A"
-7280,"Cabo San Lucas International Airport","Cabo San Lucas","Mexico","","MMSL",22.9475,-109.937081,459,-7,"A"
-7281,"Bahia Tortugas Airfield","Bahia Tortugas","Mexico","",\N,27.705278,-114.911111,102,-7,"A"
-7282,"Palo Verde Airport","San Bruno","Mexico","PVP",\N,27.093056,-112.098889,55,-7,"A"
-7283,"Ziyaraifushi","Ziyaraifushi","Maldives","",\N,4.531313889,73.373325,0,-4,"U"
-7284,"Brussels Gare du Midi","Brussels","Belgium","ZYR",\N,50.8,4.4,180,1,"E"
-7285,"Caye Chapel Airport","Caye Chapel","Belize","CYC",\N,17.683611,-88.045,10,-6,"U"
-7286,"Big Creek Airport","Big Creek","Belize","BGK",\N,16.516667,-88.416667,16,-6,"U"
-7287,"Dangriga Airport","Dangriga","Belize","DGA",\N,16.966667,-88.216667,10,-6,"U"
-7288,"Placencia Airport","Placencia","Belize","PLJ",\N,16.536944,-88.361667,42,-6,"U"
-7289,"Sartaneja Airport","Sarteneja","Belize","SJX",\N,18.355556,-88.130833,10,-6,"U"
-7290,"Huehuetenango Airport","Huehuetenango","Guatemala","",\N,15.314722,-91.476111,1901,-6,"U"
-7291,"Corn Island Airport","Corn Island","Nicaragua","RNI","MNCI",12.168611,-83.0675,26,-6,"U"
-7292,"Bonanza Airport","Bonanza","Nicaragua","BZA","MNBZ",14.041667,-84.630556,597,-6,"U"
-7293,"Rosita Airport","Rosita","Nicaragua","RFS","MNRT",13.897222,-84.404722,207,-6,"U"
-7294,"Siuna Airport","Siuna","Nicaragua","SIU","MNSI",13.716667,-84.776944,480,-6,"U"
-7295,"Waspam Airport","Waspam","Nicaragua","WSP","MNWP",14.737778,-83.975833,115,-6,"U"
-7296,"San Carols Airport","San Carlos","Nicaragua","","MNSC",11.133333,-84.783333,131,-6,"U"
-7297,"Carrillo Airport","Carrillo","Costa Rica","RIK","MRCR",9.866667,-85.483333,10,-6,"U"
-7298,"Fussen","Fussen","Germany","FUS","FUSS",47.585,10.6866,800,1,"U"
-7299,"John A. Osborne Airport","Montserrat","Montserrat","",\N,16.791389,-62.193333,550,-4,"U"
-7300,"Monte Plata Batley Juan Sanchez Field","Monte Plata","Dominican Republic","","MDJS",18.81,-69.79,1424,-4,"U"
-7301,"Constanza Airport","Constanza","Dominican Republic","COZ","MDCZ",18.907626,-70.719852,3931,-4,"U"
-7302,"Negril Aerodrome","Negril","Jamaica","NEG","MKNG",18.34,-78.335556,9,-5,"U"
-7303,"Bochum Railway","Bochum","Germany","EBO",\N,51.478506,7.222781,45,1,"U"
-7304,"Fliegerhost ","Kaufbeuren","Germany","KFB",\N,47.874,10.6294,680,1,"U"
-7305,"Munich Railway","Munich","Germany","ZMU",\N,48.1408,11.555,500,1,"U"
-7306,"Nuernberg Railway","Nuernberg","Germany","ZAQ",\N,49.446389,11.081944,312,1,"U"
-7307,"Jose Aponte de la Torre Airport","Ceiba","Puerto Rico","RVR","TJRV",18.245278,-65.643333,38,-4,"A"
-7308,"Aeropuerto Internacional Valle del Conlara","Merlo","Argentina","RLO",\N,-32.349803,-65.179932,100,-3,"S"
-7309,"Charlotte Amalie Harbor","Charlotte Amalie","Virgin Islands","","VI22",18.338611,-64.940833,0,-4,"A"
-7310,"Christiansted Harbor Seaplane Base","Christiansted","Virgin Islands","SSB",\N,17.747222,-64.705,0,-4,"A"
-7311,"Alto Rio Senguer Airport","Alto Rio Senguer","Argentina","ARR","SAVR",-45.016667,-70.816667,2145,-3,"U"
-7312,"Jose de San Martin Airport","Jose de San Martin","Argentina","JSM","SAWS",-44.016667,-70.466667,4359,-3,"U"
-7313,"Uyuni Airport","Uyuni","Bolivia","","SLUY",-20.466667,-66.833333,11990,-4,"U"
-7314,"Augsburg Railway","Augsburg","Germany","ZAU",\N,48.3655,10.8863,500,0,"U"
-7315,"Mannheim Railway","Mannheim","Germany","ZMA",\N,49.479633,8.469858,200,0,"U"
-7316,"Essen Railway","Essen","Germany","ZES",\N,51.451389,7.013889,200,0,"U"
-7317,"Rurrenabaque Airport","Rerrenabaque","Bolivia","RBQ","SLRQ",-14.4275,-67.498056,898,-3,"U"
-7318,"Lancaster Amtrak Station","Lancaster","United States","",\N,40.05,-76.31,345,-5,"A"
-7319,"Ardmore Amtrak Station","Ardmore","United States","",\N,40.01,-75.29,360,-5,"A"
-7320,"Abaiang Atoll Airport","Abaiang Atoll","Kiribati","ABF","NGAB",1.8,173.04,1,-12,"U"
-7321,"Metropark Amtrak Station","Iselin","United States","",\N,40.568,-74.3275,1,-5,"A"
-7322,"St. Louis Downtown Airport","East St. Louis","United States","CPS",\N,38.5707244,-90.1562211,413,-6,"U"
-7323,"Afobaka Airstrip","Afobaka","Suriname","","SMAF",4.9982,-54.9919,10,-3,"U"
-7324,"Alalapadu Airstrip","Alapadu","Suriname","","SMDU",2.5232,-56.3241,10,-3,"U"
-7325,"Albina Airstrip","Albina","Suriname","ABN","SMBN",5.516667,-54.05,10,-3,"U"
-7326,"Lawa Anapaike Airstrip","Anapaike","Suriname","","SMLA",3.416667,-54.033333,10,-3,"U"
-7327,"Apetina Airstrip","Apetina","Suriname","","SMPT",3.5017,-55.0614,10,-3,"U"
-7328,"Botopassi Airstrip","Botopasi","Suriname","BTO",\N,4.233333,-55.45,10,-3,"U"
-7329,"Djoemoe Airstrip","Djoemoe","Suriname","DOE",\N,4.016667,-55.483333,10,-3,"U"
-7330,"Drietabbetje Airstrip","Drietabbetje","Suriname","DRJ","SMDA",4.11667,-54.66667,10,-3,"U"
-7331,"Kabalebo Airstrip","Kabalebo","Suriname","","SMKA",4.406,-57.223,10,-3,"U"
-7332,"Kayser Airstrip","Kayser","Suriname","","SMKE",3.1,-56.483,10,-3,"U"
-7333,"Kwamelasemoetoe Airstrip","Kwamelasemoetoe","Suriname","","SMSM",2.33333,-56.783333,10,-3,"U"
-7334,"Moengo Airstrip","Moengo","Suriname","","SMMO",5.616667,-54.4,10,-3,"U"
-7335,"Majoor Henry Fernandes Airport","Nieuw Nickerie","Suriname","ICK","SMNI",5.955556,-57.039444,9,-3,"U"
-7336,"Vincent Fayks Airport","Paloemeu","Suriname","OEM","SMPA",5.811111,-55.190833,10,-3,"U"
-7337,"Sarakreek Airstrip","Sarakreek","Suriname","","SMSK",4.9,-55.083333,10,-3,"U"
-7338,"Sipaliwini Airstrip","Sipaliwini","Suriname","","SMSI",1.96605,-56.0035,10,-3,"U"
-7339,"Stoelmans Eiland Airstrip","Stoelmans Eiland","Suriname","SMZ","SMST",4.35,-54.41667,10,-3,"U"
-7340,"Totness Airstrip","Totness","Suriname","TOT","SMCO",5.865833,-56.3275,10,-3,"U"
-7341,"Wageningen Airstrip","Wageningen","Suriname","AGI","SMWA",5.76667,-56.63333,10,-3,"U"
-7342,"Kaieteur International Airport","Kaieteur Falls","Guyana","KIA","PSKA",5.163333,-59.483333,95,-4,"U"
-7343,"Codela Airport","Guapiles","Costa Rica","CSC","MRCA",10.414,-85.0917,328,-7,"U"
-7344,"Newport News Amtrak Station","Newport News","United States","",\N,37.0228,-76.4519,0,-5,"A"
-7345,"Portland Union Station","Portland","United States","",\N,45.529,-122.6768,0,0,"A"
-7346,"Orinduik Airport","Orinduik","Guyana","ORJ","SYOR",4.7,-60.016667,10,-4,"U"
-7347,"Annai Airport","Annai","Guyana","NAI","SYAN",3.95,-59.133333,10,-4,"U"
-7348,"Apoteri Airport","Apoteri","Guyana","","SYAP",4.033333,-58.583333,10,-4,"U"
-7349,"Imbaimadai Airport","Imbaimadai","Guyana","IMB","SYIB",5.69252,-60.28198,10,-4,"U"
-7350,"Kamarang Airport","Kamarang","Guyana","KAR","SYKM",5.865278,-60.614167,10,-4,"U"
-7351,"Mabaruma Airport","Mabaruma","Guyana","USI","SYMB",8.2,-59.783333,10,-4,"U"
-7352,"Mahdia Airport","Mahdia","Guyana","MHA","SYMD",5.266667,-59.15,10,-4,"U"
-7353,"Dr. Augusto Roberto Fuster International Airport","Pedro Juan Caballero","Paraguay","PJC","SGPJ",-22.641389,-55.829722,1873,-3,"U"
-7354,"Alcides Fernandez Airport","Acandi","Colombia","ACD","SKAD",8.516667,-77.3,50,-5,"U"
-7355,"Los Colonizadores Airport","Saravena","Colombia","RVE","SKSA",6.916667,-71.9,10,-5,"U"
-7356,"La Chorrera Airport","La Chorrera","Colombia","LCR",\N,-0.733333,-73.016667,10,-5,"U"
-7357,"Batagay Airport","Batagay","Russia","","UEBB",67.648,134.695,696,9,"E"
-7358,"La Macarena","La Macarena","Colombia","LMC",\N,2.179167,-73.7875,10,-5,"U"
-7359,"Villa Garzon Airport","Villa Garzon","Colombia","VGZ","SKVG",0.978889,-76.605556,1248,-5,"U"
-7360,"El Bagre Airport","El Bagre","Colombia","EBG","SKEB",7.596389,-74.808889,180,-5,"U"
-7361,"Juan H. White","Caucasia","Colombia","CAQ","SKCU",7.968333,-75.198333,174,-5,"U"
-7362,"Mandinga Airport","Condoto","Colombia","COG","SKCD",5.071667,-76.676389,10,-5,"U"
-7363,"Golfo de Morrosquillo Airport","Tolu","Colombia","TLU","SKTL",9.511944,-75.586389,10,-5,"U"
-7364,"Cabo Frio International Airport","Cabo Frio","Brazil","CFB","SBCB",-22.921667,-42.074167,14,-3,"S"
-7365,"Westport Amtrak Station","Westport","United States","",\N,44.1871,-73.4519,1,-5,"A"
-7366,"Trenton Amtrak Station","Trenton","United States","",\N,40.21889,-74.75417,1,-5,"A"
-7367,"Sinop Airport","Sinop","Brazil","OPS","SWSI",-11.85,-55.46,10,-4,"S"
-7368,"Gurupi Airport","Gurupi","Brazil","GRP","SWGI",-11.728889,-49.068889,10,-3,"U"
-7369,"Campo Alegre Airport","Santana do Araguaia","Brazil","CMP","SNKE",-9.505,-50.625,525,-3,"U"
-7370,"Breves Airport","Breves","Brazil","BVS","SNVS",-1.681944,-50.48,131,-3,"S"
-7371,"Soure Airport","Soure","Brazil","SFK","SNSW",-0.716944,-48.522778,33,-3,"S"
-7372,"Julio Belem Airport","Parintins","Brazil","PIN","SWPI",-2.627778,-56.735833,500,-4,"U"
-7373,"Barreiras Airport","Barreiras","Brazil","BRA","SNBR",-12.083333,-45,1356,-3,"U"
-7374,"Confresa Airport","Santa Terezinha","Brazil","STZ","SWST",-10.47,-50.502778,650,-4,"S"
-7375,"Minacu Airport","Minacu","Brazil","MQH","SBMC",-13.526944,-48.220556,1053,-3,"S"
-7376,"Araguaina Airport","Araguaina","Brazil","AUX","SWGN",-7.228333,-48.240833,771,-3,"S"
-7377,"Novo Aripuana Airport","Novo Aripuana","Brazil","NVP","SWNA",-5.121389,-60.380556,500,-4,"S"
-7378,"Bom Futuro Airport","Lucas do Rio Verde","Brazil","LVR","SWFE",-13.05,-55.910833,500,-4,"S"
-7379,"Franca Airport","Franca","Brazil","FRC","SIMK",-20.538611,-47.400833,1040,-3,"S"
-7380,"Dourados Airport","Dourados","Brazil","DOU","SSDO",-22.220833,-54.805833,1433,-3,"S"
-7381,"Labrea Airport","Labrea","Brazil","LBR","SWLB",-7.258889,-64.797778,225,-4,"S"
-7382,"Rondonopolis Airport","Rondonopolis","Brazil","ROO","SWRD",-16.466667,-54.633333,500,-4,"S"
-7383,"Tancredo Thomaz de Faria Airport","Guarapuava","Brazil","GPB","SBGU",-25.383333,-51.45,200,-3,"S"
-7384,"Joacaba Airport","Joacaba","Brazil","JCB","SSJA",-27.172778,-51.500833,1713,-3,"S"
-7385,"North Philadelphia Amtrak Station","Philadelphia","United States","",\N,39.9969556,-75.1487722,1,-5,"A"
-7386,"Aberdeen Railway Station","Aberdeen","United Kingdom","",\N,57.1436,-2.0985,1,0,"U"
-7387,"Glasgow Railway Station","Glasgow","United Kingdom","",\N,55.8622,-4.2512,0,0,"U"
-7388,"Edinburgh Waverly Station","Edinburgh","United Kingdom","",\N,55.952,-3.189,0,0,"U"
-7389,"Newcastle Railway Station","Newcastle Upon Tyne","United Kingdom","",\N,54.9686,-1.6171,0,0,"U"
-7390,"Leeds Railway Station","Leeds","United Kingdom","",\N,53.794,-1.547,0,0,"U"
-7391,"Manchester Picadilly Station","Manchester","United Kingdom","",\N,53.477,-2.23,0,0,"U"
-7392,"Liverpool Railway Station","Liverpool","United Kingdom","",\N,53.405,-2.979,0,0,"U"
-7393,"London Euston Railway Station","London","United Kingdom","",\N,51.5284,-0.1331,0,0,"U"
-7394,"General leite de Castro Airport","Rio Verde","Brazil","RVD","SWLC",-17.790278,-50.918333,2244,-3,"S"
-7395,"Araxa Airport","Araxa","Brazil","AAX","SBAX",-19.563056,-46.960278,3276,-3,"S"
-7396,"Maues Airport","Maues","Brazil","MBZ","SWMW",-3.383611,-57.718611,500,-4,"S"
-7397,"Borba Airport","Borba","Brazil","RBB","SWBR",-4.387778,-59.593889,500,-4,"S"
-7398,"Coari Airport","Coari","Brazil","CIZ","SWKO",-4.085,-63.140833,33,-4,"S"
-7399,"Barcelos Airport","Barcelos","Brazil","BAZ","SWBC",-0.975,-62.923889,500,-4,"S"
-7400,"Herbert Glacier","Juneau","United States","",\N,58.571385,-134.607754,0,0,"A"
-7401,"Seattle Cruise Terminal","Seattle","United States","",\N,47.615884,-122.330017,0,0,"A"
-7402,"Juneau Cruise Pier","Juneau","United States","",\N,58.335451,-134.414978,0,0,"A"
-7403,"Skagway Cruise Pier","Skagway","United States","",\N,59.470896,-135.31723,0,0,"A"
-7404,"Ketchikan Cruise Pier","Ketchikan ","United States","",\N,55.346327,-131.644707,0,0,"A"
-7405,"Victoria Cruise Pier","Victoria","Canada","",\N,48.429144,-123.367023,0,0,"A"
-7406,"Diamantino Airport","Diamantino","Brazil","DMT","SWDM",-14.408889,-56.445833,1837,-4,"S"
-7407,"Guanambi Airport","Guanambi","Brazil","GNM","SNGI",-14.216667,-42.783333,500,-3,"S"
-7408,"Tsletsi Airport","Djelfa","Algeria","QDJ","DAFI",34.6657,3.351,10,1,"U"
-7409,"Nzagi Airport","Nzagi","Angola","","FNZG",-7.716944,21.358056,2431,1,"U"
-7410,"Catoca Airport","Catoca","Angola","",\N,-9.433017,20.311189,500,1,"U"
-7411,"Lucapa Airport","Lucapa","Angola","LBZ","FNLK",-8.443056,20.732222,500,1,"U"
-7412,"Kapanda Airport","Kapanda","Angola","KNP","FNCP",-9.771944,15.456111,500,1,"U"
-7413,"Am Timan Airport","Am Timan","Chad","AMC","FTTN",11.034,20.274,1421,1,"U"
-7414,"Sharq Al-Owainat Airport","Sharq Al-Owainat","Egypt","GSQ","HEOW",22.5806,28.7207,859,2,"U"
-7415,"Eastern WV Regional Airport","Martinsburg","United States","MRB","KMRB",39.2407,-77.591,554,-5,"A"
-7416,"Awasa Airport","Awasa","Ethiopia","AWA","HALA",7.067,38.5,5149,3,"U"
-7417,"Jijiga Airport","Jijiga","Ethiopia","JIJ","HAJJ",9.359722,42.7875,2000,3,"U"
-7418,"Mekane Salam Airport","Mekane Selam","Ethiopia","MKS","HAMA",10.633333,38.783333,3000,3,"U"
-7419,"Debre Marqos","Debre Marqos","Ethiopia","DBM","HADM",10.316667,37.733333,7440,3,"U"
-7420,"Debre Tabor Airport","Debre Tabor","Ethiopia","DBT","HADT",11.966667,38,7740,3,"U"
-7421,"Harar Meda Airport","Debre Zeyit","Ethiopia","QHR","HAHM",8.7163,39.0059,8850,3,"U"
-7422,"Robe Airport","Goba","Ethiopia","GOB","HAGB",6.733333,44.266667,4000,3,"U"
-7423,"Mayumba Airport","Mayumba","Gabon","MYB","FOOY",-3.416667,10.65,500,1,"U"
-7424,"Mara Serena Airport","Masai Mara","Kenya","MRE",\N,-1.406111,35.008056,500,3,"U"
-7425,"Lewa Airport","Lewa","Kenya","",\N,0.1955,37.4699,2000,3,"U"
-7426,"Mulika Lodge Airport","Meru National Park","Kenya","","HKMK",0.230278,38.170556,2000,3,"U"
-7427,"Rumbek Airport","Rumbek","Sudan","RBX","HSMK",6.825,29.669,2000,3,"U"
-7428,"Yei Airport","Yei","Sudan","","HSYE",4.083,30.65,1000,3,"U"
-7429,"Cape Palmas Airport","Greenville","Liberia","CPA","GLCP",4.37902,-7.69695,500,0,"U"
-7430,"Ambatomainty Airport","Ambatomainty","Madagascar","AMY",\N,-17.1667,47.1833,500,3,"U"
-7431,"Kyoto","Kyoto","Japan","UKY",\N,35.016667,135.766667,262,9,"N"
-7432,"Ecuvillens Airport","Ecuvillens","Switzerland","","LSGE",46.754997,7.076111,2293,1,"E"
-7433,"Andermatt","Andermatt","Switzerland","",\N,46.63889,8.58889,4747,1,"E"
-7434,"Wohlen Airfield","Wohlen bei Bern","Switzerland","",\N,46.96694,7.35806,1795,1,"E"
-7435,"Bazaruto Island Airport","Bazaruto Island","Mozambique","BZB",\N,-21.542778,35.473056,500,2,"U"
-7436,"Benguera Island Airport","Benguera Island","Mozambique","BCW",\N,-21.849167,35.436944,50,2,"U"
-7437,"Inhaca Airport","Inhaca","Mozambique","","FQIA",-26,32.916667,500,2,"U"
-7438,"Indigo Bay Lodge Airport","Indigo Bay Lodge","Mozambique","IBL",\N,-21.707222,35.452222,50,2,"U"
-7439,"Gombe Lawanti International Airport","Gombe","Nigeria","",\N,9.2575,12.430278,500,1,"U"
-7440,"Akwa Ibom International Airport","Uyo","Nigeria","",\N,5.05,7.933333,500,1,"U"
-7441,"Katsina Airport","Katsina","Nigeria","",\N,13.007778,7.660278,50,1,"U"
-7442,"Ouro Sogui Airport","Matam","Senegal","MAX","GOSM",15.593611,-13.322778,85,0,"U"
-7443,"Bird Island Airport","Bird Island","Seychelles","BDI","FSSB",-3.721389,55.208611,10,4,"U"
-7444,"K50 Airport","Mogadishu","Somalia","",\N,1.999167,44.974167,500,3,"U"
-7445,"El Daein","El Daein","Sudan","",\N,14,32.316667,1000,3,"U"
-7446,"Wadi Halfa Airport","Wadi Halfa","Sudan","WHF","HSSW",21.800278,31.516389,1500,3,"U"
-7447,"Enfidha - Zine El Abidine Ben Ali International Airport","Enfidha","Tunisia","NBE","DTNZ",36.075833,10.438611,500,1,"U"
-7448,"Kidepo Airport","Kidepo","Uganda","","HUKD",3.719167,33.754167,3904,3,"U"
-7449,"Kitgum Airport","Kitgum","Uganda","","HUKT",3.278611,32.89,2493,3,"U"
-7450,"Pakuba Airport","Pakuba","Uganda","PAF","HUPA",2.3275,31.5,2297,3,"U"
-7451,"Svea Airport","Sveagruva","Svalbard","","ENSA",77.9,16.683333,29,1,"U"
-7452,"Ny-Alesund Airport","Ny-Alesund","Svalbard","","ENAS",78.9275,11.874167,50,1,"U"
-7453,"Hatay Airport","Hatay","Turkey","HTY","LTDA",36.362778,36.282222,25,2,"U"
-7454,"Kihnu Airfield","Kihnu","Estonia","","EEKU",58.148,24.003,50,2,"U"
-7455,"Ruhnu Airfield","Ruhnu","Estonia","","EERU",57.784,23.266,50,2,"U"
-7456,"Raivavae Airport","Raivavae","French Polynesia","RVV","NTAV",-23.87,-147.67,25,10,"N"
-7457,"Foshan","Foshan","China","FUO",\N,23.133333,113.28333,8,8,"N"
-7458,"Huizhou","Huizhou","China","HUZ",\N,23.083332,114.36667,23,8,"N"
-7459,"Lleida-Alguaire Airport","Lleida","Spain","ILD","LEDA",41.727778,0.535833,1148,1,"E"
-7460,"Aeropuerto Capitan Fuentes Martinez","Porvenir","Chile","WPR",\N,-53.2537,-70.319228,104,-4,"U"
-7461,"Ouessant Airport","Ouessant","France","","LFEC",48.458056,-5.095556,25,0,"U"
-7462,"Central Railway Station","Montreal","Canada","YMY",\N,45.499722,-73.566111,0,-5,"A"
-7463,"Union Station","Toronto","Canada","YBZ",\N,43.645278,-79.380556,0,-5,"A"
-7464,"Bildudalur Airport","Bildudalur","Iceland","BIU","BIBD",65.641389,-23.546111,26,0,"N"
-7465,"Gjogur Airport","Gjogur","Iceland","GJR","BIGJ",65.995278,-21.326944,98,0,"N"
-7466,"Sauoarkrokur Airport","Sauoarkrokur","Iceland","SAK","BIKR",65.731667,-19.572778,8,0,"N"
-7467,"Selfoss Airport","Selfoss","Iceland","","BISF",63.929167,-21.037778,45,0,"N"
-7468,"Inishmaan Aerodrome","Inishmaan","Ireland","IIA","EIMN",53.091944,-9.57,13,0,"U"
-7469,"Taldykorgan Airport","Taldykorgan","Kazakhstan","TDK","UAAT",45.016667,78.366667,1969,6,"U"
-7470,"Olgii Airport","Olgii","Mongolia","ULG","ZMUL",48.991667,89.919722,5610,7,"U"
-7471,"Lille","Lille","France","XDB",\N,50.563333,3.08805,1,1,"U"
-7472,"Qurghonteppa International Airport","Kurgan Tyube","Tajikistan","","UTDT",37.862222,68.862778,5000,5,"U"
-7473,"Vologda Airport","Vologda","Russia","VGD","ULWW",59.281667,39.946667,387,3,"U"
-7474,"Severo-Evensk Airport","Evensk","Russia","","UHMW",61.921667,159.23,0,11,"U"
-7475,"Olenyok Airport","Olenyok","Russia","","UERO",68.514722,112.48,847,9,"U"
-7476,"Saskylakh Airport","Saskylakh","Russia","","UERS",71.927778,114.08,500,9,"U"
-7477,"Lensk Airport","Lensk","Russia","",\N,60.719444,114.931944,700,9,"U"
-7478,"Burevestnik Airport","Iturup Island","Russia","BVV",\N,44.92,147.621667,79,10,"U"
-7479,"Okha Airport","Okha","Russia","OHH",\N,53.583333,142.933333,100,10,"U"
-7480,"Leshukonskoye Airport","Arkhangelsk","Russia","LDG","ULAL",64.895833,45.722778,220,3,"U"
-7481,"Nizhneangarsk Airport","Nizhneangarsk","Russia","","UIUN",55.801667,109.586667,1545,8,"U"
-7482,"Taksimo Airport","Taksimo","Russia","",\N,56.361667,114.93,1500,8,"U"
-7483,"Vanavara Airport","Vanavara","Russia","","UNIW",60.355,102.31,892,7,"U"
-7484,"Aykhal Airport","Aykhal","Russia","","UERA",65.959167,111.546389,1499,9,"U"
-7485,"Uktus Airport","Yekaterinburg","Russia","","USSK",56.701667,60.79,643,5,"U"
-7486,"Baykit Airport","Baykit","Russia","","UNIB",61.676667,96.355,853,9,"U"
-7487,"Biysk Airport","Biysk","Russia","","UNBI",52.466667,85.35,620,6,"U"
-7488,"Huesca-Pirineos Airport","Huesca","Spain","HSK","LEHC",42.080833,-0.323333,1768,0,"U"
-7489,"Ciudad Real Central Airport","Ciudad Real","Spain","CQM","LERL",38.856389,-3.97,636,1,"U"
-7490,"Al Najaf International Airport","Najaf","Iraq","NJF","ORNI",31.991667,44.404167,500,3,"U"
-7491,"Hilversum Railway Station","Hilversum","Netherlands","QYI",\N,52.226389,5.181667,3,1,"E"
-7492,"Colonsay Airport","Colonsay","United Kingdom","CSA","EGEY",56.0575,-6.243056,44,0,"U"
-7493,"Coll Airport","Coll","United Kingdom","COL",\N,56.633333,-6.557222,50,0,"U"
-7494,"Rock Hill York Co Bryant Airport","Rock Hill","United States","RKH","KUZA",34.9878,-81.0572,667,-5,"A"
-7495,"Allegheny County Airport","Pittsburgh","United States","AGC","KAGC",40.3544,-79.9302,1252,-5,"A"
-7496,"Cecil Field","Jacksonville","United States","NZC","KVQQ",30.2187,-81.8767,81,-5,"A"
-7497,"Fulton County Airport Brown Field","Atlanta","United States","FTY","KFTY",33.7791,-84.5214,841,-5,"A"
-7498,"Tresco Heliport","Tresco","United Kingdom","TSO","EGHT",49.945556,-6.331389,20,0,"U"
-7499,"Tarin Kowt Airport","Tarin Kowt","Afghanistan","TII","OATN",32.605278,65.864167,3500,4.5,"U"
-7500,"Zaranj Airport","Zaranj","Afghanistan","ZAJ","OAZJ",30.969167,61.866944,1581,4.5,"U"
-7501,"Chaghcharan Airport","Chaghcharan","Afghanistan","CCN","OACC",34.526667,65.271667,7383,4.5,"U"
-7502,"Four Corners","Four Corners","United States","",\N,36.998976,-109.045172,1000,-8,"U"
-7503,"Fuyang Airport","Fuyang","China","FUG","ZSFY",32.9,115.816667,500,8,"U"
-7504,"Longyan Airport","Longyan","China","LCX",\N,25.674167,116.746389,300,8,"U"
-7505,"Baoshan Airport","Baoshan","China","BSD","ZPBS",25.053333,99.168333,500,8,"U"
-7506,"Xingyi Airport","Xingyi","China","ACX",\N,25.0882,104.9587,500,8,"U"
-7507,"Macau Ferry Pier","Macau","Macau","XZM",\N,22.197075,113.558911,0,8,"U"
-7508,"Liping Airport","Liping","China","HZH",\N,26.206,109.039,500,8,"U"
-7509,"Ocean Isle Beach Airport","Ocean Isle Beach","United States","60J",\N,33.9085056,-78.4366722,32,-5,"U"
-7510,"Stepanakert","Stepanakert","Azerbaijan","","UB13",39.901439,46.787031,2001,4,"E"
-7511,"Ohio State University Airport","Columbus","United States","OSU","KOSU",40.0798,-83.073,905,-5,"U"
-7922,"Rio Sidra","Rio Sidra","Panama","RSI",\N,8.966667,-80.333336,10,-7,"U"
-7513,"Addison","Addison","United States","ADS","KADS",32.9685594,-96.8364478,644,-5,"A"
-7514,"Destin","Destin","United States","DTS","KDTS",30.4000611,-86.4714772,23,-5,"A"
-7515,"Fort Jefferson","Fort Jefferson - Dry Tortugas","United States","RBN",\N,24.61667,-82.86667,0,-5,"A"
-7516,"Chernobayevka Airport","Kherson","Ukraine","KHE","UKOH",46.6758,32.5064,148,2,"E"
-7517,"Ryans Creek Aerodrome","Stewart Island","New Zealand","SZS","NZRC",-46.899693,168.101592,100,12,"U"
-7518,"Assumption Island","Assumption Island","Seychelles","","FSAS",-9.7422,46.5067,10,4,"U"
-7519,"Zhijiang Airport","Zhijiang","China","HJJ",\N,27.441389,109.699722,1000,8,"U"
-7520,"Aldabra","Assumption Island","Seychelles","",\N,-9.74,46.51,100,4,"U"
-7521,"Yarmouth Airport","Yarmouth","Canada","YQI","CYQI",43.8269,-66.0881,141,-5,"A"
-7522,"Kinston Regional Jetport","Kinston","United States","ISO","KISO",35.331389,-77.608889,94,7,"A"
-7523,"First Flight Airport","Kill Devil Hills","United States","FFA","KFFA",36.02,-75.67,13,-4,"A"
-7524,"Pebble Island Airstrip","Pebble Island Settlement","Falkland Islands","",\N,-51.31,-59.61,8,-3,"S"
-7525,"Sea Lion Island Landing Strip","Sea Lion Island","Falkland Islands","",\N,-52.4282,-59.0777,0,-3,"S"
-7526,"Lively Settlement Airstrip","Lively Island","Falkland Islands","",\N,-52.03,-58.47,0,-3,"S"
-7527,"Lincang Airport","Lincang","China","LNJ","ZPLC",23.738333,100.025,1500,8,"U"
-7528,"Wenshan Airport","Wenshan","China","WNH",\N,23.375833,104.243056,1000,8,"U"
-7529,"Ponta Pelada Airport","Manaus","Brazil","PLL",\N,-3.14604,-59.9863,267,-4,"S"
-7530,"Sao Gabriel da Cachoeira Airport","Sao Gabriel da Cachoeira","Brazil","SJL",\N,-0.148056,-66.9858,251,-4,"S"
-7531,"Maturaca","Maturaca","Brazil","","SWMK",0.628269,-66.115128,354,-4,"S"
-7532,"Carajas Airport","Parauapebas","Brazil","CKS","SBCJ",-6.11781,-50.0035,2064,-3,"S"
-7533,"Centro de Lancamento de Alcantara","Alcantara","Brazil","","SNCW",-2.373,-44.396389,148,-3,"S"
-7534,"Cachimbo","Itaituba","Brazil","ITB",\N,-4.2446,-56.00384,0,-4,"S"
-7535,"Latur Airport","Latur","India","LTU",\N,18.411944,76.465,1584,5.5,"U"
-7536,"Matak Airport","Anambas Islands","Indonesia","MWK","WIOM",3.348119,106.25805,10,7,"U"
-7537,"Mainz Finthen","Mainz","Germany","QFZ",\N,0,0,300,1,"E"
-7538,"Wuerzburg","Wuerzburg","Germany","","EDFW",51.93749,8.38257,400,1,"E"
-7539,"Mainz","Mainz","Germany","QMZ",\N,50.00829,8.27356,360,1,"E"
-7540,"Berlin Gatow","Berlin","Germany","GWW",\N,52.31,13.24,160,1,"E"
-7541,"Rheine Bentlage","Rheine","Germany","ZPQ",\N,52.27656,7.43843,120,1,"E"
-7542,"Sao Jacinto","Aveiro","Portugal","","LPAV",40.72222,-8.816667,26,1,"E"
-7543,"Tana Toraja Airport","Toraja","Indonesia","TTR",\N,-3.416667,119.916664,0,8,"N"
-7544,"Hopsten Air Base","Hopsten","Germany","","ETNP",52.3387,7.54133,423,1,"E"
-7545,"Jose Aponte De La Torre Airport","Ceiba","Puerto Rico","","TJNR",18.2453,-65.6434,38,-5,"S"
-7546,"Persian Gulf Airport","Khalije Fars","Iran","PGU","OIBP",27.379444,52.7375,27,3.5,"U"
-7547,"Yasuj Airport","Yasuj","Iran","YES","OISY",30.700556,51.545,5939,3.5,"U"
-7548,"Mosul International Airport","Mosul","Iraq","OSB","ORBM",36.305833,43.1475,719,4,"U"
-7549,"Tajima Airport","Toyooka","Japan","TJH","RJBT",35.512778,134.786944,578,9,"U"
-7550,"Amakusa Airfield","Amakusa","Japan","AXJ","RJDA",32.482222,130.158889,340,9,"U"
-7551,"Kikai Airport","Kikai","Japan","KKX","RJKI",28.321389,129.928056,15,9,"U"
-7552,"Aguni Airport","Aguni","Japan","AGJ","RORA",26.592778,127.240278,38,9,"U"
-7553,"Chongjin Airport","Chongjin","North Korea","",\N,41.801389,129.855,500,9,"U"
-7554,"Haeju Airport","Haeju","North Korea","HAE",\N,38.00543,125.77863,131,9,"U"
-7555,"Layang Layang Airport","Layang Layang Atoll","Malaysia","LAC",\N,7.372222,113.841667,5,8,"U"
-7556,"Donoi Airport","Uliastai","Mongolia","","ZMDN",47.712778,96.524167,5724,7,"U"
-7557,"Bulgan Airport","Bulgan","Mongolia","UGA","ZMBN",48.854167,103.484167,3873,7,"U"
-7558,"Ulaangom Airport","Ulaangom","Mongolia","ULO","ZMUG",49.973333,92.079722,3500,7,"U"
-7559,"Borongan Airport","Borongan","Philippines","BPR","RPVW",11.674167,125.478611,7,8,"U"
-7560,"Lubang Community Airport","Lubang","Philippines","LBX","RPLU",13.855833,121.105833,25,8,"U"
-7561,"Bentota Airport","Bentota","Sri Lanka","BJT",\N,6.416667,79.983333,100,5.5,"U"
-7562,"Dickwella Airport","Dickwella","Sri Lanka","DIW",\N,5.966667,80.683333,100,5.5,"U"
-7563,"Kulob Airport","Kulyab","Tajikistan","TJU","UTDK",37.981667,69.799444,2293,5,"U"
-7564,"Cimei Airport","Cimei","Taiwan","CMJ","RCCM",23.266667,119.666667,63,8,"U"
-7565,"Dasoguz Airport","Dasoguz","Turkmenistan","TAZ","UTAT",41.764722,59.833056,500,5,"U"
-7566,"Barrow Island Airport","Barrow Island","Australia","BWB","YBWX",-20.798,115.406,25,8,"U"
-7567,"Morawa Airport","Morawa","Australia","MWB",\N,-29.211,116.009,899,8,"U"
-7568,"Exmouth Airport","Exmouth","Australia","EXM",\N,-21.933,114.128,50,8,"U"
-7569,"Derby Airport","Derby","Australia","DRB","YDBY",-17.39,123.68,26,8,"U"
-7570,"Walgett Airport","Walgett","Australia","WGE","YWLG",-30.0318,148.1222,439,10,"U"
-7571,"Bathurst Island Airport","Bathurst Island","Australia","BRT","YBTI",-11.769167,130.619722,67,9.5,"U"
-7572,"Dunk Island Airport","Dunk Island","Australia","DKI","YDKI",-17.939722,146.141944,38,10,"U"
-7573,"Lizard Island Airport","Lizard Island","Australia","LZR","YLZI",-14.673056,145.454444,70,10,"U"
-7574,"Hamilton Airport","Hamilton","Australia","HLT","YHML",-37.648889,142.065278,803,10,"O"
-7575,"Halls Creek Airport","Halls Creek","Australia","HCQ","YHLC",-18.233889,127.669722,1346,8,"U"
-7576,"Fitzroy Crossing Airport","Fitzroy Crossing","Australia","FIZ","YFTZ",-18.178,125.591,374,8,"U"
-7577,"Ravensthorpe Airport","Ravensthorpe","Australia","RVT","YNRV",-33.797222,120.208056,209,8,"U"
-7578,"Wilkins Runway","Budd Coast","Antarctica","","YWKS",-66.689444,111.485833,2395,9,"U"
-7579,"Provo Municipal Airport","Provo","United States","PVU","KPVU",40.21805555,-111.72222222,4497,-6,"A"
-7580,"Steamboat Springs Airport-Bob Adams Field","Steamboat Springs","United States","SBS","KSBS",40.51625,-106.8663056,6882,-6,"A"
-7581,"Delta Municipal Airport","Delta","United States","DTA","KDTA",39.3806386,-112.5077147,4759,-6,"A"
-7582,"Richfield Minicipal Airport","Richfield","United States","RIF","KRIF",38.7364361,-112.0989444,5301,-6,"A"
-7583,"Carbon County Regional-Buck Davis Field","Price","United States","PUC","KPUC",39.609722,-110.75278,5957,-6,"A"
-7584,"Los Alamos Airport","Los Alamos","United States","LAM","KLAM",35.8798019,-106.2694153,7171,-6,"A"
-7585,"Borrego Valley Airport","Borrego Springs","United States","BXS","KBXS",33.2590278,-116.3209722,520,-7,"A"
-7586,"Lake Havasu City Airport","Lake Havasu City","United States","HII","KHII",34.5711111,-114.3582778,783,-7,"N"
-7587,"Winslow-Lindbergh Regional Airport","Winslow","United States","INW","KINW",35.0219167,-110.7225278,4941,-7,"N"
-7588,"Douglas Municipal Airport","Douglas","United States","DGL","KDGL",31.3426028,-109.5064544,4173,-7,"N"
-7589,"Marakei Airport","Marakei","Kiribati","MZK","NGMK",2.050278,173.266667,10,12,"U"
-7590,"Abemama Atoll Airport","Abemama","Kiribati","AEA","NGTB",0.490833,173.828611,8,12,"U"
-7591,"Aranuka Airport","Buariki","Kiribati","AAK","NGUK",0.185278,173.636389,6,10,"U"
-7592,"Kuria Airport","Kuria","Kiribati","KUC","NGKT",0.228611,173.410556,10,10,"U"
-7593,"Arorae Island Airport","Arorae","Kiribati","AIS","NGTR",-2.633333,179.816667,6,10,"U"
-7594,"Tamana Airport","Tamana","Kiribati","TMN","NGTM",-2.5,175.983333,10,10,"U"
-7595,"Beru Island Airport","Beru Island","Kiribati","BEZ","NGBR",-1.254722,176.007222,10,10,"U"
-7596,"Nikunau Airport","Nikunau","Kiribati","NIG","NGNU",-1.35,176.45,10,10,"U"
-7597,"Butaritari Atoll Airport","Butaritari","Kiribati","BBG","NGTU",3.086521,172.811465,5,10,"U"
-7598,"Makin Airport","Makin","Kiribati","MTK","NGMN",3.383333,173,10,10,"U"
-7599,"Maiana Airport","Maiana","Kiribati","MNK","NGMA",0.933333,173,10,10,"U"
-7600,"Nonouti Airport","Nonouti","Kiribati","NON","NGTO",-0.616667,174.366667,10,10,"U"
-7601,"Tabiteuea South Airport","Tabiteuea","Kiribati","TSU","NGTS",-1.35,174.8,10,10,"U"
-7602,"Bosset Airport","Bosset","Papua New Guinea","BOT",\N,-7.240833,141.092333,60,10,"U"
-7603,"Ine Airport","Ine","Marshall Islands","IMI",\N,7.016667,171.483333,4,12,"U"
-7604,"Tinak Airport","Tinak","Marshall Islands","TIC",\N,7.133333,171.916667,4,12,"U"
-7605,"Ebon Airport","Ebon","Marshall Islands","",\N,4.598889,168.753056,5,12,"U"
-7606,"Elenak Airport","Elenak","Marshall Islands","EAL",\N,9.083333,167.333333,10,12,"U"
-7607,"Lae Airport","Lae","Marshall Islands","LML",\N,8.921667,166.265556,10,12,"U"
-7608,"Airok Airport","Airok","Marshall Islands","AIC",\N,7.1,171.233333,10,12,"U"
-7609,"Enejit Airport","Enejit","Marshall Islands","EJT",\N,6.040278,171.984444,10,12,"U"
-7610,"Whitianga Airport","Whitianga","New Zealand","WTZ","NZWT",-36.835833,175.700278,500,12,"U"
-7611,"Takaka Aerodrome","Takaka","New Zealand","KTF","NZTK",-40.85,172.8,500,12,"U"
-7612,"Peleliu Airfield","Peleliu","Palau","C23",\N,6.998333,134.232778,9,9,"U"
-7613,"Angaur Airstrip","Angaur","Palau","",\N,6.906389,134.145,20,9,"U"
-7614,"Asau Airport","Savai\\'i","Samoa","AAU",\N,-13.505,-172.627778,6,-11,"U"
-7615,"Afutara Airport","Afutara","Solomon Islands","AFT","AGAF",-9.183056,160.949722,5,11,"U"
-7616,"Ulawa Airport","Ulawa","Solomon Islands","RNA","AGAR",-9.854722,161.979167,5,11,"U"
-7617,"Choiseul Bay Airport","Choiseul Bay","Solomon Islands","CHY","AGGC",-6.711944,156.396111,5,11,"U"
-7618,"Santa Ana Airport","Santa Ana","Solomon Islands","NNB","AGGT",-10.848056,162.454167,6,11,"U"
-7619,"Yandina Airport","Yandina","Solomon Islands","XYA","AGGY",-9.086111,159.218889,6,11,"U"
-7620,"Batuna Airport","Batuna","Solomon Islands","BPF","AGBT",-8.63,158,5,11,"U"
-7621,"Bartow Municipal Airport","Bartow","United States","BOW","KBOW",27.9434,-81.7834,125,-6,"U"
-7622,"Sokerkino","Kostroma","Russia","KMW","UUBD",57.7961,41.0204,446,3,"E"
-7623,"Yuryevets","Yuryevets","Russia","",\N,57.316667,43.1,0,3,"E"
-7624,"Ozerny","Ozerny","Russia","",\N,52.752919,111.849,0,8,"E"
-7625,"Enkheluk","Enkheluk","Russia","",\N,52.500967,107.018852,0,8,"E"
-7626,"Khakusy","Khakusy","Russia","",\N,55.365,109.812,0,8,"U"
-7627,"Fitiuta Airport","Fiti\\'uta","American Samoa","FTI","NSFQ",-14.216111,-169.423611,110,-11,"U"
-7628,"Ofu Airport","Ofu","American Samoa","OFU",\N,-14.184444,-169.67,9,-11,"U"
-7629,"Livermore Municipal","Livermore","United States","LVK","KLVK",37.41362,-121.49133,400,-8,"A"
-7630,"MariposaYosemite","Mariposa","United States","MPI","KMPI",37.3039,-120.0222,2454,-8,"A"
-7631,"Malaysia Subang International","Kuala Lumper","Malaysia","","KULX",1,-1,1,-8,"N"
-7633,"Grootfontein","Grootfontein","Namibia","GFY","FYGF",-19.602167,18.122667,4636,1,"E"
-7634,"Rundu","Rundu","Namibia","NDU","FYRU",-17.956461,19.719439,3627,1,"O"
-7635,"Beppu Airport","Beppu","Japan","BPU",\N,33.3,131.5333,197,-9,"N"
-7636,"Heron Island","Heron Island","Australia","HRN",\N,-23.441667,151.911389,0,10,"O"
-7637,"Lady Elliot Island","Lady Elliot Island","Australia","LYT",\N,-24.113333,152.715278,0,10,"O"
-7638,"Orpheus Island","Orpheus Island","Australia","ORS",\N,-18.634,146.5,0,10,"O"
-7639,"Paddington Station","London","United Kingdom","QQP",\N,51.515833,-0.176111,0,0,"E"
-7640,"Liskeard Station","Liskeard","United States","",\N,50.44708,-4.46753,0,0,"E"
-7641,"Port du Bloscon","Roscoff","France","",\N,48.721816,-3.96395,0,1,"E"
-7642,"Tasiilaq","Angmagssalik","Greenland","AGM","BGAM",65.612222,-37.618333,24,-2,"U"
-7643,"Neets Bay","Ketchikan","United States","",\N,55.778889,-131.601389,0,-10,"U"
-7644,"Fraser Railroad Station","Fraser BC","Canada","",\N,59.715517,-135.046692,2000,10,"U"
-7645,"Carcross","Carcross YT","Canada","",\N,60.17463,-134.698088,2100,10,"U"
-7646,"Jacqueline Cochran Regional Airport","Palm Springs","United States","TRM","KTRM",33.626666,-116.1596667,0,-7,"A"
-7647,"Santa Monica Municipal Airport","Santa Monica","United States","SMO","KSMO",34.0158333,-118.4513056,177,-7,"A"
-7648,"Bermuda Dunes Airport","Palm Springs","United States","UDD","KUDD",33.7484375,-116.2748133,73,-7,"A"
-7649,"Scottsdale Airport","Scottsdale","United States","ZSY","KSDL",33.6228889,-111.9105278,1519,-7,"A"
-7650,"Olympia Regional Airpor","Olympia","United States","OLM","KOLM",46.9694044,-122.9025447,209,-7,"A"
-7651,"Yolo County Airport","Davis-Woodland-Winters","United States","DWA","KDWA",38.5793889,-121.8569444,100,-7,"A"
-7652,"Garfield County Regional Airport","Rifle","United States","RIL","KRIL",39.5263056,-107.7269444,5548,-6,"A"
-7653,"Shively Field Airport","SARATOGA","United States","SAA","KSAA",41.4448594,-106.8235264,7012,-6,"A"
-7654,"Dekalb-Peachtree Airport","Atlanta","United States","PDK","KPDK",33.8756111,-84.3019722,1003,-4,"A"
-7655,"Monroe County Airport","Bloomington","United States","BMG","KBMG",39.1460208,-86.6166805,846,-4,"A"
-7656,"Witham Field Airport","Stuart","United States","SUA","KSUA",27.1816996,-80.221294,16,-4,"A"
-7657,"Morristown Municipal Airport","Morristown","United States","MMU","KMMU",40.79935,-74.4148747,187,-5,"A"
-7658,"Napa County Airport","Napa","United States","APC","KAPC",38.2131944,-122.2806944,35,-7,"A"
-7659,"Brown Field Municipal Airport","San Diego","United States","SDM","KSDM",32.5722722,-116.9801611,526,-7,"A"
-7660,"Wangen-Lachen","Wangen-Lachen","Switzerland","","LSPV",47.204805,8.866834,1335,1,"U"
-7661,"Pahokee Airport","Pahokee","United States","PHK",\N,47.06139,-41.36079,18,-5,"A"
-7662,"Venice Municipal","Venice","United States","","KVNC",27.42439,-82.262364,18,-5,"A"
-7663,"Pahokee","Pahokee","United States","","KPHK",26.471041,-80.413591,15,-5,"A"
-7664,"Kineshma","Kineshma","Russia","KIE",\N,57.45000001,42.15000001,420,3,"E"
-7665,"Nezhitino","Nezhitino","Russia","NEZ",\N,57.479444454444,43.29750001,400,3,"E"
-7666,"Glasgow Buchanan Bus Station","Glasgow","United Kingdom","",\N,55.8652,-4.25033,0,0,"E"
-7667,"London Victoria Bus Station","London","United Kingdom","",\N,51.494999,-0.144643,0,0,"E"
-7668,"Machu Pichu Airport","Machu Pichu","Peru","MFT",\N,-13.1167,-72.5667,9500,-5,"S"
-7669,"Panama City-NW Florida Bea.","Panama City","United States","ECP","KECP",30.3417,-85.7973,69,-6,"A"
-7670,"San Bernardino International Airport","San Bernardino","United States","SBD","KSBD",34.0953521,-117.2348722,1159,-8,"A"
-7671,"Valenca Airport","Valenca","Brazil","VAL","SNVB",-13.2965,-38.9924,21,3,"S"
-7672,"Dix Sept Rosado Airport","Mossoro","Brazil","MVF","SBMW",-5.20192,-37.3643,76,-3,"S"
-7673,"Caruaru Airport","Caruaru","Brazil","CAU","SNRU",-8.28239,-36.0135,1891,-3,"S"
-7674,"Wake Island Afld","Wake island","Wake Island","AWK","PWAK",19.282067,166.636444,14,8,"U"
-7675,"Aeroclube de Nova Iguacu","Nova Iguacu","Brazil","QNV","SDNY",-22.7453,-43.4603,164,-3,"S"
-7676,"Gare du Nord","Paris","France","XPG",\N,48.880931,2.355323,423,1,"E"
-7677,"Gare Montparnasse","Paris","France","XGB",\N,48.84,2.318611,423,1,"E"
-7678,"Saint-Pierre-des-Corps","Tours","France","XSH",\N,47.385626,0.723347,159,1,"E"
-7679,"Darsena Norte","Buenos Aires","Argentina","",\N,-34.5978,-58.367841,46,-3,"S"
-7680,"Casa Central","Montevideo","Uruguay","",\N,-34.90278,-56.213781,105,-3,"S"
-7681,"Puerto Franco","Colonia del Sacramento","Uruguay","",\N,-34.4741,-57.843427,89,-3,"S"
-7682,"Tres Cruces","Montevideo","Uruguay","",\N,-34.893891,-56.166589,141,-3,"S"
-7683,"San Carlos Airport","San Carlos","United States","SQL","KSQL",37.511944,-122.249444,5,-8,"A"
-7684,"Courtelary ","Courtelary ","Switzerland","","LSZJ",47.18611,7.15833,2250,2,"E"
-7685,"Koszalin - Zegrze Pomorskie Airport","Koszalin","Poland","OSZ","EPKO",54.2,16.15,111,1,"E"
-7686,"Ntswi Island","Okavango Delta","Botswana","","FB56",-19.531109,23.09092,3000,2,"U"
-7687,"Dujiangyan","Dujiangyan","China","",\N,30.998584,103.619673,2385,8,"N"
-7688,"Maiwa","Maiwa","China","",\N,33.058044,102.908775,11500,8,"N"
-7689,"Lelystad Airport","Lelystad","Netherlands","LEY",\N,52.4603,5.52722,12,1,"E"
-7690,"Rocky Mount Wilson Regional Airport","Rocky Mount","United States","RWI","KRWI",35.8563,-77.8919,159,-5,"A"
-7691,"Whittier Airport","Whittier","United States","","PAWR",60.7772125,-148.7215775,30,-8,"U"
-7692,"Soldotna Airport","Soldotna","United States","SXQ",\N,60.4749583,-151.0382389,113,-8,"U"
-7693,"Gillespie","El Cajon","United States","SEE","KSEE",32.8262222,-116.9724444,388,-8,"A"
-7694,"San Clemente Island Nalf","San Clemente Island","United States","","KNUC",33.022744,-118.588489,184,-8,"A"
-7695,"Cotopaxi International Airport","Latacunga","Ecuador","LTX",\N,-0.5425,-78.3657,9205,-5,"S"
-7696,"London St Pancras","London","United Kingdom","STP",\N,51.53,-0.125,0,0,"E"
-7697,"Amsterdam Centraal","Amsterdam","Netherlands","",\N,52.378,4.9,0,1,"E"
-7698,"Mammy Yoko Heliport","Freetown","Sierra Leone","JMY",\N,8.490278,-13.289722,0,0,"N"
-7699,"Shearwater Heliport","Victoria Falls","Zimbabwe","",\N,-17.911443,25.828167,3937,2,"U"
-7700,"Phan Rang Airport","Phan Rang","Vietnam","PHA","VVPR",11.6335,108.952,101,7,"N"
-7701,"Na-San Airport","Son-La","Vietnam","SQH","VVNS",21.217,104.033,2133,7,"N"
-7702,"Truckee-Tahoe Airport","Truckee","United States","...","KTRK",39.3200422,-120.1395628,5900,-7,"A"
-7703,"Frejus Saint Raphael","Frejus","France","FRJ","LFTU",43.416667,6.733333,7,1,"E"
-7704,"Geelong Airport","Geelong","Australia","GEX","YGLG",-38.225,144.333,43,10,"O"
-7705,"Detroit Amtrak Station","Detroit","United States","",\N,42.368097,-83.072397,630,-5,"A"
-7706,"Ventura Amtrak","Ventura","United States","",\N,34.27833,-119.29222,59,-8,"A"
-7707,"Berlin Hauptbahnhof","Berlin","Germany","QPP",\N,52.52493,13.36963,110,2,"E"
-7708,"Amsterdam Centraal","Amsterdam","Netherlands","ZYA",\N,52.7873,4.90074,0,1,"E"
-7709,"Kaikoura Airport ","Kaikoura","New Zealand","","NZKI",-42.4166,173.6833,19,12,"U"
-7710,"Mezen","Mezen","Russia","","ULAE",65.878333,44.215,46,3,"E"
-7711,"Vaskovo","Arkhangelsk","Russia","","ULAH",64.441667,40.421667,8,3,"E"
-7712,"Cobb County Airport-Mc Collum Field","Atlanta","United States","RYY","KRYY",34.0131569,-84.5970556,1041,-5,"A"
-7713,"Oneonta Municipal Airport","Oneonta","United States","ONH",\N,42.524722,-75.064444,1763,-5,"A"
-7714,"Tulln ","Tulln","Austria","","LOXT",48.318961,16.114275,575,-1,"U"
-7715,"Wideawake Field","Georgetown Acension Island Santa Helena","United Kingdom","ASI",\N,-7.969597,-14.393664,278,0,"U"
-7716,"Dell Flight Strip","Dell","United States","4U9","K4U9",44.7357483,-112.7200133,6007,-7,"A"
-7717,"Mission Field Airport","Livingston-Montana","United States","LVM","KLVM",45.6993889,-110.4483056,4660,-7,"A"
-7718,"Kota Kinabalu Airport","Kota Kinabalu","Malaysia","ZWR",\N,11.1111,11.1111,1,-2,"O"
-7719,"Valetta Waterfront","Valetta","Malta","",\N,35.889867,14.508584,0,1,"E"
-7720,"Big Timber Airport","Big Timber","United States","6S0","K6S0",45.8063889,-109.9811111,4492,-7,"A"
-7721,"Tulip City Airport","Holland","United States","BIV","KBIV",42.7427778,-86.1078333,698,-5,"A"
-7722,"London Heliport","London","United Kingdom","","EGLW",51.47,-0.177833,18,0,"E"
-7723,"San Nicolo Airport","Venice","Italy","","LIPV",45.4283,12.3881,13,1,"E"
-7724,"Tallinn Linnahall Heliport","Tallinn","Estonia","","EECL",59.4486,24.7532,23,2,"E"
-7725,"Hernesaari Heliport","Helsinki","Finland","","EFHE",60.1478,24.9244,7,2,"E"
-7726,"Linkenheim Airport","Linkenheim","Germany","","EDRI",49.1417,8.39472,325,1,"E"
-7727,"Monument Valley Airport","Monument Valley","United States","","UT25",37.0167,-110.201,5192,-7,"U"
-7728,"Hilversum Airport","Hilversum","Netherlands","","EHHV",52.1919,5.14694,3,1,"E"
-7729,"West 30th St. Heliport","New York","United States","JRA","KJRA",40.7545,-74.0071,7,-5,"A"
-7730,"Texel Airport","Texel","Netherlands","","EHTX",53.1153,4.83361,2,1,"E"
-7731,"La Cerdanya","Das i Fontanals de Cerdanya","Spain","","LECD",42.3864,1.8667,3586,1,"E"
-7732,"Lakeland Linder Regional Airport","Lakeland","United States","LAL","KLAL",27.9889167,-82.0185556,142,-4,"A"
-7733,"Valetta Grand Harbour","Valetta","Malta","",\N,14.507392,35.888695,0,1,"E"
-7734,"Mgarr Seaplane Base","Mgarr","Malta","",\N,36.0245,14.298359,0,1,"E"
-7735,"Bangkok","Bangkok","Thailand","",\N,13.9126,100.607,9,7,"U"
-7737,"Jebel Ali Seaplane Base","Jebel Ali Golf Resort","United Arab Emirates","",\N,24.988951,55.023624,0,4,"U"
-7736,"Soneva Fushi","Baa Atoll","Maldives","",\N,5.113033,73.080288,0,5,"U"
-7738,"Stary Oskol","Stary Oskol","Russia","","UUOS",51.33,37.76833,791,3,"U"
-7739,"Savona Cruise Terminal","Savona","Italy","",\N,44.309654,8.486305,0,1,"E"
-7740,"Barcelona Cruise Terminal","Barcelona","Spain","",\N,41.358901,2.178447,0,1,"E"
-7741,"Casablanca Harbor","Casablanca","Morocco","",\N,33.604737,-7.611337,0,-1,"U"
-7742,"Lanzarote Arrecife Cruise Terminal","Arrecife Lanzarote","Spain","",\N,28.967298,-13.527528,0,0,"E"
-7743,"Tenerife Cruise Terminal","Santa Cruz de Tenerife","Spain","",\N,28.470068,-16.242471,0,0,"E"
-7744,"Funchal Cruise Terminal","Funchal Madeira","Portugal","",\N,32.641868,-16.911478,0,0,"E"
-7745,"Malaga Cruise Terminal","Malaga","Spain","",\N,36.702989,-4.41395,0,1,"E"
-7746,"Ponta Delgada Cruise Terminal","Ponta Delgada Acores","Portugal","",\N,37.738409,-25.662539,0,-1,"U"
-7747,"Vigo Cruise Terminal","Vigo","Spain","",\N,42.241537,-8.728799,0,1,"E"
-7748,"Fort Lauderdale Cruise Terminal","Fort Lauderdale","United States","",\N,26.0882,-80.115373,0,-5,"A"
-7749,"Southampton Cruise Terminal","Southampton","United Kingdom","",\N,50.900976,-1.413975,0,0,"E"
-7750,"Miami Cruise Terminal","Miami","United States","",\N,25.779701,-80.177279,0,-5,"A"
-7751,"Nassau Cruise Terminal","Nassau","Bahamas","",\N,25.081158,-77.341207,0,-5,"A"
-7752,"Lisbon Cruise Terminal","Lisbon","Portugal","",\N,38.712606,-9.122483,0,0,"E"
-7753,"Cadiz Cruise Terminal","Cadiz","Spain","",\N,36.534821,-6.290649,0,1,"E"
-7754,"Marseille Cruise Terminal","Marseille","France","",\N,43.343969,5.333025,0,1,"E"
-7755,"Los Angeles San Pedro Cruise Terminal","Los Angeles","United States","",\N,33.747198,-118.276856,0,-8,"A"
-7756,"Kailua Kona Harbor","Kailua Kona Hawaii","United States","",\N,19.635393,-155.998328,0,-10,"A"
-7757,"Kauai Cruise Terminal Nawiliwili","Nawiliwili Kauai Hawaii","United States","",\N,21.954549,-159.355981,0,-10,"A"
-7758,"Hilo Cruise Terminal Hawaii","Hilo Hawaii","United States","",\N,19.730967,-155.054094,0,-10,"A"
-7759,"Honolulu Cruise Terminal Oahu","Honolulu Oahu","United States","",\N,21.301185,-157.865671,0,-10,"A"
-7760,"Lahaina Harbor Maui Hawaii","Lahaina Maui Hawaii","United States","",\N,20.876456,-156.683235,0,-10,"A"
-7761,"Ensenada Cruise Terminal","Ensenada","Mexico","",\N,31.855945,-116.624186,0,-8,"A"
-7762,"Nanaimo Train Station","Nanaimo Station British Columbia","Canada","",\N,49.163978,-123.942502,92,-8,"A"
-7763,"Victoria Rail Station British Columbia","Victoria Station British Columbia","Canada","",\N,48.428339,-123.370618,75,-8,"A"
-7764,"Vancouver Cruise Terminal","Vancouver BC","Canada","",\N,49.289012,-123.111463,0,-8,"A"
-7765,"Seattle Cruise Terminal","Seattle WA","United States","",\N,47.611241,-122.350026,0,-8,"A"
-7766,"Syangboche","Syangboche","Nepal","SYH","VNSB",27.811187,86.712661,12309,5.75,"N"
-7767,"Idlewild Intl","New York","United States","IDL","KIDL",40.639751,-73.778925,13,-5,"A"
-7768,"Cheremshanka","Krasnoyarsk","Russia","","UNKM",56.179,92.54265,1000,7,"E"
-7769,"French Valley Airport","Murrieta-Temecula","United States","F70","KF70",33.5741791,-117.1284732,1350,-8,"A"
-7770,"Anchorage Main Station","Anchorage Alaska","United States","",\N,61.221749,-149.890852,102,-9,"A"
-7771,"Seward Train Station","Seward Alaska","United States","",\N,60.121586,-149.439983,22,-9,"A"
-7772,"Fenosu","Oristano","Italy","FNU","LIER",39.895,8.6383,36,1,"E"
-7773,"White Waltham Airfield","Maidenhead","United Kingdom","","EGLM",51.501,-0.774,133,0,"E"
-7774,"Mysore Airport","Mysore","India","MYQ","VOMY",12.3072,76.6497,2349,5.5,"U"
-7775,"Erie-Ottawa Regional Airport","Port Clinton","United States","PCW","KPCW",41.5162703,-82.8694868,590,-5,"U"
-7776,"Dayton-Wright Brothers Airport","Dayton","United States","MGY","KMGY",39.5889722,-84.2248611,957,-5,"U"
-7777,"Richmond Municipal Airport","Richmond","United States","RID","KRID",39.7561006,-84.8427175,1140,-5,"U"
-7778,"Findlay Airport","Findley","United States","FDY","KFDY",41.0120278,-83.6686111,819,-5,"U"
-7779,"Niagara Falls Station","Niagara Falls","Canada","","NIAG",43.108802,-79.06361,0,-5,"A"
-7860,"Deputatsky","Deputatsky","Russia","","UEVD",69.293,139.5357,951,10,"E"
-7780,"Burlington Airpark","Burlington","Canada","","CZBA",43.4425,-79.850833,602,-5,"A"
-7781,"Baganara Island","Baganara","Guyana","",\N,6.343791,-58.591204,38,-4,"N"
-7782,"Penneshaw Airport","Penneshaw","Australia","PEA","YPSH",-34.75,137.933,0,9.5,"O"
-7783,"Matamanoa Helipad","Matamanoa","Fiji","",\N,-17.638056,177.066944,10,12,"U"
-7784,"Kaufbeuren BF","Kaufbeuren","Germany","KFX","KAUF",47.885,10.6294,1200,2,"E"
-7785,"Munich HBF","Munich","Germany","MUQ","MUNI",48.1408,11.555,1200,2,"E"
-7786,"Nurnberg HBF","Nurnberg","Germany","NUR","NURN",49.446,11.081944,1200,2,"E"
-7787,"Ebenhofen BF","Ebenhofen","Germany","EBE","EBEN",47.824,10.623,1200,2,"E"
-7788,"Augsburg HBF","Augsburg","Germany","AUB","AUGS",48.3655,10.886,1200,2,"E"
-7789,"Biessenhofen BF","Biessenhofen","Germany","BIE","BIES",47.851,10.634,1200,2,"E"
-7790,"Buchloe BF","Buchloe","Germany","BUH","BUCH",48.0411,10.715,1200,2,"E"
-7791,"Fussen BF","Fussen","Germany","FUX","FUSN",47.585,10.6866,1200,2,"E"
-7792,"Kempten HBF","Kempten","Germany","KEX","KEMP",47.724,10.311,1200,2,"E"
-7793,"Aiome","Aiome","Papua New Guinea","AIE",\N,-5.8,144.44,350,-10,"U"
-7794,"Simbai","Simbai","Papua New Guinea","SIM",\N,-4,144,5450,-10,"U"
-7795,"Ambunti","Ambunti","Papua New Guinea","AUJ",\N,-4.15,142.51,160,-10,"U"
-7796,"Gunns Camp","Okavango","Botswana","",\N,-19.52666,23.14944,0,0,"U"
-7797,"Sossusvlei","Sossusvlei","Namibia","",\N,-24.489444,15.815278,0,0,"U"
-7798,"Marktoberdorf BF","Marktoberdorf","Germany","OAL","MARK",47.78,10.627,1200,2,"E"
-7799,"Marktoberdorf Schule","Marktoberdorf","Germany","MOS","MARO",47.777,10.623,1200,2,"E"
-7800,"Essen HBF","Essen","Germany","ESX","ESSE",51.451389,7.0138,1000,2,"E"
-7801,"Bochum HBF","Bochum","Germany","BOX","BOCH",51.478506,7.2222,1000,3,"E"
-7802,"Koln HBF","Koln","Germany","KOX","KOLN",50.954,7.183,1000,2,"E"
-7803,"Mannheim HBF","Mannheim","Germany","",\N,49.471,8.469858,1000,2,"E"
-7804,"Booker","Wycombe","United Kingdom","","EGTB",51.611667,-0.808056,520,0,"E"
-7805,"Bembridge","Bembridge","United Kingdom","BBP","EGHJ",50.677778,-1.109444,53,0,"E"
-7806,"Kings County Municipal Airport","Waterville","Canada","","CCW3",45.0519,-64.6517,119,-4,"A"
-7807,"Chojna Air Base","Chojna","Poland","",\N,52.9394,14.4217,187,1,"E"
-7808,"Leuterschach BF","Leuterschach","Germany","LES","LEUT",47.75,10.601,1200,2,"E"
-7809,"Black Hills Airport-Clyde Ice Field","Spearfish-South Dakota","United States","SPF","KSPF",44.4811407,-103.7860053,3931,-7,"A"
-7810,"Knokke-Heist Westkapelle Heliport","Knokke","Belgium","KNO","EBKW",51.3222,3.29306,0,-1,"U"
-7811,"Redcliffe","Rothwell","Australia","","YRED",-27.206944,153.072778,75,10,"U"
-7812,"Gdynia","Gdynia","Poland","QYD","EPOK",54.5797,18.5172,144,2,"U"
-7813,"Malbork","Malbork","Poland","","EPMB",54.026944,19.134167,16,1,"E"
-7814,"Lask","Lask","Poland","","EPLK",51.551667,19.179058,633,1,"E"
-7815,"Miroslawiec","Miroslawiec","Poland","","EPMI",53.395072,16.082814,459,1,"E"
-7816,"Krzesiny","Poznan","Poland","","EPKS",52.331719,16.966428,265,1,"E"
-7817,"Olive Branch Muni","Olive Branch","United States","OLV","KOLV",34.876944,-89.783333,350,-6,"A"
-7818,"Vina Del Mar","Vina del Mar","Chile","","SCVM",-32.949611,-71.478583,461,-4,"S"
-7819,"Bangkok Intl closed","Bangkok","Thailand","","BKKX",13.91111,100.60611,5,7,"U"
-7820,"Brampton Airport","Brampton","Canada","","CNC3",43.7603,-79.875,935,-5,"A"
-7821,"Zonguldak","Zonguldak","Turkey","ONQ","LTAS",41.506111,32.088611,44,2,"E"
-7822,"Rocky Mountain Metropolitan Airport","Broomfield-CO","United States","BJC","KBJC",39.90888888,-105.11722222,5670,-7,"A"
-7823,"Minot Train Station","Minot","United States","",\N,48.2361,-101.2987,0,-6,"A"
-7824,"Havre Train Station","Havre","United States","",\N,48.55457,-109.67836,0,-7,"A"
-7825,"Wishram Train Station","Wishram","United States","",\N,45.6576,-120.9664,0,-8,"A"
-7826,"McNary Field","Salem","United States","SLE","KSLE",44.9095,-123.003,214,-7,"A"
-7827,"Tunica Municipal Airport","Tunica","United States","UTM","KUTA",34.681,-90.3467,194,-6,"A"
-7828,"Batken Airport","Batken","Kyrgyzstan","","UA30",40.0427,70.8381,3474,5,"E"
-7829,"Sun Island","Sun Island","Maldives","",\N,4.2868,73.554894,1,4,"U"
-7830,"Kasaba Bay Airport","Kasaba Bay","Zambia","ZKB","FLKY",-8.525,30.663,2780,2,"U"
-7831,"Lindau HBF","Lindau","Germany","LND","LIND",47.5489,9.688,1000,2,"E"
-7832,"Guardiamarina Zanartu Airport","Puerto Williams","Chile","WPU",\N,-54.9311,-67.6263,88,-4,"U"
-7833,"Volkel AB","Volkel","Netherlands","UDE",\N,51.656389,5.708611,72,1,"E"
-7834,"Hoogeveen Airport","Hoogeveen","Netherlands","","EHHO",52.7308,6.51611,40,1,"E"
-7835,"Teuge Airport","Deventer","Netherlands","","EHTE",52.2447,6.04667,17,1,"E"
-7836,"Midden-Zeeland Airport","Middelburg","Netherlands","","EHMZ",51.5122,3.73111,6,1,"E"
-7837,"Ameland Airport","Ameland","Netherlands","","EHAL",53.4517,5.67722,11,1,"E"
-7838,"Saint-Cyr-l-Ecole Airport","Saint-Cyr","France","","LFPZ",48.810278,2.073332,373,1,"E"
-7839,"Lawrence J Timmerman Airport","Milwaukee","United States","MWC","KMWC",43.1103889,-88.0344167,745,-6,"A"
-7840,"Southern Wisconsin Regional Airport","Janesville","United States","JVL","KJVL",42.62025,-89.0415556,808,-6,"A"
-7841,"Mantsonyane Airport","Mantsonyane","Lesotho","","FXMN",-29.5461,28.271,7100,2,"U"
-7842,"Hatfield","Hatfield","United Kingdom","HTF",\N,51.765,-0.24833,254,0,"U"
-7843,"Burswood Park Helipad","Perth","Australia","",\N,-31.952,115.859,25,8,"O"
-7844,"Toronto Coach Terminal","Toronto","Canada","","TRTO",43.655996,-79.38416,0,-5,"A"
-7845,"Montreal Central Bus Station","Montreal","Canada","","MTRL",45.51527887,-73.561427593,0,-5,"A"
-7846,"Arlington Municipal","Arlington","United States","GKY","KGKY",32.6638611,-97.0942778,628,-5,"A"
-7847,"Gwinnett County Airport-Briscoe Field","Lawrenceville","United States","LZU","KLZU",33.9780761,-83.9623772,1061,-4,"A"
-7848,"Bowling Green-Warren County Regional Airport","Bowling Green","United States","BWG","KBWG",36.9645278,-86.4196667,547,-5,"A"
-7849,"Richard Lloyd Jones Jr Airport","Tulsa","United States","RVS","KRVS",36.0396111,-95.9846389,638,-5,"A"
-7850,"Emeryville Amtrak Station","Emeryville","United States","",\N,37.8405149,-122.29134,23,-8,"A"
-7851,"Bakersfield Amtrak Station","Bakersfield","United States","",\N,35.372159,-119.008393,408,-8,"A"
-7852,"Krymsk","Novorossiysk","Russia","NOI",\N,44.4016,37.7779,50,3,"E"
-7853,"Minhad HB","Minhad AB","United Arab Emirates","NHD","OMDM",25.02694,55.36611,165,4,"U"
-7854,"Kirovograd","Kirovograd","Ukraine","KGO","UKKG",48.54,32.29,510,2,"E"
-7855,"Roitzschjora Airport","Roitzschjora","Germany","","EDAW",51.5778,12.4944,289,1,"U"
-7856,"Alalamain Intl.","Dabaa City","Egypt","DBB","HEAL",30.15,28.0833,144,2,"N"
-7857,"Bryce Canyon","Bryce Canyon","United States","BCE","KBCE",37.706444,-112.145806,7590,-7,"A"
-7858,"Heidelberg","Heidelberg","Germany","HDB","EDIU",49.393333,8.6525,0,1,"E"
-7859,"Burlington-Alamance Regional Airport","Burlington","United States","BUY","KBUY",36.0485433,-79.4748892,617,-4,"A"
-7861,"Chkalovsky Airport","Shchyolkovo","Russia","CKL","UUMU",55.878333,38.061667,152,3,"E"
-7862,"Tengchong Tuofeng Airport","Tengchong","China","TCZ","ZUTC",24.938651,98.483591,5500,8,"N"
-7863,"Belbek Sevastopol International Airport","Sevastopol","Ukraine","UKS","UKFB",44.691431,33.57567,344,2,"U"
-7864,"Minangkabau Airport","Padang-Sumatra Island","Indonesia","","WIPT",-0.786917,100.281,18,7,"U"
-7865,"Paradise Island Seaplane Base","Nassau","Bahamas","WZY",\N,25.0872,-77.3239,0,-5,"U"
-7866,"Selous Siswandu","Selous National Park","Tanzania","",\N,-7.70515,38.158644,0,3,"U"
-7867,"De Peel Air Base","Deurne","Netherlands","","EHDP",51.5173,5.85572,98,1,"E"
-7868,"Camp Bastion ","Camp Bastion","Afghanistan","","OAZI",31.865556,64.195278,2808,4.5,"N"
-7869,"New Century AirCenter Airport","Olathe","United States","JCI","KIXD",38.8309167,-94.8903056,1087,-6,"A"
-7870,"Easton-Newnam Field Airport","Easton","United States","ESN","KESN",38.8041667,-76.069,72,-5,"A"
-7871,"Stafsberg Airport","Hamar","Norway","HMR","ENHA",60.8181,11.068,713,1,"E"
-7872,"Ringebu Airport","Frya","Norway","","ENRI",61.5472,10.0611,571,1,"E"
-7873,"Starmoen","Elverum","Norway","","ENSM",60.88,11.6731,659,1,"E"
-7874,"Ferry County Airport","Republic","United States","R49",\N,48.7182058,-118.6564714,2522,-8,"A"
-7875,"Yuba County Airport","Yuba City","United States","MYV","KMYV",39.0553,-121.3411,62,-8,"A"
-7876,"Basel SBB","Basel","Switzerland","",\N,47.547531,7.58977,800,1,"E"
-7877,"Stockholm Cruise Port","Stockholm","Sweden","STO",\N,59.3233,18.081,0,1,"E"
-7878,"Helsingborg Cruise Port","Helsingborg","Sweden","JHE",\N,56.0419,12.6912,0,1,"E"
-7879,"Phillip Island Cruise Port","Phillip Island","Australia","","YPID",-38.4468,145.2378,0,10,"O"
-7880,"Halliburton Field Airport","Duncan","United States","DUC","KDUC",34.4713056,-97.9598611,1114,-6,"A"
-7881,"Port Authority Bus Terminal","New York","United States","","NYPA",40.75616,-73.9906,0,-5,"A"
-7882,"Filitheyo","N.Nilandhoo Atoll","Maldives","",\N,3.207801,73.037308,0,5,"N"
-7883,"Helsinki Cruise Port","Helsinki","Finland","","HELC",60.0912,24.5628,0,2,"U"
-7884,"Chinle Municipal Airport","Chinle","United States","E91",\N,36.1108806,-109.5754222,5547,-7,"N"
-7885,"Garner Field","Uvalde","United States","UVA","KUVA",29.215429,-99.748962,942,-6,"A"
-7886,"Lewis University Airport","Lockport","United States","LOT","KLOT",41.606326,-88.083003,680,-6,"A"
-7887,"Frasca Field","Urbana","United States","C16",\N,40.144979,-88.200197,735,-6,"A"
-7888,"Buchanan Field Airport","Concord","United States","CCR","KCCR",37.9896667,-122.0568889,26,-8,"A"
-7889,"Key Largo","Ocean Reef Club Airport","United States","OCA","07FA",25.325393,-80.274775,8,-5,"A"
-7890,"Denver Union Station","Denver","United States","",\N,39.753187,-105.000093,0,-7,"A"
-7891,"DELETE","DELETE","United States","",\N,-1.1111,-1.1111,0,0,"A"
-7892,"Polygone","Strasbourg Neudorf","France","","LFGC",48.5548,7.7778,130,1,"E"
-7893,"Nannhausen","Nannhausen","Germany","","EDRN",50,7.591667,1296,1,"E"
-7894,"Yushu Batang","Yushu","China","YUS","ZLYS",32.825,97.125,13000,8,"U"
-7895,"Playon Chico","Playon Chico","Panama","PYC",\N,9.303333,-78.236111,10,-5,"U"
-7896,"Ustupo","Ustupo","Panama","UTU",\N,9.137778,-77.933611,10,-5,"U"
-7897,"Mamitupo","Mamitupo","Panama","MPU",\N,9.186667,-77.984167,10,-5,"U"
-7898,"Huai An Lianshui Airport","Huai An","China","HIA","ZSSH",33.7772,119.1478,23,8,"N"
-7899,"Mureck","Mureck","Austria","",\N,46.70778,15.76941,764,1,"E"
-7900,"Guessing","Guessing","Austria","",\N,47.05932,16.32449,820,1,"E"
-7901,"El Porvenir","El Porvenir","Panama","PVE",\N,9.559167,-78.971111,5,-5,"U"
-7902,"Oshawa Airport","Oshawa","Canada","YOO","CYOO",43.9228,-78.895,459,-5,"A"
-7903,"Marl-Loemuehle Airport","Recklinghausen","Germany","","EDLM",51.6472,7.16333,240,-1,"U"
-7904,"Farila Air Base","Farila","Sweden","","ESNF",62.03,15.752,660,1,"E"
-7905,"Lahr Airport","Lahr","Germany","LHA","EDTL",48.3693,7.82772,511,1,"E"
-7906,"Monywa Airport","Monywa","Burma","","VYMY",22.233,95.117,298,6.5,"N"
-7907,"Ohio University Airport","Athens","United States","","KUNI",39.2118928,-82.2292554,766,-5,"U"
-7908,"Springfield-Beckly Municipal Airport","Springfield","United States","SGH","KSGH",39.8402778,-83.8401667,1051,-5,"A"
-7909,"Sun Island Airport","South Aari Atoll","Maldives","MSI","SIAM",3.48489,72.80408,2,4,"N"
-7910,"Fes Sefrou Airport","Fes","Morocco","","GMFU",34.0081,-4.96556,1539,0,"U"
-7911,"Herrera International Airport","Santo Domingo","Dominican Republic","HEX","MDHE",18.475,-69.975,22,-6,"U"
-7912,"Cooinda","Cooinda","Australia","CDA","YCOO",-12.9033,132.532,43,9.5,"U"
-7913,"Jabiru","Jabiru","Australia","JAB","YJAB",-12.6571,132.893,52,9.5,"U"
-7914,"Pitt Island Airport","Pitt Island","New Zealand","","PITT",-44.300278,-176.220556,12,12.75,"U"
-7915,"Plattling Bahnhof","Plattling","Germany","",\N,48.780147,12.863573,1050,1,"E"
-7916,"Osterhofen Bahnhof","Osterhofen Niederbayern","Germany","",\N,48.7,13.016667,1043,1,"E"
-7917,"Passau Hbf","Passau","Germany","",\N,48.574167,13.450833,1000,1,"E"
-7918,"Regensburg-Oberhub Airport","Regensburg","Germany","","EDNR",49.1419,12.0819,1299,1,"E"
-7919,"Regensburg HBF","Regensburg","Germany","RGB","REGE",49.022,12.1111,1200,2,"E"
-7920,"Treuchtlingen BF","Treuchtlingen","Germany","TLG","TREU",49.04,11.081944,1200,2,"E"
-7921,"Rivera Intl.","Rivera","Uruguay","",\N,-31.1127,55.4611,200,-3,"U"
-7923,"Miami Seaplane Base","Miami","United States","MPB",\N,25.7783,-80.1703,0,-5,"A"
-7924,"Hastings Airport","Freetown","Sierra Leone","HGS","GFHA",8.39713,-13.1291,60,0,"N"
-7925,"Philip Billard Muni","Topeka","United States","TOP","KTOP",39.068657,-95.622482,881,-6,"A"
-7926,"Grumeti Airstrip","Serengeti National Park","Tanzania","",\N,-2.157488,34.221232,5080,3,"N"
-7927,"Emporia Municipal Airport","Emporia","United States","EMP",\N,38.3321,-96.1912,1208,-6,"A"
-7928,"Benson Airstrip","Uvalde","United States","","2XS8",29.229405,-99.823947,929,-6,"A"
-7929,"Rough River State Park","Null","United States","","K2I3",37.609778,-86.506925,577,-5,"A"
-7930,"Smyrna Airport","Smyrna","United States","","KMQY",36.009,-86.5201,543,-6,"A"
-7931,"Franklin County Airport","Sewanee","United States","","KUOS",35.2051,-85.8981,1953,-6,"A"
-7932,"Gunsa","Shiquanhe","China","NGQ","ZUAL",32.10027,80.052778,13780,8,"N"
-7933,"Magdeburg-Cochstedt","Cochstedt","Germany","CSO","EDBC",51.855833,11.418333,596,1,"E"
-7934,"Wurzburg HBF","Wurzburg","Germany","WZB","WURZ",49.7999,9.95555,1000,2,"E"
-7935,"Collin County Regional Airport at Mc Kinney","DALLAS","United States","TKI","KTKI",33.1779444,-96.5905278,585,-6,"A"
-7936,"Chicago Executive","Chicago-Wheeling","United States","PWK","KPWK",42.1142897,-87.9015376,647,-6,"A"
-7937,"Ol Kiombo Airstrip","Masai Mara National Park","Kenya","",\N,-1.409595,35.110803,0,1,"U"
-7938,"Kelso Longview","Kelso","United States","KLS","KKLS",46.118,-122.898389,20,-8,"A"
-7939,"Letiste Benesov","Benesov","Czech Republic","","LKBE",49.4427,14.3841,1322,1,"U"
-7940,"Put-in-Bay Airport","Put-in-Bay","United States","3W2",\N,41.3521,-82.497,595,-6,"A"
-7941,"Bougouni","Bougouni","Mali","","GABG",11.45,-7.517,300,0,"N"
-7942,"Glenwood Springs Train Station","Glenwood Springs","United States","",\N,39.548,-107.3233,0,-7,"A"
-7943,"Grand Junction Train Station","Grand Junction","United States","",\N,39.0646,-108.5705,0,-7,"A"
-7944,"Reno Amtrak Station","Reno","United States","",\N,39.5287,-119.8116,0,-8,"A"
-7945,"Sacramento Amtrak Station","Sacramento","United States","",\N,38.584791,-121.500517,0,-8,"A"
-7946,"Tureia Airport","Tureia","French Polynesia","ZTA","NTGY",-20.7897,-138.57,12,-10,"N"
-7947,"Ice Runway-McMurdo Sstation","Ross Island","Antarctica","","NZIR",-77.8477778,166.6683333,1,12,"N"
-7948,"Keekorok","Keekorok","Kenya","","HKKE",-1.586418,35.259036,5536,3,"N"
-7949,"Ol Kiombo","Mara Intrepids","Kenya","",\N,-1.409569,35.110788,5006,3,"N"
-7950,"Ol Kiombo","Mara Intrepids","Kenya","",\N,-1.409569,35.110788,5006,3,"N"
-7951,"Kichwa Tembo","Kichwa Tembo","Kenya","",\N,-1.264132,35.022719,5174,3,"N"
-7952,"Busan","Busan","South Korea","",\N,35.179444,129.075556,0,9,"U"
-7953,"Busan","Busan","South Korea","",\N,35.179444,129.075556,0,9,"U"
-7954,"Gare de Marne-la-Vallee","Chessy","France","",\N,48.869722,2.782778,250,1,"E"
-7955,"Jefferson County Intl","Port Townsend","United States","TWD",\N,48.0314,-122.4838,108,-8,"A"
-7956,"Lynden Airport","Lynden","United States","38W",\N,48.9558961,-122.4581183,106,-8,"A"
-7957,"Jefferson County Intl","Port Townsend","United States","0S9",\N,48.0538086,-122.8106436,108,-8,"A"
-7958,"Savut","Savut","Botswana","",\N,1,1,1,1,"U"
-7959,"Xakan","Xakan","Botswana","",\N,1,1,1,1,"N"
-7960,"Xakan","Xakan","Botswana","",\N,1,1,1,1,"N"
-7961,"Xugan","Xugan","Botswana","",\N,1,1,1,0,"N"
-7962,"Puerto Obaldia","Puerto Obaldia","Panama","PUE","MPOA",8.68333,-77.5333,223,-5,"U"
-7963,"Kerch Intl","Kerch","Ukraine","KHC","UKFK",45.372869,36.402761,152,-2,"E"
-7964,"Khao Sok National Park","Surat Thani","Thailand","",\N,8.936667,98.530278,1200,8,"U"
-7965,"Khao Sok National Park","Surat Thani","Thailand","",\N,8.936667,98.530278,1200,8,"U"
-7966,"Boston South Station","Boston","United States","","BOST",42.35,-71.0558,0,-5,"A"
-7967,"Tarifa","Tarifa","Spain","",\N,36.070781,-5.602764,20,1,"E"
-7968,"Train Station","Ottawa","Canada","XDS",\N,45.4164,-75.6517,374,-5,"A"
-7969,"Train Station","Belleville","Canada","XVV",\N,44.1793,-77.3747,315,-5,"A"
-7970,"Train Station","Edmonton","Canada","XZL",\N,53.5789,-113.5307,2208,-7,"A"
-7971,"Train Station","Richmond","United States","ZRD",\N,37.5343,-77.42945,26,-5,"A"
-7972,"Sentral","Kuala Lumpur","Malaysia","XKL",\N,3.134,101.686,126,8,"U"
-7973,"Train Station","Churchill","Canada","XAD",\N,58.76775,-94.17425,10,-6,"A"
-7974,"Train Station","Winnipeg","Canada","XEF",\N,49.8889,-97.1342,751,-6,"A"
-7975,"Train Station","Kingston","Canada","",\N,44.2572,-76.53715,282,-5,"A"
-7976,"Ukunda Airport","Ukunda","Kenya","UKA","HKUK",-4.29694,39.5714,0,3,"U"
-7977,"Whitehaven Beach","Whitsunday Island","Australia","",\N,-20.28866,149.044966,0,-9,"U"
-7978,"Wilmington Airborne Airpark","Wilmington","United States","ILN","KILN",39.42792,-83.792118,1077,-5,"U"
-7979,"Marana Regional","Tucson","United States","AVW","KAVQ",32.409556,-111.218388,2031,-7,"U"
-7980,"Casa Grande Municipal Airport","Casa Grande","United States","CGZ","KCGZ",32.954889,-111.766832,1464,-7,"U"
-7981,"Mobile","Mobile","United States","","1AZ0",33.111944,-112.269166,1261,-7,"U"
-7982,"Buckeye Municipal Airport","Buckeye","United States","BXK","KBXK",33.420417,-112.68618,1033,-7,"U"
-7983,"Gila Bend Municipal Airport","Gila Bend","United States","E63","KE63",32.960169,-112.673636,789,-7,"U"
-7984,"McMinn Co","Athens","United States","MMI","KMMI",35.39919,-84.56177,874,-5,"N"
-7985,"Sterling Municipal Airport","Sterling","United States","STK","KSTK",40.6153136,-103.2648454,4040,-7,"A"
-7986,"Rawlins Municipal Airport-Harvey Field","Rawlins","United States","RWL","KFWL",41.8055975,-107.19994,6813,-7,"A"
-7987,"Mackenzie Airport","Mackenzie British Columbia","Canada","YZY","CYZY",55.29944,-123.08333,2264,-8,"A"
-7988,"JALOU","Jalu","Libya","",\N,29.142222,21.380556,0,1,"U"
-7989,"JALOU","Jalu","Libya","",\N,29.142222,21.380556,0,1,"U"
-7990,"Caldwell Essex County Airport","Caldwell","United States","CDW","KCDW",40.8752222,-74.2813611,172,-4,"A"
-7991,"Lee C Fine Memorial Airport","Kaiser Lake Ozark","United States","AIZ","KAIZ",38.096035,-92.5494875,869,-5,"A"
-7992,"Yuryevets","Yuryevets","Russia","",\N,57.3106,43.1003,269,4,"N"
-7993,"Big Bear City","Big Bear","United States","L35",\N,34.2637778,-116.8560278,6725,-7,"A"
-7994,"KIEV  INTERNATIONAL AIRPORT","KIEV","Ukraine","KIP","KIEV",50.1403,30.1808,250,3,"E"
-7995,"Los Angeles Union Station","Los Angeles","United States","",\N,34.056111,-118.234167,300,-8,"A"
-7996,"Bamberg BF","Bamberg","Germany","BAM","BAMB",49.911,10.9,800,1,"E"
-7997,"Ingolstadt BF","Ingolstadt","Germany","IGS","INGS",48.7777,11.422,888,1,"E"
-7998,"Thomasville Regional Airport","Thomasville","United States","TVI","KTVI",30.9017921,-83.8811285,264,-5,"A"
-7999,"Henderson Executive Airport","Henderson","United States","HSH","KHND",35.972778,-115.134444,1881,-8,"A"
-8000,"Gostomel Antonov","Kiev","Ukraine","GML","UKKM",50.603611,30.191944,517,2,"E"
-8001,"Zuoying Station","Kaohsiung","Taiwan","",\N,22.687389,120.307481,31,8,"N"
-8002,"Taipei Station","Taipei","Taiwan","",\N,25.047778,121.517222,30,8,"N"
-8003,"Donghae","Donghae","South Korea","",\N,37.489,129.124,0,9,"N"
-8004,"Sakaiminato Port","Sakaiminato","Japan","",\N,35.539,133.264,0,9,"N"
-8005,"Henry Tift Myers Airport","Tifton","United States","TMA","KTMA",31.4289814,-83.488545,355,-5,"U"
-8006,"Landshut Ellermuehle","Landshut","Germany","","EDML",48.5133333333333,12.035,1200,1,"E"
-8007,"Itzehoe-Hungriger Wolf Airport","Itzehoe","Germany","","EDHF",53.9944,9.57861,89,1,"E"
-8008,"Savannah Cruise Terminal","Savannah","United States","",\N,32.08558,-81.097559,0,-5,"U"
-8009,"CHARLESTON CRUISE TERMINAL","CHARLESTON","United States","",\N,32.781081,-79.92364,0,-5,"U"
-8010,"NEW YORK CRUISE TERMINAL PIER 92","NEW YORK","United States","",\N,40.767681,-73.999107,0,-5,"U"
-8011,"Navy Dockyard Hamilton Bermuda","HAMILTON","Bermuda","",\N,32.327037,-64.830626,0,-3,"U"
-8012,"Tokyo Station","Tokyo","Japan","",\N,35.672498,139.753218,16,9,"N"
-8013,"Shin-Osaka Station","Osaka","Japan","",\N,34.738932,135.500093,61,9,"N"
-8014,"Hiroshima Station","Hiroshima","Japan","",\N,34.3973853173792,132.475978195923,28,9,"N"
-8015,"Frankfurt-Main Hauptbahnhof","Frankfurt","Germany","ZRB",\N,50.1070257990375,8.66276050515751,372,1,"E"
-8016,"Amsterdam Amstel Station","Amsterdam","Netherlands","",\N,52.3466365904832,4.91781401731873,21,1,"E"
-8017,"Florenc Central Bus Station","Prague","Czech Republic","",\N,50.0909636578274,14.4394929551697,617,1,"E"
-8018,"Wien Sudbahnhof","Vienna","Austria","",\N,48.1866480486625,16.3815008466187,651,1,"E"
-8019,"Praha hlavni nadrazi","Prague","Czech Republic","XYG",\N,50.0826892098189,14.4350297593689,691,1,"E"
-8020,"Wien Westbahnhof","Vienna","Austria","",\N,48.1965754250116,16.3374911611023,675,1,"E"
-8021,"Venezia Santa Lucia","Venice","Italy","",\N,45.4417738709625,12.3199978080597,8,1,"E"
-8022,"Firenze Santa Maria Novella","Florence","Italy","",\N,43.7766651171349,11.2480175237426,159,1,"E"
-8023,"Roma Termini","Rome","Italy","",\N,41.9004811137748,12.5020006853333,189,1,"E"
-8024,"St Pancras Railway Station","London","United Kingdom","QQS",\N,51.532519492138,-0.12630037301642,80,0,"E"
-8025,"Chitabe Airstrip","Chitabe","Botswana","",\N,-19.4687,23.38271,3000,2,"U"
-8026,"Fish River Canyon Lodge Airstrip","Fish River Canyon","Namibia","",\N,-27.659288,17.837624,3077,1,"U"
-8027,"Sossusvlei Desert Lodge Airstrip","Sossusvlei","Namibia","",\N,-24.802812,15.891713,2950,1,"U"
-8028,"Ulusaba Airstrip","Ulusaba","Namibia","ULX",\N,-24.782766,31.353929,1470,2,"U"
-8029,"RADOM","RADOM","Poland","QXR","EPRA",51.231978,21.124183,479,1,"E"
-8030,"Deer Valley Municipal Airport","Phoenix ","United States","DVT","KDVT",33.4117,112.457,1478,-7,"A"
-8031,"Calgary Springbank Airport","Calgary","Canada","YBW","CYBW",51.1031,-114.374,3939,-7,"A"
-8032,"Golden Airport","Golden","Canada","YGE","CYGE",51.2992,-116.982,2575,-7,"A"
-8033,"Revelstoke Airport","Revelstoke","Canada","YRV","CYRV",50.9667,-118.183,1459,-8,"A"
-8034,"Republic Airport","Farmingdale","United States","","KFRG",40.7288,-73.4134,82,-5,"A"
-8035,"Allstedt","Allstedt","Germany","","EDBT",51.3806,11.4467,932,1,"E"
-8036,"BWKAM","Amberg","Germany","",\N,49.43,11.8,500,1,"E"
-8037,"Glindbruchkippe","Peine","Germany","","KIPP",52.3237,10.182,230,1,"E"
-8038,"General Freire","Curico","Chile","","SCIC",-34.9667,-71.2164,722,-4,"S"
-8039,"Peine-Eddesse Airport","Peine","Germany","","EDVP",52.4025,10.2289,249,1,"E"
-8040,"Seattle King Street Station","Seattle","United States","",\N,47.5985,-122.3299,7,-8,"A"
-8041,"Tula","Tula","Russia","TYA",\N,54.142208,37.355619,590,3,"U"
-8042,"Hondo Municipal Airport","Hondo","United States","HDO","KHDO",29.3591,-99.1775,930,-5,"A"
-8043,"Zhongwei Xiangshan Airport","Zhongwei","China","ZHY","ZLZW",37.5728,105.1544,4305,8,"N"
-8044,"Milwaukee Airport Station","Milwaukee","United States","",\N,42.940556,-87.924722,730,-6,"A"
-8045,"Springfield IL Amtrak","Springfield","United States","",\N,39.8023,-89.6515,593,-6,"A"
-8046,"St. Louis Amtrak - old","St. Louis","United States","",\N,38.6241,-90.2056,450,-6,"A"
-8047,"Camarillo Amtrak","Camarillo","United States","",\N,34.2164,-119.0335,140,-8,"A"
-8048,"Seattle Pier 52","Seattle","United States","",\N,47.6005,-122.3388,7,-8,"A"
-8049,"Bremerton Terminal","Bremerton","United States","",\N,47.5619,-122.625,7,-8,"A"
-8050,"McKinley National Park Airport","McKinley Park","United States","MCL","PAIN",63.732757,-148.91129,1720,-8,"A"
-8051,"Lake Hood Seaplane Base","Anchorage","United States","LHD","PALH",61.1866382,-149.9653918,71,8,"A"
-8052,"Prospect Creek Airport","Prospect Creek","United States","PPC","PAPR",66.4851,-150.3837,1095,-9,"A"
-8053,"Khwai River Lodge","Khwai River","Botswana","KHW","FBKR",-19.149166,23.7875,3000,2,"N"
-8054,"Spremberg-Welzow Airport","Welzow","Germany","","EDCY",51.5756,14.1369,374,1,"E"
-8055,"Taichung Airport","Taichung","Taiwan","TXG","RCLG",24.1863,120.654,369,8,"N"
-8056,"Columbia County","Hudson NY","United States","HCC",\N,42.2913,-73.7103,198,-4,"A"
+?>
