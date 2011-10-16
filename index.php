@@ -3,14 +3,14 @@ include("lib/global.php");
 ?>
 <!DOCTYPE html>
 <head>
-	<title>Sun Flight Map - Map the path of your flight and the sun | built at tnooz tHack Singapore!</title>
+	<title>SunFlight.net - Chase the sun and map the path of your flight with it | Built at Tnooz tHack Singapore!</title>
 
 	<meta name="description" content="Map the path of your flight and the sun. Built at tnooz tHack Singapore!">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	
-	<meta property="og:title" content="Sun Flight Map" /> 
-	<meta property="og:description" content="Map the path of your flight and the sun." /> 
+	<meta property="og:title" content="SunFlight.net" /> 
+	<meta property="og:description" content="Chase the sun and map the path of your flight with it." /> 
 	
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen, projection" />
 	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen, projection" />
@@ -38,14 +38,17 @@ include("lib/global.php");
 			var myOptions = {
 				zoom: 2,
 				center: new google.maps.LatLng(-34.397, 150.644),
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				streetViewControl: false,
+				mapTypeControl: false,
+				panControl: false
 			};
 			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 		}
 
 		main = function() {
 			google.maps.event.addDomListener(window, 'load', initializeMap);
-			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd', defaultDate: +0});
 			<?php if(array_key_exists("autoload", $_GET)) { ?> mapFlight(); <? } ?>
 			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
 		}
@@ -243,7 +246,7 @@ include("lib/global.php");
 	<div id="ui-container">
 		<div id="ui-panel">
 			<input id="carrierCodeAndServiceNumber" value="JQ7" size="5">
-			<input id="requestDate" value="2011-10-14" size="12">
+			<input id="requestDate" value="<?php print(date("Y-m-d")); ?>" size="12">
 			<button class="shiny-blue" onClick="mapFlight();">Chase the sun!</button>
 		</div>
 		<div id="results-panel"></div>
@@ -251,12 +254,15 @@ include("lib/global.php");
 	
 	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Doing stuff...</div>
 	<div id="slider-container">
-		<div id="slider"></div>
+		<table width="100%"><tr>
+			<td width="80%"><div id="slider"></div></td>
+			<td width="20%" align="right"><div id="slider-time"></div></td>
+		</tr></table>
 	</div>
-	<div id="info">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!</div>
 	<div id="welcome">
 		Welcome to our cool hack!
 	</div>
+	<div id="info">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!</div>
 	<div id="debug">
 		<input id="minutes_travelled">
 	</div>
