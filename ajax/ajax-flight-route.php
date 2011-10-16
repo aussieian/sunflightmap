@@ -72,7 +72,7 @@ $post_response = curl_exec($curl_conn);
 curl_close($curl_conn);
 
 $xml_data = simplexml_load_string($post_response);
-if ($post_response == "") { 
+if ($post_response == "<RESPONSE></RESPONSE>") { 
 	print($callback . "({'error':'No response or invalid flight info'});");
 	die();
 }
