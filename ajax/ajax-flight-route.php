@@ -15,17 +15,17 @@ if (array_key_exists("callback", $_GET)) {
 
 $carrier_code='JQ';
 if (array_key_exists("carrier_code", $_GET)) {
-	$carrier_code=$_GET['callback'];
+	$carrier_code=$_GET['carrier_code'];
 }
 
 $service_number='7';
 if (array_key_exists("service_number", $_GET)) {
-	$service_number=$_GET['callback'];
+	$service_number=$_GET['service_number'];
 }
 
 $request_date='2011-10-16';
 if (array_key_exists("request_date", $_GET)) {
-	$request_date=$_GET['callback'];
+	$request_date=$_GET['request_date'];
 }
 
 
