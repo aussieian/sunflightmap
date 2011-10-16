@@ -4,30 +4,7 @@ include("../lib/global.php");
 
 // Ajax Flight Route
 // Parameters: Carrier Code, Service Number, Request Date
-
-// steps:
-// references: http://ondemandtestharness.oag.com/CBWSTestHarnessPublic/#flightLookupRequest
-
-// Step 1
-// fetch XML results via OAG test harness which gives us a REST 
-// url: http://ondemandtestharness.oag.com/CBWSTestHarnessPublic//FlightLookupRequestAction.do?
-// post vars: 
-// actionForm:FlightLookupRequestForm
-// inputPrefix:f_
-// f_username:THACK
-// f_password:THACK
-// f_carrierCode:JQ
-// f_serviceNumber:7
-// f_requestDate:2011-10-16
-// f_requestTime:12:00:00
-
-// Step 2
-// pull out the fromairpot, toairport, flight depart time, elapsed time, 
-
-// this should return a jsonp object with flight route info from OAG..
-
-// Get callback url
-// also do this for carrier code, service number, request date
+// References: http://ondemandtestharness.oag.com/CBWSTestHarnessPublic/#flightLookupRequest
 
 // Get URL parameters
 //////////////////////
@@ -55,13 +32,9 @@ if (array_key_exists("request_date", $_GET)) {
 // Do OAG Lookup
 ////////////////
 
-// f_username:THACK
-// f_password:THACK
-// f_carrierCode:JQ
-// f_serviceNumber:7
-// f_requestDate:2011-10-16
-// f_requestTime:12:00:00
-
+// Step 1
+// Fetch XML results via OAG test harness which gives us a REST
+// Hard-coded for now
 $username = 'THACK';
 $password = 'THACK';
 $carrier_code = 'JQ';
@@ -71,8 +44,9 @@ $request_time = '12:00:00';
 
 //set POST variables
 $post_url = "http://ondemandtestharness.oag.com/CBWSTestHarnessPublic//FlightLookupRequestAction.do?";
-//$post_url = "http://www.insight4.com";
 $fields = array(
+            'actionForm'=>'FlightLookupRequestForm',
+            'inputPrefix'=>'f_',
             'f_username'=>urlencode($username),
             'f_password'=>urlencode($password),
             'f_carrierCode'=>urlencode($carrier_code),
@@ -81,39 +55,58 @@ $fields = array(
             'f_requestTime'=>urlencode($request_time)
           );
 
-//url-ify the data for the POST
-//foreach($fields as $key=>$value) { $fields_string .= $key.'='.$value.'&'; }
-//rtrim($fields_string,'&');
+// url-ify the data for the POST
 $data = http_build_query($fields);
 
-//open connection
+// open connection
 $curl_conn = curl_init();
 
-//set the url, number of POST vars, POST data
+// set the url, number of POST vars, POST data
 curl_setopt($curl_conn,CURLOPT_URL,$post_url);
 curl_setopt($curl_conn,CURLOPT_POST,count($fields));
 curl_setopt($curl_conn,CURLOPT_POSTFIELDS,$data);
+curl_setopt($curl_conn, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($curl_conn, CURLOPT_HEADER, 0);
 
-//execute post
+// execute post
 $post_response = curl_exec($curl_conn);
 
-//close connection
+// close connection
 curl_close($curl_conn);
 
-print("[1]");
-print_r($post_response);
+$xml_data = simplexml_load_string($post_response);
 
+// Step 2
+// pull out the fromairpot, toairport, flight depart time, elapsed time,
 // data for callback
-$from_airport = "MEL";
-$from_city = "Melbourne";
-$from_lat = -37.673333;
-$from_lon = 144.843333;
-$to_airport = "SIN";
-$to_city = "Singapore";
-$to_lat = 1.350189;
-$to_lon = 103.994433;
-$depart_time = "2011-10-16T12:00:00";
-$elapsed_time = 470;
+// this should return a jsonp object with flight route info from OAG..
+
+// Get callback url
+// also do this for carrier code, service number, request date
+
+$from_airport = strval($xml_data->Flight->Dep->Port["PortCode"]);
+$from_airport_openflights = getAirport($from_airport);
+$from_city = $from_airport_openflights["City"];
+$from_lat = $from_airport_openflights["Lat"];
+$from_lon = $from_airport_openflights["Lon"];
+$to_airport = strval($xml_data->Flight->Arr->Port["PortCode"]);
+$to_airport_openflights = getAirport($to_airport);
+$to_city = $to_airport_openflights["City"];
+$to_lat = $to_airport_openflights["Lat"];
+$to_lon = $to_airport_openflights["Lon"];
+$depart_time = strval($xml_data->Flight->Dep["DepTime"]);
+$elapsed_time = strval($xml_data->Flight->Dep["ElapsedTime"]);
+
+//$from_airport = "MEL";
+//$from_city = "Melbourne";
+//$from_lat = -37.673333;
+//$from_lon = 144.843333;
+//$to_airport = "SIN";
+//$to_city = "Singapore";
+//$to_lat = 1.350189;
+//$to_lon = 103.994433;
+//$depart_time = "2011-10-16T12:00:00";
+//$elapsed_time = 470;
 
 // make jsonp
 $jsonp = $callback . "({";
@@ -131,7 +124,6 @@ $jsonp .= "});";
 
 // example:
 //flightmap({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-16T12:00:00","elapsed_time": 470});
-print("[2]");
 print($jsonp);
 
 ?>
