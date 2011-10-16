@@ -5,19 +5,23 @@ html, body, #map_canvas {
 	padding: 0;
 	height: 100%;
 }
-input { font-family: Arial, Verdana; font-size: 14pt; }
+input { font-family: Arial, Verdana; font-size: 14pt; color: #FF0080; }
 #ui-container { position: fixed; top: 36px; right: 24px; }
 #ui-panel { white-space: nowrap; font-size: 18pt; padding: 12px; border: 1px solid #ddd; background: #eee;}
-#results-panel { display: none; white-space: nowrap; margin-top: 12px; font-size: 12pt; width: 350px; padding: 12px; border: 1px solid #ddd; background: #eee;}
+#results-panel { display: none; opacity: 0.5; white-space: nowrap; margin-top: 12px; font-size: 10pt; padding: 12px; border: 1px solid #ddd; background: #eee;}
 #debug { display: none; position: fixed; bottom: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
 #loading-page { z-index: 4; display: none; position: fixed; left: 50%; top: 40%; margin-left: -130px; width: 180px; padding: 20px; -moz-border-radius: 10px; -webkit-border-radius: 10px; background-color: #fff; text-align: center; }
-#slider-container { white-space: nowrap; display: none; z-index: 4; padding: 12px; background-color: #eee; position: fixed; bottom: 100px; left: 50%; width: 500px; margin-left: -250px; }
+#slider-container { white-space: nowrap; border: 1px solid #888; display: none; z-index: 4; padding: 12px; background-color: #eee; position: fixed; bottom: 100px; left: 50%; width: 500px; margin-left: -250px; }
 #slider { }
 #slider-time { }
 #info { z-index: 4; font-size: 12.5pt; padding: 12px; background-color: #fff; position: fixed; bottom: 20px; left: 50%; width: 650px; margin-left: -325px; text-align: center; }
 #info a { color: red;}
 #welcome2 { z-index: 4; position: fixed; width: 600px; height: 300px; background-color: #fff; }
-
+.shadow {
+  -moz-box-shadow: 5px 5px 5px #888;
+  -webkit-box-shadow: 5px 5px 5px #888;
+  box-shadow: 5px 5px 5px #888;
+}
 
 /* shiny blue (inspired by rdio iphone interface)
 *******************************************************************************/

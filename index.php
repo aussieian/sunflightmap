@@ -8,7 +8,7 @@ if (array_key_exists("flightcode", $_GET)) {
 	$flightcode = $_GET['flightcode'];
 	$autoload = true;
 }
-$date_depart=date("Y-d-m");
+$date_depart=date("Y-m-d");
 if (array_key_exists("date", $_GET)) {
 	$date_depart=$_GET['date'];
 	$autoload = true;
@@ -69,6 +69,7 @@ if(array_key_exists("autoload", $_GET)) {
 			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd', defaultDate: +0});
 			<?php if ($autoload) { ?> mapFlight(); <? } ?>
 			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
+			updatePermalink();
 		}
 		
 		clearMapRoutes = function() {
@@ -114,6 +115,9 @@ if(array_key_exists("autoload", $_GET)) {
 			if (!validateInput()) { 
 				return;
 			}
+			
+			// make permalink
+			updatePermalink();
 			
 			// clear previous map routes
 			clearMapRoutes();
@@ -193,7 +197,7 @@ if(array_key_exists("autoload", $_GET)) {
 									mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value); // map path of the sun
 									mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value); // map path of the sun
 									$("#minutes_travelled" ).val( ui.value );
-									$('#slider-time').html(ui.value + " mins");
+									updateSliderTime(ui.value, data.elapsed_time);
 								}, 10);
 						}
 					});
@@ -201,7 +205,7 @@ if(array_key_exists("autoload", $_GET)) {
 					mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, 0); // map path of the sun
 					mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, 0); // map path of the sun
 					$("#minutes_travelled" ).val( 0 );
-					$('#slider-time').html(0 + " mins");
+					updateSliderTime(0, data.elapsed_time);
 						
 				}
 
@@ -259,6 +263,24 @@ if(array_key_exists("autoload", $_GET)) {
 		    });
 		}
 		
+		function updateSliderTime(t, max)
+		{
+			slider_text = t + " mins";
+			if (t == 0) { 
+				slider_text = "Take off...";
+			}
+			else if (t == max) {
+				slider_text = "Landed!";
+			} 
+			
+			$('#slider-time').html(slider_text);
+		}
+		
+		function updatePermalink()
+		{
+			$('#permalink').attr("href", "http://" + window.location.hostname + "/?flightcode="+getInputCarrierCode() + getInputServiceNumber() + "&date=" + getInputRequestDate());
+		}
+		
 		// let's do it!
 		main();
 
@@ -270,10 +292,12 @@ if(array_key_exists("autoload", $_GET)) {
 <body>
 	<div id="map_canvas">Loading cool stuff...</div>
 	<div id="ui-container">
-		<div id="ui-panel">
+		<div id="ui-panel" class="shadow">
 			<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
 			<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
 			<button class="shiny-blue" onClick="mapFlight();">Chase the sun!</button>
+			<br>
+			<span style="font-size: 10pt;">Enter carrier code and flight number (ie: JQ7). I'm feeling <a style="color: #FF0080" href="/?autoload">lucky</a> | <a id="permalink" style="color: blue;" href="#">permalink</a></span>
 		</div>
 		<div id="results-panel"></div>
 	</div>
@@ -281,14 +305,15 @@ if(array_key_exists("autoload", $_GET)) {
 	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Doing stuff...</div>
 	<div id="slider-container">
 		<table width="100%"><tr>
-			<td width="80%"><div id="slider"></div></td>
+			<td width="20%">Slide me</td>
+			<td width="60%"><div id="slider"></div></td>
 			<td width="20%" align="right"><div id="slider-time"></div></td>
 		</tr></table>
 	</div>
 	<div id="welcome">
 		Welcome to our cool hack!
 	</div>
-	<div id="info">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!</div>
+	<div id="info" class="shadow">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!</div>
 	<div id="debug">
 		<input id="minutes_travelled">
 	</div>
