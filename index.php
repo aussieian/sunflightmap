@@ -137,6 +137,13 @@ include("lib/global.php");
 					fromInfoWindow.open(map,fromMarker);
 					markers.push(fromMarker);
 					
+					// draw end marker
+					var toMarker = new google.maps.Marker({
+				        position: toLatLng,
+				        map: map,
+				        title: 'Destination'
+				    }); 
+					markers.push(fromMarker);
 						
 					mapSunPath(flightPaths, map, "",470); // map path of the sun			
 				}
