@@ -59,27 +59,55 @@ include("lib/global.php");
 			flightPaths = Array();
 			markers = Array();
 		}
-
+		
+		trim = function(str) {
+			return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+		}
+		
+		getInputCarrierCode = function() {
+			return trim($('#carrierCodeAndServiceNumber').val().replace(/[\d.]/g, '')); // "JQ"
+		}
+		
+		getInputServiceNumber = function() {
+			return trim($('#carrierCodeAndServiceNumber').val().replace(/[A-Za-z$-]/g, '')); // 7
+		}
+		
+		getInputRequestDate = function() {
+			return trim($('#requestDate').val());
+		}
+		
+ 		validateInput = function() {
+			if (getInputCarrierCode() == "") { alert("Please enter a carrier code (ie: JQ)"); return false; }
+			if (getInputServiceNumber() == "") { alert("Please enter a service number (ie: JQ7)"); return false; }
+			if (getInputRequestDate() == "") { alert("Please enter a date of travel (ie: 2011-10-14)"); return false; }
+			return true; // valid!
+		}
+		
 		mapFlight = function() {
-			var carrier_code_txt = $('#carrierCodeAndServiceNumber').val().replace(/[\d.]/g, ''); //"JQ",
-			var service_number_txt = $('#carrierCodeAndServiceNumber').val().replace(/[A-Za-z$-]/g, ''); // 7
-			//alert(carrier_code_txt);
+	
+			// validate input
+			if (!validateInput()) { 
+				return;
+			}
 			
+			// show loading page
 			$('#loading-page').show();
+
+			// lookup flight data from OAG wrapper
 			$.getJSON("/ajax/ajax-flight-route.php?callback=?",
 			{
-				carrier_code: carrier_code_txt, // JQ
-				service_number: service_number_txt, // "7",
-				request_date: $('#requestDate').val() //"2011-10-14"
+				carrier_code: getInputCarrierCode(), // JQ
+				service_number: getInputServiceNumber(), // "7",
+				request_date: getInputRequestDate() //"2011-10-14"
 			},
 			function(data) {
 				// get back jsonp
-				//alert("here..");
 				// flightmap({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-16T12:00:00","elapsed_time": 470})
 				$('#loading-page').hide();
 				if (data.error != "") { 
 					alert(data.error);
 				} else {
+					
 					
 					clearMapRoutes();
 					
@@ -133,7 +161,7 @@ include("lib/global.php");
 		<input id="requestDate" value="2011-10-14" size="12">
 		<button onClick="mapFlight();">Map Flight</button>
 	</div>
-	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Freaking out...</div>
+	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Doing stuff...</div>
 	<div id="debug">
 	<?php
 		$airport = getAirport("SYD");
