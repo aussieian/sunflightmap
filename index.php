@@ -24,6 +24,8 @@ include("lib/global.php");
 	<!-- custom code -->
 	<script type="text/javascript">
 	
+	// OUR CODE SUCKS!
+	
 	var map;
 	var flightPaths = Array();
 	var markers = Array();
@@ -138,7 +140,7 @@ include("lib/global.php");
 					flightPath.setMap(map);
 					
 					// draw start marker
-					var content_html = "<div id='marker'>From: " + data.from_city + " (" + data.from_airport + ")<br>To: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + "<br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
+					var content_html = "<div id='marker'>Depart: " + data.from_city + " (" + data.from_airport + ")<br>Arrive: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + " GMT <br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
 					$('#results-panel').html(content_html).fadeIn();
 					/*var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });*/
 					/*var fromMarker = new google.maps.Marker({
@@ -146,25 +148,29 @@ include("lib/global.php");
 				        map: map,
 				        title: 'Origin'
 				    });*/
-					/*fromInfoWindow.open(map,fromMarker);*/
+					//fromInfoWindow.open(map,fromMarker);
 					//markers.push(fromMarker);
 					
 					// draw end marker
-					/*var toMarker = new google.maps.Marker({
+					var toMarker = new google.maps.Marker({
 				        position: toLatLng,
 				        map: map,
-				        title: 'Destination'
-				    });*/
-					//markers.push(toMarker);
+				        title: 'Destination',
+						icon: '/images/flag.png'
+				    });
+					markers.push(toMarker);
 				
 					
 					$("#slider").slider({ 
 						min: 0,
 						max: data.elapsed_time,
 						slide: function( event, ui ) {
-								mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value); // map path of the sun
-								mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value); // map path of the sun
-								$("#minutes_travelled" ).val( ui.value );
+								clearTimeout(this.id);
+								this.id = setTimeout(function(){
+									mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value); // map path of the sun
+									mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value); // map path of the sun
+									$("#minutes_travelled" ).val( ui.value );
+								}, 10);
 						}
 					});
 						
@@ -234,18 +240,41 @@ include("lib/global.php");
 </head>
 <body>
 	<div id="map_canvas">Loading cool stuff...</div>
-	<div id="ui-panel">
-		<input id="carrierCodeAndServiceNumber" value="JQ7" size="5">
-		<input id="requestDate" value="2011-10-14" size="12">
-		<button onClick="mapFlight();">Map Flight</button>
+	<div id="ui-container">
+		<div id="ui-panel">
+			<input id="carrierCodeAndServiceNumber" value="JQ7" size="5">
+			<input id="requestDate" value="2011-10-14" size="12">
+			<button class="shiny-blue" onClick="mapFlight();">Chase the sun!</button>
+		</div>
+		<div id="results-panel"></div>
 	</div>
-	<div id="results-panel">
-	</div>
+	
 	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Doing stuff...</div>
 	<div id="slider-container">
 		<div id="slider"></div>
 	</div>
+	<div id="info">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!</div>
+	<div id="welcome">
+		Welcome to our cool hack!
+	</div>
 	<div id="debug">
 		<input id="minutes_travelled">
 	</div>
+	
+	<!-- google anlaytics -->
+	<script type="text/javascript">
+
+	  var _gaq = _gaq || [];
+	  _gaq.push(['_setAccount', 'UA-26351606-1']);
+	  _gaq.push(['_trackPageview']);
+
+	  (function() {
+	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+	  })();
+
+	</script>
+	<!-- analytics -->
+	
 </body>
