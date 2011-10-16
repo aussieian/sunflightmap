@@ -23,11 +23,12 @@ include("lib/global.php");
 
 	<!-- custom code -->
 	<script type="text/javascript">
+	
+	var map;
+	var flightPaths = Array();
+	var markers = Array();
+		
 	$(document).ready(function() {
-
-		var map;
-		var flightPaths = Array();
-		var markers = Array();
 
 		function initializeMap() {
 			var myOptions = {
@@ -40,10 +41,12 @@ include("lib/global.php");
 
 		main = function() {
 			google.maps.event.addDomListener(window, 'load', initializeMap);
+			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd' });
 			<?php if(array_key_exists("autoload", $_GET)) { ?> mapFlight(); <? } ?>
+			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
 		}
 		
-		function clearMapRoutes() {
+		clearMapRoutes = function() {
 			//alert(flightPaths.length);
 			// remove existing polys
 			for (i = 0; i < flightPaths.length; i++) {
@@ -52,6 +55,9 @@ include("lib/global.php");
 			for (i = 0; i < markers.length; i++) {
 				markers[i].setMap(null);
 			}
+			// reset array
+			flightPaths = Array();
+			markers = Array();
 		}
 
 		mapFlight = function() {
@@ -74,12 +80,13 @@ include("lib/global.php");
 				if (data.error != "") { 
 					alert(data.error);
 				} else {
-					clearMapRoutes(); 
-					var flightPaths = Array();
+					
+					clearMapRoutes();
 					
 					var fromLatLng = new google.maps.LatLng(data.from_lat, data.from_lon);
 					var toLatLng = new google.maps.LatLng(data.to_lat, data.to_lon);
 
+					// draw path of flight
 					var flightPath = new google.maps.Polyline({
 						path: [fromLatLng, toLatLng],
 						strokeColor: "#FF0080",
@@ -88,10 +95,21 @@ include("lib/global.php");
 						geodesic: true,
 						clickable: false 
 					});
-
 					flightPaths.push(flightPath);
 					flightPath.setMap(map);
 					
+					// draw start marker
+					var content_txt = "<div id='marker'>From: " + data.from_city + " (" + data.from_airport + ")<br>To: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
+					var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });
+					var fromMarker = new google.maps.Marker({
+				        position: fromLatLng,
+				        map: map,
+				        title: 'Origin'
+				    }); 
+					fromInfoWindow.open(map,fromMarker);
+					markers.push(fromMarker);
+					
+						
 					mapSunPath(flightPaths, map, "",470); // map path of the sun			
 				}
 

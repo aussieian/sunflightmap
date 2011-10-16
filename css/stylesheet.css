@@ -7,5 +7,6 @@ html, body, #map_canvas {
 }
 input { font-family: Arial, Verdana; font-size: 14pt; }
 #ui-panel { white-space: nowrap; font-size: 18pt; position: fixed; top: 36px; right: 24px; padding: 12px; border: 1px solid #ddd; background: #eee;}
-#debug { position: fixed; bottom: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
+#debug { display: none; position: fixed; bottom: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
 #loading-page { z-index: 4; display: none; position: fixed; left: 50%; top: 40%; margin-left: -130px; width: 180px; padding: 20px; -moz-border-radius: 10px; -webkit-border-radius: 10px; background-color: #fff; text-align: center; }
+#marker { font-size: 10pt;}
