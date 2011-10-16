@@ -1,0 +1,4 @@
+stuff to do 
+
+- fix in other browsers
+- make it have a shadow like this: http://www.daylightmap.com/index.php
