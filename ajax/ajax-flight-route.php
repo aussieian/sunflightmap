@@ -1,6 +1,10 @@
 <?php
 
 include("../lib/config.php");
+include "../lib/global.php");
+
+// Ajax Flight Route
+// Parameters: Carrier Code, Service Number, Request Date
 
 // steps:
 // references: http://ondemandtestharness.oag.com/CBWSTestHarnessPublic/#flightLookupRequest
@@ -24,10 +28,39 @@ include("../lib/config.php");
 // this should return a jsonp object with flight route info from OAG..
 
 // Get callback url
+// also do this for carrier code, service number, request date
+
+
+
+// Get URL parameters
+//////////////////////
 $callback='flightmap';
 if (array_key_exists("callback", $_GET)) {
 	$callback=$_GET['callback'];
 }
+
+$carrier_code='JQ';
+if (array_key_exists("carrier_code", $_GET)) {
+	$carrier_code=$_GET['callback'];
+}
+
+$service_number='7';
+if (array_key_exists("service_number", $_GET)) {
+	$service_number=$_GET['callback'];
+}
+
+$request_date='2011-10-16';
+if (array_key_exists("request_date", $_GET)) {
+	$request_date=$_GET['callback'];
+}
+
+
+// Do OAG Lookup
+////////////////
+
+
+
+
 
 
 
