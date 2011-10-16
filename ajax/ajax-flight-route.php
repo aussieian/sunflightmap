@@ -72,7 +72,10 @@ $post_response = curl_exec($curl_conn);
 curl_close($curl_conn);
 
 $xml_data = simplexml_load_string($post_response);
-
+if ($xml_data == "") { 
+	print($callback . "({'error':'No response or invalid flight info'});");
+	die();
+}
 // Step 2
 // pull out the fromairpot, toairport, flight depart time, elapsed time,
 // data for callback
@@ -80,19 +83,24 @@ $xml_data = simplexml_load_string($post_response);
 
 // Get callback url
 // also do this for carrier code, service number, request date
+try {
+	$from_airport = strval($xml_data->Flight->Dep->Port["PortCode"]);
+	$from_airport_openflights = getAirport($from_airport);
+	$from_city = $from_airport_openflights["City"];
+	$from_lat = $from_airport_openflights["Lat"];
+	$from_lon = $from_airport_openflights["Lon"];
+	$to_airport = strval($xml_data->Flight->Arr->Port["PortCode"]);
+	$to_airport_openflights = getAirport($to_airport);
+	$to_city = $to_airport_openflights["City"];
+	$to_lat = $to_airport_openflights["Lat"];
+	$to_lon = $to_airport_openflights["Lon"];
+	$depart_time = strval($xml_data->Flight->Dep["DepTime"]);
+	$elapsed_time = strval($xml_data->Flight->Dep["ElapsedTime"]);	
+} catch (Exception $e) {
+	print($callback . "({'error':'Invalid flight info'});");
+	die();
+}
 
-$from_airport = strval($xml_data->Flight->Dep->Port["PortCode"]);
-$from_airport_openflights = getAirport($from_airport);
-$from_city = $from_airport_openflights["City"];
-$from_lat = $from_airport_openflights["Lat"];
-$from_lon = $from_airport_openflights["Lon"];
-$to_airport = strval($xml_data->Flight->Arr->Port["PortCode"]);
-$to_airport_openflights = getAirport($to_airport);
-$to_city = $to_airport_openflights["City"];
-$to_lat = $to_airport_openflights["Lat"];
-$to_lon = $to_airport_openflights["Lon"];
-$depart_time = strval($xml_data->Flight->Dep["DepTime"]);
-$elapsed_time = strval($xml_data->Flight->Dep["ElapsedTime"]);
 
 //$from_airport = "MEL";
 //$from_city = "Melbourne";
