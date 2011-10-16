@@ -97,6 +97,7 @@ include("lib/global.php");
 			
 			// show loading page
 			$('#loading-page').show();
+			$('#results-panel').hide();
 
 			// lookup flight data from OAG wrapper
 			$.getJSON("/ajax/ajax-flight-route.php?callback=?",
@@ -125,7 +126,7 @@ include("lib/global.php");
 					//alert(depart_date.format("UTC:h:MM:ss TT Z"));
 					
 					// draw path of flight
-					/*var flightPath = new google.maps.Polyline({
+					var flightPath = new google.maps.Polyline({
 						path: [fromLatLng, toLatLng],
 						strokeColor: "#FF0080",
 						strokeOpacity: 1.0,
@@ -134,26 +135,27 @@ include("lib/global.php");
 						clickable: false 
 					});
 					flightPaths.push(flightPath);
-					flightPath.setMap(map);*/
+					flightPath.setMap(map);
 					
 					// draw start marker
-					var content_txt = "<div id='marker'>From: " + data.from_city + " (" + data.from_airport + ")<br>To: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + "<br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
-					var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });
-					var fromMarker = new google.maps.Marker({
+					var content_html = "<div id='marker'>From: " + data.from_city + " (" + data.from_airport + ")<br>To: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + "<br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
+					$('#results-panel').html(content_html).fadeIn();
+					/*var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });*/
+					/*var fromMarker = new google.maps.Marker({
 				        position: fromLatLng,
 				        map: map,
 				        title: 'Origin'
-				    }); 
-					fromInfoWindow.open(map,fromMarker);
-					markers.push(fromMarker);
+				    });*/
+					/*fromInfoWindow.open(map,fromMarker);*/
+					//markers.push(fromMarker);
 					
 					// draw end marker
-					var toMarker = new google.maps.Marker({
+					/*var toMarker = new google.maps.Marker({
 				        position: toLatLng,
 				        map: map,
 				        title: 'Destination'
-				    }); 
-					markers.push(fromMarker);
+				    });*/
+					//markers.push(toMarker);
 				
 					
 					$("#slider").slider({ 
@@ -185,8 +187,7 @@ include("lib/global.php");
 				to_deg = from_deg - duration_deg;
 
 				// Starting longitude is positive
-				var fromLatLng = new google.maps.LatLng(0, from_deg);
-				var toLatLng = new google.maps.LatLng(0, to_deg);
+				var toLatLng = new google.maps.LatLng(-6, to_deg);
 
 				// draw sun marker
 				if (sunMarker != null) { 
@@ -196,7 +197,8 @@ include("lib/global.php");
 				sunMarker = new google.maps.Marker({
 			        position: toLatLng,
 			        map: map,
-			        title: 'Sun End Marker: ' + to_deg
+			        title: 'Sun Position: ' + to_deg,
+					icon: '/images/sun.png'
 			    }); 
 		}
 		
@@ -217,7 +219,8 @@ include("lib/global.php");
 			flightMarker = new google.maps.Marker({
 		        position: flightpos,
 		        map: map,
-		        title: 'Flight position: ' + to_deg
+		        title: 'Flight position: ' + to_deg,
+				icon: '/images/plane.png'
 		    });
 		}
 		
@@ -235,6 +238,8 @@ include("lib/global.php");
 		<input id="carrierCodeAndServiceNumber" value="JQ7" size="5">
 		<input id="requestDate" value="2011-10-14" size="12">
 		<button onClick="mapFlight();">Map Flight</button>
+	</div>
+	<div id="results-panel">
 	</div>
 	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Doing stuff...</div>
 	<div id="slider-container">
