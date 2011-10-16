@@ -42,6 +42,7 @@ include("lib/global.php");
 		main = function() {
 			google.maps.event.addDomListener(window, 'load', initializeMap);
 			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd' });
+			$("#slider").slider();
 			<?php if(array_key_exists("autoload", $_GET)) { ?> mapFlight(); <? } ?>
 			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
 		}
@@ -84,7 +85,7 @@ include("lib/global.php");
 		}
 		
 		mapFlight = function() {
-	
+			
 			// validate input
 			if (!validateInput()) { 
 				return;
@@ -108,9 +109,13 @@ include("lib/global.php");
 					alert(data.error);
 				} else {
 					
-					
+					// clear previous map routes
 					clearMapRoutes();
 					
+					// show slider
+					$('#slider-container').show();
+					
+					// get lat lon
 					var fromLatLng = new google.maps.LatLng(data.from_lat, data.from_lon);
 					var toLatLng = new google.maps.LatLng(data.to_lat, data.to_lon);
 
@@ -149,7 +154,7 @@ include("lib/global.php");
 				    }); 
 					markers.push(fromMarker);
 						
-					mapSunPath(flightPaths, map, "",470); // map path of the sun			
+					mapSunPath(flightPaths, map, Date.parse(data.depart_time_utc), data.elapsed_time); // map path of the sun			
 				}
 
 			});
@@ -173,6 +178,9 @@ include("lib/global.php");
 		<button onClick="mapFlight();">Map Flight</button>
 	</div>
 	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Doing stuff...</div>
+	<div id="slider-container">
+		<div id="slider"></div>
+	</div>
 	<div id="debug">
 	<?php
 		$airport = getAirport("SYD");
