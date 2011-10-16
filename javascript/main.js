@@ -16,6 +16,7 @@ $(document).ready(function() {
 	}
 	
 	mapFlight = function() {
+		$('#loading-page').show();
 		$.getJSON("/ajax/ajax-flight-route.php",
 		{
 			carrier_code: "JQ",
@@ -24,6 +25,7 @@ $(document).ready(function() {
 		},
 		function(data) {
 			alert(data);
+			$('#loading-page').hide();
 		});
 	}	
 	

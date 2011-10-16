@@ -15,7 +15,7 @@
 <form method="GET" action="/ajax/ajax-flight-route.php">
 	carrier_code <input type='textfield' name='carrier_code' value='JQ'><br>
 	service_number <input type='textfield' name='service_number' value='7'><br>
-	f_requestTime <input type='textfield' name='f_requestTime' value='12:00:00'><br>
+	request_date <input type='textfield' name='request_date' value='2011-10-14'><br>
 	<input type='submit' value="test ajax"><br>
 </form>
 

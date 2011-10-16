@@ -32,10 +32,10 @@ include("lib/global.php");
 		<input id="requestDate" value="2011-10-14" size="12">
 		<button onClick="mapFlight();">Map Flight</button>
 	</div>
-	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Fetching flight data...</div>
+	<div id="loading-page"><img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>Freaking out...</div>
 	<div id="debug">
 	<?php
-		$airport = getAiport("SYD");
+		$airport = getAirport("SYD");
 		print_r($airport);
 	?>
 	</div>
