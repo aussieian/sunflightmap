@@ -375,10 +375,10 @@ if(array_key_exists("topsecret", $_GET)) {
 		<a href="javascript:void(0);" onClick="aboutClicked = true; showWelcomeWindow();">About</a>
 	</div>
 	<div id="hypnotoad">
-		<img width="650" height="650" src="/images/hypnotoad.gif">
+		<img width="600" height="600" src="/images/hypnotoad.gif">
 	</div>
 	<div id="topsecret">
-		<a href="/?topsecret&autoload">Enable ad engine</a>
+		<a href="/?topsecret&autoload">Top secret ad engine</a>
 	</div>
 	<div id="debug">
 		<input id="minutes_travelled">
