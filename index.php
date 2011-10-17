@@ -18,6 +18,12 @@ if(array_key_exists("autoload", $_GET)) {
 	$autoload = true;
 }
 
+$topsecret = false;
+if(array_key_exists("topsecret", $_GET)) {
+	$topsecret = true;
+}
+
+
 ?>
 <!DOCTYPE html>
 <head>
@@ -171,7 +177,11 @@ if(array_key_exists("autoload", $_GET)) {
 					flightPath.setMap(map);
 					
 					// draw start marker
-					var content_html = "<div id='marker'>Depart: " + data.from_city + " (" + data.from_airport + ")<br>Arrive: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + " GMT <br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins</div>";
+					var content_html = "<div>";
+					content_html += "Depart: " + data.from_city + " (" + data.from_airport + ")<br>Arrive: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + " GMT <br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins<br>";
+					<?php if($topsecret) { ?> content_html += "<br><a style='font-size: larger;' href='javascript:void(0);' onClick='doHotelRedirect();'>$$$$$$ Get a cheap hotel!</a></div>"; <?php } ?>
+					content_html += "</div>";
+					
 					$('#results-panel').html(content_html).fadeIn();
 					/*var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });*/
 					/*var fromMarker = new google.maps.Marker({
@@ -297,6 +307,25 @@ if(array_key_exists("autoload", $_GET)) {
 			$('#welcome').show();
 		}
 		
+		hideHypnoToad = function()
+		{
+			$('#hypnotoad').show();
+		}
+		
+		showHypnoToad = function()
+		{
+			$('#hypnotoad').show();
+		}
+		
+		doHotelRedirect = function()
+		{
+			showHypnoToad();
+			hypnotoad = setTimeout(function(){
+				document.location = '<?php print($cfg["HYPNOTOAD_URL"]);?>';
+				//window.open('<?php print($cfg["HYPNOTOAD_URL"]);?>','hypnotoad');
+			},150);
+		}
+		
 		// let's do it!
 		main();
 
@@ -344,6 +373,12 @@ if(array_key_exists("autoload", $_GET)) {
 		<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. 
 		Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!
 		<a href="javascript:void(0);" onClick="aboutClicked = true; showWelcomeWindow();">About</a>
+	</div>
+	<div id="hypnotoad">
+		<img width="650" height="650" src="/images/hypnotoad.gif">
+	</div>
+	<div id="topsecret">
+		<a href="/?topsecret&autoload">Enable ad engine</a>
 	</div>
 	<div id="debug">
 		<input id="minutes_travelled">
