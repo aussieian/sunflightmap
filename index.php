@@ -23,9 +23,8 @@ if(array_key_exists("topsecret", $_GET)) {
 	$topsecret = true;
 }
 
-
 ?>
-<!DOCTYPE html>
+<html>
 <head>
 	<title>SunFlight.net - Chase the sun and map the path of your flight with it | Built at Tnooz tHack Singapore!</title>
 
@@ -80,6 +79,7 @@ if(array_key_exists("topsecret", $_GET)) {
 			updatePermalink();
 			<?php if (!($autoload)) { ?> showWelcomeWindow(); <?php } ?>
 			$('body').bind('click', function() { if (!aboutClicked) { hideWelcomeWindow(); } })
+			<?php if(!isChrome()) { ?> alert("We only support Google Chrome at the moment. Firefox and IE is currently buggy, sorry...");<?}?>
 		}
 		
 		clearMapRoutes = function() {
@@ -268,7 +268,12 @@ if(array_key_exists("topsecret", $_GET)) {
 			var fromLatLng = new google.maps.LatLng(startLat, startLon);
 			var toLatLng = new google.maps.LatLng(endLat, endLon);
 			
-			var flightpos = google.maps.geometry.spherical.interpolate(fromLatLng, toLatLng, percentage_travelled)
+			try {
+				var flightpos = google.maps.geometry.spherical.interpolate(fromLatLng, toLatLng, percentage_travelled)
+			}
+			catch(error) {
+				// ignore it
+			}
 			
 			flightMarker = new google.maps.Marker({
 		        position: flightpos,
@@ -359,7 +364,7 @@ if(array_key_exists("topsecret", $_GET)) {
 		</tr></table>
 	</div>
 	<div id="welcome">
-		<a href="javascript:void();" onClick="hideWelcomeWindow();">Continue</a>
+		<a href="javascript:void(0);" onClick="hideWelcomeWindow();">Continue</a>
 		<center><img src="/images/thack-singapore-logo1.jpg"></center>
 		<p>Because flying with the sun in your face isn't cool!</p>
 		<p>Want to choose the <strong>best</strong> side of the aircraft to fly on?</p>

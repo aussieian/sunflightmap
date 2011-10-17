@@ -12,4 +12,10 @@ function getAirport($airport_code) {
 	return null;
 }
 
+// detect chrome
+function isChrome() {
+	$ischrome = (preg_match("/Chrome/i", $_SERVER['HTTP_USER_AGENT']) > 0);
+	return $ischrome;
+}
+
 ?>
