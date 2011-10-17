@@ -24,7 +24,7 @@ input { font-family: Arial, Verdana; font-size: 14pt; color: #FF0080; }
   box-shadow: 5px 5px 5px #888;
 }
 #hypnotoad { display: none; z-index: 5; text-align: center; position: fixed; padding: 12px; border: 6px solid #ff0080; width: 800px; background-color: #fff; top: 10px; left: 50%; margin-left: -400px; }
-#topsecret { z-index: 5; font-size: 10pt; position: fixed; bottom: 24px; right: 12px;}
+#topsecret { z-index: 5; font-size: 10pt; position: fixed; bottom: 24px; right: 12px; padding: 2px; background: #fff;}
 #topsecret a { color: red;}
 
 /* shiny blue (inspired by rdio iphone interface)

@@ -378,7 +378,7 @@ if(array_key_exists("topsecret", $_GET)) {
 		<img width="600" height="600" src="/images/hypnotoad.gif">
 	</div>
 	<div id="topsecret">
-		<a href="/?topsecret&autoload">Top secret ad engine</a>
+		<a href="/?topsecret&autoload">Enable top secret ad engine</a>
 	</div>
 	<div id="debug">
 		<input id="minutes_travelled">
