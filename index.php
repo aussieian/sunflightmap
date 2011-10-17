@@ -30,7 +30,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	<title>SunFlight.net - Chase the sun and map the path of your flight with it | Built at Tnooz tHack Singapore!</title>
 
 	<meta name="description" content="Map the path of your flight and the sun. Built at tnooz tHack Singapore!">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	
 	<meta property="og:title" content="SunFlight.net" /> 
