@@ -36,7 +36,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	<meta property="og:title" content="SunFlight.net" /> 
 	<meta property="og:description" content="Chase the sun and map the path of your flight with it." /> 
 	
-	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/ui-lightness/jquery-ui.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/excite-bike/jquery-ui.css" type="text/css" media="screen, projection" />
 	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen, projection" />
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
@@ -353,7 +353,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	</div>
 	<div id="slider-container">
 		<table width="100%"><tr>
-			<td width="20%">Slide me</td>
+			<td width="20%"><span style='color: #222'>Slide me</a></td>
 			<td width="60%"><div id="slider"></div></td>
 			<td width="20%" align="right"><div id="slider-time"></div></td>
 		</tr></table>
