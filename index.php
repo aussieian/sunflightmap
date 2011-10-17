@@ -342,7 +342,7 @@ if(array_key_exists("topsecret", $_GET)) {
 			<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
 			<button class="shiny-blue" onClick="mapFlight();">Chase the sun!</button>
 			<br>
-			<span style="font-size: 10pt;">Enter carrier code and flight number (ie: JQ7). I'm feeling <a style="color: #FF0080" href="/?autoload">lucky</a> | <a id="permalink" style="color: blue;" href="#">permalink</a></span>
+			<span style="font-size: 10pt;">Enter carrier code and flight number (ie: JQ7). I'm feeling <a style="color: #FF0080" href="/?autoload<?php if($topsecret) { print("&topsecret"); }?>">lucky</a> | <a id="permalink" style="color: blue;" href="#">permalink</a></span>
 		</div>
 		<div id="results-panel"></div>
 	</div>
