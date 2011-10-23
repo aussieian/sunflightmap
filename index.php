@@ -58,7 +58,8 @@ if(array_key_exists("topsecret", $_GET)) {
 	var aboutClicked = false;
 	var loadingMessages = Array("Loading stuff", "Drinking a beer", "Having a yarn", "LOLing your cat");
 	var dn = null; // day night shadow
-	var old_dn = null; 
+	var initSlider = false; // track if we have initialised the slider yet
+	var timeslider = null;
 	
 	$(document).ready(function() {
 
@@ -138,6 +139,12 @@ if(array_key_exists("topsecret", $_GET)) {
 			// clear previous map routes
 			clearMapRoutes();
 			
+			// reset slider to 0
+			/*if (timeslider != null) { 
+					timeslider.slider( "option", "value", 0 );
+					//alert(timeslider.slider("value"));
+			}*/
+				
 			// show loading page
 			$('#loading-message').html(loadingMessages[Math.floor(Math.random() * loadingMessages.length)] + "..."); 
 			$('#loading-page').show();
@@ -214,10 +221,15 @@ if(array_key_exists("topsecret", $_GET)) {
 					markers.push(toMarker);
 				
 				
+				if (timeslider != null) { 
+					timeslider.timeslider("destroy");
+				}
 					
-					$("#slider").slider({ 
+					timeslider = $("#slider").slider({ 
 						min: 0,
 						max: data.elapsed_time,
+						value: 0,
+						animate: false,
 						slide: function( event, ui ) {
 								clearTimeout(this.id);
 								this.id = setTimeout(function(){
@@ -230,6 +242,8 @@ if(array_key_exists("topsecret", $_GET)) {
 								}, 10);
 						}
 					});
+					
+					
 					// update slider to begin with
 					mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, 0); // map path of the sun
 					mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, 0); // map path of the sun
@@ -293,6 +307,8 @@ if(array_key_exists("topsecret", $_GET)) {
 			        title: 'Sun Position: ' + to_deg,
 					icon: sunimage
 			    }); 
+				markers.push(sunMarker);
+			
 		}
 		
 		mapFlightPosition = function(flightPaths, map, startLat, startLon, endLat, endLon, duration_minutes, minutes_travelled) {
@@ -325,6 +341,7 @@ if(array_key_exists("topsecret", $_GET)) {
 		        title: 'Flight position: ' + to_deg,
 				icon: planeimage
 		    });
+			markers.push(flightMarker);
 		}
 		
 		function updateSliderTime(t, max)
