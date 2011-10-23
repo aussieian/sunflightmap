@@ -96,7 +96,8 @@ try {
 	$to_lon = $to_airport_openflights["Lon"];
 	$depart_time = strval($xml_data->Flight->Dep["DepTime"]);
 	$depart_timezone = $from_airport_openflights["Timezone"]; // ($cfg["PHP_TIMEZONE_OFFSET"]-
-	$depart_time_utc = date("Y-m-d H:i", strtotime($depart_time) - ($depart_timezone * 60 * 60)); // calculate UTC time (todo: doesnt accomodate for daylight saving)
+	//$depart_time_utc = date("Y-m-d H:i", strtotime($depart_time) - ($depart_timezone * 60 * 60)); // calculate UTC time (todo: doesnt accomodate for daylight saving)
+	$depart_time_utc = date("D, d M Y H:i:00", strtotime($depart_time) - ($depart_timezone * 60 * 60)) . " GMT"; // calculate UTC time (todo: doesnt accomodate for daylight saving)
 	$elapsed_time = strval($xml_data->Flight->Dep["ElapsedTime"]);	
 } catch (Exception $e) {
 	print($callback . "({'error':'Invalid flight info'});");
@@ -133,7 +134,8 @@ $jsonp .= '"error": ""';
 $jsonp .= "});";
 
 // example:
-//flightmap({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-16T12:00:00","elapsed_time": 470});
+// jsonp1319362367283({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-23T12:00:00","depart_timezone": "10","depart_time_utc": "Sun, 23 Oct 2011 02:00:00 GMT","elapsed_time": 470,"error": ""});
+//print($callback . '({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-23T12:00:00","depart_timezone": "10","depart_time_utc": "Sun, 23 Oct 2011 02:00:00 GMT","elapsed_time": 470,"error": ""});');
 print($jsonp);
 
 ?>

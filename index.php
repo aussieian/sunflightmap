@@ -45,6 +45,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
 	
 	<!-- custom code -->
+	<script type="text/javascript" src="/js/daynightmaptype.js"></script>
 	<script type="text/javascript">
 	
 	// OUR CODE SUCKS!
@@ -56,9 +57,13 @@ if(array_key_exists("topsecret", $_GET)) {
 	var sunMarker = null;
 	var aboutClicked = false;
 	var loadingMessages = Array("Loading stuff", "Drinking a beer", "Having a yarn", "LOLing your cat");
-		
+	var dn = null; // day night shadow
+	var old_dn = null; 
+	
 	$(document).ready(function() {
 
+
+				
 		function initializeMap() {
 			var myOptions = {
 				zoom: 2,
@@ -69,17 +74,18 @@ if(array_key_exists("topsecret", $_GET)) {
 				panControl: false
 			};
 			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+			<?php if ($autoload) { ?> mapFlight(); <? } ?>
 		}
 
 		main = function() {
 			google.maps.event.addDomListener(window, 'load', initializeMap);
 			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd', defaultDate: +0});
-			<?php if ($autoload) { ?> mapFlight(); <? } ?>
 			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
 			updatePermalink();
 			<?php if (!($autoload)) { ?> showWelcomeWindow(); <?php } ?>
 			$('body').bind('click', function() { if (!aboutClicked) { hideWelcomeWindow(); } })
 			<?php if(!isChrome()) { ?> alert("We only support Google Chrome at the moment. Firefox and IE is currently buggy, sorry...");<?}?>
+			//init();
 		}
 		
 		clearMapRoutes = function() {
@@ -193,14 +199,20 @@ if(array_key_exists("topsecret", $_GET)) {
 					//markers.push(fromMarker);
 					
 					// draw end marker
+					var flagimage = new google.maps.MarkerImage('images/flag.png',
+					      new google.maps.Size(30, 36), // marker dimensions
+					      new google.maps.Point(0,0), // origin of image
+					      new google.maps.Point(2, 36)); // anchor of image
+					
 					var toLatLngFlag = new google.maps.LatLng(data.to_lat, data.to_lon);
 					var toMarker = new google.maps.Marker({
 				        position: toLatLngFlag,
 				        map: map,
 				        title: 'Destination',
-						icon: '/images/flag.png'
+						icon: flagimage //'/images/flag.png'
 				    });
 					markers.push(toMarker);
+				
 				
 					
 					$("#slider").slider({ 
@@ -209,8 +221,10 @@ if(array_key_exists("topsecret", $_GET)) {
 						slide: function( event, ui ) {
 								clearTimeout(this.id);
 								this.id = setTimeout(function(){
+									//console.log(data.depart_time_utc);
 									mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value); // map path of the sun
 									mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value); // map path of the sun
+									mapDayNightShadow(map, new Date(Date.parse(data.depart_time_utc)), ui.value);
 									$("#minutes_travelled" ).val( ui.value );
 									updateSliderTime(ui.value, data.elapsed_time);
 								}, 10);
@@ -219,6 +233,7 @@ if(array_key_exists("topsecret", $_GET)) {
 					// update slider to begin with
 					mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, 0); // map path of the sun
 					mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, 0); // map path of the sun
+					mapDayNightShadow(map, new Date(Date.parse(data.depart_time_utc)), 0);
 					$("#minutes_travelled" ).val( 0 );
 					updateSliderTime(0, data.elapsed_time);
 						
@@ -227,6 +242,22 @@ if(array_key_exists("topsecret", $_GET)) {
 			});
 		}	
 		
+		mapDayNightShadow = function(map, UTCTime, minutesOffset) {
+			//alert(maptime);
+			if (dn == null) {
+			
+			dn = new DayNightMapType(UTCTime, minutesOffset);
+		      map.overlayMapTypes.insertAt(0, dn);
+		      dn.setMap(map);
+		      //dn.setAutoRefresh(10);
+		      dn.setShowLights(1);
+			}
+			else {
+				dn.calcCurrentTime(UTCTime, minutesOffset);
+				dn.redoTiles();
+			}
+		}
+		
 		mapSunPosition = function(flightPaths, map, start_time_at_gmt, duration_minutes, minutes_travelled) {
 
 				// Sun is directly overhead LatLng(0, 0) at 12:00:00 midday
@@ -234,25 +265,33 @@ if(array_key_exists("topsecret", $_GET)) {
 				// Assuming maximum trip duration of 24 hours / single leg
 
 				// Calculate sun's starting longitude from the start time at gmt
-				minutes_gmt = (start_time_at_gmt.getHours() * 60) + start_time_at_gmt.getMinutes();
-				from_deg = 180 - (minutes_gmt * 0.25) ;
+				//console.log(start_time_at_gmt);
+				//console.log(new Date(start_time_at_gmt).getTimezoneOffset());
+				local_offset = new Date(start_time_at_gmt).getTimezoneOffset();	
+				minutes_gmt = local_offset + (start_time_at_gmt.getHours() * 60) + start_time_at_gmt.getMinutes();
+				//console.log(minutes_gmt);
+				from_deg = 180 - minutes_gmt * 0.25;
 				
 				duration_deg = duration_minutes * 0.25 * (minutes_travelled / duration_minutes);
 				to_deg = from_deg - duration_deg;
 
 				// Starting longitude is positive
-				var toLatLng = new google.maps.LatLng(-6, to_deg);
+				var toLatLng = new google.maps.LatLng(0, to_deg);
 
 				// draw sun marker
 				if (sunMarker != null) { 
 					sunMarker.setMap(null);
 				}
 
+				var sunimage = new google.maps.MarkerImage('images/sun.png',
+				      new google.maps.Size(32, 32), // marker dimensions
+				      new google.maps.Point(0,0), // origin of image
+				      new google.maps.Point(16, 16)); // anchor of image
 				sunMarker = new google.maps.Marker({
 			        position: toLatLng,
 			        map: map,
 			        title: 'Sun Position: ' + to_deg,
-					icon: '/images/sun.png'
+					icon: sunimage
 			    }); 
 		}
 		
@@ -269,17 +308,22 @@ if(array_key_exists("topsecret", $_GET)) {
 			var toLatLng = new google.maps.LatLng(endLat, endLon);
 			
 			try {
-				var flightpos = google.maps.geometry.spherical.interpolate(fromLatLng, toLatLng, percentage_travelled)
+				var flightpos = google.maps.geometry.spherical.interpolate(fromLatLng, toLatLng, percentage_travelled);
 			}
 			catch(error) {
 				// ignore it
 			}
 			
+			var planeimage = new google.maps.MarkerImage('images/plane.png',
+			      new google.maps.Size(32, 31), // marker dimensions
+			      new google.maps.Point(0,0), // origin of image
+			      new google.maps.Point(16, 16)); // anchor of image
+			
 			flightMarker = new google.maps.Marker({
 		        position: flightpos,
 		        map: map,
 		        title: 'Flight position: ' + to_deg,
-				icon: '/images/plane.png'
+				icon: planeimage
 		    });
 		}
 		
@@ -340,6 +384,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	
 </head>
 <body>
+	<!--<canvas id="canvas" width="800" height="620">You do not have a canvas capable browser</canvas>-->
 	<div id="map_canvas">Loading cool stuff...</div>
 	<div id="ui-container">
 		<div id="ui-panel" class="shadow">
@@ -382,9 +427,9 @@ if(array_key_exists("topsecret", $_GET)) {
 	<div id="hypnotoad">
 		<img width="600" height="600" src="/images/hypnotoad.gif">
 	</div>
-	<div id="topsecret">
+	<!--<div id="topsecret">
 		<a href="/?topsecret&autoload">Enable top secret ad engine</a>
-	</div>
+	</div>-->
 	<div id="debug">
 		<input id="minutes_travelled">
 	</div>
