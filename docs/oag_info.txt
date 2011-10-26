@@ -3,3 +3,54 @@ OAG:
 API URL that developers need to call from their code is http://ondemand.oag.com/CBWebServicePublic/CBWSPublicPort?wsdl
  
 The test harness, which is a test page to check parameters and results is http://ondemandtestharness.oag.com/CBWSTestHarnessPublic
+
+
+-------
+
+
+Hi Ian,
+Yes it was great to meet you last week. Well done for winning the WIT start up award.
+ 
+There is a slight correction to Mario’s e-mail below. The THACK user id and password has now been closed down. The user id and password you should now use is GetFlight.
+ 
+Thanks,
+Matt
+ 
+ 
+
+Matt Waterton
+Technical Team Lead, Business Technology
+UBM Aviation
+T: +44(0)1582-695138
+E: Matthew.Waterton@ubmaviation.com
+www.ubmaviation.com
+
+From: Hardy, Mario (OAG) 
+Sent: 24 October 2011 03:45
+To: ian@getflight.com.au
+Cc: Waterton, Matthew (UBM Aviation)
+Subject: THACK and GetFlight are updated
+ 
+Ian;
+ 
+It was great to meet you at the WIT event last week. The login ID for our web service has now expired. We have set up an account for Sunflight so that you can continue to work on it.
+ 
+The login and password is THACK.  The customer id it is on is 8790914 in eclipse.
+ 
+In a few weeks time; I’ll send you an agreement to sign that will allow to keep the service open under certain conditions. I’m travelling for the next 3 week and will follow up upon my return.
+ 
+Rgds
+
+ 
+ 
+Mario M. Hardy
+Vice President – Asia Pacific
+ 
+UBM Aviation
+100 Beach Road,
+Shaw Tower #33-08/10pt
+Singapore 189702 
+T: +65 6395 5878
+M: +65 98196749
+E: mario.hardy@ubmaviation.com
+ubmaviation.com
