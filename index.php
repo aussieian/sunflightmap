@@ -49,351 +49,391 @@ if(array_key_exists("topsecret", $_GET)) {
 	<script type="text/javascript">
 	
 	// OUR CODE SUCKS!
-	
 	var map;
 	var flightPaths = Array();
 	var markers = Array();
 	var flightMarker = null;
 	var sunMarker = null;
 	var aboutClicked = false;
-	var loadingMessages = Array("Loading stuff", "Drinking a beer", "Having a yarn", "LOLing your cat");
-	var dn = null; // day night shadow
-	var initSlider = false; // track if we have initialised the slider yet
+	var loadingMessages = Array("Loading stuff", "Drinking a beer", "Taking off", "Reading Tnooz");
+	var dn = null;
+	// day night shadow
+	var initSlider = false;
+	// track if we have initialised the slider yet
 	var timeslider = null;
-	
+
 	$(document).ready(function() {
 
+	    function initializeMap() {
+	        var myOptions = {
+	            zoom: 2,
+	            center: new google.maps.LatLng( - 34.397, 150.644),
+	            mapTypeId: google.maps.MapTypeId.ROADMAP,
+	            streetViewControl: false,
+	            mapTypeControl: false,
+	            panControl: false
+	        };
+	        map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
+	        <?php
+	        if ($autoload) { ?>mapFlight(); <?
+	        } ?>
+	    }
 
-				
-		function initializeMap() {
-			var myOptions = {
-				zoom: 2,
-				center: new google.maps.LatLng(-34.397, 150.644),
-				mapTypeId: google.maps.MapTypeId.ROADMAP,
-				streetViewControl: false,
-				mapTypeControl: false,
-				panControl: false
-			};
-			map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
-			<?php if ($autoload) { ?> mapFlight(); <? } ?>
-		}
+	    main = function() {
+	        google.maps.event.addDomListener(window, 'load', initializeMap);
+	        $("#requestDate").datepicker({
+	            dateFormat: 'yy-mm-dd',
+	            defaultDate: +0
+	        });
+	        <?php
+	        if (array_key_exists("debug", $_GET)) { ?>$('#debug').show(); <?
+	        } ?>
+	        updatePermalink();
+	        <?php
+	        if (! ($autoload)) { ?>showWelcomeWindow(); <?php
+	        }?>
+	        $('body').bind('click',
+	        function() {
+	            if (!aboutClicked) {
+	                hideWelcomeWindow();
+	            }
+	        })
+	        <?php
+	        if (!isChrome()) { ?>alert("We only support Google Chrome at the moment. Firefox and IE is currently buggy, sorry..."); <?
+	        } ?>
+	        //init();
+	    }
 
-		main = function() {
-			google.maps.event.addDomListener(window, 'load', initializeMap);
-			$("#requestDate").datepicker({ dateFormat: 'yy-mm-dd', defaultDate: +0});
-			<?php if(array_key_exists("debug", $_GET)) { ?> $('#debug').show(); <? } ?>
-			updatePermalink();
-			<?php if (!($autoload)) { ?> showWelcomeWindow(); <?php } ?>
-			$('body').bind('click', function() { if (!aboutClicked) { hideWelcomeWindow(); } })
-			<?php if(!isChrome()) { ?> alert("We only support Google Chrome at the moment. Firefox and IE is currently buggy, sorry...");<?}?>
-			//init();
-		}
-		
-		clearMapRoutes = function() {
-			//alert(flightPaths.length);
-			// remove existing polys
-			for (i = 0; i < flightPaths.length; i++) {
-				flightPaths[i].setMap(null);
-			}
-			for (i = 0; i < markers.length; i++) {
-				markers[i].setMap(null);
-			}
-			// reset array
-			flightPaths = Array();
-			markers = Array();
-		}
-		
-		trim = function(str) {
-			return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
-		}
-		
-		getInputCarrierCode = function() {
-			return trim($('#carrierCodeAndServiceNumber').val().replace(/[\d.]/g, '')); // "JQ"
-		}
-		
-		getInputServiceNumber = function() {
-			return trim($('#carrierCodeAndServiceNumber').val().replace(/[A-Za-z$-]/g, '')); // 7
-		}
-		
-		getInputRequestDate = function() {
-			return trim($('#requestDate').val());
-		}
-		
- 		validateInput = function() {
-			if (getInputCarrierCode() == "") { alert("Please enter a carrier code (ie: JQ)"); return false; }
-			if (getInputServiceNumber() == "") { alert("Please enter a service number (ie: JQ7)"); return false; }
-			if (getInputRequestDate() == "") { alert("Please enter a date of travel (ie: 2011-10-14)"); return false; }
-			return true; // valid!
-		}
-		
-		mapFlight = function() {
-			
-			// validate input
-			if (!validateInput()) { 
-				return;
-			}
-			
-			// make permalink
-			updatePermalink();
-			
-			// clear previous map routes
-			clearMapRoutes();
-			
-			// reset slider to 0
-			/*if (timeslider != null) { 
-					timeslider.slider( "option", "value", 0 );
-					//alert(timeslider.slider("value"));
-			}*/
-				
-			// show loading page
-			$('#loading-message').html(loadingMessages[Math.floor(Math.random() * loadingMessages.length)] + "..."); 
-			$('#loading-page').show();
-			$('#results-panel').hide();
+	    clearMapRoutes = function() {
+	        //alert(flightPaths.length);
+	        // remove existing polys
+	        for (i = 0; i < flightPaths.length; i++) {
+	            flightPaths[i].setMap(null);
+	        }
+	        for (i = 0; i < markers.length; i++) {
+	            markers[i].setMap(null);
+	        }
+	        // reset array
+	        flightPaths = Array();
+	        markers = Array();
+	    }
 
-			// lookup flight data from OAG wrapper
-			$.getJSON("/ajax/ajax-flight-route.php?callback=?",
-			{
-				carrier_code: getInputCarrierCode(), // JQ
-				service_number: getInputServiceNumber(), // "7",
-				request_date: getInputRequestDate() //"2011-10-14"
-			},
-			function(data) {
-				// get back jsonp
-				// flightmap({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-16T12:00:00","elapsed_time": 470})
-				$('#loading-page').hide();
-				if (data.error != "") { 
-					alert(data.error);
-				} else {
-										
-					// show slider
-					$('#slider-container').show();
-					
-					// get lat lon
-					var fromLatLng = new google.maps.LatLng(data.from_lat, data.from_lon);
-					var toLatLng = new google.maps.LatLng(data.to_lat, data.to_lon);
-					
+	    trim = function(str) {
+	        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+	    }
 
-					// get date
-					var depart_date = Date.parse(data.depart_time);
-					//alert(depart_date.format("UTC:h:MM:ss TT Z"));
-					
-					// draw path of flight
-					var flightPath = new google.maps.Polyline({
-						path: [fromLatLng, toLatLng],
-						strokeColor: "#FF0080",
-						strokeOpacity: 1.0,
-						strokeWeight: 2,
-						geodesic: true,
-						clickable: false 
-					});
-					flightPaths.push(flightPath);
-					flightPath.setMap(map);
-					
-					// draw start marker
-					var content_html = "<div>";
-					content_html += "Depart: " + data.from_city + " (" + data.from_airport + ")<br>Arrive: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + " GMT <br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins<br>";
-					<?php if($topsecret) { ?> content_html += "<br><a style='font-size: larger;' href='javascript:void(0);' onClick='doHotelRedirect();'>$$$$$$ Get a cheap hotel!</a></div>"; <?php } ?>
-					content_html += "</div>";
-					
-					$('#results-panel').html(content_html).fadeIn();
-					/*var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });*/
-					/*var fromMarker = new google.maps.Marker({
+	    getInputCarrierCode = function() {
+	        return trim($('#carrierCodeAndServiceNumber').val().replace(/[\d.]/g, ''));
+	        // "JQ"
+	    }
+
+	    getInputServiceNumber = function() {
+	        return trim($('#carrierCodeAndServiceNumber').val().replace(/[A-Za-z$-]/g, ''));
+	        // 7
+	    }
+
+	    getInputRequestDate = function() {
+	        return trim($('#requestDate').val());
+	    }
+
+	    validateInput = function() {
+	        if (getInputCarrierCode() == "") {
+	            alert("Please enter a carrier code (ie: JQ)");
+	            return false;
+	        }
+	        if (getInputServiceNumber() == "") {
+	            alert("Please enter a service number (ie: JQ7)");
+	            return false;
+	        }
+	        if (getInputRequestDate() == "") {
+	            alert("Please enter a date of travel (ie: 2011-10-14)");
+	            return false;
+	        }
+	        return true;
+	        // valid!
+	    }
+
+	    mapFlight = function() {
+
+	        // validate input
+	        if (!validateInput()) {
+	            return;
+	        }
+
+	        // make permalink
+	        updatePermalink();
+
+	        // clear previous map routes
+	        clearMapRoutes();
+
+	        // show loading page
+	        $('#loading-message').html(loadingMessages[Math.floor(Math.random() * loadingMessages.length)] + "...");
+	        $('#loading-page').show();
+	        $('#results-panel').hide();
+
+	        // lookup flight data from OAG wrapper
+	        $.getJSON("/ajax/ajax-flight-route.php?callback=?",
+	        {
+	            carrier_code: getInputCarrierCode(),
+	            // JQ
+	            service_number: getInputServiceNumber(),
+	            // "7",
+	            request_date: getInputRequestDate()
+	            //"2011-10-14"
+	        },
+	        function(data) {
+	            // get back jsonp
+	            // flightmap({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-16T12:00:00","elapsed_time": 470})
+	            $('#loading-page').hide();
+	            if (data.error != "") {
+	                alert(data.error);
+	            } else {
+
+	                // show slider
+	                $('#slider-container').show();
+
+	                // get lat lon
+	                var fromLatLng = new google.maps.LatLng(data.from_lat, data.from_lon);
+	                var toLatLng = new google.maps.LatLng(data.to_lat, data.to_lon);
+
+	                // get date
+	                var depart_date = Date.parse(data.depart_time);
+	                //alert(depart_date.format("UTC:h:MM:ss TT Z"));
+	
+	                // draw path of flight
+	                var flightPath = new google.maps.Polyline({
+	                    path: [fromLatLng, toLatLng],
+	                    strokeColor: "#FF0080",
+	                    strokeOpacity: 1.0,
+	                    strokeWeight: 2,
+	                    geodesic: true,
+	                    clickable: false
+	                });
+	                flightPaths.push(flightPath);
+	                flightPath.setMap(map);
+
+	                // draw start marker
+	                var content_html = "<div>";
+	                content_html += "Depart: " + data.from_city + " (" + data.from_airport + ")<br>Arrive: " + data.to_city + " (" + data.to_airport + ")<br>Local departure time: " + data.depart_time + "<br>Departure Timezone: " + data.depart_timezone + " GMT <br>UTC departure time: " + data.depart_time_utc + "<br>Flight duration: " + data.elapsed_time + " mins<br>";
+	                <?php
+	                if ($topsecret) { ?>content_html += "<br><a style='font-size: larger;' href='javascript:void(0);' onClick='doHotelRedirect();'>$$$$$$ Get a cheap hotel!</a></div>"; <?php
+	                } ?>
+	                content_html += "</div>";
+
+	                $('#results-panel').html(content_html).fadeIn();
+	                /*var fromInfoWindow = new google.maps.InfoWindow({ content: content_txt });*/
+	                /*var fromMarker = new google.maps.Marker({
 				        position: fromLatLng,
 				        map: map,
 				        title: 'Origin'
 				    });*/
-					//fromInfoWindow.open(map,fromMarker);
-					//markers.push(fromMarker);
-					
-					// draw end marker
-					var flagimage = new google.maps.MarkerImage('images/flag.png',
-					      new google.maps.Size(30, 36), // marker dimensions
-					      new google.maps.Point(0,0), // origin of image
-					      new google.maps.Point(2, 36)); // anchor of image
-					
-					var toLatLngFlag = new google.maps.LatLng(data.to_lat, data.to_lon);
-					var toMarker = new google.maps.Marker({
-				        position: toLatLngFlag,
-				        map: map,
-				        title: 'Destination',
-						icon: flagimage //'/images/flag.png'
-				    });
-					markers.push(toMarker);
-				
-				
-				if (timeslider != null) { 
-					timeslider.timeslider("destroy");
-				}
-					
-					timeslider = $("#slider").slider({ 
-						min: 0,
-						max: data.elapsed_time,
-						value: 0,
-						animate: false,
-						slide: function( event, ui ) {
-								clearTimeout(this.id);
-								this.id = setTimeout(function(){
-									//console.log(data.depart_time_utc);
-									mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value); // map path of the sun
-									mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value); // map path of the sun
-									mapDayNightShadow(map, new Date(Date.parse(data.depart_time_utc)), ui.value);
-									$("#minutes_travelled" ).val( ui.value );
-									updateSliderTime(ui.value, data.elapsed_time);
-								}, 10);
-						}
-					});
-					
-					
-					// update slider to begin with
-					mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, 0); // map path of the sun
-					mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, 0); // map path of the sun
-					mapDayNightShadow(map, new Date(Date.parse(data.depart_time_utc)), 0);
-					$("#minutes_travelled" ).val( 0 );
-					updateSliderTime(0, data.elapsed_time);
-						
-				}
+	                //fromInfoWindow.open(map,fromMarker);
+	                //markers.push(fromMarker);
+	                // draw end marker
+	                var flagimage = new google.maps.MarkerImage('images/flag.png',
+	                new google.maps.Size(30, 36),
+	                // marker dimensions
+	                new google.maps.Point(0, 0),
+	                // origin of image
+	                new google.maps.Point(2, 36));
+	                // anchor of image
+	                var toLatLngFlag = new google.maps.LatLng(data.to_lat, data.to_lon);
+	                var toMarker = new google.maps.Marker({
+	                    position: toLatLngFlag,
+	                    map: map,
+	                    title: 'Destination',
+	                    icon: flagimage
+	                    //'/images/flag.png'
+	                });
+	                markers.push(toMarker);
 
-			});
-		}	
-		
-		mapDayNightShadow = function(map, UTCTime, minutesOffset) {
-			//alert(maptime);
-			if (dn == null) {
-			
-			dn = new DayNightMapType(UTCTime, minutesOffset);
-		      map.overlayMapTypes.insertAt(0, dn);
-		      dn.setMap(map);
-		      //dn.setAutoRefresh(10);
-		      dn.setShowLights(1);
-			}
-			else {
-				dn.calcCurrentTime(UTCTime, minutesOffset);
-				dn.redoTiles();
-			}
-		}
-		
-		mapSunPosition = function(flightPaths, map, start_time_at_gmt, duration_minutes, minutes_travelled) {
 
-				// Sun is directly overhead LatLng(0, 0) at 12:00:00 midday
-				// 1440 minutes / 1 minute = 0.25 degrees 
-				// Assuming maximum trip duration of 24 hours / single leg
+	                if (timeslider != null) {
+	                    timeslider = $("#slider").slider("destroy");
+	                }
 
-				// Calculate sun's starting longitude from the start time at gmt
-				//console.log(start_time_at_gmt);
-				//console.log(new Date(start_time_at_gmt).getTimezoneOffset());
-				local_offset = new Date(start_time_at_gmt).getTimezoneOffset();	
-				minutes_gmt = local_offset + (start_time_at_gmt.getHours() * 60) + start_time_at_gmt.getMinutes();
-				//console.log(minutes_gmt);
-				from_deg = 180 - minutes_gmt * 0.25;
-				
-				duration_deg = duration_minutes * 0.25 * (minutes_travelled / duration_minutes);
-				to_deg = from_deg - duration_deg;
+	                $("#slider_holder").empty();
+	                $("#slider_holder").append("<div id='slider'></div>")
 
-				// Starting longitude is positive
-				var toLatLng = new google.maps.LatLng(0, to_deg);
+	                timeslider = $("#slider").slider({
+	                    min: 0,
+	                    max: data.elapsed_time,
+	                    value: 0,
+	                    animate: false,
+	                    slide: function(event, ui) {
+	                        clearTimeout(this.id);
+	                        this.id = setTimeout(function() {
+	                            //console.log(data.depart_time_utc);
+	                            mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, ui.value);
+	                            // map path of the sun
+	                            mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, ui.value);
+	                            // map path of the sun
+	                            mapDayNightShadow(map, new Date(Date.parse(data.depart_time_utc)), ui.value);
+	                            $("#minutes_travelled").val(ui.value);
+	                            updateSliderTime(ui.value, data.elapsed_time);
+	                        },
+	                        10);
+	                    }
+	                });
 
-				// draw sun marker
-				if (sunMarker != null) { 
-					sunMarker.setMap(null);
-				}
 
-				var sunimage = new google.maps.MarkerImage('images/sun.png',
-				      new google.maps.Size(32, 32), // marker dimensions
-				      new google.maps.Point(0,0), // origin of image
-				      new google.maps.Point(16, 16)); // anchor of image
-				sunMarker = new google.maps.Marker({
-			        position: toLatLng,
-			        map: map,
-			        title: 'Sun Position: ' + to_deg,
-					icon: sunimage
-			    }); 
-				markers.push(sunMarker);
-			
-		}
-		
-		mapFlightPosition = function(flightPaths, map, startLat, startLon, endLat, endLon, duration_minutes, minutes_travelled) {
-			
-			// draw flight marker
-			if (flightMarker != null) { 
-				flightMarker.setMap(null);
-			}
-			
-			percentage_travelled = minutes_travelled / duration_minutes;
-			
-			var fromLatLng = new google.maps.LatLng(startLat, startLon);
-			var toLatLng = new google.maps.LatLng(endLat, endLon);
-			
-			try {
-				var flightpos = google.maps.geometry.spherical.interpolate(fromLatLng, toLatLng, percentage_travelled);
-			}
-			catch(error) {
-				// ignore it
-			}
-			
-			var planeimage = new google.maps.MarkerImage('images/plane.png',
-			      new google.maps.Size(32, 31), // marker dimensions
-			      new google.maps.Point(0,0), // origin of image
-			      new google.maps.Point(16, 16)); // anchor of image
-			
-			flightMarker = new google.maps.Marker({
-		        position: flightpos,
-		        map: map,
-		        title: 'Flight position: ' + to_deg,
-				icon: planeimage
-		    });
-			markers.push(flightMarker);
-		}
-		
-		function updateSliderTime(t, max)
-		{
-			slider_text = t + " mins";
-			if (t == 0) { 
-				slider_text = "Take off...";
-			}
-			else if (t == max) {
-				slider_text = "Landed!";
-			} 
-			
-			$('#slider-time').html(slider_text);
-		}
-		
-		function updatePermalink()
-		{
-			$('#permalink').attr("href", "http://" + window.location.hostname + "/?flightcode="+getInputCarrierCode() + getInputServiceNumber() + "&date=" + getInputRequestDate());
-		}
-		
-		hideWelcomeWindow = function()
-		{
-			aboutClicked = false;
-			$('#welcome').fadeOut();
-		}
-		
-		showWelcomeWindow = function()
-		{
-			$('#welcome').show();
-		}
-		
-		hideHypnoToad = function()
-		{
-			$('#hypnotoad').show();
-		}
-		
-		showHypnoToad = function()
-		{
-			$('#hypnotoad').show();
-		}
-		
-		doHotelRedirect = function()
-		{
-			showHypnoToad();
-			hypnotoad = setTimeout(function(){
-				document.location = '<?php print($cfg["HYPNOTOAD_URL"]);?>';
-				//window.open('<?php print($cfg["HYPNOTOAD_URL"]);?>','hypnotoad');
-			},150);
-		}
-		
-		// let's do it!
-		main();
+	                // update slider to begin with
+	                mapSunPosition(flightPaths, map, new Date(Date.parse(data.depart_time_utc)), data.elapsed_time, 0);
+	                // map path of the sun
+	                mapFlightPosition(flightPaths, map, data.from_lat, data.from_lon, data.to_lat, data.to_lon, data.elapsed_time, 0);
+	                // map path of the sun
+	                mapDayNightShadow(map, new Date(Date.parse(data.depart_time_utc)), 0);
+	                $("#minutes_travelled").val(0);
+	                updateSliderTime(0, data.elapsed_time);
+
+	            }
+
+	        });
+	    }
+
+	    mapDayNightShadow = function(map, UTCTime, minutesOffset) {
+	        //alert(maptime);
+	        if (dn == null) {
+
+	            dn = new DayNightMapType(UTCTime, minutesOffset);
+	            map.overlayMapTypes.insertAt(0, dn);
+	            dn.setMap(map);
+	            //dn.setAutoRefresh(10);
+	            dn.setShowLights(1);
+	        }
+	        else {
+	            dn.calcCurrentTime(UTCTime, minutesOffset);
+	            dn.redoTiles();
+	        }
+	    }
+
+	    mapSunPosition = function(flightPaths, map, start_time_at_gmt, duration_minutes, minutes_travelled) {
+
+	        // Sun is directly overhead LatLng(0, 0) at 12:00:00 midday
+	        // 1440 minutes / 1 minute = 0.25 degrees
+	        // Assuming maximum trip duration of 24 hours / single leg
+	        // Calculate sun's starting longitude from the start time at gmt
+	        //console.log(start_time_at_gmt);
+	        //console.log(new Date(start_time_at_gmt).getTimezoneOffset());
+	        local_offset = new Date(start_time_at_gmt).getTimezoneOffset();
+	        minutes_gmt = local_offset + (start_time_at_gmt.getHours() * 60) + start_time_at_gmt.getMinutes();
+	        //console.log(minutes_gmt);
+	        from_deg = 180 - minutes_gmt * 0.25;
+
+	        duration_deg = duration_minutes * 0.25 * (minutes_travelled / duration_minutes);
+	        to_deg = from_deg - duration_deg;
+
+	        // Starting longitude is positive
+	        var toLatLng = new google.maps.LatLng(0, to_deg);
+
+	        // draw sun marker
+	        if (sunMarker != null) {
+	            sunMarker.setMap(null);
+	        }
+
+	        var sunimage = new google.maps.MarkerImage('images/sun.png',
+	        new google.maps.Size(32, 32),
+	        // marker dimensions
+	        new google.maps.Point(0, 0),
+	        // origin of image
+	        new google.maps.Point(16, 16));
+	        // anchor of image
+	        sunMarker = new google.maps.Marker({
+	            position: toLatLng,
+	            map: map,
+	            title: 'Sun Position: ' + to_deg,
+	            icon: sunimage
+	        });
+	        markers.push(sunMarker);
+
+	    }
+
+	    mapFlightPosition = function(flightPaths, map, startLat, startLon, endLat, endLon, duration_minutes, minutes_travelled) {
+
+	        // draw flight marker
+	        if (flightMarker != null) {
+	            flightMarker.setMap(null);
+	        }
+
+	        percentage_travelled = minutes_travelled / duration_minutes;
+
+	        var fromLatLng = new google.maps.LatLng(startLat, startLon);
+	        var toLatLng = new google.maps.LatLng(endLat, endLon);
+
+	        try {
+	            var flightpos = google.maps.geometry.spherical.interpolate(fromLatLng, toLatLng, percentage_travelled);
+	        }
+	        catch(error) {
+	            // ignore it
+	            }
+
+	        var planeimage = new google.maps.MarkerImage('images/plane.png',
+	        new google.maps.Size(32, 31),
+	        // marker dimensions
+	        new google.maps.Point(0, 0),
+	        // origin of image
+	        new google.maps.Point(16, 16));
+	        // anchor of image
+	        flightMarker = new google.maps.Marker({
+	            position: flightpos,
+	            map: map,
+	            title: 'Flight position: ' + to_deg,
+	            icon: planeimage
+	        });
+	        markers.push(flightMarker);
+	    }
+
+	    function updateSliderTime(t, max)
+	    {
+	        slider_text = t + " mins";
+	        if (t == 0) {
+	            slider_text = "Take off...";
+	        }
+	        else if (t == max) {
+	            slider_text = "Landed!";
+	        }
+
+	        $('#slider-time').html(slider_text);
+	    }
+
+	    function updatePermalink()
+	    {
+	        $('#permalink').attr("href", "http://" + window.location.hostname + "/?flightcode=" + getInputCarrierCode() + getInputServiceNumber() + "&date=" + getInputRequestDate());
+	    }
+
+	    hideWelcomeWindow = function()
+	    {
+	        aboutClicked = false;
+	        $('#welcome').fadeOut();
+	    }
+
+	    showWelcomeWindow = function()
+	    {
+	        $('#welcome').show();
+	    }
+
+	    hideHypnoToad = function()
+	    {
+	        $('#hypnotoad').show();
+	    }
+
+	    showHypnoToad = function()
+	    {
+	        $('#hypnotoad').show();
+	    }
+
+	    doHotelRedirect = function()
+	    {
+	        showHypnoToad();
+	        hypnotoad = setTimeout(function() {
+	            document.location = '<?php print($cfg["HYPNOTOAD_URL"]);?>';
+	            //window.open('<?php print($cfg["HYPNOTOAD_URL"]);?>','hypnotoad');
+	        },
+	        150);
+	    }
+
+	    // let's do it!
+	    main();
 
 	});
 	</script>
@@ -421,7 +461,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	<div id="slider-container">
 		<table width="100%"><tr>
 			<td width="20%"><span style='color: #222'>Slide me</a></td>
-			<td width="60%"><div id="slider"></div></td>
+			<td width="60%"><div id="slider_holder"></div></td>
 			<td width="20%" align="right"><div id="slider-time"></div></td>
 		</tr></table>
 	</div>
@@ -441,9 +481,9 @@ if(array_key_exists("topsecret", $_GET)) {
 		Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!
 		<a href="javascript:void(0);" onClick="aboutClicked = true; showWelcomeWindow();">About</a>
 	</div>
-	<div id="hypnotoad">
+	<!--<div id="hypnotoad">
 		<img width="600" height="600" src="/images/hypnotoad.gif">
-	</div>
+	</div>-->
 	<!--<div id="topsecret">
 		<a href="/?topsecret&autoload">Enable top secret ad engine</a>
 	</div>-->
