@@ -323,8 +323,11 @@ if(array_key_exists("topsecret", $_GET)) {
 	        duration_deg = duration_minutes * 0.25 * (minutes_travelled / duration_minutes);
 	        to_deg = from_deg - duration_deg;
 
-	        // Starting longitude is positive
-	        var toLatLng = new google.maps.LatLng(0, to_deg);
+		var dayofyear= (start_time_at_gmt - new Date(start_time_at_gmt.getFullYear(),0,1)) / 86400000;
+		var sunlat = -23.44*Math.sin(((dayofyear + 10 + 91.25)*Math.PI)/(365/2));
+
+		// Starting longitude is positive
+		var toLatLng = new google.maps.LatLng(sunlat, to_deg);
 
 	        // draw sun marker
 	        if (sunMarker != null) {
