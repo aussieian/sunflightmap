@@ -248,7 +248,7 @@ if(array_key_exists("topsecret", $_GET)) {
             content_html += "<tr><td colspan='2'>";
             content_html += "<table width='100%'><tr>";
             content_html += "<td><span class='flightdata from_airport'>" + data.from_airport + "</span></td>";
-            content_html += "<td>----</td>";
+            content_html += "<td><span class='flightdata plane_icon'>&#9992;</span></td>";
             content_html += "<td><span class='flightdata to_airport'>" + data.to_airport + "</span></td>";
             content_html += "</tr></table>";
             content_html += "</td></tr>";
@@ -682,7 +682,7 @@ if(array_key_exists("topsecret", $_GET)) {
 		<span id="loading-message">Loading...</span>
 	</div>
 	
-	<div id="welcome">
+	<!--<div id="welcome">
 		<a href="javascript:void(0);" onClick="hideWelcomeWindow();">Continue</a>
 		<center><img src="/images/thack-singapore-logo1.jpg"></center>
 		<p>Because flying with the sun in your face isn't cool!</p>
@@ -692,7 +692,7 @@ if(array_key_exists("topsecret", $_GET)) {
 		<p style="font-size: smaller; color: #888;">Notes: Google Chrome only at the moment. Most likely a few bugs!</p>
 		<p style="font-size: smaller;">Powered by <img width="80" style="margin-bottom: -12px;" src="/images/oag-aviation.jpg"> &nbsp; OnDemand</p>
 		
-	</div>
+	</div>-->
 	<!--<div id="info" class="shadow">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.
 		<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. 
 		Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!

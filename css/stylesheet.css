@@ -29,6 +29,8 @@ input { font-family: Arial, Verdana; font-size: 14pt; color: #FF0080; }
 #topsecret { z-index: 5; font-size: 10pt; position: fixed; bottom: 24px; right: 12px; padding: 2px; background: #fff;}
 #topsecret a { color: red;}
 .flightdata { font-size: 10pt; color: #222;}
+.flightdata .from_airport, .to_airport { font-weight: bold;}
+.flightdata .plane_icon { color: green; font-size: 14pt; }
 
 /* shiny blue (inspired by rdio iphone interface)
 *******************************************************************************/
