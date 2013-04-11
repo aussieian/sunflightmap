@@ -704,10 +704,10 @@ if(array_key_exists("topsecret", $_GET)) {
 	<!--<div id="topsecret">
 		<a href="/?topsecret&autoload">Enable top secret ad engine</a>
 	</div>-->
-	<div id="debug">
+	<!--<div id="debug">
 		Minutes travelled: <input id="minutes_travelled"><br>
 		Current flight segment: <input id="flight_segment"><br>
-	</div>
+	</div>-->
 	
 	<!-- google anlaytics -->
 	<script type="text/javascript">
