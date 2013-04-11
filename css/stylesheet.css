@@ -1,4 +1,4 @@
-html, body, #map_canvas {
+html, body {
 	font-family: Arial, Verdana;
 	font-size: 14pt;
 	margin: 0;
@@ -6,15 +6,17 @@ html, body, #map_canvas {
 	height: 100%;
 }
 input { font-family: Arial, Verdana; font-size: 14pt; color: #FF0080; }
-#ui-container { position: fixed; top: 36px; right: 24px; }
+#map_container { width: 600px; border: 2px solid green;}
+#map_canvas { width: 600px; height: 400px;}
+#ui-container { width: 600px; }
 #ui-panel { white-space: nowrap; font-size: 18pt; padding: 12px; border: 1px solid #ddd; background: #eee;}
-#results-panel { display: none; opacity: 0.5; white-space: nowrap; margin-top: 12px; font-size: 10pt; padding: 12px; border: 1px solid #ddd; background: #eee;}
-#debug { display: none; position: fixed; bottom: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
+#results-panel { width: 600px; display: none; opacity: 0.5; white-space: nowrap; margin-top: 12px; font-size: 10pt; border: 1px solid #ddd; background: #eee;}
+#debug { /*display: none;*/ position: fixed; bottom: 24px; right: 24px; width: 200px; border: 1px solid #ddd; background: #eee; }
 #loading-page { z-index: 4; display: none; position: fixed; left: 50%; top: 40%; margin-left: -130px; width: 200px; padding: 20px; -moz-border-radius: 10px; -webkit-border-radius: 10px; background-color: #fff; text-align: center; }
 #loading-message { /*white-space: nowrap;*/ }
-#slider-container { white-space: nowrap; border: 1px solid #888; display: none; z-index: 4; padding: 12px; background-color: #eee; position: fixed; bottom: 100px; left: 50%; width: 500px; margin-left: -250px; }
+#slider-container { width: 600px; white-space: nowrap; border: 1px solid #888; display: none; z-index: 4; background-color: #eee; }
 #slider { }
-#slider-time { }
+#slider-time { white-space: nowrap; padding-left: 10px;}
 #info { z-index: 4; font-size: 12.5pt; padding: 12px; background-color: #fff; position: fixed; bottom: 20px; left: 50%; width: 650px; margin-left: -325px; text-align: center; }
 #info a { color: red;}
 #welcome { display: none; z-index: 5; text-align: center; position: fixed; padding: 12px; border: 6px solid #ff0080; width: 600px; background-color: #fff; top: 60px; left: 50%; margin-left: -300px; }
@@ -26,6 +28,7 @@ input { font-family: Arial, Verdana; font-size: 14pt; color: #FF0080; }
 #hypnotoad { display: none; z-index: 5; text-align: center; position: fixed; padding: 12px; border: 6px solid #ff0080; width: 800px; background-color: #fff; top: 10px; left: 50%; margin-left: -400px; }
 #topsecret { z-index: 5; font-size: 10pt; position: fixed; bottom: 24px; right: 12px; padding: 2px; background: #fff;}
 #topsecret a { color: red;}
+.flightdata { font-size: 10pt; color: #222;}
 
 /* shiny blue (inspired by rdio iphone interface)
 *******************************************************************************/
@@ -53,10 +56,10 @@ button.shiny-blue {
   -o-box-shadow: inset 0 0 2px 0 rgba(57, 140, 255, 0.8);
   box-shadow: inset 0 0 2px 0 rgba(57, 140, 255, 0.8);
   color: #fff;
-  font: bold 14pt "helvetica neue", helvetica, arial, sans-serif;
+  font: bold 12pt "helvetica neue", helvetica, arial, sans-serif;
   padding: 7px 0;
   text-shadow: 0 -1px 1px #1a5ad9;
-  width: 150px; }
+  width: 100px; }
   button.shiny-blue:hover {
     background-color: #5d89e8;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#5d89e8 0%), to(#2261e0 50%));

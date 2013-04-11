@@ -1,5 +1,10 @@
 <?php
 
+// testing
+// comment this out for production
+//echo $_GET['callback'] . '([{"from_airport": "SYD","from_city": "Sydney","from_lat": -33.946111,"from_lon": 151.177222,"to_airport": "DXB","to_city": "Dubai","to_lat": 25.252778,"to_lon": 55.364444,"depart_time": "2013-06-14T16:05:00","depart_timezone": "10","depart_time_utc": "Fri, 14 Jun 2013 06:05:00 GMT","arrival_time_utc": "Fri, 14 Jun 2013 20:35:00 GMT","elapsed_time": 870,"distance_km": 12034,"error": ""},{"from_airport": "DXB","from_city": "Dubai","from_lat": 25.252778,"from_lon": 55.364444,"to_airport": "LHR","to_city": "London","to_lat": 51.4775,"to_lon": -0.461389,"depart_time": "2013-06-15T02:05:00","depart_timezone": "4","depart_time_utc": "Fri, 14 Jun 2013 22:05:00 GMT","arrival_time_utc": "Sat, 15 Jun 2013 05:35:00 GMT","elapsed_time": 450,"distance_km": 5474,"error": ""}]);';
+//die();
+
 include("../lib/global.php");
 
 // Ajax Flight Route
@@ -73,7 +78,7 @@ curl_close($curl_conn);
 
 $xml_data = simplexml_load_string($post_response);
 if ($post_response == "<RESPONSE></RESPONSE>") { 
-	print($callback . "({'error':'Oops, try a different date or carrier code'});");
+	print($callback . "({'error':'Oops, no route found. Try a different date or carrier code'});");
 	die();
 }
 // Step 2
@@ -83,27 +88,55 @@ if ($post_response == "<RESPONSE></RESPONSE>") {
 
 // Get callback url
 // also do this for carrier code, service number, request date
-try {
-	$from_airport = strval($xml_data->Flight->Dep->Port["PortCode"]);
-	$from_airport_openflights = getAirport($from_airport);
-	$from_city = $from_airport_openflights["City"];
-	$from_lat = $from_airport_openflights["Lat"];
-	$from_lon = $from_airport_openflights["Lon"];
-	$to_airport = strval($xml_data->Flight->Arr->Port["PortCode"]);
-	$to_airport_openflights = getAirport($to_airport);
-	$to_city = $to_airport_openflights["City"];
-	$to_lat = $to_airport_openflights["Lat"];
-	$to_lon = $to_airport_openflights["Lon"];
-	$depart_time = strval($xml_data->Flight->Dep["DepTime"]);
-	$depart_timezone = $from_airport_openflights["Timezone"]; // ($cfg["PHP_TIMEZONE_OFFSET"]-
-	//$depart_time_utc = date("Y-m-d H:i", strtotime($depart_time) - ($depart_timezone * 60 * 60)); // calculate UTC time (todo: doesnt accomodate for daylight saving)
-	$depart_time_utc = date("D, d M Y H:i:00", strtotime($depart_time) - ($depart_timezone * 60 * 60)) . " GMT"; // calculate UTC time (todo: doesnt accomodate for daylight saving)
-	$elapsed_time = strval($xml_data->Flight->Dep["ElapsedTime"]);	
-} catch (Exception $e) {
-	print($callback . "({'error':'Invalid flight info'});");
-	die();
-}
+$jsonp_flights = "";
+$jsonp_flights_arr = array();
+foreach($xml_data->Flight as $flight)
+{
+	try {
+		$from_airport = strval($flight->Dep->Port["PortCode"]);
+		$from_airport_openflights = getAirport($from_airport);
+		$from_city = $from_airport_openflights["City"];
+		$from_lat = $from_airport_openflights["Lat"];
+		$from_lon = $from_airport_openflights["Lon"];
+		$to_airport = strval($flight->Arr->Port["PortCode"]);
+		$to_airport_openflights = getAirport($to_airport);
+		$to_city = $to_airport_openflights["City"];
+		$to_lat = $to_airport_openflights["Lat"];
+		$to_lon = $to_airport_openflights["Lon"];
+		$depart_time = strval($flight->Dep["DepTime"]);
+		$depart_timezone = $from_airport_openflights["Timezone"]; // ($cfg["PHP_TIMEZONE_OFFSET"]-
+		//$depart_time_utc = date("Y-m-d H:i", strtotime($depart_time) - ($depart_timezone * 60 * 60)); // calculate UTC time (todo: doesnt accomodate for daylight saving)
+		$depart_time_utc = date("D, d M Y H:i:00", strtotime($depart_time) - ($depart_timezone * 60 * 60)) . " GMT"; // calculate UTC time (todo: doesnt accomodate for daylight saving)
+		$elapsed_time = strval($flight->Dep["ElapsedTime"]);
+		$arrival_time_utc = date("D, d M Y H:i:00", strtotime($depart_time) + ($elapsed_time * 60) - ($depart_timezone * 60 * 60)) . " GMT"; // calculate UTC time (todo: doesnt accomodate for daylight saving)
+		$distance_km = strval($flight->Dep["KM"]);
 
+
+		$jsonp_flights = '{';
+		$jsonp_flights .= '"from_airport": "' . $from_airport . '",';
+		$jsonp_flights .= '"from_city": "' . $from_city . '",';
+		$jsonp_flights .= '"from_lat": ' . $from_lat . ',';
+		$jsonp_flights .= '"from_lon": ' . $from_lon . ',';
+		$jsonp_flights .= '"to_airport": "' . $to_airport . '",';
+		$jsonp_flights .= '"to_city": "' . $to_city . '",';
+		$jsonp_flights .= '"to_lat": ' . $to_lat . ',';
+		$jsonp_flights .= '"to_lon": ' . $to_lon . ',';
+		$jsonp_flights .= '"depart_time": "' . $depart_time . '",';
+		$jsonp_flights .= '"depart_timezone": "' . $depart_timezone . '",';
+		$jsonp_flights .= '"depart_time_utc": "' . $depart_time_utc . '",';
+		$jsonp_flights .= '"arrival_time_utc": "' . $arrival_time_utc . '",';
+		$jsonp_flights .= '"elapsed_time": ' . $elapsed_time . ',';
+		$jsonp_flights .= '"distance_km": ' . $distance_km . ',';
+		$jsonp_flights .= '"error": ""';
+		$jsonp_flights .= '}';
+
+		$jsonp_flights_arr[] = $jsonp_flights;
+
+	} catch (Exception $e) {
+		print($callback . "({'error':'Invalid flight info'});");
+		die();
+	}
+}
 
 //$from_airport = "MEL";
 //$from_city = "Melbourne";
@@ -117,21 +150,9 @@ try {
 //$elapsed_time = 470;
 
 // make jsonp
-$jsonp = $callback . "({";
-$jsonp .= '"from_airport": "' . $from_airport . '",';
-$jsonp .= '"from_city": "' . $from_city . '",';
-$jsonp .= '"from_lat": ' . $from_lat . ',';
-$jsonp .= '"from_lon": ' . $from_lon . ',';
-$jsonp .= '"to_airport": "' . $to_airport . '",';
-$jsonp .= '"to_city": "' . $to_city . '",';
-$jsonp .= '"to_lat": ' . $to_lat . ',';
-$jsonp .= '"to_lon": ' . $to_lon . ',';
-$jsonp .= '"depart_time": "' . $depart_time . '",';
-$jsonp .= '"depart_timezone": "' . $depart_timezone . '",';
-$jsonp .= '"depart_time_utc": "' . $depart_time_utc . '",';
-$jsonp .= '"elapsed_time": ' . $elapsed_time . ',';
-$jsonp .= '"error": ""';
-$jsonp .= "});";
+$jsonp = $callback . "([";
+$jsonp .= implode(",", $jsonp_flights_arr); // make array of Flights
+$jsonp .= "]);";
 
 // example:
 // jsonp1319362367283({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-23T12:00:00","depart_timezone": "10","depart_time_utc": "Sun, 23 Oct 2011 02:00:00 GMT","elapsed_time": 470,"error": ""});
