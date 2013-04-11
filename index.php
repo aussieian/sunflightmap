@@ -372,7 +372,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	    		// for each minute of flight time, record the segment index (i)
 	    		var flight_segment_by_minute_length = flight_segment_by_minute.length;
 	    		//alert(flight_segment_by_minute_length + flight_time_including_stopover);
-	    		for (var j = flight_segment_by_minute_length; j < flight_segment_by_minute_length + flight_time_including_stopover; j++) {
+	    		for (var j = flight_segment_by_minute_length; j <= flight_segment_by_minute_length + flight_time_including_stopover; j++) {
 	    			flight_segment_by_minute[j] = i;
 	    			flight_segment_start_time[i] = j;
 	    		}
