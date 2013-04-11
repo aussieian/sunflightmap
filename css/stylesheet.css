@@ -6,7 +6,7 @@ html, body {
 	height: 100%;
 }
 input { font-family: Arial, Verdana; font-size: 14pt; color: #FF0080; }
-#map_container { width: 600px; border: 2px solid green;}
+#map_container { width: 600px; }
 #map_canvas { width: 600px; height: 400px;}
 #ui-container { width: 600px; }
 #ui-panel { white-space: nowrap; font-size: 18pt; padding: 12px; border: 1px solid #ddd; background: #eee;}

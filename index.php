@@ -619,7 +619,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	<center>
 
 	<div id="ui-container">
-		<div id="ui-panel" class="shadow">
+		<div id="ui-panel">
 			<span>What's your flight code?</span><br>
 			<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
 			<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
