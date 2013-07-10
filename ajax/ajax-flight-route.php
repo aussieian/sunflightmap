@@ -6,6 +6,7 @@
 //die();
 
 include("../lib/global.php");
+include("../lib/php_fast_cache.php");
 
 // Ajax Flight Route
 // Parameters: Carrier Code, Service Number, Request Date
@@ -31,6 +32,21 @@ if (array_key_exists("service_number", $_GET)) {
 $request_date='2011-10-16';
 if (array_key_exists("request_date", $_GET)) {
 	$request_date=$_GET['request_date'];
+}
+
+$cache_key = $carrier_code . "_" . $service_number . "_" . $request_date;
+
+// try to get from Cache first.
+//phpFastCache::$path = "/PATH/FOR_PDO_FILES/";
+$jsonp_flights_arr = phpFastCache::get($cache_key);
+phpFastCache::$storage = "auto";
+
+if($jsonp_flights_arr != null) {
+	$jsonp = $callback . "({'flightdata':[";
+	$jsonp .= implode(",", $jsonp_flights_arr); // make array of Flights
+	$jsonp .= "],'cached':'true'});";
+	print($jsonp); // print cached copy
+	exit();
 }
 
 
@@ -93,6 +109,13 @@ $jsonp_flights_arr = array();
 foreach($xml_data->Flight as $flight)
 {
 	try {
+
+		// ignore this segment as it does not fly on this day
+		// note: assume this is always start or end of route)
+		if (strval($flight->Dep["ElapsedTime"]) == "0") {	
+			continue; 
+		}
+
 		$from_airport = strval($flight->Dep->Port["PortCode"]);
 		$from_airport_openflights = getAirport($from_airport);
 		$from_city = $from_airport_openflights["City"];
@@ -103,14 +126,15 @@ foreach($xml_data->Flight as $flight)
 		$to_city = $to_airport_openflights["City"];
 		$to_lat = $to_airport_openflights["Lat"];
 		$to_lon = $to_airport_openflights["Lon"];
-		$depart_time = strval($flight->Dep["DepTime"]);
+		$depart_time = strval($flight->Dep["DepTime"]); // local time of departure
+		$arrival_time = strval($flight->Arr["ArrTime"]); // local time of arrival
 		$depart_timezone = $from_airport_openflights["Timezone"]; // ($cfg["PHP_TIMEZONE_OFFSET"]-
 		//$depart_time_utc = date("Y-m-d H:i", strtotime($depart_time) - ($depart_timezone * 60 * 60)); // calculate UTC time (todo: doesnt accomodate for daylight saving)
 		$depart_time_utc = date("D, d M Y H:i:00", strtotime($depart_time) - ($depart_timezone * 60 * 60)) . " GMT"; // calculate UTC time (todo: doesnt accomodate for daylight saving)
 		$elapsed_time = strval($flight->Dep["ElapsedTime"]);
-		$arrival_time_utc = date("D, d M Y H:i:00", strtotime($depart_time) + ($elapsed_time * 60) - ($depart_timezone * 60 * 60)) . " GMT"; // calculate UTC time (todo: doesnt accomodate for daylight saving)
+		//$arrival_time_utc = date("D, d M Y H:i:00", strtotime($depart_time) + ($elapsed_time * 60) - ($depart_timezone * 60 * 60)) . " GMT"; // calculate UTC time (todo: doesnt accomodate for daylight saving)
 		$distance_km = strval($flight->Dep["KM"]);
-
+		$days_of_op = strval($flight["DaysOfOp"]);
 
 		$jsonp_flights = '{';
 		$jsonp_flights .= '"from_airport": "' . $from_airport . '",';
@@ -122,11 +146,13 @@ foreach($xml_data->Flight as $flight)
 		$jsonp_flights .= '"to_lat": ' . $to_lat . ',';
 		$jsonp_flights .= '"to_lon": ' . $to_lon . ',';
 		$jsonp_flights .= '"depart_time": "' . $depart_time . '",';
-		$jsonp_flights .= '"depart_timezone": "' . $depart_timezone . '",';
+		$jsonp_flights .= '"arrival_time": "' . $arrival_time . '",';
+		//$jsonp_flights .= '"depart_timezone": "' . $depart_timezone . '",';
 		$jsonp_flights .= '"depart_time_utc": "' . $depart_time_utc . '",';
-		$jsonp_flights .= '"arrival_time_utc": "' . $arrival_time_utc . '",';
+		//$jsonp_flights .= '"arrival_time_utc": "' . $arrival_time_utc . '",';
 		$jsonp_flights .= '"elapsed_time": ' . $elapsed_time . ',';
 		$jsonp_flights .= '"distance_km": ' . $distance_km . ',';
+		$jsonp_flights .= '"days_of_op": "' . $days_of_op . '",';
 		$jsonp_flights .= '"error": ""';
 		$jsonp_flights .= '}';
 
@@ -150,13 +176,16 @@ foreach($xml_data->Flight as $flight)
 //$elapsed_time = 470;
 
 // make jsonp
-$jsonp = $callback . "([";
+$jsonp = $callback . "({'flightdata':[";
 $jsonp .= implode(",", $jsonp_flights_arr); // make array of Flights
-$jsonp .= "]);";
+$jsonp .= "],'cached':'false'});";
 
 // example:
 // jsonp1319362367283({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-23T12:00:00","depart_timezone": "10","depart_time_utc": "Sun, 23 Oct 2011 02:00:00 GMT","elapsed_time": 470,"error": ""});
 //print($callback . '({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-23T12:00:00","depart_timezone": "10","depart_time_utc": "Sun, 23 Oct 2011 02:00:00 GMT","elapsed_time": 470,"error": ""});');
 print($jsonp);
+
+// set products in to cache in 600 seconds = 10 minutes
+phpFastCache::set($cache_key,$jsonp_flights_arr,600);
 
 ?>

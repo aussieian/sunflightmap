@@ -55,7 +55,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	var flightMarker = null;
 	var sunMarker = null;
 	var aboutClicked = false;
-	var loadingMessages = Array("Loading stuff", "Drinking a beer", "Taking off", "Reading Tnooz");
+	var loadingMessages = Array("Loading route");
 	var dn = null;
 	// day night shadow
 	var initSlider = false;
@@ -187,7 +187,8 @@ if(array_key_exists("topsecret", $_GET)) {
 	        		$('#loading-page').hide();
 	        		alert(data.error);
 	        	} else {
-	        		initFlightRoutes(data);
+	        		$("#cached_result").val(data.cached);
+	        		initFlightRoutes(data.flightdata);
 	        	}
 	        });
 	    }
@@ -260,7 +261,7 @@ if(array_key_exists("topsecret", $_GET)) {
 
        		content_html += "<tr>";
             content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.depart_time + "</span></td>";
-       		content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.arrival_time_utc + "</span></td>";
+       		content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.arrival_time + "</span></td>";
        		content_html += "</tr>";
 
        		content_html += "<tr>";
@@ -271,6 +272,10 @@ if(array_key_exists("topsecret", $_GET)) {
        		var miles_to_km = 0.621371192;
             content_html += "<td colspan='2'><span class='flightdata distance'>Distance: " + addCommas(Math.round(data.distance_km * miles_to_km)) + " miles";
             content_html += " (" + addCommas(data.distance_km ) + " km)</span></td>";
+       		content_html += "</tr>";
+
+       		content_html += "<tr>";
+            content_html += "<td colspan='2'><span class='flightdata duration'>Days of Operation: " + data.days_of_op + "</span></td>";
        		content_html += "</tr>";
 
             content_html += "</table>";
@@ -346,11 +351,23 @@ if(array_key_exists("topsecret", $_GET)) {
 	    	var first_flight = flightdata[0];
 	    	var last_flight = flightdata[flightdata.length - 1];
 
-	    	var start_time  = new Date(Date.parse(first_flight.depart_time_utc));
-	    	var end_time  = new Date(Date.parse(last_flight.arrival_time_utc));
+	    	// calculate total flight time
+	    	// use elapsed_time for each flight plus the time until the next departure
+	    	var total_minutes = 0;
+	    	for (var i = 0; i < flightdata.length; i++) {
+				// calculate flight duration including layover time for next segment
+	    		if (i < flightdata.length - 1) {
+	    			var this_flight_arrival_time = new Date(Date.parse(flightdata[i].arrival_time));
+	    			var next_flight_start_time = new Date(Date.parse(flightdata[i+1].depart_time));
+	    			var flight_time_diff = Math.abs(next_flight_start_time.getTime() - this_flight_arrival_time.getTime());
+	    			var flight_time_including_stopover = flightdata[i].elapsed_time + Math.ceil(flight_time_diff / 1000 / 60);
+	    		} else {
+	    			var flight_time_including_stopover = flightdata[i].elapsed_time;
+	    		}
 
-	    	var time_diff = Math.abs(start_time.getTime() - end_time.getTime());
-			var total_minutes = Math.ceil(time_diff / 1000 / 60);
+	    		total_minutes += flight_time_including_stopover; // add flight time included stop over
+	    	}
+
 
 			// record flight segment index
 			var flight_segment_by_minute = []; // track which flight segment a given minute is in
@@ -360,10 +377,10 @@ if(array_key_exists("topsecret", $_GET)) {
 
 	    		// calculate flight duration including layover time for next segment
 	    		if (i < flightdata.length - 1) {
-	    			var this_flight_start_time = new Date(Date.parse(flightdata[i].depart_time_utc));
-	    			var next_flight_start_time = new Date(Date.parse(flightdata[i+1].depart_time_utc));
-	    			var flight_time_diff = Math.abs(this_flight_start_time.getTime() - next_flight_start_time.getTime());
-	    			var flight_time_including_stopover = Math.ceil(flight_time_diff / 1000 / 60);
+	    			var this_flight_arrival_time = new Date(Date.parse(flightdata[i].arrival_time));
+	    			var next_flight_start_time = new Date(Date.parse(flightdata[i+1].depart_time));
+	    			var flight_time_diff = Math.abs(next_flight_start_time.getTime() - this_flight_arrival_time.getTime());
+	    			var flight_time_including_stopover = flightdata[i].elapsed_time + Math.ceil(flight_time_diff / 1000 / 60);
 	    			//alert(flight_time_including_stopover);
 	    		} else {
 	    			var flight_time_including_stopover = flightdata[i].elapsed_time;
@@ -394,7 +411,7 @@ if(array_key_exists("topsecret", $_GET)) {
                     clearTimeout(this.id);
                     this.id = setTimeout(function() {
 
-                        //console.log(data.depart_time_utc);
+                        //console.log(first_flight.depart_time_utc);
                         mapSunPosition(flightPaths, map, new Date(Date.parse(first_flight.depart_time_utc)), total_minutes, ui.value);
                         
                         // map path of the sun
@@ -488,11 +505,11 @@ if(array_key_exists("topsecret", $_GET)) {
 	        duration_deg = duration_minutes * 0.25 * (minutes_travelled / duration_minutes);
 	        to_deg = from_deg - duration_deg;
 
-		var dayofyear= (start_time_at_gmt - new Date(start_time_at_gmt.getFullYear(),0,1)) / 86400000;
-		var sunlat = -23.44*Math.sin(((dayofyear + 10 + 91.25)*Math.PI)/(365/2));
+			var dayofyear= (start_time_at_gmt - new Date(start_time_at_gmt.getFullYear(),0,1)) / 86400000;
+			var sunlat = -23.44*Math.sin(((dayofyear + 10 + 91.25)*Math.PI)/(365/2));
 
-		// Starting longitude is positive
-		var toLatLng = new google.maps.LatLng(sunlat, to_deg);
+			// Starting longitude is positive
+			var toLatLng = new google.maps.LatLng(sunlat, to_deg);
 
 	        // draw sun marker
 	        if (sunMarker != null) {
@@ -704,10 +721,11 @@ if(array_key_exists("topsecret", $_GET)) {
 	<!--<div id="topsecret">
 		<a href="/?topsecret&autoload">Enable top secret ad engine</a>
 	</div>-->
-	<!--<div id="debug">
+	<div id="debug">
 		Minutes travelled: <input id="minutes_travelled"><br>
 		Current flight segment: <input id="flight_segment"><br>
-	</div>-->
+		Cached result: <input id="cached_result"><br>
+	</div>
 	
 	<!-- google anlaytics -->
 	<script type="text/javascript">
