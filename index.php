@@ -188,7 +188,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	        		alert(data.error);
 	        	} else {
 	        		$("#cached_result").val(data.cached);
-	        		initFlightRoutes(data.flightdata);
+	        		initFlightRoutes(data.flight_segments);
 	        	}
 	        });
 	    }
@@ -423,12 +423,52 @@ if(array_key_exists("topsecret", $_GET)) {
                         if (flight_segment > 0) {
                         	relative_ui_value -= flight_segment_start_time[flight_segment-1]; // offset with previous flight
                         }
+                        var minute_of_segment = relative_ui_value;
+
+
+                        var flight_points = current_flight["flight_points"];
+                        $("#minute_of_segment").val(relative_ui_value);
+
+                        if (minute_of_segment < current_flight.elapsed_time) {
+							var flight_point = flight_points[minute_of_segment];
+                        	$("#sfcalc_sun_side").val(flight_point["sun_side"]);
+                        	$("#sfcalc_tod").val(flight_point["tod"]);
+                        	$("#sfcalc_sun_east_west").val(flight_point["sun_east_west"]);
+                        	$("#sfcalc_azimuth_from_north").val(flight_point["azimuth_from_north"]);
+                        	$("#sfcalc_bearing_from_north").val(flight_point["bearing_from_north"]);
+                        } else {
+                        	$("#sfcalc_sun_side").val("stopover");
+                        	$("#sfcalc_tod").val("stopover");
+                        	$("#sfcalc_sun_east_west").val("stopover");
+                        	$("#sfcalc_azimuth_from_north").val("stopover");
+                        	$("#sfcalc_bearing_from_north").val("stopover");
+                        }
+
+                        /*var planeimage = new google.maps.MarkerImage('images/sun.png',
+					        new google.maps.Size(32, 31),
+					        // marker dimensions
+					        new google.maps.Point(0, 0),
+					        // origin of image
+					        new google.maps.Point(16, 16));
+
+				        // anchor of image
+				        var flightpos = new google.maps.LatLng(flight_point["lat"], flight_point["lng"]);
+
+				        flightMarker2 = new google.maps.Marker({
+				            position: flightpos,
+				            map: map,
+				            title: 'Flight position: ' + to_deg,
+				            icon: planeimage
+				        });
+				        markers.push(flightMarker2);*/
+
+
                         mapFlightPosition(flightPaths, map, current_flight.from_lat, current_flight.from_lon, current_flight.to_lat, current_flight.to_lon, current_flight.elapsed_time, relative_ui_value);
                         
                         // map path of the sun
                         mapDayNightShadow(map, new Date(Date.parse(first_flight.depart_time_utc)), ui.value);
                         $("#minutes_travelled").val(ui.value);
-                        updateSliderTime(ui.value, total_minutes);
+                        updateSliderTime(ui.value, total_minutes);                        
                     },
                     10);
                 }
@@ -602,26 +642,6 @@ if(array_key_exists("topsecret", $_GET)) {
 	        $('#welcome').show();
 	    }
 
-	    hideHypnoToad = function()
-	    {
-	        $('#hypnotoad').show();
-	    }
-
-	    showHypnoToad = function()
-	    {
-	        $('#hypnotoad').show();
-	    }
-
-	    doHotelRedirect = function()
-	    {
-	        showHypnoToad();
-	        hypnotoad = setTimeout(function() {
-	            document.location = '<?php print($cfg["HYPNOTOAD_URL"]);?>';
-	            //window.open('<?php print($cfg["HYPNOTOAD_URL"]);?>','hypnotoad');
-	        },
-	        150);
-	    }
-
 	    // let's do it!
 	    main();
 
@@ -724,6 +744,12 @@ if(array_key_exists("topsecret", $_GET)) {
 	<div id="debug">
 		Minutes travelled: <input id="minutes_travelled"><br>
 		Current flight segment: <input id="flight_segment"><br>
+		Minute of segment: <input id="minute_of_segment"><br>
+		Sun position from plane: <input id="sfcalc_sun_side"><br>
+		Time of day: <input id="sfcalc_tod"><br>
+		Sun East West: <input id="sfcalc_sun_east_west"><br>
+		Azimuth from North: <input id="sfcalc_azimuth_from_north"><br>
+		Bearing from North: <input id="sfcalc_bearing_from_north"><br>
 		Cached result: <input id="cached_result"><br>
 	</div>
 	
