@@ -711,7 +711,7 @@ if(array_key_exists("autoload", $_GET)) {
    					<input type="range" name="slider-time" id="slider" value="0" min="0" max="100"/>
    				</div>
 
-				<div id="map_canvas">Loading map...</div>
+				<div id="map_canvas" style="width: 100%;">Loading map...</div>
 
 				<p><a id="permalink" style="color: blue;" rel=external href="#">Link to this map</a></p>
     		</div>
