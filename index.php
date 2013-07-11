@@ -679,7 +679,7 @@ if(array_key_exists("autoload", $_GET)) {
 <div data-role="page" id="sunflight">
 
 	<div data-role="header">
-		<h1>Day and Night Flight Map</h1>
+		<h1>Day and Night Map</h1>
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#home" class="ui-btn-active">Flight Map</a></li>
