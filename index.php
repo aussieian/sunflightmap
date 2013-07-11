@@ -46,6 +46,9 @@ if(array_key_exists("topsecret", $_GET)) {
 	
 	<!-- custom code -->
 	<script type="text/javascript" src="/js/daynightmaptype.js"></script>
+	<script type="text/javascript" src="/js/jQueryRotate.2.2.js"></script>
+	<script type="text/javascript" src="/js/richmarker-compiled.js"></script>
+
 	<script type="text/javascript">
 	
 	// OUR CODE SUCKS!
@@ -463,7 +466,10 @@ if(array_key_exists("topsecret", $_GET)) {
 				        markers.push(flightMarker2);*/
 
 
-                        mapFlightPosition(flightPaths, map, current_flight.from_lat, current_flight.from_lon, current_flight.to_lat, current_flight.to_lon, current_flight.elapsed_time, relative_ui_value);
+				        if (minute_of_segment < current_flight.elapsed_time) {
+				        	current_bearing = flight_point["bearing_from_north"];
+				        }
+                        mapFlightPosition(flightPaths, map, current_flight.from_lat, current_flight.from_lon, current_flight.to_lat, current_flight.to_lon, current_flight.elapsed_time, relative_ui_value, current_bearing);
                         
                         // map path of the sun
                         mapDayNightShadow(map, new Date(Date.parse(first_flight.depart_time_utc)), ui.value);
@@ -477,7 +483,7 @@ if(array_key_exists("topsecret", $_GET)) {
 			// update slider to begin with
             mapSunPosition(flightPaths, map, new Date(Date.parse(first_flight.depart_time_utc)), total_minutes, 0);
             // map path of the sun
-            mapFlightPosition(flightPaths, map, first_flight.from_lat, first_flight.from_lon, first_flight.to_lat, first_flight.to_lon, first_flight.elapsed_time, 0);
+            mapFlightPosition(flightPaths, map, first_flight.from_lat, first_flight.from_lon, first_flight.to_lat, first_flight.to_lon, first_flight.elapsed_time, 0, first_flight.flight_points[0]["bearing_from_north"]);
             // map path of the sun
             mapDayNightShadow(map, new Date(Date.parse(flightdata[0].depart_time_utc)), 0);
             $("#minutes_travelled").val(0);
@@ -573,7 +579,7 @@ if(array_key_exists("topsecret", $_GET)) {
 
 	    }
 
-	    mapFlightPosition = function(flightPaths, map, startLat, startLon, endLat, endLon, duration_minutes, minutes_travelled) {
+	    mapFlightPosition = function(flightPaths, map, startLat, startLon, endLat, endLon, duration_minutes, minutes_travelled, bearing) {
 
 	        // draw flight marker
 	        if (flightMarker != null) {
@@ -596,19 +602,37 @@ if(array_key_exists("topsecret", $_GET)) {
 	            // ignore it
 	            }
 
-	        var planeimage = new google.maps.MarkerImage('images/plane.png',
-	        new google.maps.Size(32, 31),
+
+	        var planeimage = new google.maps.MarkerImage('images/airplane.svg', null, null, null, new google.maps.Size(32, 32));
+	        /*new google.maps.Size(32, 31),
 	        // marker dimensions
 	        new google.maps.Point(0, 0),
 	        // origin of image
 	        new google.maps.Point(16, 16));
-	        // anchor of image
+	        // anchor of image*/
+
 	        flightMarker = new google.maps.Marker({
 	            position: flightpos,
 	            map: map,
 	            title: 'Flight position: ' + to_deg,
-	            icon: planeimage
-	        });
+	            icon: {
+	            	//url: "images/airplane.svg",
+	            	//size: new google.maps.Size(32, 32),
+			        //path: "M 0 5 L 20 5 L 10 40 z",
+			        scale: 1.2,
+			        //path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+			        //path: "M 100 100 L 300 100 L 200 300 z",
+			        //path: 'M -1,0 A 1,1 0 0 0 -3,0 1,1 0 0 0 -1,0M 1,0 A 1,1 0 0 0 3,0 1,1 0 0 0 1,0M -3,3 Q 0,5 3,3',
+			        //path: "M31.356,500.29c-17.26,0-31.256-13.995-31.256-31.261v-437.67c0-17.265,13.996-31.261,31.256-31.261h437.68c17.266,0,31.261,13.996,31.261,31.263v437.67c0,17.266-13.995,31.261-31.261,31.261h-437.67z",
+			        //path: "M250.2,59.002c11.001,0,20.176,9.165,20.176,20.777v122.24l171.12,95.954v42.779l-171.12-49.501v89.227l40.337,29.946v35.446l-60.52-20.18-60.502,20.166v-35.45l40.341-29.946v-89.227l-171.14,49.51v-42.779l171.14-95.954v-122.24c0-11.612,9.15-20.777,20.16-20.777z",
+			        path: "m16.194347,3.509549c0.7269,0 1.333155,0.605579 1.333155,1.372868l0,8.077136l11.306938,6.34025l0,2.826685l-11.306938,-3.270845l0,5.895784l2.665304,1.978716l0,2.342138l-3.99892,-1.333424l-3.997725,1.3325l0,-2.342411l2.665575,-1.978714l0,-5.895763l-11.308268,3.271421l0,-2.826664l11.308268,-6.340271l0,-8.077136c0,-0.767288 0.604597,-1.372868 1.332093,-1.372868l0.000519,0.000597z",
+			        origin: new google.maps.Point(0, 0),
+			        anchor: new google.maps.Point(16, 16),
+			        strokeWeight: 0.5,
+			        fillOpacity: 1,
+			        fillColor: "#0F0",
+			        rotation: bearing			    }
+	        	});
 	        markers.push(flightMarker);
 	    }
 
