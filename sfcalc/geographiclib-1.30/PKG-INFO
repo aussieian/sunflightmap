@@ -1,0 +1,19 @@
+Metadata-Version: 1.1
+Name: geographiclib
+Version: 1.30
+Summary: A translation of the GeographicLib::Geodesic class to Python
+Home-page: http://geographiclib.sourceforge.net/
+Author: Charles Karney
+Author-email: charles@karney.com
+License: MIT
+Description: UNKNOWN
+Keywords: gis geographical earth distance geodesic
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering :: GIS
+Classifier: Topic :: Software Development :: Libraries :: Python Modules

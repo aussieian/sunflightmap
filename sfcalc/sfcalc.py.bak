@@ -1,0 +1,52 @@
+#!/usr/bin/python
+
+
+# http://stackoverflow.com/questions/16015533/get-n-points-on-a-line
+from geographiclib.geodesic import Geodesic
+from Pysolar import solar
+import datetime
+import time
+
+# get input
+
+# QF15 BNE to LAX 14 hours
+from_lat_lng = "-27.3988315,153.11779990000002" # BNE
+to_lat_lng = "33.943015000000000000,-118.409425199999990000" # LAX
+flight_mins = 840
+departure_time = datetime.datetime.strptime("2013-06-11 10:35:00", "%Y-%m-%d %H:%M:%S")
+departure_time = departure_time + datetime.timedelta(0,-60*60*10) # GMT + 10
+
+# parse input
+from_lat = float(from_lat_lng.split(",")[0])
+from_lng = float(from_lat_lng.split(",")[1])
+to_lat = float(to_lat_lng.split(",")[0])
+to_lng = float(to_lat_lng.split(",")[1])
+
+number_points = flight_mins # num minutes
+point_time = departure_time;
+
+gd = Geodesic.WGS84.Inverse(from_lat, from_lng, to_lat, to_lng)
+line = Geodesic.WGS84.Line(gd['lat1'], gd['lon1'], gd['azi1'])
+
+for i in range(number_points + 1):
+	point = line.Position(gd['s12'] / number_points * i)
+	solar_altitude = solar.GetAltitude(point['lat2'], point['lon2'], point_time)
+	solar_azimuth = solar.GetAzimuth(point['lat2'], point['lon2'], point_time)
+	sun_east_west = ""
+
+	print("----------------- ")
+	print("minute = " + str(i))
+	print("lat,lng = " + str((point['lat2'], point['lon2'])))
+	print("sun alt = " + str(solar_altitude))
+	print("azimuth = " + str(solar_azimuth))
+
+
+	if ((solar_azimuth >= 0) and (solar_azimuth <= 180)) or (solar_azimuth < -180):
+		sun_east_west = "east"
+	if ((solar_azimuth < 0) and (solar_azimuth > -180)) or (solar_azimuth > 180):
+		sun_east_west = "west"
+	print("sun pos = " + sun_east_west)
+
+	point_time = point_time + datetime.timedelta(0,60) # add 1 minute
+
+
