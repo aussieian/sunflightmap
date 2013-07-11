@@ -278,7 +278,19 @@ if(array_key_exists("topsecret", $_GET)) {
        		content_html += "</tr>";
 
        		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata duration'>Days of Operation: " + data.days_of_op + "</span></td>";
+            content_html += "<td colspan='2'><span class='flightdata operation'>Days of Operation: " + data.days_of_op + "</span></td>";
+       		content_html += "</tr>";
+
+       		content_html += "<tr>";
+            content_html += "<td colspan='2'><span class='flightdata % left'>% LEFT: " + data.flight_stats.percent_left + "</span></td>";
+       		content_html += "</tr>";
+
+       		content_html += "<tr>";
+            content_html += "<td colspan='2'><span class='flightdata % left'>% RIGHT: " + data.flight_stats.percent_right + "</span></td>";
+       		content_html += "</tr>";
+
+       		content_html += "<tr>";
+            content_html += "<td colspan='2'><span class='flightdata % left'>% NIGHT: " + data.flight_stats.percent_night + "</span></td>";
        		content_html += "</tr>";
 
             content_html += "</table>";
@@ -331,19 +343,28 @@ if(array_key_exists("topsecret", $_GET)) {
 
 	    drawFlightEndPoints = function(data) {
 
+	    	var circle = {
+    			path: google.maps.SymbolPath.CIRCLE,
+    			scale: 3.0,
+    			fillColor: "#F00",
+    			strokeColor: "#eee",
+    			stokeWeight: 0.1
+  			};
+
             var flagimage = new google.maps.MarkerImage('images/flag.png',
 	            new google.maps.Size(30, 36),
 	            // marker dimensions
 	            new google.maps.Point(0, 0),
 	            // origin of image
 	            new google.maps.Point(2, 36));
+
 	            // anchor of image
 	            var toLatLngFlag = new google.maps.LatLng(data.to_lat, data.to_lon);
 	            var toMarker = new google.maps.Marker({
 	                position: toLatLngFlag,
 	                map: map,
 	                title: 'Destination',
-	                icon: flagimage
+	                icon: circle
 	                //'/images/flag.png'
             });
             markers.push(toMarker);
