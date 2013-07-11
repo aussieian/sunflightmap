@@ -18,15 +18,14 @@ if(array_key_exists("autoload", $_GET)) {
 	$autoload = true;
 }
 
-$topsecret = false;
-if(array_key_exists("topsecret", $_GET)) {
-	$topsecret = true;
-}
-
 ?>
-<html>
+<!DOCTYPE html> 
+<html> 
+
 <head>
-	<title>SunFlight.net - Chase the sun and map the path of your flight with it | Built at Tnooz tHack Singapore!</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>SunFlight.net - Day and Night Flight Map</title>
 
 	<meta name="description" content="Map the path of your flight and the sun. Built at tnooz tHack Singapore!">
 	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
@@ -36,14 +35,19 @@ if(array_key_exists("topsecret", $_GET)) {
 	<meta property="og:description" content="Chase the sun and map the path of your flight with it." /> 
 	
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/excite-bike/jquery-ui.css" type="text/css" media="screen, projection" />
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
 	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen, projection" />
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
 	<!-- libraries -->
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>
+	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>-->
+	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>-->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
-	
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+
 	<!-- custom code -->
 	<script type="text/javascript" src="/js/daynightmaptype.js"></script>
 	<script type="text/javascript" src="/js/jQueryRotate.2.2.js"></script>
@@ -51,25 +55,25 @@ if(array_key_exists("topsecret", $_GET)) {
 
 	<script type="text/javascript">
 	
-	// OUR CODE SUCKS!
 	var map;
 	var flightPaths = Array();
 	var markers = Array();
 	var flightMarker = null;
 	var sunMarker = null;
-	var aboutClicked = false;
-	var loadingMessages = Array("Loading route");
 	var dn = null;
 	// day night shadow
-	var initSlider = false;
 	// track if we have initialised the slider yet
 	var timeslider = null;
+	var firstLoad = true;
 
 	$(document).ready(function() {
 
+		
 	    function initializeMap() {
 	        var myOptions = {
 	            zoom: 1,
+	            maxZoom: 3,
+	            minZoom: 1,
 	            center: new google.maps.LatLng( 10, 150.644),
 	            mapTypeId: google.maps.MapTypeId.ROADMAP,
 	            streetViewControl: false,
@@ -78,12 +82,32 @@ if(array_key_exists("topsecret", $_GET)) {
 	        };
 	        map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 	        <?php
-	        if ($autoload) { ?>mapFlight(); <?
+	        if ($autoload) { ?>
+	        	mapFlight(); 
+	        <?
 	        } ?>
 	    }
 
+	    expandFlightCodeContainer = function() {
+	    	$('#enter-flight-code-title').text("Enter your flight code (example: QF1)");
+	    	$('#map_container').hide();
+	    	$('#results-panel').hide();
+	    	$('#show-developer-info').hide();
+	    }
+
+	    collapseFlightCodeContainer = function() {
+
+	    	// validate input
+	        if (!validateInput()) {
+	            return;
+	        }
+
+	        // update enter flights header
+	       	$('#enter-flight-code-title').text("Flight " + getInputCarrierCode().toUpperCase() + getInputServiceNumber() + " departing " + getInputRequestDate() + " (Edit)");
+	    }
+
 	    main = function() {
-	        google.maps.event.addDomListener(window, 'load', initializeMap);
+	        //google.maps.event.addDomListener(window, 'load', initializeMap);
 	        $("#requestDate").datepicker({
 	            dateFormat: 'yy-mm-dd',
 	            defaultDate: +0
@@ -92,17 +116,13 @@ if(array_key_exists("topsecret", $_GET)) {
 	        if (array_key_exists("debug", $_GET)) { ?>$('#debug').show(); <?
 	        } ?>
 	        updatePermalink();
+	        
+	        $('#enter-flight-code').bind('expand', expandFlightCodeContainer);
+	        $('#enter-flight-code').bind('collapse', collapseFlightCodeContainer);
+
+
 	        <?php
-	        if (! ($autoload)) { ?>showWelcomeWindow(); <?php
-	        }?>
-	        $('body').bind('click',
-	        function() {
-	            if (!aboutClicked) {
-	                hideWelcomeWindow();
-	            }
-	        })
-	        <?php
-	        if (!isChrome()) { ?>alert("We only support Google Chrome at the moment. Firefox and IE is currently buggy, sorry..."); <?
+	        if (!isChrome()) { ?>$("#chrome_note").show(); <?
 	        } ?>
 	        //init();
 	    }
@@ -141,6 +161,7 @@ if(array_key_exists("topsecret", $_GET)) {
 
 	    validateInput = function() {
 	        if (getInputCarrierCode() == "") {
+	        	alert($("#carrierCodeAndServiceNumber"));
 	            alert("Please enter a carrier code (ie: JQ)");
 	            return false;
 	        }
@@ -170,8 +191,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	        clearMapRoutes();
 
 	        // show loading page
-	        $('#loading-message').html(loadingMessages[Math.floor(Math.random() * loadingMessages.length)] + "...");
-	        $('#loading-page').show();
+	        $.mobile.showPageLoadingMsg(); //$('#loading-page').show();
 	        $('#results-panel').hide();
 
 	        // lookup flight data from OAG wrapper
@@ -187,7 +207,8 @@ if(array_key_exists("topsecret", $_GET)) {
 	        function(data) {
 
 	        	if (data.error != null) {
-	        		$('#loading-page').hide();
+	        		$.mobile.hidePageLoadingMsg();
+	        		//$('#loading-page').hide();
 	        		alert(data.error);
 	        	} else {
 	        		$("#cached_result").val(data.cached);
@@ -220,28 +241,6 @@ if(array_key_exists("topsecret", $_GET)) {
 
 	    }
 
-	    drawFlightSummary = function(flightdata) {
-
-            var content_html = "<div>";
-
-            content_html += "<table width='100%'>";
-
-            content_html += "<tr>";
-            content_html += "<td colspan='2'>Qantas Airways Flight 15</td>";
-       		content_html += "</tr>";
-
-       		content_html += "<tr>";
-            content_html += "<td colspan='2'>Total duration: 18 hours 15 minutes</td>";
-       		content_html += "</tr>";
-
-       		content_html += "</html>";
-
-       		content_html += "</div>";
-
-       		// draw results
-       		$('#results-panel').append(content_html);
-       	}
-
 
 	    drawFlightData = function(data) {
 
@@ -263,8 +262,8 @@ if(array_key_exists("topsecret", $_GET)) {
        		content_html += "</tr>";
 
        		content_html += "<tr>";
-            content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.depart_time + "</span></td>";
-       		content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.arrival_time + "</span></td>";
+            content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.depart_time.replace("T", " ") + "</span></td>";
+       		content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.arrival_time.replace("T", " ") + "</span></td>";
        		content_html += "</tr>";
 
        		content_html += "<tr>";
@@ -277,34 +276,24 @@ if(array_key_exists("topsecret", $_GET)) {
             content_html += " (" + addCommas(data.distance_km ) + " km)</span></td>";
        		content_html += "</tr>";
 
+       		//content_html += "<tr>";
+            //content_html += "<td colspan='2'><span class='flightdata operation'>Days of Operation: " + data.days_of_op + "</span></td>";
+       		//content_html += "</tr>";
+
        		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata operation'>Days of Operation: " + data.days_of_op + "</span></td>";
+            content_html += "<td colspan='2'><span class='flightdata left'>Sun Left Hand Side: " + data.flight_stats.percent_left + "% (" + data.flight_stats.total_minutes_left + " mins)</span></td>";
        		content_html += "</tr>";
 
        		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata % left'>% LEFT: " + data.flight_stats.percent_left + "</span></td>";
+            content_html += "<td colspan='2'><span class='flightdata right'>Sun Right Hand Side: " + data.flight_stats.percent_right + "% (" + data.flight_stats.total_minutes_right + " mins)</span></td>";
        		content_html += "</tr>";
 
        		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata % left'>% RIGHT: " + data.flight_stats.percent_right + "</span></td>";
-       		content_html += "</tr>";
-
-       		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata % left'>% NIGHT: " + data.flight_stats.percent_night + "</span></td>";
+            content_html += "<td colspan='2'><span class='flightdata night'>Night time: " + data.flight_stats.percent_night + "% (" + data.flight_stats.total_minutes_night + " mins)</span></td>";
        		content_html += "</tr>";
 
             content_html += "</table>";
 
-            /*content_html += "Depart: " + data.from_city + " (" + data.from_airport + ")<br>";
-            content_html += "Arrive: " + data.to_city + " (" + data.to_airport + ")<br>";
-            content_html += "Local departure time: " + data.depart_time + "<br>";
-            content_html += "Departure Timezone: " + data.depart_timezone + " GMT <br>";
-            content_html += "UTC departure time: " + data.depart_time_utc + "<br>";
-            content_html += "UTC arrival time: " + data.arrival_time_utc + "<br>";
-            content_html += "Flight duration: " + data.elapsed_time + " mins<br>";*/
-            <?php
-            if ($topsecret) { ?>content_html += "<br><a style='font-size: larger;' href='javascript:void(0);' onClick='doHotelRedirect();'>$$$$$$ Get a cheap hotel!</a></div>"; <?php
-            } ?>
             content_html += "<hr></div>";
 
            	$('#results-panel').append(content_html);
@@ -337,7 +326,17 @@ if(array_key_exists("topsecret", $_GET)) {
 
 	    resetResults = function() {
 
-	    	$('#loading-page').hide();
+	    	// show map
+	    	$('#map_container').show();
+	    	
+	    	// initialise google map if first time
+	    	if (firstLoad) {
+				initializeMap();
+				firstLoad = false;
+			}
+
+	    	$.mobile.hidePageLoadingMsg(); // $('#loading-page').hide();
+	    	$('#enter-flight-code').trigger('collapse');
 	    	$('#results-panel').html("");
 	    }
 
@@ -419,87 +418,73 @@ if(array_key_exists("topsecret", $_GET)) {
 	    		}
 	    	}
 
-	    	if (timeslider != null) {
+			if (timeslider != null) {
                 timeslider = $("#slider").slider("destroy");
             }
 
 	    	$("#slider_holder").empty();
-            $("#slider_holder").append("<div id='slider'></div>")
+            $("#slider_holder").append('<input type="range" name="slider-time" id="slider" value="0" min="0" max="100"/>');
 
-            timeslider = $("#slider").slider({
-                min: 0,
-                max: total_minutes,
-                value: 0,
-                animate: false,
-                slide: function(event, ui) {
-                    clearTimeout(this.id);
-                    this.id = setTimeout(function() {
-
-                        //console.log(first_flight.depart_time_utc);
-                        mapSunPosition(flightPaths, map, new Date(Date.parse(first_flight.depart_time_utc)), total_minutes, ui.value);
-                        
-                        // map path of the sun
-                        // work out which flight segment we are in using flight_segment_by_minute index
-                        var flight_segment = flight_segment_by_minute[ui.value];
-                        var current_flight = flightdata[flight_segment];
-                        $("#flight_segment").val(flight_segment);
-                        var relative_ui_value = ui.value;
-                        if (flight_segment > 0) {
-                        	relative_ui_value -= flight_segment_start_time[flight_segment-1]; // offset with previous flight
-                        }
-                        var minute_of_segment = relative_ui_value;
+            // init jquery mobile slider
+            $("#slider_holder").show();
+            $("#slider_holder input").attr('value', 0);
+            $("#slider_holder input").attr('max', total_minutes);
+			$("#slider_holder").trigger("create");
 
 
-                        var flight_points = current_flight["flight_points"];
-                        $("#minute_of_segment").val(relative_ui_value);
+			$("#slider").bind("change", function(event, ui) {
 
-                        if (minute_of_segment < current_flight.elapsed_time) {
-							var flight_point = flight_points[minute_of_segment];
-                        	$("#sfcalc_sun_side").val(flight_point["sun_side"]);
-                        	$("#sfcalc_tod").val(flight_point["tod"]);
-                        	$("#sfcalc_sun_east_west").val(flight_point["sun_east_west"]);
-                        	$("#sfcalc_azimuth_from_north").val(flight_point["azimuth_from_north"]);
-                        	$("#sfcalc_bearing_from_north").val(flight_point["bearing_from_north"]);
-                        } else {
-                        	$("#sfcalc_sun_side").val("stopover");
-                        	$("#sfcalc_tod").val("stopover");
-                        	$("#sfcalc_sun_east_west").val("stopover");
-                        	$("#sfcalc_azimuth_from_north").val("stopover");
-                        	$("#sfcalc_bearing_from_north").val("stopover");
-                        }
+  				clearTimeout(this.id);
 
-                        /*var planeimage = new google.maps.MarkerImage('images/sun.png',
-					        new google.maps.Size(32, 31),
-					        // marker dimensions
-					        new google.maps.Point(0, 0),
-					        // origin of image
-					        new google.maps.Point(16, 16));
+                this.id = setTimeout(function() {
 
-				        // anchor of image
-				        var flightpos = new google.maps.LatLng(flight_point["lat"], flight_point["lng"]);
+                	var slider_value = parseInt($("#slider_holder input").val());
 
-				        flightMarker2 = new google.maps.Marker({
-				            position: flightpos,
-				            map: map,
-				            title: 'Flight position: ' + to_deg,
-				            icon: planeimage
-				        });
-				        markers.push(flightMarker2);*/
+	                //console.log(first_flight.depart_time_utc);
+	                mapSunPosition(flightPaths, map, new Date(Date.parse(first_flight.depart_time_utc)), total_minutes, slider_value);
+	                
+	                // map path of the sun
+	                // work out which flight segment we are in using flight_segment_by_minute index
+	                var flight_segment = flight_segment_by_minute[slider_value];
+	                var current_flight = flightdata[flight_segment];
+	                $("#flight_segment").val(flight_segment + 1);
+	                var relative_ui_value = slider_value;
+	                if (flight_segment > 0) {
+	                	relative_ui_value -= flight_segment_start_time[flight_segment-1]; // offset with previous flight
+	                }
+	                var minute_of_segment = relative_ui_value;
 
 
-				        if (minute_of_segment < current_flight.elapsed_time) {
-				        	current_bearing = flight_point["bearing_from_north"];
-				        }
-                        mapFlightPosition(flightPaths, map, current_flight.from_lat, current_flight.from_lon, current_flight.to_lat, current_flight.to_lon, current_flight.elapsed_time, relative_ui_value, current_bearing);
-                        
-                        // map path of the sun
-                        mapDayNightShadow(map, new Date(Date.parse(first_flight.depart_time_utc)), ui.value);
-                        $("#minutes_travelled").val(ui.value);
-                        updateSliderTime(ui.value, total_minutes);                        
-                    },
-                    10);
-                }
-            });
+	                var flight_points = current_flight["flight_points"];
+	                $("#minute_of_segment").val(relative_ui_value);
+
+	                if (minute_of_segment < current_flight.elapsed_time) {
+						var flight_point = flight_points[minute_of_segment];
+	                	$("#sfcalc_sun_side").val(flight_point["sun_side"]);
+	                	$("#sfcalc_tod").val(flight_point["tod"]);
+	                	$("#sfcalc_sun_east_west").val(flight_point["sun_east_west"]);
+	                	$("#sfcalc_azimuth_from_north").val(flight_point["azimuth_from_north"]);
+	                	$("#sfcalc_bearing_from_north").val(flight_point["bearing_from_north"]);
+	                } else {
+	                	$("#sfcalc_sun_side").val("stopover");
+	                	$("#sfcalc_tod").val("stopover");
+	                	$("#sfcalc_sun_east_west").val("stopover");
+	                	$("#sfcalc_azimuth_from_north").val("stopover");
+	                	$("#sfcalc_bearing_from_north").val("stopover");
+	                }
+
+			        if (minute_of_segment < current_flight.elapsed_time) {
+			        	current_bearing = flight_point["bearing_from_north"];
+			        }
+	                mapFlightPosition(flightPaths, map, current_flight.from_lat, current_flight.from_lon, current_flight.to_lat, current_flight.to_lon, current_flight.elapsed_time, relative_ui_value, current_bearing);
+	                
+	                // map path of the sun
+	                mapDayNightShadow(map, new Date(Date.parse(first_flight.depart_time_utc)), slider_value);
+	                $("#minutes_travelled").val(slider_value);
+	                updateSliderTime(slider_value, total_minutes);  
+
+				}, 10); // end set timeout
+            }); // end change event
 
 			// update slider to begin with
             mapSunPosition(flightPaths, map, new Date(Date.parse(first_flight.depart_time_utc)), total_minutes, 0);
@@ -535,6 +520,7 @@ if(array_key_exists("topsecret", $_GET)) {
 	        // show slider
 	        $('#slider-container').show();
 	       	$('#results-panel').fadeIn();
+	       	$('#show-developer-info').show();
 
 	    	initTimeSlider(flightdata);
 
@@ -621,38 +607,26 @@ if(array_key_exists("topsecret", $_GET)) {
 	        }
 	        catch(error) {
 	            // ignore it
-	            }
+	        }
 
 
 	        var planeimage = new google.maps.MarkerImage('images/airplane.svg', null, null, null, new google.maps.Size(32, 32));
-	        /*new google.maps.Size(32, 31),
-	        // marker dimensions
-	        new google.maps.Point(0, 0),
-	        // origin of image
-	        new google.maps.Point(16, 16));
-	        // anchor of image*/
 
 	        flightMarker = new google.maps.Marker({
 	            position: flightpos,
 	            map: map,
 	            title: 'Flight position: ' + to_deg,
 	            icon: {
-	            	//url: "images/airplane.svg",
-	            	//size: new google.maps.Size(32, 32),
-			        //path: "M 0 5 L 20 5 L 10 40 z",
 			        scale: 1.2,
-			        //path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-			        //path: "M 100 100 L 300 100 L 200 300 z",
-			        //path: 'M -1,0 A 1,1 0 0 0 -3,0 1,1 0 0 0 -1,0M 1,0 A 1,1 0 0 0 3,0 1,1 0 0 0 1,0M -3,3 Q 0,5 3,3',
-			        //path: "M31.356,500.29c-17.26,0-31.256-13.995-31.256-31.261v-437.67c0-17.265,13.996-31.261,31.256-31.261h437.68c17.266,0,31.261,13.996,31.261,31.263v437.67c0,17.266-13.995,31.261-31.261,31.261h-437.67z",
-			        //path: "M250.2,59.002c11.001,0,20.176,9.165,20.176,20.777v122.24l171.12,95.954v42.779l-171.12-49.501v89.227l40.337,29.946v35.446l-60.52-20.18-60.502,20.166v-35.45l40.341-29.946v-89.227l-171.14,49.51v-42.779l171.14-95.954v-122.24c0-11.612,9.15-20.777,20.16-20.777z",
 			        path: "m16.194347,3.509549c0.7269,0 1.333155,0.605579 1.333155,1.372868l0,8.077136l11.306938,6.34025l0,2.826685l-11.306938,-3.270845l0,5.895784l2.665304,1.978716l0,2.342138l-3.99892,-1.333424l-3.997725,1.3325l0,-2.342411l2.665575,-1.978714l0,-5.895763l-11.308268,3.271421l0,-2.826664l11.308268,-6.340271l0,-8.077136c0,-0.767288 0.604597,-1.372868 1.332093,-1.372868l0.000519,0.000597z",
 			        origin: new google.maps.Point(0, 0),
 			        anchor: new google.maps.Point(16, 16),
 			        strokeWeight: 0.5,
 			        fillOpacity: 1,
-			        fillColor: "#0F0",
-			        rotation: bearing			    }
+			        fillColor: "#FF0",
+			        //strokeColor: "#303030",
+			        rotation: bearing
+			    }
 	        	});
 	        markers.push(flightMarker);
 	    }
@@ -668,7 +642,8 @@ if(array_key_exists("topsecret", $_GET)) {
 	            slider_text = "Landed!";
 	        }
 
-	        $('#slider-time').html(slider_text);
+	        $("#map_container label").text(slider_text);
+	        $('#slider_time').val(slider_text);
 	    }
 
 	    function updatePermalink()
@@ -687,6 +662,10 @@ if(array_key_exists("topsecret", $_GET)) {
 	        $('#welcome').show();
 	    }
 
+	    <?php if ($autoload) { ?>
+	        	resetResults();
+	    <? } ?>
+
 	    // let's do it!
 	    main();
 
@@ -696,108 +675,168 @@ if(array_key_exists("topsecret", $_GET)) {
 	
 </head>
 <body>
-	<!--<canvas id="canvas" width="800" height="620">You do not have a canvas capable browser</canvas>-->
-	
-	<center>
 
-	<div id="ui-container">
-		<div id="ui-panel">
-			<span>What's your flight code?</span><br>
-			<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
-			<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
-			<button class="shiny-blue" onClick="mapFlight();">Map Route</button>
-			<br>
-			<span style="font-size: 10pt;">Enter carrier code and flight number (ie: JQ7).<br>I'm feeling <a style="color: #FF0080" href="/?autoload<?php if($topsecret) { print("&topsecret"); }?>">lucky</a> | <a id="permalink" style="color: blue;" href="#">Link to results</a></span>
-		</div>
+	<!-- Start of first page: #one -->
+<div data-role="page" id="sunflight">
 
-		<div id="slider-container">
-			<table width="400" border="0"><tr>
-			<td width="70" nowrap><span style='color: #222; white-space: nowrap;'>Slide me</a></td>
-			<td width="190"><div id="slider_holder" style="width: 100%;"></div></td>
-			<td width="110" align="left" nowrap><div id="slider-time"></div></td>
-			</tr></table>
-		</div>
+	<div data-role="header">
+		<h1>Day and Night Flight Map</h1>
+		<div data-role="navbar">
+			<ul>
+				<li><a href="#home" class="ui-btn-active">Flight Map</a></li>
+				<li><a href="#faq">FAQ</a></li>
+			</ul>
+		</div><!-- /navbar -->
 
-		<!--<div>
-			<div class="vk_c">
-				<span class="vk_h vk_gy"> Qantas Airways Flight 15 </span>
-					<ol>
-						<li>
-							<div style="margin-top:2px">
-								<span class="vk_gn vk_sh">Landed</span>
-							</div>
-							<table class="ts" style="width:100%;margin:12px 0">
-								<tbody>
-									<tr><td class="vk_ans vk_bk" style="width:0%">BNE</td>
-										<td style="height:30px;padding:0 17px;width:100%">
-											<div style="display:inline-block;position:relative;width:100%">
-												<div style="height:2px;position:absolute;top:16px;width:100%;background-color:#3d9400"></div> 
-												<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAAfElEQVQoz5WRUQqAIAyGd5KQ7tFz0fmCsttlJ0jqwaf1T2ZQJNnDh3P7kG0SM1MpV9AMVIERLCDoOUn+JiPRAg/4Bcl3UUZgwJYRE1I3ItsPMWFFdoWyIx2mRA6/Xy7teU7b8B+ij9vQPfdgz4iH1J8/aLQlp0Oveq+TcwII8fvh/Y1f4gAAAABJRU5ErkJggg==" style="height:9px;left:-6px;position:absolute;top:12px;widht:9px"> 
-												<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAMCAYAAAC0qUeeAAAAfElEQVQoz5WRUQqAIAyGd5KQ7tFz0fmCsttlJ0jqwaf1T2ZQJNnDh3P7kG0SM1MpV9AMVIERLCDoOUn+JiPRAg/4Bcl3UUZgwJYRE1I3ItsPMWFFdoWyIx2mRA6/Xy7teU7b8B+ij9vQPfdgz4iH1J8/aLQlp0Oveq+TcwII8fvh/Y1f4gAAAABJRU5ErkJggg==" style="height:9px;position:absolute;right:-6px;top:12px;widht:9px">
-												<div style="height:2px;position:absolute;top:16px;width:100%;background-color:#3d9400"></div>
-												<div style="height:30px;min-width:6px;position:relative;width:100%">
-												<div style="height:2px;position:absolute;top:16px;width:100%;background-color:#3d9400"></div>
-												<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACcAAAAlCAYAAADBa/A+AAADj0lEQVRYw82YW0gUURiAtyIKC5+sh4igqz4I0YWiQKMHwUINTMs0SEvFlAhKyDDIMIuM1Ehr84aXtbxUmLcuLnnJ+z1TMyN3zTaz3Exh3chTdv5htTNnz+zVHXz4XmbO/P83/8w585+RzMzMSAzQgUFmcM5IPLMwdNKeTKz5PYlOFWxHQflb52j9VEnLdbkkSyTmYKkcMEgm98leh3DAOTzSHVjVixNLLpdMXPz2Hk8OkLVfZwnuFkMujEyq1ozoyQETWjUtlyqGHNBPJob3jpa7WH6IVb1AMeQSyaSZzZeZ1Xs32kLLVYkh50MmVf7oY8r5y7awqhdja7nlmFEy6ZGc9UzBpz1SWk6LcbJGzgsTj5HqCIaA1MAsMmly3Xmm3P67S9Gv6SlaMMEaOaHVXo5x1A0MIc/B+8WSA+LkJ1ixfOZbDqjG2GEcMBrynFfGakHBofF+Ok6JLeSASt3gIvL4NXmgoBwsN4w4URbJpdRHoptVoRylvWmswO91zB2rU5QIygHygYd0DAWmzQDtOqAIZzE7OLnQol28wM1Dz412IH/+IuR2f4WgnHuqPTKzo9GDk3s9WKw368Y0X4xeHFt53GD1pA0XrJeD6e8mteMFDshz4tokQxfTN8Xi888P1skB0RXeeoE9M1ahY7LNyC93owCbjMrB4w0p3MlNEkOcLNjGcenZYTQyqeTL1StKjSYSC3hqPLlOVfWCkQN4cvGvQswO4Jq8yCZimS0xfDl6xYcZ26Wq4bqQj2PdeijUvaisL8NoIuieG5XlqEFZxr06szQqKyjKOSA2b0KwHikcMzabhHq7Wa689Ld+KYFOlgya33nLpIthgyMkti9lMdJOa6yXi3nhhyKeuKDTj/aipNozJl34RlVrsGqFXYnWiKlhF2fKh78F40zvxBJqIgTFjuZsYMWJxXgQHKA4qMPZ1K4EOuCdmJWY74b2sCQ9XxvpOE3z3TKN6vYPMCaIPDeo7hEUiyrzZMUKtlQuHPMAU4Opw9zG+GLWEAPTyWRpTdGCcow9bKYtNzjLMCoyIXxvWWJ57TdYVdtjSzlfMtnw+ABTDN5BS/6bWCuXxFt48aeFJQdLCyXWIcammteeQ1tDi0WWuLOqFmZruXAyIXTHrKqNT32jxXLE+JGTRyZ93H1HTyy79Sqraq5iyA2RSb2z1i6Yn4cOZNIJ7RgKkDn+B3erbcNyWqwbs2S+5P4BOBRlVuj7kZ0AAAAASUVORK5CYII=" style="height:28px;position:absolute;right:-10px;top:2px;width:28px"> </div>
-											</div>
-										</td>
-										<td class="vk_ans vk_bk" style="width:0%">LAX</td>
-									</tr>
-								</tbody>
-							</table>
-							<table class="ts" style="width:100%">
-								<tbody><tr> <td>  <div class="vk_gy vk_sh" style="border-bottom:1px solid #eee;padding:0 0 3px 0;width:100%"> Departs Brisbane, yesterday </div>  <table class="ts" style="margin:2px 0;text-align:left;width:100%"> <tbody><tr class="vk_gy"> <td class="vk_txt" style="width:55%">  Scheduled 10:30 am </td> <td class="vk_txt" style="width:25%">Terminal</td> <td class="vk_txt" style="text-align:right">Gate</td> </tr> <tr> <td class="vk_h vk_bk">11:00 am</td> <td class="vk_h vk_gy">I</td> <td class="vk_h vk_gy" style="text-align:right">-</td> </tr> </tbody></table>   </td> <td style="width:10%"></td> <td>  <div class="vk_gy vk_sh" style="border-bottom:1px solid #eee;padding:0 0 3px 0;width:100%"> Arrives Los Angeles, today </div>  <table class="ts" style="margin:2px 0;text-align:left;width:100%"> <tbody><tr class="vk_gy"> <td class="vk_txt" style="width:55%">  Scheduled 6:35 am </td> <td class="vk_txt" style="width:25%">Terminal</td> <td class="vk_txt" style="text-align:right">Gate</td> </tr> <tr> <td class="vk_h vk_bk">6:30 am</td> <td class="vk_h vk_gy">B</td> <td class="vk_h vk_gy" style="text-align:right">-</td> </tr> </tbody></table>   </td> </tr> </tbody></table>   </li> </ol>  </div>
-		</div>-->
+	</div><!-- /header -->
 
-
-
-	</div>
-	
-	<div id="map_container">
-		<div id="map_canvas">Loading cool stuff...</div>
-    </div>
-
-    <div id="results-panel"></div>
-
-
-	<div id="loading-page">
-		<img src='/images/loading.gif' width='32' height='32' style='margin-bottom: -10px; padding-right: 10px;'>
-		<span id="loading-message">Loading...</span>
-	</div>
-	
-	<!--<div id="welcome">
-		<a href="javascript:void(0);" onClick="hideWelcomeWindow();">Continue</a>
-		<center><img src="/images/thack-singapore-logo1.jpg"></center>
-		<p>Because flying with the sun in your face isn't cool!</p>
-		<p>Want to choose the <strong>best</strong> side of the aircraft to fly on?</p>
-		<p>Want to make sure you can <strong>see the sunset</strong> over New York or <strong>watch the sunrise</strong> over the Pacific?</p>
-		<p>SunFlight.net shows you where the sun will be during your journey, so you can choose the best side of the aircraft to be seated!</p>
-		<p style="font-size: smaller; color: #888;">Notes: Google Chrome only at the moment. Most likely a few bugs!</p>
-		<p style="font-size: smaller;">Powered by <img width="80" style="margin-bottom: -12px;" src="/images/oag-aviation.jpg"> &nbsp; OnDemand</p>
+	<div data-role="content" id="home">	
 		
-	</div>-->
-	<!--<div id="info" class="shadow">A <a href="http://tnooz.com">Tnooz.com tHack</a> at <a href="http://www.webintravel.com">Web In Travel Singapore</a> by <a href="http://twitter.com/aussie_ian">@aussie_ian</a> and <a href="http://twitter.com/dansync">@dansync</a>.
-		<br>Powered by <a href="http://www.oagaviation.com/Solutions/Aviation-Data/OAG-Schedules-Data/OAG-OnDemand">OAG OnDemand</a>. 
-		Shouts to <a href="http://www.travelmassive.com">#travelmassive</a> world-wide!
-		<a href="javascript:void(0);" onClick="aboutClicked = true; showWelcomeWindow();">About</a>
-	</div>-->
-	<!--<div id="hypnotoad">
-		<img width="600" height="600" src="/images/hypnotoad.gif">
-	</div>-->
-	<!--<div id="topsecret">
-		<a href="/?topsecret&autoload">Enable top secret ad engine</a>
-	</div>-->
-	<div id="debug">
-		Minutes travelled: <input id="minutes_travelled"><br>
-		Current flight segment: <input id="flight_segment"><br>
-		Minute of segment: <input id="minute_of_segment"><br>
-		Sun position from plane: <input id="sfcalc_sun_side"><br>
-		Time of day: <input id="sfcalc_tod"><br>
-		Sun East West: <input id="sfcalc_sun_east_west"><br>
-		Azimuth from North: <input id="sfcalc_azimuth_from_north"><br>
-		Bearing from North: <input id="sfcalc_bearing_from_north"><br>
-		Cached result: <input id="cached_result"><br>
-	</div>
+			<div id="chrome_note" style="display: none;"><p style="font-size: smaller;">(Please note: This app works best in Google Chrome)</p></div>
+
+			<div data-role="collapsible" data-collapsed="false" id="enter-flight-code">
+	   			<h3><span id="enter-flight-code-title">Enter Flight Code</span></h3>
+
+				<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
+				<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
+				<button onClick="mapFlight();" data-theme="e">Show Flight Map</button>
+				<div id="random_flight">
+					<p>Or, show me a <a rel=external href="/?autoload">random flight</a></p>
+				</div>
+			</div>
+
+
+			<div id="map_container" style="display: none;">
+				<label for="slider-0">(Mins)</label>
+				<div id="slider_holder" style="width: 100%; display: none;">
+   					<input type="range" name="slider-time" id="slider" value="0" min="0" max="100"/>
+   				</div>
+
+				<div id="map_canvas">Loading map...</div>
+
+				<p><a id="permalink" style="color: blue;" rel=external href="#">Link to this map</a></p>
+    		</div>
+
+    		<div id="results-panel"></div>
+
+			<div data-role="collapsible" id="show-developer-info" style="display: none;">
+	   			<h3>Advanced</h3>
+
+	   			<div data-role="fieldcontain">
+					<label for="minutes_travelled">Minutes Traveled:</label>
+					<input type="text" name="minutes_travelled" id="minutes_travelled" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="slider_time">Hours Traveled:</label>
+					<input type="text" name="slider_time" id="slider_time" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="flight_segment">Flight Segment:</label>
+					<input type="text" name="flight_segment" id="flight_segment" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="minute_of_segment">Minute of Segment:</label>
+					<input type="text" name="minute_of_segment" id="minute_of_segment" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="sfcalc_sun_side">Sun position:</label>
+					<input type="text" name="sfcalc_sun_side" id="sfcalc_sun_side" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="sfcalc_tod">Time of day:</label>
+					<input type="text" name="sfcalc_tod" id="sfcalc_tod" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="sfcalc_sun_east_west">Sun East/West:</label>
+					<input type="text" name="sfcalc_sun_east_west" id="sfcalc_sun_east_west" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="sfcalc_azimuth_from_north">Solar Azimuth (from North):</label>
+					<input type="text" name="sfcalc_azimuth_from_north" id="sfcalc_azimuth_from_north" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="sfcalc_azimuth_from_north">Flight bearing (from North):</label>
+					<input type="text" name="sfcalc_bearing_from_north" id="sfcalc_bearing_from_north" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="cached_result">OAG Cached result:</label>
+					<input type="text" name="cached_result" id="cached_result" value="" />
+				</div>
+
+			</div>
+
+	</div><!-- /content -->
 	
+	<div data-role="footer" data-theme="d">
+		<h4>Like this app? <a href="#donate">Donate $5</a></h4>
+	</div><!-- /footer -->
+</div><!-- /home page -->
+
+
+
+<!-- Start of second page: #faq -->
+<div data-role="page" id="faq" data-theme="a">
+
+	<div data-role="header">
+		<h1>Frequently Asked Questions</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" data-theme="a">	
+		<h2>FAQ</h2>
+		<p><strong>Q: How can I contact the creator of this site?</strong>
+		<br>A: Contact me at <a href="mailto:ian@travelmassive.com">ian@travelmassive.com</a>
+		</p>
+		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
+		
+	</div><!-- /content -->
+	
+	<div data-role="footer">
+		<h4>Like this app? <a href="#donate">Donate $5</a></h4>
+	</div><!-- /footer -->
+</div><!-- /page faq -->
+
+
+
+<!-- Start of third page: #donate -->
+<div data-role="page" id="donate">
+
+	<div data-role="header">
+		<h1>Please Donate</h1>
+	</div><!-- /header -->
+
+	<div data-role="content" data-theme="e">	
+		<h2>Why should I donate?</h2>
+		<p>To keep this site advertisement free for the flyer community I need donations. This helps me pay for commercial data feeds ($200 a month) which provides you with reliable and accurate flight information.</p>
+		<p>Please consider helping out by clicking the PayPal button below. Every $5 counts. Thanks!</p>		
+		<p>
+<!-- start paypal donation button -->
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----MIIHNwYJKoZIhvcNAQcEoIIHKDCCByQCAQExggEwMIIBLAIBADCBlDCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20CAQAwDQYJKoZIhvcNAQEBBQAEgYAtMyERa7Zo4Wov4z9g3c3K84p9GKJwpWILKrqCQf2tGbug35ANewt/+u+IYwYAnKjB2h8hp+wd0mMIXnxzWR3KsDvt45PnmBH49TjMwTg1Aw8REyREqYL/B+BhWMIFwsHmwlKVNa78M2L1kecxDiwn7yUC4ooALc7ZEqo5IuZa/DELMAkGBSsOAwIaBQAwgbQGCSqGSIb3DQEHATAUBggqhkiG9w0DBwQIJnOPvqIlf6iAgZD0JMD8XnpuNQ1N2dm3nIb1AW+2VDd/4nBDhy/ngzDI2TL7LGqHRh/dVsendHw+IuO5EbRwgT6lCeV7nNXm3bGesPU6WmksJt22OHsA9w1H8tdUi3IE+H9nGUZb8IWI6nUNNNR0Avvb2HpaFak5O/07r8EZuMTK/HW7PSbYunKNeWp43kZRrLjEhSshU8nNCQigggOHMIIDgzCCAuygAwIBAgIBADANBgkqhkiG9w0BAQUFADCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wHhcNMDQwMjEzMTAxMzE1WhcNMzUwMjEzMTAxMzE1WjCBjjELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAkNBMRYwFAYDVQQHEw1Nb3VudGFpbiBWaWV3MRQwEgYDVQQKEwtQYXlQYWwgSW5jLjETMBEGA1UECxQKbGl2ZV9jZXJ0czERMA8GA1UEAxQIbGl2ZV9hcGkxHDAaBgkqhkiG9w0BCQEWDXJlQHBheXBhbC5jb20wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMFHTt38RMxLXJyO2SmS+Ndl72T7oKJ4u4uw+6awntALWh03PewmIJuzbALScsTS4sZoS1fKciBGoh11gIfHzylvkdNe/hJl66/RGqrj5rFb08sAABNTzDTiqqNpJeBsYs/c2aiGozptX2RlnBktH+SUNpAajW724Nv2Wvhif6sFAgMBAAGjge4wgeswHQYDVR0OBBYEFJaffLvGbxe9WT9S1wob7BDWZJRrMIG7BgNVHSMEgbMwgbCAFJaffLvGbxe9WT9S1wob7BDWZJRroYGUpIGRMIGOMQswCQYDVQQGEwJVUzELMAkGA1UECBMCQ0ExFjAUBgNVBAcTDU1vdW50YWluIFZpZXcxFDASBgNVBAoTC1BheVBhbCBJbmMuMRMwEQYDVQQLFApsaXZlX2NlcnRzMREwDwYDVQQDFAhsaXZlX2FwaTEcMBoGCSqGSIb3DQEJARYNcmVAcGF5cGFsLmNvbYIBADAMBgNVHRMEBTADAQH/MA0GCSqGSIb3DQEBBQUAA4GBAIFfOlaagFrl71+jq6OKidbWFSE+Q4FqROvdgIONth+8kSK//Y/4ihuE4Ymvzn5ceE3S/iBSQQMjyvb+s2TWbQYDwcp129OPIbD9epdr4tJOUNiSojw7BHwYRiPh58S1xGlFgHFXwrEBb3dgNbMUa+u4qectsMAXpVHnD9wIyfmHMYIBmjCCAZYCAQEwgZQwgY4xCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJDQTEWMBQGA1UEBxMNTW91bnRhaW4gVmlldzEUMBIGA1UEChMLUGF5UGFsIEluYy4xEzARBgNVBAsUCmxpdmVfY2VydHMxETAPBgNVBAMUCGxpdmVfYXBpMRwwGgYJKoZIhvcNAQkBFg1yZUBwYXlwYWwuY29tAgEAMAkGBSsOAwIaBQCgXTAYBgkqhkiG9w0BCQMxCwYJKoZIhvcNAQcBMBwGCSqGSIb3DQEJBTEPFw0xMzA3MTExNjQ3MDFaMCMGCSqGSIb3DQEJBDEWBBQAoInp9SROtoOGdjQvGdVNe6ZnqDANBgkqhkiG9w0BAQEFAASBgJLIp7yVB6p7ZVYYGO121xyQN3/HZPIp+IM4NGooQguvuVQ++F3x3jmJH3343LH8h28CRqNActa4Kt+kfEeNzyWkN4v5pNfNL4SyUgUqV1vShFxOquXpbmYSppv4etEuPzUM4sMmCkpjMI8PF/tSZBB+WsCaI58KQY3p1VXHLV4M-----END PKCS7-----
+">
+<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+</form>
+</p>
+<!-- end paypal donation button -->
+
+		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
+	</div><!-- /content -->
+	
+	<div data-role="footer">
+		<h4>SunFlight.net</h4>
+	</div><!-- /footer -->
+</div><!-- /page donate -->
+
 	<!-- google anlaytics -->
 	<script type="text/javascript">
 
@@ -814,6 +853,5 @@ if(array_key_exists("topsecret", $_GET)) {
 	</script>
 	<!-- analytics -->
 	
-	</center>
-	
 </body>
+</html>
