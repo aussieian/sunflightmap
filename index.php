@@ -707,7 +707,7 @@ if(array_key_exists("autoload", $_GET)) {
 
 			<div id="map_container" style="display: none;">
 				<label for="slider-0">(Mins)</label>
-				<div id="slider_holder" style="width: 100%; display: none;">
+				<div id="slider_holder" style="width: 240px; display: none;">
    					<input type="range" name="slider-time" id="slider" value="0" min="0" max="100"/>
    				</div>
 
