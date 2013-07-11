@@ -161,7 +161,6 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    validateInput = function() {
 	        if (getInputCarrierCode() == "") {
-	        	alert($("#carrierCodeAndServiceNumber"));
 	            alert("Please enter a carrier code (ie: JQ)");
 	            return false;
 	        }
