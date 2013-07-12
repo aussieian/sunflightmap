@@ -671,7 +671,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        }
 
 
-	        var planeimage = new google.maps.MarkerImage('images/airplane.svg', null, null, null, new google.maps.Size(32, 32));
+	        // var planeimage = new google.maps.MarkerImage('images/airplane.svg', null, null, null, new google.maps.Size(32, 32));
 
 	        flightMarker = new google.maps.Marker({
 	            position: flightpos,
