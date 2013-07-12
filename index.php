@@ -268,61 +268,60 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    drawFlightData = function(data) {
 
-	    	return; 
+	    	/*
+	    	<ul data-role="listview" data-theme="d" data-divider-theme="d">
+			<li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
+			<li><a href="index.html">
+				
+					<h3>Stephen Weber</h3>
+					<p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
+					<p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
+					<p class="ui-li-aside"><strong>6:24</strong>PM</p>
+				
+			</a></li>
+			<li><a href="index.html">
+				
+				<h3>jQuery Team</h3>
+				<p><strong>Boston Conference Planning</strong></p>
+				<p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
+				<p class="ui-li-aside"><strong>9:18</strong>AM</p>
+				
+			</a></li>
+			<li data-role="list-divider">Thursday, October 7, 2010 <span class="ui-li-count">1</span></li>
+			<li><a href="index.html">
+				<h3>Avery Walker</h3>
+				<p><strong>Re: Dinner Tonight</strong></p>
+				<p>Sure, let's plan on meeting at Highland Kitchen at 8:00 tonight. Can't wait! </p>
+				<p class="ui-li-aside"><strong>4:48</strong>PM</p>
+			</a></li>
+			</ul>
+			*/
 
-       		var content_html = "<div>";
 
-            content_html += "<table class='flightdata' width='240'>";
+       		//var content_html = '<ul id="results-list" data-role="listview" data-theme="d" data-divider-theme="d">';
 
-            content_html += "<tr><td colspan='2'>";
-            content_html += "<table width='240'><tr>";
-            content_html += "<td><span class='flightdata from_airport'>" + data.from_airport + "</span></td>";
-            content_html += "<td><span class='flightdata plane_icon'>&#9992;</span></td>";
-            content_html += "<td><span class='flightdata to_airport'>" + data.to_airport + "</span></td>";
-            content_html += "</tr></table>";
-            content_html += "</td></tr>";
+            var content_html = '<li data-role="list-divider">' + data.from_city + ' (' + data.from_airport + ') to ' + data.to_city + ' (' + data.to_airport + ')</li>';
 
-            content_html += "<tr>";
-            content_html += "<td width='50%'><span class='flightdata depart_city'>Depart " + data.from_city + "</span></td>";
-       		content_html += "<td width='50%'><span class='flightdata arrive_city'>Arrive " + data.to_city + "</span></td>";
-       		content_html += "</tr>";
+            content_html += '<li>';
+			content_html += '<p><strong>Depart ' + data.from_airport + ' at ' + data.depart_time.replace("T", " ") + '</strong></p>';
+			content_html += '<p><strong>Arrive ' + data.to_airport + ' at ' + data.arrival_time.replace("T", " ") + '</strong></p>';
 
-       		content_html += "<tr>";
-            content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.depart_time.replace("T", " ") + "</span></td>";
-       		content_html += "<td width='50%'><span class='flightdata scheduled_time'>Scheduled<br>" + data.arrival_time.replace("T", " ") + "</span></td>";
-       		content_html += "</tr>";
+			content_html += '<p>Flight time: ' + formatMinutes(data.elapsed_time) + '</p>';
+			var miles_to_km = 0.621371192;
+			content_html += '<p>Distance: ' + addCommas(Math.round(data.distance_km * miles_to_km)) + ' miles, ' + addCommas(data.distance_km ) + 'km </p>';
 
-       		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata duration'>Duration: " + formatMinutes(data.elapsed_time) + "</span></td>";
-       		content_html += "</tr>";
-
-       		content_html += "<tr>";
-       		var miles_to_km = 0.621371192;
-            content_html += "<td colspan='2'><span class='flightdata distance'>Distance: " + addCommas(Math.round(data.distance_km * miles_to_km)) + " miles";
-            content_html += " (" + addCommas(data.distance_km ) + " km)</span></td>";
-       		content_html += "</tr>";
+			content_html += '<p class="ui-li-aside" style="padding-right: 32px;"><strong>';
+			content_html += '<span style="color: red;">Sun Left = ' + data.flight_stats.percent_left + '%</span> &middot; ';
+			content_html += '<span style="color: green;">Right = ' + data.flight_stats.percent_right + '%</span> &middot; ';
+			content_html += '<span style="color: blue;">Night = ' + data.flight_stats.percent_night + '%</strong></p>';
+			content_html += '</li>';
 
        		//content_html += "<tr>";
             //content_html += "<td colspan='2'><span class='flightdata operation'>Days of Operation: " + data.days_of_op + "</span></td>";
        		//content_html += "</tr>";
 
-       		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata left'>Sun Left Hand Side: " + data.flight_stats.percent_left + "% (" + data.flight_stats.total_minutes_left + " mins)</span></td>";
-       		content_html += "</tr>";
-
-       		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata right'>Sun Right Hand Side: " + data.flight_stats.percent_right + "% (" + data.flight_stats.total_minutes_right + " mins)</span></td>";
-       		content_html += "</tr>";
-
-       		content_html += "<tr>";
-            content_html += "<td colspan='2'><span class='flightdata night'>Night time: " + data.flight_stats.percent_night + "% (" + data.flight_stats.total_minutes_night + " mins)</span></td>";
-       		content_html += "</tr>";
-
-            content_html += "</table>";
-
-            content_html += "<hr></div>";
-
-           	$('#results-panel').append(content_html);
+            return content_html;
+            
 	    }
 
 
@@ -529,7 +528,8 @@ if(array_key_exists("autoload", $_GET)) {
             // flightmap({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-16T12:00:00","elapsed_time": 470})
 			resetResults();
 
-	        // draw flight routes
+	        
+	        var results_html = "";
 	        for(var i = 0; i < flightdata.length; i++) {
 
 	        	// check for errors
@@ -539,9 +539,16 @@ if(array_key_exists("autoload", $_GET)) {
 	        	}
 
 	        	drawFlightRoute(flightdata[i]);
-	        	drawFlightData(flightdata[i]);
+	        	results_html += drawFlightData(flightdata[i]);
 	        	drawFlightEndPoints(flightdata[i]);
-	        }	      
+	        }
+
+	        // init results list
+	        // draw flight routes
+	        $("#results-panel").append('<ul id="results-list" data-role="listview" data-theme="d" data-divider-theme="d">' + results_html + "'</ul>");
+	        //$("#results-panel").append(results_html);
+	        //$("#results-panel").append('</ul>');
+           	$("#results-list").listview();      
 
 	        // show slider
 	        $('#slider-container').show();
