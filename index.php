@@ -876,7 +876,7 @@ if(array_key_exists("autoload", $_GET)) {
 		If you like this app, then please consider <a href="#donate">donating $5</a>.
 		</p>
 
-		<p><strong>Q: Whgen will the sun will rise and set on my flight?</strong>
+		<p><strong>Q: When will the sun will rise and set on my flight?</strong>
 		<br>SunFlight also tells you when the sunrise and sunset will be on your flight, so you can plan your nap and sleep times.
 		</p>
 
