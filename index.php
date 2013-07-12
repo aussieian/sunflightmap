@@ -27,12 +27,12 @@ if(array_key_exists("autoload", $_GET)) {
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<title>SunFlight.net - Day and Night Flight Map</title>
 
-	<meta name="description" content="Map the path of your flight and the sun. Built at tnooz tHack Singapore!">
+	<meta name="description" content="SunFlight is an app that shows you the path of the sun for your flight.">
 	<!--<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
 	
 	<meta property="og:title" content="SunFlight.net" /> 
-	<meta property="og:description" content="Chase the sun and map the path of your flight with it." /> 
+	<meta property="og:description" content="SunFlight is an app that shows you the path of the sun for your flight."/> 
 	
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/excite-bike/jquery-ui.css" type="text/css" media="screen, projection" />
 	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
