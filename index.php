@@ -334,6 +334,12 @@ if(array_key_exists("autoload", $_GET)) {
 	    	if (firstLoad) {
 				initializeMap();
 				firstLoad = false;
+			} else {
+				// need to set resize the map otherwise we get missing tiles
+				// http://stackoverflow.com/questions/10489264/jquery-mobile-and-google-maps-not-rendering-correctly
+				setTimeout(function() {
+            		google.maps.event.trigger(map,'resize');
+        		}, 500);
 			}
 
 	    	$.mobile.hidePageLoadingMsg(); // $('#loading-page').hide();
