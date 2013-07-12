@@ -655,8 +655,10 @@ if(array_key_exists("autoload", $_GET)) {
 	        	});
 	        markers.push(flightMarker);
 
-	        // set map centre with flight
+	        // set map centre with flight on mobile devices
+	        <?php if isMobile() { ?>
 	        map.setCenter(flightMarker.getPosition());
+	        <?php } ?>
 	        
 	    }
 
@@ -724,7 +726,7 @@ if(array_key_exists("autoload", $_GET)) {
 			<div id="chrome_note" style="display: none;"><p style="font-size: smaller;">(Please note: This app works best in Google Chrome)</p></div>
 
 			<div data-role="collapsible" data-collapsed="false" id="enter-flight-code">
-	   			<h3><span id="enter-flight-code-title">Enter Flight Code</span></h3>
+	   			<h3><span id="enter-flight-code-title"><?php if($autoload) {?>Loading...<?} else {?>Enter Flight Code<? } ?></span></h3>
 
 				<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
 				<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
