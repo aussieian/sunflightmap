@@ -877,7 +877,7 @@ if(array_key_exists("autoload", $_GET)) {
 		</p>
 
 		<p><strong>Q: When will the sun will rise and set on my flight?</strong>
-		<br>SunFlight also tells you when the sunrise and sunset will be on your flight, so you can plan your nap and sleep times. Just look at the results and if there is a sunset or sunrise it will display this for each leg of your journey.
+		<br>SunFlight also tells you when the sunrise and sunset will be on your flight, so you can plan your nap and sleep times. The results summary will indicate when the sunset or sunrise will occur for each leg of your journey.
 		</p>
 
 		<p><strong>Q: I have a suggestion, where can I send it?</strong>
