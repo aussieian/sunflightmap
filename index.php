@@ -302,6 +302,13 @@ if(array_key_exists("autoload", $_GET)) {
 
             var content_html = '<li data-role="list-divider">' + data.from_city + ' (' + data.from_airport + ') to ' + data.to_city + ' (' + data.to_airport + ')</li>';
 
+            content_html += '<li><p style="margin-top: 2px;"><strong>';
+			content_html += '<span style="color: red;">Sun Left = ' + showPercent(data.flight_stats.percent_left) + '%</span> &middot; ';
+			content_html += '<span style="color: green;">Right = ' + showPercent(data.flight_stats.percent_right) + '%</span> &middot; ';
+			content_html += '<span style="color: blue;">Night = ' + showPercent(data.flight_stats.percent_night) + '%</strong></p>';
+			content_html += '</p></li>';
+
+
             content_html += '<li>';
 			content_html += '<p><strong>Depart ' + data.from_airport + ' at ' + data.depart_time.replace("T", " ") + '</strong></p>';
 			content_html += '<p><strong>Arrive ' + data.to_airport + ' at ' + data.arrival_time.replace("T", " ") + '</strong></p>';
@@ -309,21 +316,24 @@ if(array_key_exists("autoload", $_GET)) {
 			content_html += '<p>Flight time: ' + formatMinutes(data.elapsed_time) + '</p>';
 			var miles_to_km = 0.621371192;
 			content_html += '<p>Distance: ' + addCommas(Math.round(data.distance_km * miles_to_km)) + ' miles, ' + addCommas(data.distance_km ) + 'km </p>';
+			content_html += '</li>'
+			//content_html += '<p class="ui-li-aside" style="padding-right: 32px;"><strong>';
 
-			content_html += '<p class="ui-li-aside" style="padding-right: 32px;"><strong>';
-			content_html += '<span style="color: red;">Sun Left = ' + data.flight_stats.percent_left + '%</span> &middot; ';
-			content_html += '<span style="color: green;">Right = ' + data.flight_stats.percent_right + '%</span> &middot; ';
-			content_html += '<span style="color: blue;">Night = ' + data.flight_stats.percent_night + '%</strong></p>';
-			content_html += '</li>';
+			
 
        		//content_html += "<tr>";
             //content_html += "<td colspan='2'><span class='flightdata operation'>Days of Operation: " + data.days_of_op + "</span></td>";
        		//content_html += "</tr>";
 
             return content_html;
-            
+
 	    }
 
+
+	    function showPercent(num) {
+	    	if (num > 100) { num = 100; }
+	    	return num;
+	    }
 
         function addCommas(nStr)
 		{
