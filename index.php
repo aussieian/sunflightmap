@@ -95,7 +95,7 @@ if(array_key_exists("autoload", $_GET)) {
 	            streetViewControl: false,
 	            mapTypeControl: false,
 	            panControl: false,
-    			draggable: false,
+    			<?php if (isMobile()) { ?>draggable: false,<? } ?>
     			scrollwheel: false
 	        };
 	        map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
@@ -656,7 +656,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        markers.push(flightMarker);
 
 	        // set map centre with flight on mobile devices
-	        <?php if isMobile() { ?>
+	        <?php if (isMobile()) { ?>
 	        map.setCenter(flightMarker.getPosition());
 	        <?php } ?>
 	        
