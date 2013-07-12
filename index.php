@@ -243,12 +243,14 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    drawFlightData = function(data) {
 
+	    	return; 
+
        		var content_html = "<div>";
 
-            content_html += "<table class='flightdata' width='100%'>";
+            content_html += "<table class='flightdata' width='240'>";
 
             content_html += "<tr><td colspan='2'>";
-            content_html += "<table width='100%'><tr>";
+            content_html += "<table width='240'><tr>";
             content_html += "<td><span class='flightdata from_airport'>" + data.from_airport + "</span></td>";
             content_html += "<td><span class='flightdata plane_icon'>&#9992;</span></td>";
             content_html += "<td><span class='flightdata to_airport'>" + data.to_airport + "</span></td>";
@@ -707,11 +709,11 @@ if(array_key_exists("autoload", $_GET)) {
 
 			<div id="map_container" style="display: none;">
 				<label for="slider-0">(Mins)</label>
-				<div id="slider_holder" style="width: 240px; display: none;">
+				<div id="slider_holder" style="width: 100%; display: none;">
    					<input type="range" name="slider-time" id="slider" value="0" min="0" max="100"/>
    				</div>
 
-				<div id="map_canvas" style="width: 280px;">Loading map...</div>
+				<div id="map_canvas" style="width: 100%;">Loading map...</div>
 
 				<p><a id="permalink" style="color: blue;" rel=external href="#">Link to this map</a></p>
     		</div>
