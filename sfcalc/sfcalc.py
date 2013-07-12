@@ -76,6 +76,11 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 	total_mins_right = 0
 	total_mins_night = 0
 
+	has_seen_sunset = False
+	has_seen_sunrise = False
+	mins_to_first_sunset = 0
+	mins_to_first_sunrise = 0
+
 	from_lat, from_lon = origin
 	to_lat, to_lon = destination
 
@@ -163,26 +168,46 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 
 		# night or day?
 		# http://www.timeanddate.com/worldclock/aboutastronomy.html
-		if (solar_altitude > 12.0):
+		sunset_max_alt = 6.0 # 12 is correct but use 6
+		if (solar_altitude > sunset_max_alt):
 			#print("time of day: day")
 			point_values['tod'] = 'day'
-		if (solar_altitude > 0.0) and (solar_altitude <= 12.0):
+			if not has_seen_sunrise:
+				mins_to_first_sunrise = mins_to_first_sunrise + 1
+			if not has_seen_sunset:
+				mins_to_first_sunset = mins_to_first_sunset + 1
+
+		if (solar_altitude > 0.0) and (solar_altitude <= sunset_max_alt):
 			if (i == 1):
 				# not sure if its rising or setting
 				# print("time of day: night")
 				point_values['tod'] = 'night'
+				#if not has_seen_sunrise:
+				#	mins_to_first_sunrise = mins_to_first_sunrise + 1
+				#if not has_seen_sunset:
+				#	mins_to_first_sunset = mins_to_first_sunset + 1
 			else:
 				if (last_solar_altitude > solar_altitude):
 					#print("time of day: sunset")
 					point_values['tod'] = 'sunset'
+					has_seen_sunset = True
+					if not has_seen_sunrise:
+						mins_to_first_sunrise = mins_to_first_sunrise + 1
 				else:
 					#print("time of day: sunrise")
 					point_values['tod'] = 'sunrise'
+					has_seen_sunrise = True
+					if not has_seen_sunset:
+						mins_to_first_sunset = mins_to_first_sunset + 1
 
 		if (solar_altitude < 0.0):
 			#print("time of day: night")
 			point_values['tod'] = 'night'
 			total_mins_night = total_mins_night + 1
+			if not has_seen_sunrise:
+				mins_to_first_sunrise = mins_to_first_sunrise + 1
+			if not has_seen_sunset:
+				mins_to_first_sunset = mins_to_first_sunset + 1
 
 
 		points.append(point_values)
@@ -207,6 +232,14 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 	flight_stats['percent_right'] = round((float(total_mins_right) / float(flight_mins)) * 100)
 	flight_stats['total_minutes_night'] = total_mins_night
 	flight_stats['percent_night'] = round((float(total_mins_night) / float(flight_mins)) * 100)
+
+	flight_stats['mins_to_first_sunrise'] = 0
+	if (mins_to_first_sunrise < flight_mins):
+		flight_stats['mins_to_first_sunrise'] = mins_to_first_sunrise
+
+	flight_stats['mins_to_first_sunset'] = 0
+	if (mins_to_first_sunset < flight_mins):
+		flight_stats['mins_to_first_sunset'] = mins_to_first_sunset
 
 	# make jsonp object
 	data = {}

@@ -302,31 +302,44 @@ if(array_key_exists("autoload", $_GET)) {
 
             var content_html = '<li data-role="list-divider">' + data.from_city + ' (' + data.from_airport + ') to ' + data.to_city + ' (' + data.to_airport + ')</li>';
 
+            // sfcalc stats
             content_html += '<li><p style="margin-top: 2px;"><strong>';
 			content_html += '<span style="color: red;">Sun Left = ' + showPercent(data.flight_stats.percent_left) + '%</span> &middot; ';
 			content_html += '<span style="color: green;">Right = ' + showPercent(data.flight_stats.percent_right) + '%</span> &middot; ';
 			content_html += '<span style="color: blue;">Night = ' + showPercent(data.flight_stats.percent_night) + '%</strong></p>';
+			
+			// first sunrise and sunset (if any)
+			if (data.flight_stats.mins_to_first_sunrise < data.flight_stats.mins_to_first_sunset) {
+				// sunrise is before sunset
+				if (data.flight_stats.mins_to_first_sunrise > 0) {
+					content_html += '<p><strong>Flight time to sunrise: ' + formatMinutes(data.flight_stats.mins_to_first_sunrise) + '</strong></p>';
+				}
+				if (data.flight_stats.mins_to_first_sunset > 0) {
+					content_html += '<p><strong>Flight time to sunset: ' + formatMinutes(data.flight_stats.mins_to_first_sunset) + '</strong></p>';
+				}
+			} else {
+				// sunset is before sunrise
+				if (data.flight_stats.mins_to_first_sunset > 0) {
+					content_html += '<p><strong>Flight time to sunset: ' + formatMinutes(data.flight_stats.mins_to_first_sunset) + '</strong></p>';
+				}
+				if (data.flight_stats.mins_to_first_sunrise > 0) {
+					content_html += '<p><strong>Flight time to sunrise: ' + formatMinutes(data.flight_stats.mins_to_first_sunrise) + '</strong></p>';
+				}
+			}
+
 			content_html += '</p></li>';
 
 
+			// other flight stats
             content_html += '<li>';
 			content_html += '<p><strong>Depart ' + data.from_airport + ' at ' + data.depart_time.replace("T", " ") + '</strong></p>';
 			content_html += '<p><strong>Arrive ' + data.to_airport + ' at ' + data.arrival_time.replace("T", " ") + '</strong></p>';
-
 			content_html += '<p>Flight time: ' + formatMinutes(data.elapsed_time) + '</p>';
 			var miles_to_km = 0.621371192;
 			content_html += '<p>Distance: ' + addCommas(Math.round(data.distance_km * miles_to_km)) + ' miles, ' + addCommas(data.distance_km ) + 'km </p>';
 			content_html += '</li>'
-			//content_html += '<p class="ui-li-aside" style="padding-right: 32px;"><strong>';
-
-			
-
-       		//content_html += "<tr>";
-            //content_html += "<td colspan='2'><span class='flightdata operation'>Days of Operation: " + data.days_of_op + "</span></td>";
-       		//content_html += "</tr>";
 
             return content_html;
-
 	    }
 
 
@@ -496,16 +509,21 @@ if(array_key_exists("autoload", $_GET)) {
 	                if (minute_of_segment < current_flight.elapsed_time) {
 						var flight_point = flight_points[minute_of_segment];
 	                	$("#sfcalc_sun_side").val(flight_point["sun_side"]);
+	                	$("#sfcalc_sun_alt").val(flight_point["sun_alt"]);
 	                	$("#sfcalc_tod").val(flight_point["tod"]);
 	                	$("#sfcalc_sun_east_west").val(flight_point["sun_east_west"]);
 	                	$("#sfcalc_azimuth_from_north").val(flight_point["azimuth_from_north"]);
 	                	$("#sfcalc_bearing_from_north").val(flight_point["bearing_from_north"]);
+	                	$("#segment_days_of_operation").val(current_flight.days_of_op);
+
 	                } else {
 	                	$("#sfcalc_sun_side").val("stopover");
 	                	$("#sfcalc_tod").val("stopover");
 	                	$("#sfcalc_sun_east_west").val("stopover");
 	                	$("#sfcalc_azimuth_from_north").val("stopover");
 	                	$("#sfcalc_bearing_from_north").val("stopover");
+	                	$("#days_of_operation").val("stopover");
+
 	                }
 
 			        if (minute_of_segment < current_flight.elapsed_time) {
@@ -766,7 +784,7 @@ if(array_key_exists("autoload", $_GET)) {
 				<p><a id="permalink" style="color: blue;" rel=external href="#">Link to this map</a></p>
     		</div>
 
-    		<div id="results-panel"></div>
+    		<div id="results-panel" style="padding-top: 8px;"></div>
 
 			<div data-role="collapsible" id="show-developer-info" style="display: none;">
 	   			<h3>Advanced</h3>
@@ -787,6 +805,11 @@ if(array_key_exists("autoload", $_GET)) {
 				</div>
 
 				<div data-role="fieldcontain">
+					<label for="segment_days_of_operation">Days of Operation:</label>
+					<input type="text" name="segment_days_of_operation" id="segment_days_of_operation" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
 					<label for="minute_of_segment">Minute of Segment:</label>
 					<input type="text" name="minute_of_segment" id="minute_of_segment" value="" />
 				</div>
@@ -794,6 +817,11 @@ if(array_key_exists("autoload", $_GET)) {
 				<div data-role="fieldcontain">
 					<label for="sfcalc_sun_side">Sun position:</label>
 					<input type="text" name="sfcalc_sun_side" id="sfcalc_sun_side" value="" />
+				</div>
+
+				<div data-role="fieldcontain">
+					<label for="sfcalc_sun_alt">Sun alt:</label>
+					<input type="text" name="sfcalc_sun_alt" id="sfcalc_sun_alt" value="" />
 				</div>
 
 				<div data-role="fieldcontain">
