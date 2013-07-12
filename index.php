@@ -78,7 +78,9 @@ if(array_key_exists("autoload", $_GET)) {
 	            mapTypeId: google.maps.MapTypeId.ROADMAP,
 	            streetViewControl: false,
 	            mapTypeControl: false,
-	            panControl: false
+	            panControl: false,
+    			draggable: false,
+    			scrollwheel: false
 	        };
 	        map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 	        <?php
