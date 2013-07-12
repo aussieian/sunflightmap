@@ -869,9 +869,49 @@ if(array_key_exists("autoload", $_GET)) {
 
 	<div data-role="content" data-theme="a">	
 		<h2>FAQ</h2>
+
+		<p><strong>Q: What is SunFlight?</strong>
+		<br>A: SunFlight is an app that shows you the path of the sun for your flight. 
+		You can use it for whatever purpose you want, however most people use this app to help plan where to sit on their flight, based on the location of the sun.<br>
+		If you like this app, then please consider <a href="#donate">donating $5</a>.
+		</p>
+
+		<p><strong>Q: Whgen will the sun will rise and set on my flight?</strong>
+		<br>SunFlight also tells you when the sunrise and sunset will be on your flight, so you can plan your nap and sleep times.
+		</p>
+
+		<p><strong>Q: I have a suggestion, where can I send it?</strong>
+		<br>A: You can either contact me (see below for details) or reply on the Flyer Talk Forum post <a href="http://www.flyertalk.com/forum/british-airways-executive-club/1446607-website-showing-when-will-light-during-flight.html">here</a><br>
+		</p>
+
+		<p><strong>Q: Tell me more about how SunFlight works</strong>
+		<br>A: SunFlight calculates the solar altitude and azimuth for every minute of the flight (based on a geodesic path of the flight), and then calculates which side of the plane the sun will be on based on the current bearing of the flight.
+		</p>
+
 		<p><strong>Q: How can I contact the creator of this site?</strong>
 		<br>A: Contact me at <a href="mailto:ian@travelmassive.com">ian@travelmassive.com</a>
 		</p>
+
+		<p><strong>Q: Does it work on iPad / iPhone?</strong>
+		<br>A: Not yet, but I'm working on it. I recommend Android phones for mobile devices.
+		</p>
+
+		<p><strong>Q: Where do you get your data from?</strong>
+		<br>A: SunFlight gets its routing data from OAG.
+		</p>
+
+		<p><strong>Q: Route XYZ doesn't work, can you help?</strong>
+		<br>A: Sure, email me the flight code and number and the date, and explain what's wrong with the result.
+		</p>
+
+		<p><strong>Q: What feature/bugs/etc you planning on releasing next?</strong>
+		<br>A: Here's my TODO list:<br>
+		<br>- Adjust the sun calculations based on daylight savings
+		<br>- Fix for iPhone / iPad browsers
+		<br>- Allow dropdown for carrier selection rather than entering the airline code
+		<br>- Allow users to enter their own flight data (origin, destination, duration of flight, departure time)]
+		</p>
+
 		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
 		
 	</div><!-- /content -->
