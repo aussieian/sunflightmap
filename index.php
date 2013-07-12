@@ -48,6 +48,22 @@ if(array_key_exists("autoload", $_GET)) {
 	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
 
+	<!-- http://stackoverflow.com/questions/7936119/setting-maximum-width-for-content-in-jquery-mobile -->
+	<style type='text/css'>
+    <!--
+        html { background-color: #333; }
+        @media only screen and (min-width: 600px){
+            .ui-page {
+                width: 600px !important;
+                margin: 0 auto !important;
+                position: relative !important;
+                border-right: 5px #666 outset !important;
+                border-left: 5px #666 outset !important;
+            }
+        }
+    -->
+    </style>
+
 	<!-- custom code -->
 	<script type="text/javascript" src="/js/daynightmaptype.js"></script>
 	<script type="text/javascript" src="/js/jQueryRotate.2.2.js"></script>
@@ -638,6 +654,10 @@ if(array_key_exists("autoload", $_GET)) {
 			    }
 	        	});
 	        markers.push(flightMarker);
+
+	        // set map centre with flight
+	        map.setCenter(flightMarker.getPosition());
+	        
 	    }
 
 	    function updateSliderTime(t, max)
