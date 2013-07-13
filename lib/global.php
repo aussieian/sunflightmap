@@ -31,6 +31,12 @@ function isMobile() {
 	return false;
 }
 
+// detect iPhone
+function isiPhone() {
+	$isiPhone = (bool) strpos(strtolower($_SERVER['HTTP_USER_AGENT']),"iphone");
+	return $isiPhone;
+}
+
 // detect ipad
 function isiPad() {
 	$isiPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');

@@ -164,7 +164,7 @@ if(array_key_exists("autoload", $_GET)) {
 
 
 	        <?php
-	        if (!isChrome()) { ?>$("#chrome_note").show(); <?
+	        if ((!isChrome() || !isiPad() || !isiPhone())) { ?>$("#chrome_note").show(); <?
 	        } ?>
 	        //init();
 	    }
