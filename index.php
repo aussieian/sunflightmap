@@ -75,7 +75,7 @@ if(array_key_exists("autoload", $_GET)) {
 	<!-- http://stackoverflow.com/questions/7936119/setting-maximum-width-for-content-in-jquery-mobile -->
 	<style type='text/css'>
     <!--
-        html { background-color: #333; }
+        html { background-color: #fff; }
         @media only screen and (min-width: 600px){
             .ui-page {
                 width: 600px !important;
