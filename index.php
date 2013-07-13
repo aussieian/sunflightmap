@@ -3,7 +3,31 @@ include("lib/global.php");
 
 // allow input from URL
 $autoload = false;
-$flightcode = $cfg["EXAMPLE_FLIGHT_ROUTES"][array_rand($cfg["EXAMPLE_FLIGHT_ROUTES"])]; //'JQ7';
+
+function getRandomFlightCode() {
+	global $cfg;
+	$day_of_week = 2; //date( "w", time()) + 1; // 1234567
+	for ($i = 0; $i < 10; $i++) {
+		// example of flightcode_config
+		// QF1_1234567 operates 7 days a week
+		$flightcode_config = $cfg["EXAMPLE_FLIGHT_ROUTES"][array_rand($cfg["EXAMPLE_FLIGHT_ROUTES"])]; //'JQ7';
+		$parts = explode("_", $flightcode_config);
+		$flightcode = $parts[0];
+		if (strpos($parts[1], $day_of_week . "") !== false) {
+			// flight operates on today
+			return $flightcode;
+		}
+	}
+
+	// didn't find a matching flight code for today, return QF1 which is 7 days a week
+	$first_flight = $cfg["EXAMPLE_FLIGHT_ROUTES"];
+	$parts = explode("_", $flightcode_config);
+	$flightcode = $parts[0];
+	return $flightcode;
+
+}
+
+$flightcode = getRandomFlightCode();
 if (array_key_exists("flightcode", $_GET)) {
 	$flightcode = $_GET['flightcode'];
 	$autoload = true;
@@ -85,12 +109,12 @@ if(array_key_exists("autoload", $_GET)) {
 	$(document).ready(function() {
 
 		
-	    function initializeMap() {
+	    function initializeMap(centerMap) {
 	        var myOptions = {
 	            zoom: 1,
 	            maxZoom: 3,
 	            minZoom: 1,
-	            center: new google.maps.LatLng( 10, 150.644),
+	            center: centerMap,
 	            mapTypeId: google.maps.MapTypeId.ROADMAP,
 	            streetViewControl: false,
 	            mapTypeControl: false,
@@ -226,10 +250,11 @@ if(array_key_exists("autoload", $_GET)) {
 	        	if (data.error != null) {
 	        		$.mobile.hidePageLoadingMsg();
 	        		//$('#loading-page').hide();
-	        		expandFlightCodeContainer();
+	        	 	$('#enter-flight-code').trigger('expand');
 	        		alert(data.error);
 	        	} else {
 	        		$("#cached_result").val(data.cached);
+	        		clearAdvancedText();
 	        		initFlightRoutes(data.flight_segments);
 	        	}
 	        });
@@ -371,12 +396,6 @@ if(array_key_exists("autoload", $_GET)) {
 	    	// show map
 	    	$('#map_container').show();
 	    	
-	    	// initialise google map if first time
-	    	if (firstLoad) {
-				initializeMap();
-				firstLoad = false;
-			}
-
 	    	$.mobile.hidePageLoadingMsg(); // $('#loading-page').hide();
 	    	$('#enter-flight-code').trigger('collapse');
 	    	$('#results-panel').html("");
@@ -517,7 +536,6 @@ if(array_key_exists("autoload", $_GET)) {
 	                	$("#sfcalc_azimuth_from_north").val("stopover");
 	                	$("#sfcalc_bearing_from_north").val("stopover");
 	                	$("#days_of_operation").val("stopover");
-
 	                }
 
 			        if (minute_of_segment < current_flight.elapsed_time) {
@@ -544,26 +562,63 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    }
 
+	    clearAdvancedText = function() {
+
+	    	$("#minutes_travelled").val("");
+	    	$("#slider_time").val("");
+	    	$("#flight_segment").val("");
+	    	$("#segment_days_of_operation").val("");
+	    	$("#minute_of_segment").val("");
+	    	$("#sfcalc_sun_side").val("");
+        	$("#sfcalc_tod").val("");
+        	$("#sfcalc_alt").val("");
+        	$("#sfcalc_sun_east_west").val("");
+        	$("#sfcalc_azimuth_from_north").val("");
+        	$("#sfcalc_bearing_from_north").val("");
+        	$("#days_of_operation").val("");
+	    }
+
 	    initFlightRoutes = function(flightdata) {
 
             // get back jsonp
             // flightmap({"from_airport": "MEL","from_city": "Melbourne","from_lat": -37.673333,"from_lon": 144.843333,"to_airport": "SIN","to_city": "Singapore","to_lat": 1.350189,"to_lon": 103.994433,"depart_time": "2011-10-16T12:00:00","elapsed_time": 470})
 			resetResults();
 
-	        
-	        var results_html = "";
-	        for(var i = 0; i < flightdata.length; i++) {
+			// check flight data for errors	        
+	       	for(var i = 0; i < flightdata.length; i++) {
 
-	        	// check for errors
+	       		// check for errors
 	        	if (flightdata[i].error != "") {
 	        		alert("Error processing flight route data: " + data.error);
 	        		return;
 	        	}
+	        }
 
+	        // calculate route bounds to center map
+			var route_bounds = new google.maps.LatLngBounds();
+	       	for(var i = 0; i < flightdata.length; i++) {
+				// increase map bounds
+				route_bounds.extend(new google.maps.LatLng(10, flightdata[i].from_lon));
+				route_bounds.extend(new google.maps.LatLng(10, flightdata[i].to_lon));
+	        }
+
+	       	// init map with center bounds of route
+			if (firstLoad) {
+	        	initializeMap(route_bounds.getCenter());
+				firstLoad = false;
+			}
+
+			// draw flight routes and end points
+	        for(var i = 0; i < flightdata.length; i++) {
 	        	drawFlightRoute(flightdata[i]);
-	        	results_html += drawFlightData(flightdata[i]);
 	        	drawFlightEndPoints(flightdata[i]);
 	        }
+
+	        // draw data
+	        var results_html = "";
+	       	for(var i = 0; i < flightdata.length; i++) {
+	       		results_html += drawFlightData(flightdata[i]);
+	       	}
 
 	        // init results list
 	        // draw flight routes
@@ -583,6 +638,7 @@ if(array_key_exists("autoload", $_GET)) {
 			// http://stackoverflow.com/questions/10489264/jquery-mobile-and-google-maps-not-rendering-correctly
 			setTimeout(function() {
     			google.maps.event.trigger(map,'resize');
+    			map.setCenter(route_bounds.getCenter()); // set to middle of flight route bounds
 			}, 500);
 
 	    }
@@ -730,7 +786,8 @@ if(array_key_exists("autoload", $_GET)) {
 	    }
 
 	    <?php if ($autoload) { ?>
-	        	resetResults();
+	    	resetResults();
+	        mapFlight();
 	    <? } ?>
 
 	    // let's do it!
