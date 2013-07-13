@@ -355,7 +355,7 @@ if(array_key_exists("autoload", $_GET)) {
 			content_html += '<p><strong>Arrive ' + data.to_airport + ' at ' + data.arrival_time.replace("T", " ") + '</strong></p>';
 			content_html += '<p>Flight time: ' + formatMinutes(data.elapsed_time) + '</p>';
 			var miles_to_km = 0.621371192;
-			content_html += '<p>Distance: ' + addCommas(Math.round(data.distance_km * miles_to_km)) + ' miles, ' + addCommas(data.distance_km ) + 'km </p>';
+			content_html += '<p>Distance: ' + addCommas(Math.round(data.distance_km * miles_to_km)) + ' miles, ' + addCommas(data.distance_km) + 'km </p>';
 			content_html += '</li>'
 
             return content_html;
@@ -629,7 +629,7 @@ if(array_key_exists("autoload", $_GET)) {
 
 	        // init results list
 	        // draw flight routes
-	        $("#results-panel").append('<ul id="results-list" data-role="listview" data-theme="d" data-divider-theme="d">' + results_html + "'</ul>");
+	        $("#results-panel").append('<ul id="results-list" data-role="listview" data-theme="d" data-divider-theme="d">' + results_html + "</ul>");
 	        //$("#results-panel").append(results_html);
 	        //$("#results-panel").append('</ul>');
            	$("#results-list").listview();      
