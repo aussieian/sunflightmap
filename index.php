@@ -645,7 +645,10 @@ if(array_key_exists("autoload", $_GET)) {
 			// http://stackoverflow.com/questions/10489264/jquery-mobile-and-google-maps-not-rendering-correctly
 			setTimeout(function() {
     			google.maps.event.trigger(map,'resize');
+
+    			<?php if (!isMobile()) { ?>
     			map.setCenter(route_bounds.getCenter()); // set to middle of flight route bounds
+    			<?php } // end if ?>
 			}, 500);
 
 	    }
