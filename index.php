@@ -312,18 +312,18 @@ if(array_key_exists("autoload", $_GET)) {
 			if (data.flight_stats.mins_to_first_sunrise < data.flight_stats.mins_to_first_sunset) {
 				// sunrise is before sunset
 				if (data.flight_stats.mins_to_first_sunrise > 0) {
-					content_html += '<p><strong>Flight time to sunrise: ' + formatMinutes(data.flight_stats.mins_to_first_sunrise) + '</strong></p>';
+					content_html += '<p><strong>Flight time to sunrise on ' + data.flight_stats.sunrise_left_right + ': ' + formatMinutes(data.flight_stats.mins_to_first_sunrise) + '</strong></p>';
 				}
 				if (data.flight_stats.mins_to_first_sunset > 0) {
-					content_html += '<p><strong>Flight time to sunset: ' + formatMinutes(data.flight_stats.mins_to_first_sunset) + '</strong></p>';
+					content_html += '<p><strong>Flight time to sunset on ' + data.flight_stats.sunset_left_right + ': ' + formatMinutes(data.flight_stats.mins_to_first_sunset) + '</strong></p>';
 				}
 			} else {
 				// sunset is before sunrise
 				if (data.flight_stats.mins_to_first_sunset > 0) {
-					content_html += '<p><strong>Flight time to sunset: ' + formatMinutes(data.flight_stats.mins_to_first_sunset) + '</strong></p>';
+					content_html += '<p><strong>Flight time to sunset on ' + data.flight_stats.sunset_left_right + ': ' + formatMinutes(data.flight_stats.mins_to_first_sunset) + '</strong></p>';
 				}
 				if (data.flight_stats.mins_to_first_sunrise > 0) {
-					content_html += '<p><strong>Flight time to sunrise: ' + formatMinutes(data.flight_stats.mins_to_first_sunrise) + '</strong></p>';
+					content_html += '<p><strong>Flight time to sunrise on ' + data.flight_stats.sunrise_left_right + ': ' + formatMinutes(data.flight_stats.mins_to_first_sunrise) + '</strong></p>';
 				}
 			}
 

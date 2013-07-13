@@ -80,6 +80,8 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 	has_seen_sunrise = False
 	mins_to_first_sunset = 0
 	mins_to_first_sunrise = 0
+	sunset_left_right = None
+	sunrise_left_right = None
 
 	from_lat, from_lon = origin
 	to_lat, to_lon = destination
@@ -191,12 +193,14 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 					#print("time of day: sunset")
 					point_values['tod'] = 'sunset'
 					has_seen_sunset = True
+					sunset_left_right = sun_side
 					if not has_seen_sunrise:
 						mins_to_first_sunrise = mins_to_first_sunrise + 1
 				else:
 					#print("time of day: sunrise")
 					point_values['tod'] = 'sunrise'
 					has_seen_sunrise = True
+					sunrise_left_right = sun_side
 					if not has_seen_sunset:
 						mins_to_first_sunset = mins_to_first_sunset + 1
 
@@ -234,12 +238,17 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 	flight_stats['percent_night'] = round((float(total_mins_night) / float(flight_mins)) * 100)
 
 	flight_stats['mins_to_first_sunrise'] = 0
+	flight_stats['sunrise_left_right'] = ""
 	if (mins_to_first_sunrise < flight_mins):
 		flight_stats['mins_to_first_sunrise'] = mins_to_first_sunrise
+		flight_stats['sunrise_left_right'] = sunrise_left_right
+
 
 	flight_stats['mins_to_first_sunset'] = 0
+	flight_stats['sunset_left_right'] = ""
 	if (mins_to_first_sunset < flight_mins):
 		flight_stats['mins_to_first_sunset'] = mins_to_first_sunset
+		flight_stats['sunset_left_right'] = sunset_left_right
 
 	# make jsonp object
 	data = {}
