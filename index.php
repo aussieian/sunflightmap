@@ -648,7 +648,7 @@ if(array_key_exists("autoload", $_GET)) {
 
     			<?php if (isMobile()) { ?>
     			map.setCenter(new google.maps.LatLng(10, flightdata[0].from_lon)); // set to take off point
-    			<?php } else { ?>}
+    			<?php } else { ?>
     			map.setCenter(route_bounds.getCenter()); // set to middle of flight route bounds
     			<?php } // end if ?>
 			}, 500);
