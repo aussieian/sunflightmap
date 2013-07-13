@@ -6,7 +6,8 @@ $autoload = false;
 
 function getRandomFlightCode() {
 	global $cfg;
-	$day_of_week = 2; //date( "w", time()) + 1; // 1234567
+	$day_of_week = date( "w", time()); // 1234567 1=Monday for OAG lookup
+	if ($day_of_week == 0) { $day_of_week = 7; } // 7 is Sunday for OAG
 	for ($i = 0; $i < 10; $i++) {
 		// example of flightcode_config
 		// QF1_1234567 operates 7 days a week
@@ -287,38 +288,6 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    drawFlightData = function(data) {
 
-	    	/*
-	    	<ul data-role="listview" data-theme="d" data-divider-theme="d">
-			<li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
-			<li><a href="index.html">
-				
-					<h3>Stephen Weber</h3>
-					<p><strong>You've been invited to a meeting at Filament Group in Boston, MA</strong></p>
-					<p>Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the jQuery team.</p>
-					<p class="ui-li-aside"><strong>6:24</strong>PM</p>
-				
-			</a></li>
-			<li><a href="index.html">
-				
-				<h3>jQuery Team</h3>
-				<p><strong>Boston Conference Planning</strong></p>
-				<p>In preparation for the upcoming conference in Boston, we need to start gathering a list of sponsors and speakers.</p>
-				<p class="ui-li-aside"><strong>9:18</strong>AM</p>
-				
-			</a></li>
-			<li data-role="list-divider">Thursday, October 7, 2010 <span class="ui-li-count">1</span></li>
-			<li><a href="index.html">
-				<h3>Avery Walker</h3>
-				<p><strong>Re: Dinner Tonight</strong></p>
-				<p>Sure, let's plan on meeting at Highland Kitchen at 8:00 tonight. Can't wait! </p>
-				<p class="ui-li-aside"><strong>4:48</strong>PM</p>
-			</a></li>
-			</ul>
-			*/
-
-
-       		//var content_html = '<ul id="results-list" data-role="listview" data-theme="d" data-divider-theme="d">';
-
             var content_html = '<li data-role="list-divider">' + data.from_city + ' (' + data.from_airport + ') to ' + data.to_city + ' (' + data.to_airport + ')</li>';
 
             // sfcalc stats
@@ -401,7 +370,7 @@ if(array_key_exists("autoload", $_GET)) {
 	    	$('#results-panel').html("");
 	    }
 
-	    drawFlightEndPoints = function(data) {
+	    drawFlightEndPoints = function(toLatLngFlag) {
 
 	    	var circle = {
     			path: google.maps.SymbolPath.CIRCLE,
@@ -411,22 +380,15 @@ if(array_key_exists("autoload", $_GET)) {
     			stokeWeight: 0.1
   			};
 
-            var flagimage = new google.maps.MarkerImage('images/flag.png',
-	            new google.maps.Size(30, 36),
-	            // marker dimensions
-	            new google.maps.Point(0, 0),
-	            // origin of image
-	            new google.maps.Point(2, 36));
-
-	            // anchor of image
-	            var toLatLngFlag = new google.maps.LatLng(data.to_lat, data.to_lon);
-	            var toMarker = new google.maps.Marker({
-	                position: toLatLngFlag,
-	                map: map,
-	                title: 'Destination',
-	                icon: circle
-	                //'/images/flag.png'
-            });
+            // anchor of image
+            //var toLatLngFlag = new google.maps.LatLng(data.to_lat, data.to_lon);
+            var toMarker = new google.maps.Marker({
+                position: toLatLngFlag,
+                map: map,
+                title: 'Destination',
+                icon: circle
+                //'/images/flag.png'
+        	});
             markers.push(toMarker);
 	    }
 
@@ -615,10 +577,15 @@ if(array_key_exists("autoload", $_GET)) {
 				firstLoad = false;
 			}
 
-			// draw flight routes and end points
+			// draw flight routes
 	        for(var i = 0; i < flightdata.length; i++) {
 	        	drawFlightRoute(flightdata[i]);
-	        	drawFlightEndPoints(flightdata[i]);
+	        }
+
+	        // draw flight route start and end points
+	       	drawFlightEndPoints(new google.maps.LatLng(flightdata[0].from_lat, flightdata[0].from_lon));
+			for(var i = 0; i < flightdata.length; i++) {
+	        	drawFlightEndPoints(new google.maps.LatLng(flightdata[i].to_lat, flightdata[i].to_lon));
 	        }
 
 	        // draw data
@@ -644,6 +611,7 @@ if(array_key_exists("autoload", $_GET)) {
 	    	// need to set resize the map otherwise we get missing tiles
 			// http://stackoverflow.com/questions/10489264/jquery-mobile-and-google-maps-not-rendering-correctly
 			setTimeout(function() {
+				map.setZoom(1);
     			google.maps.event.trigger(map,'resize');
 
     			<?php if (isMobile()) { ?>
