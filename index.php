@@ -230,13 +230,6 @@ if(array_key_exists("autoload", $_GET)) {
 	        	} else {
 	        		$("#cached_result").val(data.cached);
 	        		initFlightRoutes(data.flight_segments);
-
-	        		// need to set resize the map otherwise we get missing tiles
-					// http://stackoverflow.com/questions/10489264/jquery-mobile-and-google-maps-not-rendering-correctly
-					setTimeout(function() {
-            			google.maps.event.trigger(map,'resize');
-        			}, 500);
-
 	        	}
 	        });
 	    }
@@ -585,6 +578,12 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    	initTimeSlider(flightdata);
 
+	    	// need to set resize the map otherwise we get missing tiles
+			// http://stackoverflow.com/questions/10489264/jquery-mobile-and-google-maps-not-rendering-correctly
+			setTimeout(function() {
+    			google.maps.event.trigger(map,'resize');
+			}, 500);
+
 	    }
 
 	    mapDayNightShadow = function(map, UTCTime, minutesOffset) {
@@ -908,6 +907,7 @@ if(array_key_exists("autoload", $_GET)) {
 		<br>A: Here's my TODO list:<br>
 		<br>- Adjust the sun calculations based on daylight savings
 		<br>- Fix for iPhone / iPad browsers
+		<br>- Centre map on flight route
 		<br>- Allow dropdown for carrier selection rather than entering the airline code
 		<br>- Allow users to enter their own flight data (origin, destination, duration of flight, departure time)]
 		</p>
