@@ -346,7 +346,7 @@ if(array_key_exists("autoload", $_GET)) {
 				}
 			}
 
-			content_html += '</p></li>';
+			content_html += '</li>';
 
 
 			// other flight stats
@@ -855,7 +855,7 @@ if(array_key_exists("autoload", $_GET)) {
 
     		<div id="results-panel" style="padding-top: 8px;"></div>
 
-			<div data-role="collapsible" id="show-developer-info" style="display: none;">
+			<div data-role="collapsible" id="show-developer-info" style="display: none; padding-top: 16px;">
 	   			<h3>Advanced</h3>
 
 	   			<div data-role="fieldcontain">
