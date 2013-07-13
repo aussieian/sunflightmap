@@ -226,6 +226,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        	if (data.error != null) {
 	        		$.mobile.hidePageLoadingMsg();
 	        		//$('#loading-page').hide();
+	        		expandFlightCodeContainer();
 	        		alert(data.error);
 	        	} else {
 	        		$("#cached_result").val(data.cached);
