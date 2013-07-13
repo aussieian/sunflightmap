@@ -604,7 +604,14 @@ if(array_key_exists("autoload", $_GET)) {
 
 	       	// init map with center bounds of route
 			if (firstLoad) {
-	        	initializeMap(route_bounds.getCenter());
+				<?php if (isMobile()) { ?>
+					// init map with center at starting point of plane for mobile
+					initializeMap(new google.maps.LatLng(10, flightdata[0].from_lon));
+				<?php } else { ?>
+					// init map with center at middle of route bounds for non mobile
+					initializeMap(route_bounds.getCenter());
+				<? } ?>
+
 				firstLoad = false;
 			}
 
