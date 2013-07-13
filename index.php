@@ -962,7 +962,7 @@ if(array_key_exists("autoload", $_GET)) {
 		</p>
 
 		<p><strong>Q: Does it work on iPad / iPhone?</strong>
-		<br>A: Not yet, but I'm working on it. I recommend Android phones for mobile devices.
+		<br>A: Yes it should work with the latest iOS version for both iPad and iPhones.
 		</p>
 
 		<p><strong>Q: Where do you get your data from?</strong>
@@ -976,8 +976,6 @@ if(array_key_exists("autoload", $_GET)) {
 		<p><strong>Q: What feature/bugs/etc you planning on releasing next?</strong>
 		<br>A: Here's my TODO list:<br>
 		<br>- Adjust the sun calculations based on daylight savings
-		<br>- Fix for iPhone / iPad browsers
-		<br>- Centre map on flight route
 		<br>- Allow dropdown for carrier selection rather than entering the airline code
 		<br>- Allow users to enter their own flight data (origin, destination, duration of flight, departure time)]
 		</p>
