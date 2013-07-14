@@ -921,8 +921,16 @@ if(array_key_exists("autoload", $_GET)) {
 		<br>A: You can either contact me (see below for details) or reply on the Flyer Talk Forum post <a href="http://www.flyertalk.com/forum/british-airways-executive-club/1446607-website-showing-when-will-light-during-flight.html">here</a><br>
 		</p>
 
-		<p><strong>Q: Tell me more about how SunFlight works</strong>
+		<!--<p><strong>Q: Tell me more about how SunFlight works</strong>
 		<br>A: SunFlight calculates the solar altitude and azimuth for every minute of the flight (based on a geodesic path of the flight), and then calculates which side of the plane the sun will be on based on the current bearing of the flight.
+		</p>
+
+		<p><strong>Q: At what point is the sunset/sunrise calculated?</strong>
+		<br>A: Sunset and sunrise is determined when the sun's altitude reaches 6 degrees from the horizon from the ground. 
+		</p>-->
+
+		<p><strong>Q: Does SunFlight calculate the exact flight path?</strong>
+		<br>A: SunFlight uses the geodesic (shortest path) between two points, which in most cases will simulate the approximate flight path. 
 		</p>
 
 		<p><strong>Q: How can I contact the creator of this site?</strong>
@@ -974,11 +982,20 @@ if(array_key_exists("autoload", $_GET)) {
 <!-- start paypal donation button -->
 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
 <input type="hidden" name="cmd" value="_s-xclick">
-<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
+<table>
+<tr><td><input type="hidden" name="on0" value="Donation amount">Donation amount</td></tr><tr><td><select name="os0">
+	<option value="Frequent Flyer">Frequent Flyer $5.00 USD</option>
+	<option value="Business Class donation">Business Class donation $10.00 USD</option>
+	<option value="First Class donation">First Class donation $50.00 USD</option>
+</select> </td></tr>
+</table>
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
 ">
-<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
 <img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
 </form>
+
 </p>
 <!-- end paypal donation button -->
 

@@ -20,3 +20,13 @@
 	<input type='submit' value="test ajax"><br>
 </form>
 
+<hr>
+
+PHPFast Cache stats:<br>
+<?php
+//include("global.php");
+//include("php_fast_cache.php");
+
+//$cache = phpFastCache::get("name");
+//print_r($cache);
+?>
