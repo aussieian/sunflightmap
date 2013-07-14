@@ -34,7 +34,7 @@ if (array_key_exists("request_date", $_GET)) {
 	$request_date=$_GET['request_date'];
 }
 
-$cache_key = "c" . $carrier_code . "_" . $service_number . "_" . $request_date;
+$cache_key = "sunflight_" . $carrier_code . "_" . $service_number . "_" . $request_date;
 
 // try to get from Cache first.
 //phpFastCache::$path = "/PATH/FOR_PDO_FILES/";
@@ -165,7 +165,7 @@ if(!$cached) {
 	}
 
 	// cache OAG data
-	phpFastCache::set($cache_key,$oag_data,60 * 60 * 24); // cache for a day
+	phpFastCache::set($cache_key,$oag_data, 60 * 60 * 24 * 10); // cache for a day
 }
 
 
