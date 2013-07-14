@@ -1044,7 +1044,7 @@ if(array_key_exists("autoload", $_GET)) {
 	</div><!-- /header -->
 
 	<div data-role="content">	
-		<h2>Today's Searches</h2>
+		<h2>Recent Searches</h2>
 		<p>
 		<?php 
 			showRecentSearches();

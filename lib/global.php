@@ -83,8 +83,13 @@ function showRecentSearches() {
 
 	global $cfg;
 	$dir = $cfg['CACHE_STORAGE_PATH'] . "/files"; // '/var/www/sunflight.net/lib/cache.storage/files/';
-	$cache_files = scandir($dir);
+	$cache_files = @scandir($dir);
 	//print_r($cache_files);
+
+	if ($cache_files == null) { 
+		print("No recent results.");
+		return;
+	}
 
 	foreach ($cache_files as $cache_file) {
 		if (strstr($cache_file, "sunflight_") !== false) {
