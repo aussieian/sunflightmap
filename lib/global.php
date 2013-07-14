@@ -78,4 +78,21 @@ function isIE() {
 	return $is_ie;
 }
 
+// list recent searched flights from cache
+function showRecentSearches() {
+
+	global $cfg;
+	$dir = $cfg['CACHE_STORAGE_PATH'] . "/files"; // '/var/www/sunflight.net/lib/cache.storage/files/';
+	$cache_files = scandir($dir);
+	//print_r($cache_files);
+
+	foreach ($cache_files as $cache_file) {
+		if (strstr($cache_file, "sunflight_") !== false) {
+			$parts = explode("_", $cache_file);
+			$url = "flightcode=" . strtoupper($parts[1] . $parts[2]) . "&date=" . $parts[3] . "-" . $parts[4] . "-" . $parts[5];
+			print("<a rel='external' href='/?" . $url . "'>" . strtoupper($parts[1] . $parts[2]) . " departing " . $parts[3] . "-" . $parts[4] . "-" . $parts[5] . "</a><br>");
+		}
+	}
+}
+
 ?>

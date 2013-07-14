@@ -805,7 +805,7 @@ if(array_key_exists("autoload", $_GET)) {
 <body>
 
 	<!-- Start of first page: #one -->
-<div data-role="page" id="sunflight">
+<div data-role="page" id="home">
 
 	<div data-role="header">
 		<h1>Day and Night Map</h1>
@@ -980,7 +980,11 @@ if(array_key_exists("autoload", $_GET)) {
 		<br>- Allow users to enter their own flight data (origin, destination, duration of flight, departure time)]
 		</p>
 
-		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
+		<p><strong>Q: Where can I see a list of recent searches?</strong>
+		<br>A: You can see a list of <a href="#recent_searches">recent searches</a> here.
+		</p>
+
+		<p><a href="#home" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
 		
 	</div><!-- /content -->
 	
@@ -1023,13 +1027,37 @@ if(array_key_exists("autoload", $_GET)) {
 </p>
 <!-- end paypal donation button -->
 
-		<p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
+		<p><a href="#home" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
 	</div><!-- /content -->
 	
 	<div data-role="footer">
 		<h4>SunFlight.net</h4>
 	</div><!-- /footer -->
 </div><!-- /page donate -->
+
+
+<!-- Start of page: #recent_searches -->
+<div data-role="page" id="recent_searches">
+
+	<div data-role="header">
+		<h1>Recent Searches</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">	
+		<h2>Today's Searches</h2>
+		<p>
+		<?php 
+			showRecentSearches();
+		?>
+		</p>
+		<p><a href="#home" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
+	</div><!-- /content -->
+	
+	<div data-role="footer">
+		<h4>Like this app? <a href="#donate">Donate $5</a></h4>
+	</div><!-- /footer -->
+</div><!-- /page donate -->
+
 
 	<!-- google anlaytics -->
 	<script type="text/javascript">

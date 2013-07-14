@@ -24,9 +24,6 @@
 
 PHPFast Cache stats:<br>
 <?php
-//include("global.php");
-//include("php_fast_cache.php");
-
-//$cache = phpFastCache::get("name");
-//print_r($cache);
+include("global.php");
+showRecentSearches();
 ?>

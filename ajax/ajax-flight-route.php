@@ -34,7 +34,7 @@ if (array_key_exists("request_date", $_GET)) {
 	$request_date=$_GET['request_date'];
 }
 
-$cache_key = "sunflight_" . $carrier_code . "_" . $service_number . "_" . $request_date;
+$cache_key = "sunflight_" . $carrier_code . "_" . $service_number . "_" . str_replace("-", "_", $request_date) . "_";
 
 // try to get from Cache first.
 //phpFastCache::$path = "/PATH/FOR_PDO_FILES/";
