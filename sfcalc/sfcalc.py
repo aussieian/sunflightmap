@@ -21,7 +21,7 @@ from_lat_lon = sys.argv[1]
 to_lat_lon = sys.argv[2]
 flight_mins = int(sys.argv[3])
 departure_time = datetime.datetime.strptime(sys.argv[4] + " " + sys.argv[5], "%Y-%m-%d %H:%M:%S")
-departure_time = departure_time + datetime.timedelta(0,-60*60*int(sys.argv[6]))
+departure_time = departure_time + datetime.timedelta(0,-60*60*float(sys.argv[6]))
 
 # Sample input
 # QF15 BNE to LAX 14 hours
