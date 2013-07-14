@@ -109,7 +109,26 @@ if(array_key_exists("autoload", $_GET)) {
 
 	$(document).ready(function() {
 
-		
+		main = function() {
+	        //google.maps.event.addDomListener(window, 'load', initializeMap);
+	        $("#requestDate").datepicker({
+	            dateFormat: 'yy-mm-dd',
+	            defaultDate: +0
+	        });
+	        <?php
+	        if (array_key_exists("debug", $_GET)) { ?>$('#debug').show(); <?
+	        } ?>
+	        updatePermalink();
+	        
+	        $('#enter-flight-code').bind('expand', expandFlightCodeContainer);
+	        $('#enter-flight-code').bind('collapse', collapseFlightCodeContainer);
+
+	        <?php
+	        if ((!isChrome() && !isiPad() && !isiPhone())) { ?>$("#chrome_note").show(); <?
+	        } ?>
+	        //init();
+	    }
+
 	    function initializeMap(centerMap) {
 	        var myOptions = {
 	            zoom: 1,
@@ -149,26 +168,6 @@ if(array_key_exists("autoload", $_GET)) {
 	       	$('#enter-flight-code-title').text("Flight " + getInputCarrierCode().toUpperCase() + getInputServiceNumber() + " departing " + getInputRequestDate() + " (Edit)");
 	    }
 
-	    main = function() {
-	        //google.maps.event.addDomListener(window, 'load', initializeMap);
-	        $("#requestDate").datepicker({
-	            dateFormat: 'yy-mm-dd',
-	            defaultDate: +0
-	        });
-	        <?php
-	        if (array_key_exists("debug", $_GET)) { ?>$('#debug').show(); <?
-	        } ?>
-	        updatePermalink();
-	        
-	        $('#enter-flight-code').bind('expand', expandFlightCodeContainer);
-	        $('#enter-flight-code').bind('collapse', collapseFlightCodeContainer);
-
-
-	        <?php
-	        if ((!isChrome() && !isiPad() && !isiPhone())) { ?>$("#chrome_note").show(); <?
-	        } ?>
-	        //init();
-	    }
 
 	    clearMapRoutes = function() {
 	        //alert(flightPaths.length);
@@ -188,14 +187,49 @@ if(array_key_exists("autoload", $_GET)) {
 	        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
 	    }
 
+	    // ie:
+	    // JQ7 = JQ
+	    // A3-594 = A3
+	    // A3594 = A3
 	    getInputCarrierCode = function() {
-	        return trim($('#carrierCodeAndServiceNumber').val().replace(/[\d.]/g, ''));
-	        // "JQ"
+	    	var input = $('#carrierCodeAndServiceNumber').val();
+
+	    	// first, check if there is a non alpha numeric
+	    	if (input.match(/\W/) != null) {
+	    		var parts = input.split(/\W/);
+	    		return trim(parts[0]);
+	    	}
+
+	    	// ICAO code - ie: QFA
+	    	if (input.match(/^[A-Za-z]{3}\d/) != null) {
+	    		return trim(input.substr(0,3));
+	    	}
+
+	    	// IATA code - ie: QF
+	        return trim(input.substr(0,2));
 	    }
 
+	    // ie:
+	    // JQ7 = 7
+	    // A3-594 = 594
+	    // A3594 = 594
 	    getInputServiceNumber = function() {
-	        return trim($('#carrierCodeAndServiceNumber').val().replace(/[A-Za-z$-]/g, ''));
-	        // 7
+
+	    	var input = $('#carrierCodeAndServiceNumber').val();
+
+	    	// first, check if there is a non alpha numeric
+	    	if (input.match(/\W/) != null) {
+	    		var parts = input.split(/\W/);
+	    		return trim(parts[1]);
+	    	}
+
+	    	// ICAO code - ie: QFA
+	    	if (input.match(/^[A-Za-z]{3}\d/) != null) {
+	    		return trim(input.substr(3));
+	    	}
+
+	    	// IATA code - ie: QF
+	        return trim(input.substr(2));
 	    }
 
 	    getInputRequestDate = function() {
@@ -204,11 +238,11 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    validateInput = function() {
 	        if (getInputCarrierCode() == "") {
-	            alert("Please enter a carrier code (ie: JQ)");
+	            alert("Please enter a carrier code (ie: JQ, UA)");
 	            return false;
 	        }
 	        if (getInputServiceNumber() == "") {
-	            alert("Please enter a service number (ie: JQ7)");
+	            alert("Please enter a service number (ie: JQ7, AEE-594)");
 	            return false;
 	        }
 	        if (getInputRequestDate() == "") {
@@ -754,16 +788,6 @@ if(array_key_exists("autoload", $_GET)) {
 	        $('#permalink').attr("href", "http://" + window.location.hostname + "/?flightcode=" + getInputCarrierCode() + getInputServiceNumber() + "&date=" + getInputRequestDate());
 	    }
 
-	    hideWelcomeWindow = function()
-	    {
-	        aboutClicked = false;
-	        $('#welcome').fadeOut();
-	    }
-
-	    showWelcomeWindow = function()
-	    {
-	        $('#welcome').show();
-	    }
 
 	    <?php if ($autoload) { ?>
 	    	resetResults();
