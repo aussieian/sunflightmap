@@ -37,8 +37,10 @@ if (array_key_exists("request_date", $_GET)) {
 $cache_key = "sunflight_" . $carrier_code . "_" . $service_number . "_" . str_replace("-", "_", $request_date) . "_";
 
 // try to get from Cache first.
-//phpFastCache::$path = "/PATH/FOR_PDO_FILES/";
-phpFastCache::$storage = "auto";
+phpFastCache::$storage = "files";
+phpFastCache::$path = $cfg["CACHE_STORAGE_PATH"];
+phpFastCache::$files_cleanup_after = 1; // hour collect expired files
+
 $oag_data = phpFastCache::get($cache_key);
 
 $cached = false;

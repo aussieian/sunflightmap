@@ -82,7 +82,7 @@ function isIE() {
 function showRecentSearches() {
 
 	global $cfg;
-	$dir = $cfg['CACHE_STORAGE_PATH'] . "/files"; // '/var/www/sunflight.net/lib/cache.storage/files/';
+	$dir = $cfg['CACHE_STORAGE_PATH'] . "/cache.storage/files"; // '/var/www/sunflight.net/lib/cache.storage/files/';
 	$cache_files = @scandir($dir);
 	//print_r($cache_files);
 
