@@ -180,14 +180,14 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 				mins_to_first_sunset = mins_to_first_sunset + 1
 
 		if (solar_altitude > 0.0) and (solar_altitude <= sunset_max_alt):
-			if (i == 1):
+			if (i <= 1):
 				# not sure if its rising or setting
 				# print("time of day: night")
 				point_values['tod'] = 'night'
-				#if not has_seen_sunrise:
-				#	mins_to_first_sunrise = mins_to_first_sunrise + 1
-				#if not has_seen_sunset:
-				#	mins_to_first_sunset = mins_to_first_sunset + 1
+				if not has_seen_sunrise:
+					mins_to_first_sunrise = mins_to_first_sunrise + 1
+				if not has_seen_sunset:
+					mins_to_first_sunset = mins_to_first_sunset + 1
 			else:
 				if (last_solar_altitude > solar_altitude):
 					#print("time of day: sunset")
@@ -199,8 +199,7 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 				else:
 					#print("time of day: sunrise")
 					point_values['tod'] = 'sunrise'
-					if (i > 2):
-						has_seen_sunrise = True
+					has_seen_sunrise = True
 					sunrise_left_right = sun_side
 					if not has_seen_sunset:
 						mins_to_first_sunset = mins_to_first_sunset + 1
