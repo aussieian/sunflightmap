@@ -199,7 +199,8 @@ def calcPoints(origin, destination, flight_mins, departure_time):
 				else:
 					#print("time of day: sunrise")
 					point_values['tod'] = 'sunrise'
-					has_seen_sunrise = True
+					if (i > 2):
+						has_seen_sunrise = True
 					sunrise_left_right = sun_side
 					if not has_seen_sunset:
 						mins_to_first_sunset = mins_to_first_sunset + 1

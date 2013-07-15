@@ -185,6 +185,7 @@ for ($i = 0; $i < sizeof($oag_data); $i++) {
 	// example: sfcalc.py -33.946,151.177 1.350,103.994 710 2013-06-15 09:05:00 10
 	$cmd = $cfg["SFCALC_CMD"] . " " . $from_lat_lng . " " . $to_lat_lng . " " . $flight_mins . " " . $departure_date . " " . $departure_time . " " . $gmt_offset;
 	//die($cmd);
+	$cmd = escapeshellcmd($cmd); // escape input to be safe
 	$sfcalc_results = exec($cmd);
 	$sfcalc_data = json_decode($sfcalc_results);
 
