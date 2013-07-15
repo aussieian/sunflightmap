@@ -165,7 +165,7 @@ if(!$cached) {
 	}
 
 	// cache OAG data
-	phpFastCache::set($cache_key,$oag_data, 60 * 60 * 24 * 10); // cache for a day
+	phpFastCache::set($cache_key,$oag_data, 86400); // cache for a day
 }
 
 
