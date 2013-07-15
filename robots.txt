@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /ajax
+Disallow: /css
+Disallow: /images
+Disallow: /sfcalc
