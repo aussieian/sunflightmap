@@ -39,7 +39,7 @@ $cache_key = "sunflight_" . $carrier_code . "_" . $service_number . "_" . str_re
 // try to get from Cache first.
 phpFastCache::$storage = "files";
 phpFastCache::$path = $cfg["CACHE_STORAGE_PATH"];
-phpFastCache::$files_cleanup_after = 1; // hour collect expired files
+phpFastCache::$files_cleanup_after = 24; // hour collect expired files
 
 $oag_data = phpFastCache::get($cache_key);
 
@@ -106,6 +106,12 @@ if(!$cached) {
 	// Get callback url
 	// also do this for carrier code, service number, request date
 	$flight_segments = array();
+
+	if (!isset($xml_data->Flight)) {
+			print($callback . "({'error':'Invalid flight info. Check flight code and date.'});");
+			die();
+	}
+
 	foreach($xml_data->Flight as $flight)
 	{
 		try {
