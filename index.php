@@ -811,7 +811,7 @@ if(array_key_exists("autoload", $_GET)) {
 		<h1>Day and Night Map</h1>
 		<div data-role="navbar">
 			<ul>
-				<li><a rel="external" href="/" class="ui-btn-active">Flight Map</a></li>
+				<li><a href="#home" class="ui-btn-active">Flight Map</a></li>
 				<li><a href="#faq">FAQ</a></li>
 			</ul>
 		</div><!-- /navbar -->
