@@ -786,8 +786,12 @@ if(array_key_exists("autoload", $_GET)) {
 
 
 	    <?php if ($autoload) { ?>
-	    	resetResults();
-	        mapFlight();
+	    resetResults();
+	    mapFlight();
+	    <? } ?>
+
+	    <?php if (isMobile()) { ?>
+	    $("#map_canvas").css("height", "200px");
 	    <? } ?>
 
 	    // let's do it!
