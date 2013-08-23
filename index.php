@@ -769,7 +769,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        //slider_text = t + " mins";
 	        slider_text = formatMinutes(t);
 	        if (t == 0) {
-	            slider_text = "Take off...";
+	            slider_text = "Slide me...";
 	        }
 	        else if (t == max) {
 	            slider_text = "Landed!";
@@ -835,12 +835,13 @@ if(array_key_exists("autoload", $_GET)) {
 
 
 			<div id="map_container" style="width: 100%; display: none;">
+
+				<div id="map_canvas" style="width: 100%;">Loading map...</div>
+
 				<label for="slider-0"></label>
 				<div id="slider_holder" style="width: 100%; display: none;">
    					<input type="range" name="slider-time" id="slider" value="0" min="0" max="100"/>
    				</div>
-
-				<div id="map_canvas" style="width: 100%;">Loading map...</div>
 
 				<p><a id="permalink" style="color: blue;" rel=external href="#">Link to this map</a></p>
     		</div>
