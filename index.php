@@ -769,7 +769,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        //slider_text = t + " mins";
 	        slider_text = formatMinutes(t);
 	        if (t == 0) {
-	            slider_text = "Slide me...";
+	            slider_text = "Use the slider to view your flight path";
 	        }
 	        else if (t == max) {
 	            slider_text = "Landed!";
