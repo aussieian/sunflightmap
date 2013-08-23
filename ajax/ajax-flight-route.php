@@ -39,7 +39,7 @@ $cache_key = "sunflight_" . $carrier_code . "_" . $service_number . "_" . str_re
 // try to get from Cache first.
 phpFastCache::$storage = "files";
 phpFastCache::$path = $cfg["CACHE_STORAGE_PATH"];
-phpFastCache::$files_cleanup_after = 24; // hour collect expired files
+phpFastCache::$files_cleanup_after = $cfg["CACHE_STORAGE_KEEP_HOURS"]; // (24 * 7); // collect expired files after a week
 
 $oag_data = phpFastCache::get($cache_key);
 
@@ -173,7 +173,7 @@ if(!$cached) {
 	}
 
 	// cache OAG data
-	phpFastCache::set($cache_key,$oag_data, 86400); // cache for a day
+	phpFastCache::set($cache_key,$oag_data, ($cfg["CACHE_STORAGE_KEEP_HOURS"] * 60 * 60)); //* (86400 * 7)); // cache for a week
 }
 
 

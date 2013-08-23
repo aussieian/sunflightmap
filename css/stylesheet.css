@@ -7,7 +7,7 @@ html, body {
 }
 input { font-family: Arial, Verdana; font-size: 14pt; color: #FF0080; }
 #map_container { width: 600px; }
-#map_canvas { width: 600px; height: 400px;}
+#map_canvas { width: 600px; height: 300px;}
 #ui-container { width: 600px; }
 #ui-panel { white-space: nowrap; font-size: 18pt; padding: 12px; border: 1px solid #ddd; background: #eee;}
 #results-panel { width: 600px; display: none; opacity: 0.5; white-space: nowrap; margin-top: 12px; font-size: 10pt; border: 1px solid #ddd; background: #eee;}

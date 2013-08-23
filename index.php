@@ -60,7 +60,7 @@ if(array_key_exists("autoload", $_GET)) {
 	<meta property="og:description" content="SunFlight is an app that shows you the path of the sun for your flight."/> 
 	
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/excite-bike/jquery-ui.css" type="text/css" media="screen, projection" />
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>
+	<!--<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" type="text/css"/>-->
 	<link rel="stylesheet" href="css/stylesheet.css" type="text/css" media="screen, projection" />
 	<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
@@ -68,10 +68,10 @@ if(array_key_exists("autoload", $_GET)) {
 	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>-->
 	<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/jquery-ui.min.js"></script>-->
 	<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
-	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-	<script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>
+	<!--<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>-->
+	<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
 
 	<!-- http://stackoverflow.com/questions/7936119/setting-maximum-width-for-content-in-jquery-mobile -->
 	<style type='text/css'>
@@ -111,10 +111,6 @@ if(array_key_exists("autoload", $_GET)) {
 
 		main = function() {
 	        //google.maps.event.addDomListener(window, 'load', initializeMap);
-	        $("#requestDate").datepicker({
-	            dateFormat: 'yy-mm-dd',
-	            defaultDate: +0
-	        });
 	        <?php
 	        if (array_key_exists("debug", $_GET)) { ?>$('#debug').show(); <?
 	        } ?>
@@ -246,7 +242,7 @@ if(array_key_exists("autoload", $_GET)) {
 	            return false;
 	        }
 	        if (getInputRequestDate() == "") {
-	            alert("Please enter a date of travel (ie: 2011-10-14)");
+	            alert("Please select a date of travel");
 	            return false;
 	        }
 	        return true;
@@ -826,7 +822,7 @@ if(array_key_exists("autoload", $_GET)) {
 	   			<h3><span id="enter-flight-code-title"><?php if($autoload) {?>Loading...<?} else {?>Enter Flight Code<? } ?></span></h3>
 
 				<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
-				<input id="requestDate" value="<?php print($date_depart); ?>" size="12">
+				<input type="date" data-clear-btn="false" name="requestDate" id="requestDate" value="<?php print($date_depart); ?>">
 				<button onClick="mapFlight();" data-theme="e">Show Flight Map</button>
 				<div id="random_flight">
 					<p>Or, show me a <a rel=external href="/?autoload">random flight</a></p>
