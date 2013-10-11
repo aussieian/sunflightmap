@@ -2724,7 +2724,7 @@ $openflights_airports = array(
 "MRO" => array("City" => "Masterton", "Lat" => -40.973333, "Lon" => 175.633611, "Timezone" => 12),
 "MRQ" => array("City" => "Gasan", "Lat" => 13.360967, "Lon" => 121.825583, "Timezone" => 8),
 "MRS" => array("City" => "Marseille", "Lat" => 43.435555, "Lon" => 5.213611, "Timezone" => 1),
-"MRU" => array("City" => "Plaisance", "Lat" => -20.430235, "Lon" => 57.6836, "Timezone" => 5),
+"MRU" => array("City" => "Plaisance", "Lat" => -20.430235, "Lon" => 57.6836, "Timezone" => 4),
 "MRV" => array("City" => "Mineralnye Vody", "Lat" => 44.225072, "Lon" => 43.081889, "Timezone" => 3),
 "MRX" => array("City" => "Bandar Mahshahr", "Lat" => 30.556192, "Lon" => 49.151879, "Timezone" => 4),
 "MRY" => array("City" => "Monterey", "Lat" => 36.587, "Lon" => -121.842944, "Timezone" => -8),
