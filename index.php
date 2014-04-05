@@ -974,15 +974,6 @@ if(array_key_exists("autoload", $_GET)) {
 	</div><!-- /content -->
 	
 	<div data-role="footer">
-		<h4>Flight hacker? <a href="https://github.com/aussieian/sunflightmap">Fork on Github</a></h4>
-	</div><!-- /footer -->
-</div><!-- /page faq -->
-
-
-		<p><a href="#home" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
-	</div><!-- /content -->
-	
-	<div data-role="footer">
 		<h4>SunFlight.net</h4>
 	</div><!-- /footer -->
 </div><!-- /page donate -->
