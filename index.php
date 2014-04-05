@@ -942,12 +942,11 @@ if(array_key_exists("autoload", $_GET)) {
 		This app is open source, so feel free have a look at <a href="https://github.com/aussieian/sunflightmap">GitHub</a>.
 		</p>
 
+		<p><strong>Q: Are you still maintaining SunFlight?</strong>
+		<br>A: I am no longer maintaining SunFlight. However since I've made the source code open source, you can always improve the app yourself. If you make any noteable enhancements and would like me to update the app, please fork the code and send me a diff to look at. If you would like to take over maintaining sunflight, then also please get in contact with me.<br>
+
 		<p><strong>Q: When will the sun will rise and set on my flight?</strong>
 		<br>SunFlight also tells you when the sunrise and sunset will be on your flight, so you can plan your nap and sleep times. The results summary will indicate when the sunset or sunrise will occur for each leg of your journey.
-		</p>
-
-		<p><strong>Q: I have a suggestion, where can I send it?</strong>
-		<br>A: I am no longer maintaining SunFlight, sorry!<br>
 		</p>
 
 		<!--<p><strong>Q: Tell me more about how SunFlight works</strong>
