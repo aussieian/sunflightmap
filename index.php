@@ -11,13 +11,13 @@ if (array_key_exists("date", $_GET)) {
 	$autoload = true;
 }
 
-$origins = Array("JFK");
+$origins = Array("JFK", "MIA", "ORD");
 $origin = $origins[array_rand($origins)];
 if (array_key_exists("origin", $_GET)) {
 	$origin = $_GET['origin'];
 }
 
-$destinations = Array("SFO", "LAX", "SEA", "LHR", "LIS");
+$destinations = Array("SFO", "LAX", "SEA", "LHR", "LIS", "YVR");
 $destination = $destinations[array_rand($destinations)];
 if (array_key_exists("destination", $_GET)) {
 	$destination = $_GET['destination'];
