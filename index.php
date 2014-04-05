@@ -17,7 +17,7 @@ if (array_key_exists("origin", $_GET)) {
 	$origin = $_GET['origin'];
 }
 
-$destinations = Array("SFO", "LAX", "SEA", "LON", "LIS");
+$destinations = Array("SFO", "LAX", "SEA", "LHR", "LIS");
 $destination = $destinations[array_rand($destinations)];
 if (array_key_exists("destination", $_GET)) {
 	$destination = $_GET['destination'];
