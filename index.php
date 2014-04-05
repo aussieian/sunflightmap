@@ -4,39 +4,28 @@ include("lib/global.php");
 // allow input from URL
 $autoload = false;
 
-function getRandomFlightCode() {
-	global $cfg;
-	$day_of_week = date( "w", time()); // 1234567 1=Monday for OAG lookup
-	if ($day_of_week == 0) { $day_of_week = 7; } // 7 is Sunday for OAG
-	for ($i = 0; $i < 10; $i++) {
-		// example of flightcode_config
-		// QF1_1234567 operates 7 days a week
-		$flightcode_config = $cfg["EXAMPLE_FLIGHT_ROUTES"][array_rand($cfg["EXAMPLE_FLIGHT_ROUTES"])]; //'JQ7';
-		$parts = explode("_", $flightcode_config);
-		$flightcode = $parts[0];
-		if (strpos($parts[1], $day_of_week . "") !== false) {
-			// flight operates on today
-			return $flightcode;
-		}
-	}
-
-	// didn't find a matching flight code for today, return QF1 which is 7 days a week
-	$first_flight = $cfg["EXAMPLE_FLIGHT_ROUTES"];
-	$parts = explode("_", $flightcode_config);
-	$flightcode = $parts[0];
-	return $flightcode;
-
-}
-
-$flightcode = getRandomFlightCode();
-if (array_key_exists("flightcode", $_GET)) {
-	$flightcode = $_GET['flightcode'];
-	$autoload = true;
-}
-$date_depart=date("Y-m-d");
+$date_depart=date("Y-m-d\TH:i"); // ie: 2013-12-31T15:35
+//$date_depart="2013-12-31T15:35";
 if (array_key_exists("date", $_GET)) {
 	$date_depart=$_GET['date'];
 	$autoload = true;
+}
+
+$origins = Array("JFK");
+$origin = $origins[array_rand($origins)];
+if (array_key_exists("origin", $_GET)) {
+	$origin = $_GET['origin'];
+}
+
+$destinations = Array("SFO", "LAX", "SEA", "LON", "LIS");
+$destination = $destinations[array_rand($destinations)];
+if (array_key_exists("destination", $_GET)) {
+	$destination = $_GET['destination'];
+}
+
+$duration = "8.0 hours";
+if (array_key_exists("duration", $_GET)) {
+	$duration = $_GET['duration'];
 }
 
 if(array_key_exists("autoload", $_GET)) {
@@ -147,7 +136,7 @@ if(array_key_exists("autoload", $_GET)) {
 	    }
 
 	    expandFlightCodeContainer = function() {
-	    	$('#enter-flight-code-title').text("Enter your flight code (example: QF1)");
+	    	$('#enter-flight-code-title').text("Enter Route Details");
 	    	$('#map_container').hide();
 	    	$('#results-panel').hide();
 	    	$('#show-developer-info').hide();
@@ -161,7 +150,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        }
 
 	        // update enter flights header
-	       	$('#enter-flight-code-title').text("Flight " + getInputCarrierCode().toUpperCase() + getInputServiceNumber() + " departing " + getInputRequestDate() + " (Edit)");
+	   			$('#enter-flight-code-title').text("Route Map: " + getInputOrigin() + " to " + getInputDestination() + " dep " + getInputRequestDate() + " , " + getInputDuration() + " hrs");
 	    }
 
 
@@ -232,17 +221,37 @@ if(array_key_exists("autoload", $_GET)) {
 	        return trim($('#requestDate').val());
 	    }
 
+	    getInputOrigin = function() {
+	        return trim($('#origin').val());
+	    }
+
+	    getInputDestination = function() {
+	        return trim($('#destination').val());
+	    }
+
+	    getInputDuration = function() {
+	        return trim($('#duration').val().replace(/[^0-9.]/g, "")); // remove non digits
+	    }
+
 	    validateInput = function() {
-	        if (getInputCarrierCode() == "") {
-	            alert("Please enter a carrier code (ie: JQ, UA)");
+	        if (getInputOrigin() == "") {
+	            alert("Please enter an origin airport (ie: SYD)");
 	            return false;
 	        }
-	        if (getInputServiceNumber() == "") {
-	            alert("Please enter a service number (ie: JQ7, AEE-594)");
+	        if (getInputDestination() == "") {
+	            alert("Please enter a destination airport (ie: LHR)");
 	            return false;
 	        }
 	        if (getInputRequestDate() == "") {
-	            alert("Please select a date of travel");
+	            alert("Please enter a date and time of travel");
+	            return false;
+	        }
+	        if (getInputDuration() == "") {
+	            alert("Please enter duration of flight in hours (ie: 12)");
+	            return false;
+	        }
+	        if (getInputDuration() < 0) {
+	            alert("Duration can't be negative");
 	            return false;
 	        }
 	        return true;
@@ -266,14 +275,13 @@ if(array_key_exists("autoload", $_GET)) {
 	        $.mobile.showPageLoadingMsg(); //$('#loading-page').show();
 	        $('#results-panel').hide();
 
-	        // lookup flight data from OAG wrapper
-	        $.getJSON("/ajax/ajax-flight-route.php?callback=?",
+	        // lookup flight data
+	        $.getJSON("/ajax/ajax-flight-route-manual.php?callback=?",
 	        {
-	            carrier_code: getInputCarrierCode(),
-	            // JQ
-	            service_number: getInputServiceNumber(),
-	            // "7",
-	            request_date: getInputRequestDate()
+	         		origin: getInputOrigin(), // SYD
+	         		destination: getInputDestination(), // DXB
+	         		departure_datetime: getInputRequestDate(), // 2014-03-10 04:30 pm
+	         		duration: getInputDuration() * 60 // 600 
 	            //"2011-10-14"
 	        },
 	        function(data) {
@@ -351,7 +359,7 @@ if(array_key_exists("autoload", $_GET)) {
 			// other flight stats
             content_html += '<li>';
 			content_html += '<p><strong>Depart ' + data.from_airport + ' at ' + data.depart_time.replace("T", " ") + '</strong></p>';
-			content_html += '<p><strong>Arrive ' + data.to_airport + ' at ' + data.arrival_time.replace("T", " ") + '</strong></p>';
+			//content_html += '<p><strong>Arrive ' + data.to_airport + ' at ' + data.arrival_time.replace("T", " ") + '</strong></p>';
 			content_html += '<p>Flight time: ' + formatMinutes(data.elapsed_time) + '</p>';
 			var miles_to_km = 0.621371192;
 			content_html += '<p>Distance: ' + addCommas(Math.round(data.distance_km * miles_to_km)) + ' miles, ' + addCommas(data.distance_km) + 'km </p>';
@@ -519,7 +527,6 @@ if(array_key_exists("autoload", $_GET)) {
 	                	$("#sfcalc_sun_east_west").val(flight_point["sun_east_west"]);
 	                	$("#sfcalc_azimuth_from_north").val(flight_point["azimuth_from_north"]);
 	                	$("#sfcalc_bearing_from_north").val(flight_point["bearing_from_north"]);
-	                	$("#segment_days_of_operation").val(current_flight.days_of_op);
 
 	                } else {
 	                	$("#sfcalc_sun_side").val("stopover");
@@ -527,7 +534,6 @@ if(array_key_exists("autoload", $_GET)) {
 	                	$("#sfcalc_sun_east_west").val("stopover");
 	                	$("#sfcalc_azimuth_from_north").val("stopover");
 	                	$("#sfcalc_bearing_from_north").val("stopover");
-	                	$("#days_of_operation").val("stopover");
 	                }
 
 			        if (minute_of_segment < current_flight.elapsed_time) {
@@ -781,7 +787,7 @@ if(array_key_exists("autoload", $_GET)) {
 
 	    function updatePermalink()
 	    {
-	        $('#permalink').attr("href", "http://" + window.location.hostname + "/?flightcode=" + getInputCarrierCode() + getInputServiceNumber() + "&date=" + getInputRequestDate());
+	        $('#permalink').attr("href", "http://" + window.location.hostname + "/?origin=" + getInputOrigin() + "&destination=" + getInputDestination() + "&date=" + getInputRequestDate() + "&duration=" + getInputDuration());
 	    }
 
 
@@ -823,10 +829,13 @@ if(array_key_exists("autoload", $_GET)) {
 			<div id="chrome_note" style="display: none;"><p style="font-size: smaller;">(Please note: This app works best in Google Chrome)</p></div>
 
 			<div data-role="collapsible" data-collapsed="false" id="enter-flight-code">
-	   			<h3><span id="enter-flight-code-title"><?php if($autoload) {?>Loading...<?} else {?>Enter Flight Code<? } ?></span></h3>
+	   			<h3><span id="enter-flight-code-title"><?php if($autoload) {?>Loading...<?} else {?>Enter Route Details<? } ?></span></h3>
 
-				<input id="carrierCodeAndServiceNumber" value="<?php print($flightcode);?>" size="5">
-				<input type="date" data-clear-btn="false" name="requestDate" id="requestDate" value="<?php print($date_depart); ?>">
+				<input id="origin" value="<?php print($origin);?>" size="5">
+				<input id="destination" value="<?php print($destination);?>" size="5">
+				<input type="datetime-local" data-clear-btn="false" name="requestDate" id="requestDate" value="<?php print($date_depart); ?>">
+				<input id="duration" value="<?php print($duration);?>" size="5">
+
 				<button onClick="mapFlight();" data-theme="e">Show Flight Map</button>
 				<div id="random_flight">
 					<p>Or, show me a <a rel=external href="/?autoload">random flight</a></p>
@@ -864,11 +873,6 @@ if(array_key_exists("autoload", $_GET)) {
 				<div data-role="fieldcontain">
 					<label for="flight_segment">Flight Segment:</label>
 					<input type="text" name="flight_segment" id="flight_segment" value="" />
-				</div>
-
-				<div data-role="fieldcontain">
-					<label for="segment_days_of_operation">Days of Operation:</label>
-					<input type="text" name="segment_days_of_operation" id="segment_days_of_operation" value="" />
 				</div>
 
 				<div data-role="fieldcontain">
@@ -916,7 +920,7 @@ if(array_key_exists("autoload", $_GET)) {
 	</div><!-- /content -->
 	
 	<div data-role="footer" data-theme="d">
-		<h4>Like this app? <a href="#donate">Donate $5</a></h4>
+		<h4>Flight hacker? <a href="https://github.com/aussieian/sunflightmap">Fork on Github</a></h4>
 	</div><!-- /footer -->
 </div><!-- /home page -->
 
@@ -935,7 +939,7 @@ if(array_key_exists("autoload", $_GET)) {
 		<p><strong>Q: What is SunFlight?</strong>
 		<br>A: SunFlight is an app that shows you the path of the sun for your flight. 
 		You can use it for whatever purpose you want, however most people use this app to help plan where to sit on their flight, based on the location of the sun.<br>
-		If you like this app, then please consider <a href="#donate">donating $5</a>.
+		This app is open source, so feel free have a look at <a href="https://github.com/aussieian/sunflightmap">GitHub</a>.
 		</p>
 
 		<p><strong>Q: When will the sun will rise and set on my flight?</strong>
@@ -943,7 +947,7 @@ if(array_key_exists("autoload", $_GET)) {
 		</p>
 
 		<p><strong>Q: I have a suggestion, where can I send it?</strong>
-		<br>A: You can either contact me (see below for details) or reply on the Flyer Talk Forum post <a href="http://www.flyertalk.com/forum/british-airways-executive-club/1446607-website-showing-when-will-light-during-flight.html">here</a><br>
+		<br>A: I am no longer maintaining SunFlight, sorry!<br>
 		</p>
 
 		<!--<p><strong>Q: Tell me more about how SunFlight works</strong>
@@ -966,96 +970,21 @@ if(array_key_exists("autoload", $_GET)) {
 		<br>A: Yes it should work with the latest iOS version for both iPad and iPhones.
 		</p>
 
-		<p><strong>Q: Where do you get your data from?</strong>
-		<br>A: SunFlight gets its routing data from OAG.
-		</p>
-
-		<p><strong>Q: Route XYZ doesn't work, can you help?</strong>
-		<br>A: Sure, email me the flight code and number and the date, and explain what's wrong with the result.
-		</p>
-
-		<p><strong>Q: What feature/bugs/etc you planning on releasing next?</strong>
-		<br>A: Here's my TODO list:<br>
-		<br>- Adjust the sun calculations based on daylight savings
-		<br>- Allow dropdown for carrier selection rather than entering the airline code
-		<br>- Allow users to enter their own flight data (origin, destination, duration of flight, departure time)]
-		</p>
-
-		<p><strong>Q: Where can I see a list of recent searches?</strong>
-		<br>A: You can see a list of <a href="#recent_searches">recent searches</a> here.
-		</p>
-
 		<p><a href="#home" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
 		
 	</div><!-- /content -->
 	
 	<div data-role="footer">
-		<h4>Like this app? <a href="#donate">Donate $5</a></h4>
+		<h4>Flight hacker? <a href="https://github.com/aussieian/sunflightmap">Fork on Github</a></h4>
 	</div><!-- /footer -->
 </div><!-- /page faq -->
 
-
-
-<!-- Start of third page: #donate -->
-<div data-role="page" id="donate">
-
-	<div data-role="header">
-		<h1>Please Donate</h1>
-	</div><!-- /header -->
-
-	<div data-role="content" data-theme="e">	
-		<h2>Why should I donate?</h2>
-		<p>To keep this site advertisement free for the flyer community I need donations. This helps me pay for commercial data feeds ($200 a month) which provides you with reliable and accurate flight information.</p>
-		<p>Please consider helping out by clicking the PayPal button below. Every $5 counts. Thanks!</p>		
-		<p>
-<!-- start paypal donation button -->
-<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-<input type="hidden" name="cmd" value="_s-xclick">
-<table>
-<tr><td><input type="hidden" name="on0" value="Donation amount">Donation amount</td></tr><tr><td><select name="os0">
-	<option value="Frequent Flyer">Frequent Flyer $5.00 USD</option>
-	<option value="Business Class donation">Business Class donation $10.00 USD</option>
-	<option value="First Class donation">First Class donation $50.00 USD</option>
-</select> </td></tr>
-</table>
-<input type="hidden" name="currency_code" value="USD">
-<input type="hidden" name="encrypted" value="-----BEGIN PKCS7-----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-----END PKCS7-----
-">
-<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
-<img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
-</form>
-
-</p>
-<!-- end paypal donation button -->
 
 		<p><a href="#home" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
 	</div><!-- /content -->
 	
 	<div data-role="footer">
 		<h4>SunFlight.net</h4>
-	</div><!-- /footer -->
-</div><!-- /page donate -->
-
-
-<!-- Start of page: #recent_searches -->
-<div data-role="page" id="recent_searches">
-
-	<div data-role="header">
-		<h1>Recent Searches</h1>
-	</div><!-- /header -->
-
-	<div data-role="content">	
-		<h2>Recent Searches</h2>
-		<p>
-		<?php 
-			showRecentSearches();
-		?>
-		</p>
-		<p><a href="#home" data-rel="back" data-role="button" data-inline="true" data-icon="back">Back to home page</a></p>	
-	</div><!-- /content -->
-	
-	<div data-role="footer">
-		<h4>Like this app? <a href="#donate">Donate $5</a></h4>
 	</div><!-- /footer -->
 </div><!-- /page donate -->
 

@@ -5,6 +5,10 @@
 //echo $_GET['callback'] . '([{"from_airport": "SYD","from_city": "Sydney","from_lat": -33.946111,"from_lon": 151.177222,"to_airport": "DXB","to_city": "Dubai","to_lat": 25.252778,"to_lon": 55.364444,"depart_time": "2013-06-14T16:05:00","depart_timezone": "10","depart_time_utc": "Fri, 14 Jun 2013 06:05:00 GMT","arrival_time_utc": "Fri, 14 Jun 2013 20:35:00 GMT","elapsed_time": 870,"distance_km": 12034,"error": ""},{"from_airport": "DXB","from_city": "Dubai","from_lat": 25.252778,"from_lon": 55.364444,"to_airport": "LHR","to_city": "London","to_lat": 51.4775,"to_lon": -0.461389,"depart_time": "2013-06-15T02:05:00","depart_timezone": "4","depart_time_utc": "Fri, 14 Jun 2013 22:05:00 GMT","arrival_time_utc": "Sat, 15 Jun 2013 05:35:00 GMT","elapsed_time": 450,"distance_km": 5474,"error": ""}]);';
 //die();
 
+// NOTE: NO LONGER WORKS BECAUSE NO MORE OAG FEED :(
+// BUT LEAVING THIS CODE HERE IN CASE YOU WANT TO SEE HOW IT'S DONE
+// YOU COULD USE THIS AS A REFERENCE TO IMPLEMENT A DIFFERENT ROUTE SOURCE
+
 include("../lib/global.php");
 include("../lib/php_fast_cache.php");
 
