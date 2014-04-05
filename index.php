@@ -150,7 +150,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        }
 
 	        // update enter flights header
-	   			$('#enter-flight-code-title').text("Route Map: " + getInputOrigin() + " to " + getInputDestination() + " dep " + getInputRequestDate() + " , " + getInputDuration() + " hrs");
+	   			$('#enter-flight-code-title').text("Route Map: " + getInputOrigin() + " to " + getInputDestination() + " dep " + getInputRequestDate() + ", " + getInputDuration() + " hrs");
 	    }
 
 
