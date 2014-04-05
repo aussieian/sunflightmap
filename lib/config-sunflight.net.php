@@ -2,10 +2,7 @@
 
 $cfg = array();
 $cfg["SITE_NAME"] = "Sun Flight Map";
-$cfg["OAG_USERNAME"] = "GetFlight"; // THACK
-$cfg["OAG_PASSWORD"] = "tdrtkp2"; // THACK
 $cfg["PHP_TIMEZONE_OFFSET"] = 10; // Sydney GMT+10
-$cfg["EXAMPLE_FLIGHT_ROUTES"] = array("BA5_1234567", "QF1_1234567", "QF9_1234567", "UA154_15", "LA0532_1234567", "BA9_1234567", "QF7_1234567","BR32_12346", "EY190_246", "EK418_1234567");
 $cfg["SFCALC_CMD"] = "/var/www/sunflight.net/sfcalc/sfcalc.py";
 $cfg['CACHE_STORAGE_PATH'] = "/var/www/sunflight.net/lib/cache/"; // files/
 $cfg['CACHE_STORAGE_KEEP_HOURS'] = (24 * 7); // 7 days
