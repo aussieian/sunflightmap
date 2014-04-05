@@ -23,7 +23,7 @@ if (array_key_exists("destination", $_GET)) {
 	$destination = $_GET['destination'];
 }
 
-$duration = "8.0 hours";
+$duration = "8.0"; // hours";
 if (array_key_exists("duration", $_GET)) {
 	$duration = $_GET['duration'];
 }
