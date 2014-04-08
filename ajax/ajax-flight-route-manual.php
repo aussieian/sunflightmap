@@ -23,12 +23,12 @@ if (array_key_exists("callback", $_GET)) {
 
 $origin='DXB';
 if (array_key_exists("origin", $_GET)) {
-	$origin=$_GET['origin'];
+	$origin=strtoupper($_GET['origin']);
 }
 
 $destination='LIS';
 if (array_key_exists("destination", $_GET)) {
-	$destination=$_GET['destination'];
+	$destination=strtoupper($_GET['destination']);
 }
 
 $duration='600'; // minutes
