@@ -96,6 +96,27 @@ if(array_key_exists("autoload", $_GET)) {
 	var timeslider = null;
 	var firstLoad = true;
 
+	// Update configuration to our liking
+	$( document ).on( "pageinit", "#home", function( event ) {
+
+		// create date for jquey mobile
+		// ie: 2013-12-31T15:35
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1;//January is 0!
+		var yyyy = today.getFullYear();
+		var hours = today.getHours();
+		var minutes = today.getMinutes();
+		var seconds = today.getSeconds();
+		if(dd<10){dd='0'+dd}
+		if(mm<10){mm='0'+mm}
+		if(hours<10){hours='0'+hours}
+		if(minutes<10){minutes='0'+minutes}
+
+		var datetime=yyyy+'-'+mm+'-'+dd+'T'+hours+':'+minutes;
+		$("#requestDate").val(datetime);
+	});
+
 	$(document).ready(function() {
 
 		main = function() {
@@ -610,6 +631,7 @@ if(array_key_exists("autoload", $_GET)) {
 
 	       	// init map with center bounds of route
 			if (firstLoad) {
+
 				<?php if (isMobile()) { ?>
 					// init map with center at starting point of plane for mobile
 					initializeMap(new google.maps.LatLng(10, flightdata[0].from_lon));
@@ -841,7 +863,7 @@ if(array_key_exists("autoload", $_GET)) {
 
 				<input id="origin" value="<?php print($origin);?>" size="5">
 				<input id="destination" value="<?php print($destination);?>" size="5">
-				<input type="datetime-local" data-clear-btn="false" name="requestDate" id="requestDate" value="<?php print($date_depart); ?>">
+				<input type="datetime-local" data-clear-btn="false" name="requestDate" id="requestDate" value=""> <!--<?php print($date_depart); ?>-->
 				<input id="duration" value="<?php print($duration);?>" size="5">
 
 				<button onClick="mapFlight();" data-theme="e">Show Flight Map</button>
