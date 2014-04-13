@@ -517,6 +517,10 @@ if(array_key_exists("autoload", $_GET)) {
 
 
 	                var flight_points = current_flight["flight_points"];
+	                if (flight_points == null) {
+	                	alert("Oops, unable to retrieve the sun position data from the server. Please try again later.");
+									}
+									
 	                $("#minute_of_segment").val(relative_ui_value);
 
 	                if (minute_of_segment < current_flight.elapsed_time) {
