@@ -122,7 +122,7 @@ if(array_key_exists("autoload", $_GET)) {
 		main = function() {
 	        //google.maps.event.addDomListener(window, 'load', initializeMap);
 	        <?php
-	        if (array_key_exists("debug", $_GET)) { ?>$('#debug').show(); <?
+	        if (array_key_exists("debug", $_GET)) { ?>$('#debug').show(); <?php
 	        } ?>
 	        updatePermalink();
 	        
@@ -130,7 +130,7 @@ if(array_key_exists("autoload", $_GET)) {
 	        $('#enter-flight-code').bind('collapse', collapseFlightCodeContainer);
 
 	        <?php
-	        if ((!isChrome() && !isiPad() && !isiPhone())) { ?>$("#chrome_note").show(); <?
+	        if ((!isChrome() && !isiPad() && !isiPhone())) { ?>$("#chrome_note").show(); <?php
 	        } ?>
 	        //init();
 	    }
@@ -145,14 +145,14 @@ if(array_key_exists("autoload", $_GET)) {
 	            streetViewControl: false,
 	            mapTypeControl: false,
 	            panControl: false,
-    			<?php if (isMobile()) { ?>draggable: false,<? } ?>
+    			<?php if (isMobile()) { ?>draggable: false,<?php } ?>
     			scrollwheel: false
 	        };
 	        map = new google.maps.Map(document.getElementById('map_canvas'), myOptions);
 	        <?php
 	        if ($autoload) { ?>
 	        	mapFlight(); 
-	        <?
+	        <?php
 	        } ?>
 	    }
 
@@ -638,7 +638,7 @@ if(array_key_exists("autoload", $_GET)) {
 				<?php } else { ?>
 					// init map with center at middle of route bounds for non mobile
 					initializeMap(route_bounds.getCenter());
-				<? } ?>
+				<?php } ?>
 
 				firstLoad = false;
 			}
@@ -824,11 +824,11 @@ if(array_key_exists("autoload", $_GET)) {
 	    <?php if ($autoload) { ?>
 	    resetResults();
 	    mapFlight();
-	    <? } ?>
+	    <?php } ?>
 
 	    <?php if (isMobile()) { ?>
 	    $("#map_canvas").css("height", "200px");
-	    <? } ?>
+	    <?php } ?>
 
 	    // let's do it!
 	    main();
@@ -844,7 +844,7 @@ if(array_key_exists("autoload", $_GET)) {
 <div data-role="page" id="home">
 
 	<div data-role="header">
-		<h1>Day and Night Map</h1>
+		<h1>Someone please <a href='https://www.tnooz.com/article/sunflight-choose-your-airline-seat-based-on-what-side-the-sun-will-be/'>adopt me</a> :)</h1>
 		<div data-role="navbar">
 			<ul>
 				<li><a href="#home" class="ui-btn-active">Flight Map</a></li>
@@ -859,7 +859,7 @@ if(array_key_exists("autoload", $_GET)) {
 			<div id="chrome_note" style="display: none;"><p style="font-size: smaller;">(Please note: This app works best in Google Chrome)</p></div>
 
 			<div data-role="collapsible" data-collapsed="false" id="enter-flight-code">
-	   			<h3><span id="enter-flight-code-title"><?php if($autoload) {?>Loading...<?} else {?>Enter Route Details<? } ?></span></h3>
+	   			<h3><span id="enter-flight-code-title"><?php if($autoload) { ?>Loading...<?php } else { ?>Enter Route Details <?php } ?></span></h3>
 
 				<input id="origin" value="<?php print($origin);?>" size="5">
 				<input id="destination" value="<?php print($destination);?>" size="5">
@@ -1027,3 +1027,4 @@ if(array_key_exists("autoload", $_GET)) {
 	
 </body>
 </html>
+
